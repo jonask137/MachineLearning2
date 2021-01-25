@@ -1,4 +1,4 @@
-title: "Notes Customer Analytics" #appear to be mandatory
+title: "Machine Learning for Business Intelligence 2" #appear to be mandatory
 site: bookdown::bookdown_site #appear to be mandatory
 book_filename: "Customer Analytics Notes"
 delete_merged_file: true
