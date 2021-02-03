@@ -1,0 +1,731 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+
+# Moving Beyond Linearity
+
+Literature:
+
+- Moving Beyond Linearity (ISL CH7)
+
+
+Recall that complexity = also means lower interpretibility. This subject extents the linear models with the following:
+
+1. Polunomial Regression - where polynomials of the variables are added.
+2. Step Functions - where the x range is cut into k distinct regions to produce a qualitative variable. Hence also the name, piecewise constant function.
+3. Regression Splines - a combination / extensions of number one and two. Where polynomials functions are applied in specified regions of an X range.
+4. Smoothing Splines - Similar to the one above, but slightly different in the fitting process.
+5. Local Regression - Similar to regression splines, but these are able to overlap.
+6. Generalized Additive Models - allows to extent the model with several predictors.
+
+## Models Beyond Linearity
+
+Notice that all approaches despite GAM are extensions of simple linear regression, as it only takes on one predictor variable.
+
+### Polynomial Regression
+
+Can be defined by the following
+
+\begin{equation}
+y_{i\ }=\ \beta_0+\beta_1x_i+\beta_2x_i^2+...+\ \beta_dx_i^d\ +\ \epsilon_i
+(\#eq:PolynomialRegression)
+\end{equation}
+
+Rules of thumb:
+
++ We don't take on more than 3 or 4 degrees of d, as that yields strange lines
+
+Note that we can still use standard errors for coefficient estimates.
+
+
+#### Beta coefficients and variance
+
+Each beta coefficient has its own variance (just as in linear regression).
+
+It can be defined by a matrix of j dimensions, e.g., if you have 5 betas (including beta 0) we can construct the correlation matrix.
+
+Covariance matrix can be identified by $\hat{C}$.
+
+Generally we get point estimates, but it is also interesting to show the confidence intervals (using 2 standard errors).
+
+#### Application procedure
+
+1. Use `lm()` or `glm()`
+2. Use DV~poly(IV,degree)
+3. Perform CV with `cv.glment()` / aonva F-test to select degree
+    + This is basically either visually selecting the degrees that are the best using CV or using an ANOVA to assess if the MSE are significantly different from each other, hence an ANOVA test. Regarding ANOVA, if there stop being significance, then significant changes, e.g., in a poly 8, where the previous polynomials was not significant, then we can also disregard the 8'th polynomial.
+4. Fit the selected model
+5. Look at `coef(summary(fit))`
+6. Plot data and predictions with `predict()`
+7. Check residuals
+8. Interpret
+
+The lecture shows exercise number 6 in chapter 7.
+
+
+### Step Functions
+
+This is literally just fitting a constant in different bins, see example on page 269. This is also called discretizing x.
+
+It is often applied when we see, e.g., five year age bins, e.g., a 20-25 year old is expected to earn so and so much etc.
+
+__Major disadvantage:__ If there are no natural breakpoints, then the model is likely to miss variance and also generalize too much.
+
+Remember, that the steps reflect the average increase in Y for each step. Hence the first bin (range) is defined by $\beta_0$, and can be regarded as the average of that range of x. Thus each coefficient of the ranges of x is to be understood as the average increase of response.
+
+In other words, $\beta_0$ is the reference level, where the following cuts reflect the average increase or decrease hereon.
+
+Note that we can still use standard errors for coefficient estimates.
+
+### Regression Splines
+
+#### Piecewise Polynomials
+
+This is basically polynomial regression, where the coefficients apply to specified ranges of X. The points where the coefficients changes are called ___knots___. Hence a cubic function will look like the following.
+
+Notice, that a piecewise polynomial function with no knots, is merely a standard polynomial function.
+
+\begin{equation}
+y_{i\ }=\ \beta_0+\beta_1x_i+\beta_2x_i^2+\ \beta_3x_i^3\ +\ \epsilon_i
+(\#eq:PiecewisePolynomials)
+\end{equation}
+
+Where it can be extended to be written for each range.
+
+The coefficients can then be written with: $\beta_{01},\beta_{11},\beta_{21}$ etc. and for the second set: $\beta_{02},\beta_{12},\beta_{22}$ 
+
+And for each of the betas in all of the cuts, you add one degree of freedom.
+
+Rule of thumb:
+
++ The more knots, the more complex = the more variance capture and noise trailed, hence low model bias but large model variance.
+
+```{r,echo=FALSE,fig.cap="Piecewise Polynomials"}
+knitr::include_graphics(rep("Images/Piecewise regression.png"))
+```
+
+
+#### Constraints and Splines
+
+Figure 7.3 show how the splines look, as the top left window tell, the jump is rather odd. Hence, we can force the fit to be continuous, by imposing a constraint.
+
+We can further constrain the model, with adding derivatives of the functions, hence the first derivative and the second derivative (where it in this instance created linear splines, that is because we have added $d-1$ i.e. 2 derivatives, if the function was to the power of 4, then we should have imposed 3 derivatives to achieve linearity in the splines.)
+
+Hence, the _linear spline_ can be defined by: It is piecewise splines of degree-d polynomials, with continuity in derivatives up to degree $d-1$ at each knot.
+
+Hence we have the following constraints:
+
+1. Continuity
+2. Derivatives
+
+#### Choosing the number and location of the Knots
+
+Choosing amount of knots? One may ask themself, how many degrees of freedom do you want to include in the model?
+
+Amount of knots is therefore corresponding to amount of degrees of freedom.
+
+We can let software estimate the best amount and the best locations. Here one can use:
+
+1. In-sample performance
+2. Out-of-sample performance, e.g. with CV, perhaps extent to K folds with K tests, to ensure, that each variable has been held out once.
+
+This can be followed by visualizing the MSE for the different simulations with different amount of knots.
+
+
+#### Comparison with Polynomial Regression
+
+With regression splines we are able to introduce knots that account for variance as it slightly resets the model in each section, hence we can fit the model to the data without having to impose as much complexity as we would in normal polynomial regression.
+
+Hence one often observes that regression splines have more stability than polynomial regression.
+
+
+
+### Smoothing Splines
+
+This is basically attempting to find a model that captures the variance by a smoothing line. Doing so, we fit a very flexible model and impose restrictions upon this, to achieve a shrunken model, just as with Lasso and Ridge Regression. Thus, the smoothing (imposing restrictions) deals with overfitting.
+
+This can be defined as a cubic spline with knot at every unique value of $x_i$
+
+Hence we have the following model:
+
+\begin{equation}
+RSS=\sum_{i=1}^n\left(y_i-g\left(x_i\right)\right)^{^2}+\lambda\int g''\left(t\right)^{^2}dt
+(\#eq:SmoothingSplines)
+\end{equation}
+
+_i.e. Loss + Penalty_
+
+Where:
+
++ We define model g(x)
++ $(y_i-g(x_i))^{^2}$ = the loss, meaning the difference between the fitted model and the actual y's
++ $\lambda$ = the tuning parameter, hence the restriction that we want to impose. If lambda is low, then much flexibility, if lambda is high, then low flexibility. Hence, controls the bias variance tradeoff.
++ $\int g''\left(t\right)^{^2}dt$ = a measure of how much $g'(x)$ changes oer time. Hence, the higher we set $\lambda$ the more imposed restrictions, meaning the smoother the model, as lambda gets closer to infinity, the model becomes linear.
+
+#### Choosing optimal tuning parameter
+
+The analytic LOOCV can be calculated, the procedure appears to be the same as for lasso and ridge regression. The book (page 279) describes this a bit in details. However it says that software is able to do this.
+
+Basically what is done, is LOOCV and simulating different tuning parameters to assess what model that performs the best.
+
+
+### Local Regression
+
+This i basically fitting a linear regression to each x, where s observations are included in the fitting procedure. Thus, one creates several fits, that are based on the observations weighted, where observations close to $x_0$ (the center of the regression) are given the highest weight and then the weight is gradually decreasing.
+
+This can be visualized with:
+
+```{r,echo=FALSE,fig.cap="Local regression"}
+knitr::include_graphics(rep("Images/Local Regression.png"))
+```
+
+Doing local regression has the following procedure (algorithm)
+
+1. Gather the fraction $s = k/n$ of training points whose $x_i$ are closest to $x_0$.
+2. Assign a weight $K_{i0} = K(x_i, x_0)$ to each point in this neighborhood, so that the point furthest from x0 has weight zero, and the closest has the highest weight. All but these k nearest neighbors get weight zero.
+3. Fit a weighted least squares regression of the $y_i$ on the $x_i$ using the aforementioned weights, by finding $\hat\beta_0$ and $\hat\beta_1$ that minimize
+
+\begin{equation}
+\sum_{i=1}^nK_{i0}\left(y_i-\beta_0-\beta_1x_i\right)^{^2}
+(\#eq:LocalRegression)
+\end{equation}
+
+4. The fitted value at $x_0$ is given by $\hat{f}(x_0)=\hat\beta_0+\hat\beta_1x_0$
+
+
+Where we see how the model is 
+
+### Generalized Additive Models
+
+This can naturally both be applied in regression and classification problems, futher elaborated in the following.
+
+#### GAM for regression problems
+
+Now we move beyond being constrained to only one predictor variable, hence GAM can be seen more as an extension of multiple linear regression. Hence GAM is a combination of different functions, where they are each fitted while holding the other variables fixed. GAM can consist of any different non-linear model, e.g., we can just as well use local regression, polynomial regression, or any combination of the approaches seen above in this subsection.
+
+__Disadvantages of GAM:__ 
+
+1. The fitting procedure holds the other variables fixed, hence it does not count for interactions. Therefore, one may manually construct interaction variables to account for this, just like in mulitple linear regression.
+2. Prediction wise it is not competitive with Neural Networks and Support Vector Machines.
+
+__Advantages of GAM:__ 
+
+1. Allowing to fit non linear function for j variables ($f_j$)
+2. Has potential of making more accurate predictions
+3. As the model is additive (meaning that each function is fitted holding the other variables fixed) we are still able to make inference, e.g., assessing how one variable affects the y variable.
+4. Smoothness of function $f_j$ can be summarized with degrees of freedom.
+5. Often applied when aiming for explanatory analysis (instead of prediction)
+
+
+#### GAM for classification problems
+
+When y is qualitative (categorical), GAM can also be applied in the logistical form.
+
+As discovered in the classification section, we can apply logits (log of odds) and odds, see material from first semester.
+
+The same advantages and disadvantages as in the prior section applies.
+
+
+
+## Lab section
+
+Loading the data that will be used throughout the lab section.
+
+```{r}
+library(ISLR)
+attach(Wage)
+df <- Wage
+```
+
+\
+
+### Polynomial Regression and Step Functions
+
+#### Continous model
+
+Fitting the model:
+
+```{r}
+fit <- lm(wage ~ poly(age,4) #Orthogonal polynomials
+          ,data = df)
+fit2 <- lm(wage ~ poly(age,4,raw = TRUE) #Orthogonal polynomials
+          ,data = df)
+```
+
+Note: `poly()` returns orthogonal polynomials, which is some linear combination of the variables to the d power. See the following two examples when using orthogonal and normal polynomials:
+
+```{r}
+{
+  print("Orthogonal")
+  cbind(df$age,poly(x = df$age,degree = 4))[1:5,]  %>% print()
+  print("Regular")
+  cbind(df$age,poly(x = df$age,degree = 4,raw = TRUE))[1:5,] %>% print()
+}
+```
+
+In the end, it does not have a noticeable effect.
+
+```{r}
+options(scipen = 5)
+{
+  coef(summary(fit)) %>% print()
+  coef(summary(fit2)) %>% print()
+}
+```
+
+Even though the coefficients are different and the p-values hereof, the fitted values will be indistinguishable [@hastie2013, 288]. This is also shown later.
+
+
+_Alternatives to using `poly()`??_
+
+We have two alternatives:
+
+1. Using `I()`
+2. Using `cbind()`
+
+1. Using `I()`
+
+```{r}
+fit2a <- lm(wage ~ age + I(age^2) + I(age^3) + I(age^4) #Note that 'I()' is added
+            ,data = df)
+coef(fit2a)
+```
+
+_Notice `I()` as '^' has another special meaning in formulas_
+
+Hence we see that the coefficients are the same.
+
+2. Using `cbind()`
+
+```{r}
+fit2b <- lm(wage ~ cbind(age,age^2,age^3,age^4)
+            ,data = df)
+coef(fit2b)
+```
+
+We see that we are now able to use '^' within the `cbind()`.
+
+\
+
+proceeding with the lab sections. We can now present a grid of values for age, at which we want predictions and then call the `predict()` and also plot the standard errors.
+
+```{r}
+agelims <- range(df$age) #The min and max
+age.grid <- seq(from = agelims[1],to = agelims[2]) #Creating a counter within the range
+preds <- predict(object = fit
+                 ,newdata = list(age = age.grid) #Creating a list with the counter named age, so it fits the IV naming
+                 ,se.fit = TRUE)
+se.bands <- cbind(preds$fit + 2*preds$se.fit #Upper band
+                  ,preds$fit-2*preds$se.fit) #Lower band
+```
+
+Now we can plot the data
+
+```{r}
+par(mfrow = c(1,2)
+    ,mar = c(3.1,4.5,4.5,1.1) #Controls the margins
+    ,oma = c(0,0,4,0)) #Controls the margins
+
+{plot(x = df$age,y = df$wage
+     ,xlim = agelims
+     ,cex = 0.5 #Size of dots
+     ,col = "darkgrey")
+title("Degree-4 Polynomial",outer = TRUE)
+lines(x = age.grid,y = preds$fit
+      ,lwd = 2
+      ,col = "blue")}
+```
+
+
+With the following we see that the difference of the fitted values are practically 0.
+
+```{r}
+preds2 <- predict(object = fit2
+                  ,newdata = list(age = age.grid)
+                  ,se.fit = TRUE)
+max(abs(preds$fit-preds2$fit))
+```
+
+Now we can compare models with different orthogonal polynomials.
+
+```{r}
+fit.1 <- lm(wage~age,data=df)
+fit.2 <- lm(wage~poly(df$age,2),data=df)
+fit.3 <- lm(wage~poly(df$age,3),data=df)
+fit.4 <- lm(wage~poly(df$age,4),data=df)
+fit.5 <- lm(wage~poly(df$age,5),data=df)
+anova(fit.1,fit.2,fit.3,fit.4,fit.5)
+```
+
+based on the anova we see that the errors change significantly util the 5th degree, hence the decision should be to take the model with order 4 of polynomials.
+
+Notice, that the model will never become worse in sample when complexity is added, as we fit the model more to the data.
+
+
+_Alternative_
+
+We could also have obtained the same output using `coef()` instead of the anove, where we see that teh p-values are the same, also the squared value of t ($t^2=F$).
+
+```{r}
+coef(summary(fit.5))
+```
+
+_Notice: this is only an alternative when we exclusively have polynomials in the model!_
+
+\
+
+The following is another example of using ANOVA where different variables are used:
+
+```{r}
+fit.1 = lm(wage~education +age ,data=df)
+fit.2 = lm(wage~education +poly(age ,2) ,data=df)
+fit.3 = lm(wage~education +poly(age ,3) ,data=df)
+anova(fit.1,fit.2,fit.3)
+```
+
+We could also have chosen the order of polynomials using cross validation.
+
+
+#### Logarithmic model
+
+The procedure is per se the same, but now we are working with a probabilistic model instead of. Hence the outcome must be binary. Thus, it is decided to predict whether a persons wage is higher or lower than 250.
+
+
+```{r}
+fit <- glm(I(wage > 250) ~ poly(age,4) #Note the use of I()
+           ,data = df
+           ,family = binomial)
+```
+
+Note, that again `I()` is used, where the expression is evaluated on the fly, one could naturally also had made a vector of the classes.
+
+_Note, by default `glm()` will transform TRUE and FALSE to respectively 1 and 0._
+
+Now we can make predictions.
+
+```{r}
+preds = predict(fit
+                ,newdata = list(age=age.grid)
+                ,se.fit = TRUE)
+```
+
+To make confidence intevals for Pr(Y = 1|X), i.e.
+
+\begin{equation}
+Pr(Y=1|X)= \frac{exp(X\beta)}{1+exp(X\beta)}
+(\#eq:LogConfidenceinterval)
+\end{equation}
+
+Where $X\beta$ can be explained by:
+
+\begin{equation}
+log(\frac{Pr(Y=1|X)}{1-Pr(Y=1|X)})=X\beta
+(\#eq:XBeta)
+\end{equation}
+
+Hence we must first calculate $X\beta$ to find Pr(Y=1|X).
+
+```{r}
+#Prbabilities
+pfit = exp(preds$fit)/(1+exp(preds$fit)) #See equation above
+
+#X beta
+se.bands.logit = cbind(preds$fit+2*preds$se.fit #Upper level
+                       ,preds$fit-2*preds$se.fit) #Lower level
+
+#Pr(Y = 1|X)
+se.bands = exp(se.bands.logit)/(1+exp(se.bands.logit))
+```
+
+Notice, that the posterior probabilities could also have been found by using `predict()`, see the following:
+
+```{r}
+preds=predict (fit
+               ,newdata = list(age = age.grid)
+               ,type = "response"
+               ,se.fit = TRUE)
+```
+
+**NOTICE: for some reason this will lead to wrong confidence intervals [@hastie2013,292]**
+
+Now we can make the right hand plot, so we can compare with continous result.
+
+```{r}
+par(mfrow = c(1,2)
+    ,mar = c(3.1,4.5,4.5,1.1) #Controls the margins
+    ,oma = c(0,0,1,0)) #Controls the margins
+#Copy from earlier to combine plots
+fit <- lm(wage ~ poly(age,4) #Orthogonal polynomials
+          ,data = df)
+preds <- predict(object = fit
+                 ,newdata = list(age = age.grid)
+                 ,se.fit = TRUE)
+plot(x = df$age,y = df$wage
+     ,xlim = agelims
+     ,cex = 0.5 #Size of dots
+     ,col = "darkgrey")
+title("Degree-4 Polynomial",outer = TRUE)
+lines(x = age.grid,y = preds$fit
+      ,lwd = 2
+      ,col = "blue")
+
+#The new plot
+plot(x = age,y = I(wage >250)
+     ,xlim = agelims
+     ,type ="n"
+     ,ylim = c(0,.2))
+
+points(jitter(age)
+       ,I((wage>250)/5)
+       ,cex = .5
+       ,pch = "|"
+       ,col = "darkgrey")
+
+lines(x = age.grid,y = pfit
+      ,lwd = 2
+      ,col= "blue")
+
+matlines(x = age.grid
+         ,y = se.bands
+         ,lwd = 1
+         ,col = "blue"
+         ,lty = 3)
+```
+
+We see on the right hand panel that the all the observations that have a wage above 250 is in the top and all those below hare in the bottom of the visualization.
+
+`jitter()` is merely an approach to avoid observations to overlap each other.
+
+
+#### Step function
+
+To fit the step function we must do:
+
+1. Define the cuts, `cut()` is able to automatically pick cutpoints. One could also use `break()` to define where the cuts should be.
+2. Train the model. Notice, that `lm()` will automatically create dummy variables for the ranges.
+
+```{r}
+{table(cut(df$age,4)) %>% print()
+fit <- lm(wage ~ cut(df$age,4)
+          ,data = df)
+coef(summary(fit)) %>% print()}
+```
+
+We see that the p value of the cuts are significant.
+
+Notice, that the first range is the base level, thus it is also left out. We can then use the intercept as the average wage for all in the range of up to 33.5 years.
+
+```{r}
+rm(list = ls())
+```
+
+
+### Splines
+
+The different approaches to splines are presented in the following.
+
+#### Basis Function Splines
+
+```{r}
+library(ISLR)
+df <- Wage
+library(splines)
+agelims <- range(df$age) #The min and max
+age.grid <- seq(from = agelims[1],to = agelims[2]) #Creating a counter within the range
+```
+
+The splines library contain what we need. We introduce the following functions:
+
++ `bs()`: Basis functions for splines. Generates entire matrix of basis functions for splines with the specified set of knots.
++ `ns()`: Natural splines.
++ `smooth.spline()`: Used when fitting smoothing splines.
++ `loess()`: When fitting local regression.
+
+
+```{r}
+par(mfrow = c(1,1),oma = c(0,0,0,0))
+fit.bs <- lm(wage ~ bs(age
+                       ,knots = c(25,40,60)) #Note, degree is by default 3
+             ,data = df)
+pred.bs <- predict(fit.bs
+                 ,newdata = list(age = age.grid)
+                 ,se.fit = TRUE)
+plot(df$age
+     ,df$wage
+     ,col = "gray")
+
+lines(age.grid
+      ,pred.bs$fit
+      ,lwd = 2)
+
+lines(age.grid
+      ,pred.bs$fit+2*pred.bs$se
+      ,lty = "dashed")
+
+lines(age.grid
+      ,pred.bs$fit-2*pred.bs$se
+      ,lty = "dashed")
+
+title("Splines - Basis Functions")
+```
+
+We see that the splines have been fitted to the data and notice that the tails have wider confidence intervals.
+
+We can get the amount of degrees of freedom by calling the `dim()`function.
+
+```{r}
+{dim(bs(age
+       ,knots = c(25,40,60)) #Specifying the knots
+    ) %>% print()
+dim(bs(age
+       ,df = 6) #df can be specified instead of knots
+) %>% print()
+}
+```
+
+We see that the two alternatives produce the same results
+
+We can assess where the `bs()` placed the knots, by calling the `attr()`.
+
+```{r}
+attr(bs(age,df=6),"knots")
+```
+
+In this case, R chose the 25%, 50% and 75% quantiles.
+
+
+#### Natural Splines
+
+The fitting procedure is the same, but now we just use `ns()` instead of `bs()`.
+
+```{r}
+fit.ns = lm(wage ~ ns(age
+                      ,df = 4 #Note, as with bs() we could have specified the knots instead of.
+                      )
+            ,data = df)
+
+pred.ns = predict(fit.ns
+                  ,newdata = list(age=age.grid)
+                  ,se.fit = TRUE)
+
+#Copy of old plot
+  plot(df$age
+       ,df$wage
+       ,col = "gray")
+  
+  lines(age.grid
+        ,pred.bs$fit
+        ,lwd = 2)
+  
+  lines(age.grid
+        ,pred.bs$fit+2*pred.bs$se
+        ,lty = "dashed")
+  
+  lines(age.grid
+        ,pred.bs$fit-2*pred.bs$se
+        ,lty = "dashed")
+
+#Adding natural splines
+lines(age.grid
+      ,pred.ns$fit
+      ,col ="red"
+      ,lwd =2)
+
+title("Splines - Basis Functions + Natural Splines")
+legend("topright",c("Basis","Natural"),lty = 1,col = c("Black","Red"),cex = 0.6)
+```
+
+
+#### Smooth Splines
+
+The code show the procedure.
+
+```{r}
+fit.ss <- smooth.spline(x = df$age,y = df$wage
+                     ,df = 16) #Remember that we must impose constraints
+
+#Choosing smoothing param with CV
+fit.ss2 <- smooth.spline (df$age
+                          ,df$wage
+                          ,cv = TRUE) #we choose cv instead of fixed amount of df
+fit.ss2$df
+```
+
+We get sparsity hence we have degrees of freedom of 6.8. That is due to the tuning parameter.
+
+```{r}
+plot(age,wage
+     ,xlim = agelims
+     ,cex = .5
+     ,col = "darkgrey")
+title("Smoothing Spline")
+
+lines(fit.ss,col = "red",lwd = 2)
+lines(fit.ss2,col = "blue",lwd =2)
+
+legend("topright",legend = c("16 DF","6.8 DF")
+       ,col = c("red","blue")
+       ,lty = 1
+       ,lwd = 2
+       ,cex = .8)
+```
+
+As expected, we see that the more complex model (highest amount of df) is the more flexible model.
+
+Note: tuning parameter = $\lambda$, where the CV seeks to choose the parameter that leads to the lowest error and return the df that leads to this level.
+
+
+#### Local Regression
+
+Recall that local regression makes a linear regression for the observations that are close to the observation under evaluation ($x_0$).
+
+Thus we have to specify the span, the larger the span the smoother the fit, as we will include more observations.
+
+NB: `locfit` library can also be used for fitting local regress
+
+```{r}
+plot(x = df$age,y = df$wage
+     ,xlim = agelims
+     ,cex = .5
+     ,col = "darkgrey")
+title ("Local Regression")
+
+fit.lr <- loess(wage ~ age
+                ,span = .2 #Degree of smoothing / neighborhood to be included
+                ,data = df)
+
+fit.lr2 <- loess(wage ~ age
+              ,span = .5 #Degree of smoothing / neighborhood to be included
+              ,data = df)
+
+lines(x = age.grid,y = predict(object = fit.lr,newdata = data.frame(age=age.grid))
+      ,col = "red"
+      ,lwd = 2)
+
+lines(x = age.grid,y = predict(object = fit.lr2,newdata = data.frame(age=age.grid))
+      ,col =" blue"
+      ,lwd = 2)
+
+legend(x = "topright"
+       ,legend = c("Span = 0.2","Span = 0.5")
+       ,col=c("red","blue")
+       ,lty = 1
+       ,lwd = 2
+       ,cex = .8)
+```
+
+From the plot we also see that the model with the largest span has the smoothest fit.
+
+
+### GAMs
+
+To be done
+
+[@hastie2013, 294]
+
+## Exercises
+
+### Exercise 6 (Lecture 1)
