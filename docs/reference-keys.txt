@@ -45,6 +45,8 @@ gam-with-local-regression
 logistic-regression
 exercises
 exercise-6
+a-polynomial-regression
+b-step-function
 exercise-7
 exercise-8
 exercise-9
