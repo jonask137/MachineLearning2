@@ -50,7 +50,17 @@ b-step-function
 exercise-7
 exercise-8
 exercise-9
+a-using-poly-function-to-fit-cubic-polynomial-regression
+b-plotting-polynomial-fits-for-a-range-of-polynomials
+c-using-cv-to-select-best-degree-of-d
+d-use-bs-to-fit-a-regression-spline
+e-now-fit-a-regression-spline
+f
 exercise-10
+a-partitioning-the-data
+b-fitting-a-gam
+c-evaluating-on-the-test-set
+d-which-variables-appear-to-have-a-non-linear-relationship
 tree-based-methods
 subject-1
 subject-1-1

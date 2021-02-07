@@ -118,6 +118,8 @@ knitr::include_graphics(rep("Images/Piecewise regression.png"))
 
 Figure 7.3 show how the splines look, as the top left window tell, the jump is rather odd. Hence, we can force the fit to be continuous, by imposing a constraint.
 
+Notice, that it is a piecewise polynomial regression, when you merely fit polynomials onto bins of data. If you want to have the ends tied together, you impose contraints and thus created a spline.
+
 We can further constrain the model, with adding derivatives of the functions, hence the first derivative and the second derivative (where it in this instance created linear splines, that is because we have added $d-1$ i.e. 2 derivatives, if the function was to the power of 4, then we should have imposed 3 derivatives to achieve linearity in the splines.)
 
 Hence, the _linear spline_ can be defined by: It is piecewise splines of degree-d polynomials, with continuity in derivatives up to degree $d-1$ at each knot.
@@ -1179,16 +1181,370 @@ What one could do is a mutlivariate linear model with different factors, or step
 Therefore, I will not elaborate much more on this.
 
 
+```{r,include=F}
+rm(list = ls())
+```
+
 
 ### Exercise 8
 
+```{r}
+df <- Auto
+```
+
+Are we able to predict how old a car is based on the variables at hand?
+
+Hence year = DV
+
+Name contains a lot of value, let us only use the first word, as that appear to be the brand. Therefore a loop is created to correct all the misspelled names.
+
+```{r}
+brand <- strsplit(x = as.character(df$name),split = " ")
+
+brand.name <- as.vector(rep(0,length(brand)))
+
+for (i in c(1:length(brand))) {
+  brand.name[i] <- brand[[i]][1]
+}
+
+table(brand.name)
+
+misspelled <- matrix(byrow = TRUE,ncol = 2
+                     ,data = c("mercedes","mercedes-benz"
+                              ,"toyouta","toyota"
+                              ,"chevroelt","chevrolet"
+                              ,"maxda","mazda"
+                              ,"vokswagen","volkswagen"
+                              ,"vw","volkswagen"))
+
+index <- as.vector("")
+n <- 0
+bn.list <- as.list(0)
+brand.name.recent <- brand.name
+for (i in c(misspelled[,1])) {
+  n <- n + 1
+  index <- rep(FALSE,length(brand.name))
+  index[brand.name == i] <- TRUE
+  bn.list[[n]] <- replace(x = brand.name.recent,list = index,values = misspelled[n,2])
+  brand.name.recent <- replace(x = brand.name.recent,list = index,values = misspelled[n,2])
+}
+df <- cbind(df[,-9],as.factor(bn.list[[6]]))
+names(df)[names(df) == 'bn.list[[6]]'] <- "brand.name"
+```
+
+Also we must convert origin to a factor.
+
+```{r}
+df$origin <- as.factor(df$origin)
+```
+
+Checking correlations.
+
+The following can be run to see all the combinations
+
+```{r}
+# par(mfrow = c(1,1))
+# for (i in 1:dim(mm)[2]) {
+#   plot(y = df$year,x = mm[,i],xlab = names(mm)[i],ylab = "Year")
+#   grid()
+#   colnames(mm)[i] %>% title()
+# }
+```
+
+Before training the model, we can partition the data to test the model out of sample
+
+```{r}
+set.seed(1337)
+train.size <- round(x = nrow(df)*0.8,digits = 0) #Setting the training size
+train.index <- sample(x = c(1:nrow(df)),size = train.size) #setting seed and creating vector for index
+mm <- model.matrix(year ~ .,data = df)[,-1] #tried to make it mm first, to get rid of having variables that were in one partition but not the other.
+year <- df$year
+train.df <- as.data.frame(cbind(year,mm[train.index,])) #crating the training set
+test.df <- as.data.frame(cbind(year,mm[-train.index,])) #creating the testing set
+```
+
+
+```{r}
+library(gam)
+
+gam.m1 <- gam(year ~ s(train.df$mpg,df = 5) + s(train.df$cylinders,df = 5) + s(train.df$displacement,df = 5) + s(train.df$horsepower,df = 5) + s(train.df$weight,df = 5) + s(train.df$acceleration,df = 5) + .
+           ,data = train.df)
+
+summary(gam.m1)
+```
+
+It appears as if non of the parameters are good predictors.
+
+Then one could try out other models, or perhaps it is just very difficult with the data at hand to predict the year of the car.
+
+```{r,include=F}
+rm(list = ls())
+```
 
 
 ### Exercise 9
 
+```{r}
+library(MASS)
+df <- Boston
+df <- as.data.frame(cbind(df$nox,df$dis))
+colnames(df) <- c("nox","dis")
+```
 
+#### (a) using poly function to fit cubic polynomial regression
+
+```{r}
+fit.poly <- lm(nox ~ poly(dis,3),data = df)
+summary(fit.poly)
+```
+
+Remember that we are not interested in the coefficients as they are misleading, thus we want to look at the shape.
+
+The table above is mostly presented for explanatory reasons.
+
+As we are interested in the curve, we can fit that.
+
+```{r}
+#Defining range
+dislims <- range(df$dis)
+n <- (dislims[2]-dislims[1])/nrow(df)
+dis.grid <- seq(from = dislims[1],to = dislims[2],by = n)
+
+#Predictions for the plot
+preds <- predict(object = fit.poly,newdata = list(dis = dis.grid))
+
+#Plotting
+plot(nox ~ dis, data = df, col = "darkgrey")
+grid()
+lines(x = dis.grid,y =  preds, col = "blue",lwd = 2)
+title("Cubic polynomial")
+```
+
+
+
+#### (b) Plotting polynomial fits for a range of polynomials
+
+```{r}
+models <- list()
+RSS <- 0
+for (d in 1:10) {
+  models[[d]] <- lm(nox ~ poly(dis,d),data = df)
+  RSS[d] <- sum(residuals(models[[d]])^2)
+}
+plot(RSS,type = "b")
+points(x = which.min(RSS),y = RSS[which.min(RSS)],col = "red",pch = 19)
+grid()
+abline(h = min(RSS),col = "blue",lty = 2)
+title("In-sample error")
+```
+
+We see that the RSS decrease with complexity, that it as expected, as we fit to the in sample data. We could do this with a partition of the data to see out of performance instead.
+
+
+#### (c) Using CV to select best degree of d
+
+Here we run a loop with cross validation to see how the different order of d performs. As the partitions are randomly selected, we preduce 10 simulations to see which orders that tend to occur most often.
+
+```{r}
+models <- list()
+RSS <- 0
+CV.RSS <- 0
+CV.RSS.sim <- 0
+
+for (i in 1:20) {
+  for (d in 1:10) {
+  models[[d]] <- glm(nox ~ poly(dis,d),data = df)
+  RSS[d] <- sum(residuals(models[[d]])^2)
+  CV.RSS[d] <- cv.glm(data = df,glmfit = models[[d]],K = 10)$delta[2] #Delta = prediction error (adjusted)
+  }
+  
+  CV.RSS.sim[i] <- which.min(CV.RSS)
+}
+
+#Plotting prediction error
+plot(CV.RSS,type = "b")
+points(x = which.min(CV.RSS),y = CV.RSS[which.min(CV.RSS)],col = "red",pch = 19)
+grid()
+abline(h = min(CV.RSS),col = "blue",lty = 2)
+title("CV K = 10 prediction error")
+
+#Plotting simulations
+barplot(table(CV.RSS.sim),xlab = "Degree of d",ylab = "Frequency")
+abline(h = 0)
+title("CV K = 10, Iterations = 20")
+```
+
+In these simulations we see that the best fit is likely to be with using .
+
+It is actually quite interesting that a model with 10 degrees of d is as competitive as 4 in this example, although the cubic model is far superior than the other models.
+
+#### (d) Use `bs()` to fit a regression spline
+
+```{r}
+par(mfrow = c(1,1))
+fit.bs <- lm(nox ~ bs(dis,df = 4),data = df) #Note as degree is not defined, default = 3
+preds <- predict(object = fit.bs,newdata = list(dis = dis.grid))
+plot(x = df$dis,y = df$nox,col = "darkgrey",pch = 20,ylab = "nox",xlab = "dis")
+lines(x = dis.grid,y = preds,col = "blue",lwd = 2)
+grid()
+title("Regression Spline df = 4")
+abline(v = 3.20745,col = "red",lty = 2) #This is the cut, found in next chunk
+legend(x = "topright",legend = c("fit","cut"),lty = 1:2,col = c("blue","red"))
+```
+
+Notice that we merely specified the amount of df that we wanted. The function merely specified them automatically. We can interpret these, by using `dim()` and `attr()`.
+
+```{r}
+print(dim(bs(df$dis,df = 4)))
+attr(bs(df$dis,df = 4),"knots")
+```
+
+We see that a model with 4 degrees of freedom yields one cut. Where the model put this at 50%, hence the first half (up to 3.20745). For simplicity, this cut has been added to the plot above, to show where the spline is split.
+
+
+#### (e) Now fit a regression spline 
+
+```{r}
+par(mfrow = c(2,2))
+for (d in 4:7) {
+  #The fit + preds
+  fit.bs <- lm(nox ~ bs(dis,df = d,degree = 3),data = df)
+  preds <- predict(object = fit.bs,newdata = list(dis = dis.grid))
+  
+  #Cut
+  cut <- attr(bs(df$dis,df = d),"knots")
+  
+  #Plot
+  plot(x = df$dis,y = df$nox,col = "darkgrey",pch = 20,ylab = "nox",xlab = "dis")
+  lines(x = dis.grid,y = preds,col = "blue",lwd = 2)
+  grid()
+  title(paste("Cubic Regression Spline, df =",d))
+  abline(v = cut,col = "red",lty = 2) #This is the cut, found in next chunk
+  legend(x = "topright",legend = c("fit","cut"),lty = 1:2,col = c("blue","red"))
+}
+```
+
+We start at four degrees of freedom as a model with only three degrees of freedom, hence cubic regression (three orders of polynomials) = three degrees of freedom **(this has to be fact checked)**.
+
+As we add complexity with knots we also adds degrees of freedom, where we add one degree of freedom for each cut, hence for the cubic spline with 7 degrees of freedom, four cuts and three polynomials **(this has to be fact checked)**.
+
+
+#### (f) 
+
+```{r}
+models <- list()
+RSS <- 0
+CV.RSS.sim <- 0
+
+for (i in 1:20) {
+  for (d in 4:15) {
+  models[[d]] <- glm(nox ~ bs(dis,df = d,degree = 3),data = df)
+  RSS[d] <- sum(residuals(models[[d]])^2)
+  CV.RSS[d] <- cv.glm(data = df,glmfit = models[[d]],K = 10)$delta[2] #Delta = prediction error (adjusted)
+  }
+  
+  CV.RSS.sim[i] <- which.min(CV.RSS)
+}
+
+par(mfrow = c(1,1),mar = c(5,4.5,4.5,2.1),oma = c(0,0,0,0))
+
+#Plotting prediction error
+plot(CV.RSS,type = "b")
+points(x = which.min(CV.RSS),y = CV.RSS[which.min(CV.RSS)],col = "red",pch = 19)
+grid()
+abline(h = min(CV.RSS),col = "blue",lty = 2)
+title("CV K = 10 prediction error")
+
+#Plotting simulations
+barplot(table(CV.RSS.sim),xlab = "Degree of d",ylab = "Frequency")
+abline(h = 0)
+title("CV K = 10, Iterations = 20")
+```
+
+First we see the last iteration and the prediction error hereof. Overall we see that it tend to be the rather complex models tend to be
 
 ### Exercise 10
 
+#### (a) Partitioning the data
 
+```{r}
+#Loading
+df <- College
+
+#Partitioning
+set.seed(1337)
+train.size <- round(x = nrow(df)*0.8,digits = 0) #Setting the training size
+train.index <- sample(x = c(1:nrow(df)),size = train.size) #setting seed and creating vector for index
+train.df <- df[train.index,] #crating the training set
+test.df <- df[-train.index,] #creating the testing set
+rm(train.size)
+rm(train.index)
+```
+
+Finding the best subset using forward selection
+
+```{r}
+reg_null <- lm(Outstate ~ 1,data = train.df) #The null  models
+reg_full <- lm(Outstate ~ .,data = train.df) #The full model
+step.for <- stepAIC(direction = "forward",object = reg_null,trace = TRUE,scope = list(upper = reg_full,lower = reg_null))
+summary(step.for)
+```
+
+We see that the forward selection decides on 14 variables to be included
+
+
+#### (b) Fitting a GAM
+
+```{r}
+library(forecast)
+best.formula <- formula(step.for)
+fit.gam <- gam(formula = best.formula,data = train.df)
+preds <- predict(object = fit.gam,newdata = test.df)
+plot(x = preds,y = preds-test.df$Outstate,ylab = "Residuals",xlab = "Predicted values")
+```
+
+From the plot we see that in general we have a resdiausl around 0 withinn +/- 5000. Also the residuals do look rather normal. Although one could argue that the variance is a but smaller in the lower region of the predicted value, and it does in fact appear as if we are under estimating these result.
+
+We can interprete how Outstate responds in the following:
+
+```{r}
+par(mfrow = c(4,4))
+plot(fit.gam #Note, automatically identifies the GAM object, hence plots for each variable
+     ,se = TRUE
+     ,col ="blue")
+```
+
+Interpreting the plot: Recall that the plots assumes that we hold the other variables fixed, hence we see the following:
+
++ e.g., Expend: We see that holding the other variables fixed, the outstate tends to increase over the expenditure.
++ e.g., Apps: I assume that this is applicants, we see that holder the other variables fixed, outstate students tend to decrease as amount of applicants decrease.
+
+We can also assess the overall accuracy
+
+```{r}
+accuracy(preds,x = test.df$Outstate)
+```
+
+We see that the MAE is 1587, where the mean absolute percentage error is almost 17%, hence it appear to be rather high.
+
+#### (c) Evaluating on the test set
+
+This is what was done above. It is expected that if we compared applying on the train and test set, we will observe that the model has a lot of optimism on the train data, thus we should also see that the MAPE is lower on this partition, has this is what the model was trained on.
+
+
+#### (d) Which variables appear to have a non linear relationship?
+
+```{r}
+par(mfrow = c(3,3))
+
+for (i in c(1:8,10:18)) {
+  plot(y = df$Outstate,x = df[,i],xlab = names(df)[i],ylab = "Outstate",pch = 20,col = "darkgrey")
+  grid()
+  colnames(df)[i] %>% title()
+}
+```
+
+It appears as if expend has som non linear relationship with Outstate. Perhaps enroll, F.Undergrad, and P.Undergrad also have a non linear trend.
+
+To further decide if there is evidence for a non linear relationship, one could make, e.g., a smoothing model to assess the performance hereof.
 

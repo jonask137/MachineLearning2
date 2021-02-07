@@ -194,8 +194,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2.4.2" data-path="exercises.html"><a href="exercises.html#exercise-7"><i class="fa fa-check"></i><b>2.4.2</b> Exercise 7</a></li>
 <li class="chapter" data-level="2.4.3" data-path="exercises.html"><a href="exercises.html#exercise-8"><i class="fa fa-check"></i><b>2.4.3</b> Exercise 8</a></li>
-<li class="chapter" data-level="2.4.4" data-path="exercises.html"><a href="exercises.html#exercise-9"><i class="fa fa-check"></i><b>2.4.4</b> Exercise 9</a></li>
-<li class="chapter" data-level="2.4.5" data-path="exercises.html"><a href="exercises.html#exercise-10"><i class="fa fa-check"></i><b>2.4.5</b> Exercise 10</a></li>
+<li class="chapter" data-level="2.4.4" data-path="exercises.html"><a href="exercises.html#exercise-9"><i class="fa fa-check"></i><b>2.4.4</b> Exercise 9</a>
+<ul>
+<li class="chapter" data-level="2.4.4.1" data-path="exercises.html"><a href="exercises.html#a-using-poly-function-to-fit-cubic-polynomial-regression"><i class="fa fa-check"></i><b>2.4.4.1</b> (a) using poly function to fit cubic polynomial regression</a></li>
+<li class="chapter" data-level="2.4.4.2" data-path="exercises.html"><a href="exercises.html#b-plotting-polynomial-fits-for-a-range-of-polynomials"><i class="fa fa-check"></i><b>2.4.4.2</b> (b) Plotting polynomial fits for a range of polynomials</a></li>
+<li class="chapter" data-level="2.4.4.3" data-path="exercises.html"><a href="exercises.html#c-using-cv-to-select-best-degree-of-d"><i class="fa fa-check"></i><b>2.4.4.3</b> (c) Using CV to select best degree of d</a></li>
+<li class="chapter" data-level="2.4.4.4" data-path="exercises.html"><a href="exercises.html#d-use-bs-to-fit-a-regression-spline"><i class="fa fa-check"></i><b>2.4.4.4</b> (d) Use <code>bs()</code> to fit a regression spline</a></li>
+<li class="chapter" data-level="2.4.4.5" data-path="exercises.html"><a href="exercises.html#e-now-fit-a-regression-spline"><i class="fa fa-check"></i><b>2.4.4.5</b> (e) Now fit a regression spline</a></li>
+<li class="chapter" data-level="2.4.4.6" data-path="exercises.html"><a href="exercises.html#f"><i class="fa fa-check"></i><b>2.4.4.6</b> (f)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4.5" data-path="exercises.html"><a href="exercises.html#exercise-10"><i class="fa fa-check"></i><b>2.4.5</b> Exercise 10</a>
+<ul>
+<li class="chapter" data-level="2.4.5.1" data-path="exercises.html"><a href="exercises.html#a-partitioning-the-data"><i class="fa fa-check"></i><b>2.4.5.1</b> (a) Partitioning the data</a></li>
+<li class="chapter" data-level="2.4.5.2" data-path="exercises.html"><a href="exercises.html#b-fitting-a-gam"><i class="fa fa-check"></i><b>2.4.5.2</b> (b) Fitting a GAM</a></li>
+<li class="chapter" data-level="2.4.5.3" data-path="exercises.html"><a href="exercises.html#c-evaluating-on-the-test-set"><i class="fa fa-check"></i><b>2.4.5.3</b> (c) Evaluating on the test set</a></li>
+<li class="chapter" data-level="2.4.5.4" data-path="exercises.html"><a href="exercises.html#d-which-variables-appear-to-have-a-non-linear-relationship"><i class="fa fa-check"></i><b>2.4.5.4</b> (d) Which variables appear to have a non linear relationship?</a></li>
+</ul></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="tree-based-methods.html"><a href="tree-based-methods.html"><i class="fa fa-check"></i><b>3</b> Tree Based Methods</a></li>
@@ -398,13 +412,752 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="exercise-8" class="section level3" number="2.4.3">
 <h3><span class="header-section-number">2.4.3</span> Exercise 8</h3>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="exercises.html#cb79-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> Auto</span></code></pre></div>
+<p>Are we able to predict how old a car is based on the variables at hand?</p>
+<p>Hence year = DV</p>
+<p>Name contains a lot of value, let us only use the first word, as that appear to be the brand. Therefore a loop is created to correct all the misspelled names.</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="exercises.html#cb80-1" aria-hidden="true" tabindex="-1"></a>brand <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(<span class="at">x =</span> <span class="fu">as.character</span>(df<span class="sc">$</span>name),<span class="at">split =</span> <span class="st">&quot; &quot;</span>)</span>
+<span id="cb80-2"><a href="exercises.html#cb80-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-3"><a href="exercises.html#cb80-3" aria-hidden="true" tabindex="-1"></a>brand.name <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">rep</span>(<span class="dv">0</span>,<span class="fu">length</span>(brand)))</span>
+<span id="cb80-4"><a href="exercises.html#cb80-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-5"><a href="exercises.html#cb80-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(brand))) {</span>
+<span id="cb80-6"><a href="exercises.html#cb80-6" aria-hidden="true" tabindex="-1"></a>  brand.name[i] <span class="ot">&lt;-</span> brand[[i]][<span class="dv">1</span>]</span>
+<span id="cb80-7"><a href="exercises.html#cb80-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb80-8"><a href="exercises.html#cb80-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-9"><a href="exercises.html#cb80-9" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(brand.name)</span></code></pre></div>
+<pre><code>## brand.name
+##           amc          audi           bmw         buick      cadillac 
+##            27             7             2            17             2 
+##         capri     chevroelt     chevrolet         chevy      chrysler 
+##             1             1            43             3             6 
+##        datsun         dodge          fiat          ford            hi 
+##            23            28             8            48             1 
+##         honda         maxda         mazda      mercedes mercedes-benz 
+##            13             2            10             1             2 
+##       mercury        nissan    oldsmobile          opel       peugeot 
+##            11             1            10             4             8 
+##      plymouth       pontiac       renault          saab        subaru 
+##            31            16             3             4             4 
+##        toyota       toyouta       triumph     vokswagen    volkswagen 
+##            25             1             1             1            15 
+##         volvo            vw 
+##             6             6</code></pre>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="exercises.html#cb82-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-2"><a href="exercises.html#cb82-2" aria-hidden="true" tabindex="-1"></a>misspelled <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">byrow =</span> <span class="cn">TRUE</span>,<span class="at">ncol =</span> <span class="dv">2</span></span>
+<span id="cb82-3"><a href="exercises.html#cb82-3" aria-hidden="true" tabindex="-1"></a>                     ,<span class="at">data =</span> <span class="fu">c</span>(<span class="st">&quot;mercedes&quot;</span>,<span class="st">&quot;mercedes-benz&quot;</span></span>
+<span id="cb82-4"><a href="exercises.html#cb82-4" aria-hidden="true" tabindex="-1"></a>                              ,<span class="st">&quot;toyouta&quot;</span>,<span class="st">&quot;toyota&quot;</span></span>
+<span id="cb82-5"><a href="exercises.html#cb82-5" aria-hidden="true" tabindex="-1"></a>                              ,<span class="st">&quot;chevroelt&quot;</span>,<span class="st">&quot;chevrolet&quot;</span></span>
+<span id="cb82-6"><a href="exercises.html#cb82-6" aria-hidden="true" tabindex="-1"></a>                              ,<span class="st">&quot;maxda&quot;</span>,<span class="st">&quot;mazda&quot;</span></span>
+<span id="cb82-7"><a href="exercises.html#cb82-7" aria-hidden="true" tabindex="-1"></a>                              ,<span class="st">&quot;vokswagen&quot;</span>,<span class="st">&quot;volkswagen&quot;</span></span>
+<span id="cb82-8"><a href="exercises.html#cb82-8" aria-hidden="true" tabindex="-1"></a>                              ,<span class="st">&quot;vw&quot;</span>,<span class="st">&quot;volkswagen&quot;</span>))</span>
+<span id="cb82-9"><a href="exercises.html#cb82-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-10"><a href="exercises.html#cb82-10" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="st">&quot;&quot;</span>)</span>
+<span id="cb82-11"><a href="exercises.html#cb82-11" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb82-12"><a href="exercises.html#cb82-12" aria-hidden="true" tabindex="-1"></a>bn.list <span class="ot">&lt;-</span> <span class="fu">as.list</span>(<span class="dv">0</span>)</span>
+<span id="cb82-13"><a href="exercises.html#cb82-13" aria-hidden="true" tabindex="-1"></a>brand.name.recent <span class="ot">&lt;-</span> brand.name</span>
+<span id="cb82-14"><a href="exercises.html#cb82-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">c</span>(misspelled[,<span class="dv">1</span>])) {</span>
+<span id="cb82-15"><a href="exercises.html#cb82-15" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> n <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb82-16"><a href="exercises.html#cb82-16" aria-hidden="true" tabindex="-1"></a>  index <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">FALSE</span>,<span class="fu">length</span>(brand.name))</span>
+<span id="cb82-17"><a href="exercises.html#cb82-17" aria-hidden="true" tabindex="-1"></a>  index[brand.name <span class="sc">==</span> i] <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb82-18"><a href="exercises.html#cb82-18" aria-hidden="true" tabindex="-1"></a>  bn.list[[n]] <span class="ot">&lt;-</span> <span class="fu">replace</span>(<span class="at">x =</span> brand.name.recent,<span class="at">list =</span> index,<span class="at">values =</span> misspelled[n,<span class="dv">2</span>])</span>
+<span id="cb82-19"><a href="exercises.html#cb82-19" aria-hidden="true" tabindex="-1"></a>  brand.name.recent <span class="ot">&lt;-</span> <span class="fu">replace</span>(<span class="at">x =</span> brand.name.recent,<span class="at">list =</span> index,<span class="at">values =</span> misspelled[n,<span class="dv">2</span>])</span>
+<span id="cb82-20"><a href="exercises.html#cb82-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb82-21"><a href="exercises.html#cb82-21" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">cbind</span>(df[,<span class="sc">-</span><span class="dv">9</span>],<span class="fu">as.factor</span>(bn.list[[<span class="dv">6</span>]]))</span>
+<span id="cb82-22"><a href="exercises.html#cb82-22" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">&#39;bn.list[[6]]&#39;</span>] <span class="ot">&lt;-</span> <span class="st">&quot;brand.name&quot;</span></span></code></pre></div>
+<p>Also we must convert origin to a factor.</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="exercises.html#cb83-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>origin <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(df<span class="sc">$</span>origin)</span></code></pre></div>
+<p>Checking correlations.</p>
+<p>The following can be run to see all the combinations</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="exercises.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># par(mfrow = c(1,1))</span></span>
+<span id="cb84-2"><a href="exercises.html#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="co"># for (i in 1:dim(mm)[2]) {</span></span>
+<span id="cb84-3"><a href="exercises.html#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   plot(y = df$year,x = mm[,i],xlab = names(mm)[i],ylab = &quot;Year&quot;)</span></span>
+<span id="cb84-4"><a href="exercises.html#cb84-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   grid()</span></span>
+<span id="cb84-5"><a href="exercises.html#cb84-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   colnames(mm)[i] %&gt;% title()</span></span>
+<span id="cb84-6"><a href="exercises.html#cb84-6" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span></code></pre></div>
+<p>Before training the model, we can partition the data to test the model out of sample</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="exercises.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1337</span>)</span>
+<span id="cb85-2"><a href="exercises.html#cb85-2" aria-hidden="true" tabindex="-1"></a>train.size <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="at">x =</span> <span class="fu">nrow</span>(df)<span class="sc">*</span><span class="fl">0.8</span>,<span class="at">digits =</span> <span class="dv">0</span>) <span class="co">#Setting the training size</span></span>
+<span id="cb85-3"><a href="exercises.html#cb85-3" aria-hidden="true" tabindex="-1"></a>train.index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df)),<span class="at">size =</span> train.size) <span class="co">#setting seed and creating vector for index</span></span>
+<span id="cb85-4"><a href="exercises.html#cb85-4" aria-hidden="true" tabindex="-1"></a>mm <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(year <span class="sc">~</span> .,<span class="at">data =</span> df)[,<span class="sc">-</span><span class="dv">1</span>] <span class="co">#tried to make it mm first, to get rid of having variables that were in one partition but not the other.</span></span>
+<span id="cb85-5"><a href="exercises.html#cb85-5" aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> df<span class="sc">$</span>year</span>
+<span id="cb85-6"><a href="exercises.html#cb85-6" aria-hidden="true" tabindex="-1"></a>train.df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(year,mm[train.index,])) <span class="co">#crating the training set</span></span>
+<span id="cb85-7"><a href="exercises.html#cb85-7" aria-hidden="true" tabindex="-1"></a>test.df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(year,mm[<span class="sc">-</span>train.index,])) <span class="co">#creating the testing set</span></span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="exercises.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gam)</span>
+<span id="cb86-2"><a href="exercises.html#cb86-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-3"><a href="exercises.html#cb86-3" aria-hidden="true" tabindex="-1"></a>gam.m1 <span class="ot">&lt;-</span> <span class="fu">gam</span>(year <span class="sc">~</span> <span class="fu">s</span>(train.df<span class="sc">$</span>mpg,<span class="at">df =</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="fu">s</span>(train.df<span class="sc">$</span>cylinders,<span class="at">df =</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="fu">s</span>(train.df<span class="sc">$</span>displacement,<span class="at">df =</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="fu">s</span>(train.df<span class="sc">$</span>horsepower,<span class="at">df =</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="fu">s</span>(train.df<span class="sc">$</span>weight,<span class="at">df =</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="fu">s</span>(train.df<span class="sc">$</span>acceleration,<span class="at">df =</span> <span class="dv">5</span>) <span class="sc">+</span> .</span>
+<span id="cb86-4"><a href="exercises.html#cb86-4" aria-hidden="true" tabindex="-1"></a>           ,<span class="at">data =</span> train.df)</span>
+<span id="cb86-5"><a href="exercises.html#cb86-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-6"><a href="exercises.html#cb86-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gam.m1)</span></code></pre></div>
+<pre><code>## 
+## Call: gam(formula = year ~ s(train.df$mpg, df = 5) + s(train.df$cylinders, 
+##     df = 5) + s(train.df$displacement, df = 5) + s(train.df$horsepower, 
+##     df = 5) + s(train.df$weight, df = 5) + s(train.df$acceleration, 
+##     df = 5) + ., data = train.df)
+## Deviance Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.5818 -2.0705 -0.2068  2.0660  6.0843 
+## 
+## (Dispersion Parameter for gaussian family taken to be 8.889)
+## 
+##     Null Deviance: 2675.86 on 313 degrees of freedom
+## Residual Deviance: 2266.693 on 255.0004 degrees of freedom
+## AIC: 1631.771 
+## 
+## Number of Local Scoring Iterations: NA 
+## 
+## Anova for Parametric Effects
+##                                               Df  Sum Sq Mean Sq F value
+## s(train.df$mpg, df = 5)                        1   10.71  10.707  1.2045
+## s(train.df$cylinders, df = 5)                  1    0.00   0.002  0.0003
+## s(train.df$displacement, df = 5)               1    2.44   2.441  0.2747
+## s(train.df$horsepower, df = 5)                 1    0.13   0.134  0.0151
+## s(train.df$weight, df = 5)                     1    5.93   5.926  0.6667
+## s(train.df$acceleration, df = 5)               1    1.52   1.517  0.1706
+## origin2                                        1   16.05  16.050  1.8056
+## origin3                                        1   11.10  11.097  1.2484
+## `\\`as.factor(bn.list[[6]])\\`audi`            1    6.53   6.526  0.7342
+## `\\`as.factor(bn.list[[6]])\\`bmw`             1   32.67  32.668  3.6751
+## `\\`as.factor(bn.list[[6]])\\`buick`           1    8.31   8.307  0.9345
+## `\\`as.factor(bn.list[[6]])\\`cadillac`        1    0.85   0.854  0.0960
+## `\\`as.factor(bn.list[[6]])\\`capri`           1    0.00   0.003  0.0004
+## `\\`as.factor(bn.list[[6]])\\`chevrolet`       1    0.23   0.230  0.0258
+## `\\`as.factor(bn.list[[6]])\\`chevy`           1    0.00   0.003  0.0004
+## `\\`as.factor(bn.list[[6]])\\`chrysler`        1   46.30  46.301  5.2088
+## `\\`as.factor(bn.list[[6]])\\`datsun`          1   18.32  18.321  2.0611
+## `\\`as.factor(bn.list[[6]])\\`dodge`           1    2.70   2.702  0.3040
+## `\\`as.factor(bn.list[[6]])\\`fiat`            1    1.89   1.895  0.2132
+## `\\`as.factor(bn.list[[6]])\\`ford`            1   25.85  25.847  2.9077
+## `\\`as.factor(bn.list[[6]])\\`hi`              1    0.34   0.337  0.0379
+## `\\`as.factor(bn.list[[6]])\\`honda`           1    3.40   3.401  0.3826
+## `\\`as.factor(bn.list[[6]])\\`mazda`           1    4.99   4.986  0.5609
+## `\\`as.factor(bn.list[[6]])\\`mercedes-benz`   1    0.01   0.014  0.0016
+## `\\`as.factor(bn.list[[6]])\\`mercury`         1    0.31   0.313  0.0352
+## `\\`as.factor(bn.list[[6]])\\`nissan`          1    3.68   3.684  0.4145
+## `\\`as.factor(bn.list[[6]])\\`oldsmobile`      1   18.12  18.124  2.0389
+## `\\`as.factor(bn.list[[6]])\\`opel`            1    0.30   0.303  0.0341
+## `\\`as.factor(bn.list[[6]])\\`peugeot`         1    1.79   1.794  0.2018
+## `\\`as.factor(bn.list[[6]])\\`plymouth`        1    0.53   0.527  0.0593
+## `\\`as.factor(bn.list[[6]])\\`pontiac`         1    4.37   4.374  0.4921
+## `\\`as.factor(bn.list[[6]])\\`renault`         1   16.53  16.533  1.8600
+## `\\`as.factor(bn.list[[6]])\\`saab`            1    0.10   0.103  0.0115
+## `\\`as.factor(bn.list[[6]])\\`subaru`          1    0.00   0.001  0.0001
+## `\\`as.factor(bn.list[[6]])\\`volkswagen`      1    0.63   0.634  0.0713
+## Residuals                                    255 2266.69   8.889        
+##                                               Pr(&gt;F)  
+## s(train.df$mpg, df = 5)                      0.27346  
+## s(train.df$cylinders, df = 5)                0.98665  
+## s(train.df$displacement, df = 5)             0.60068  
+## s(train.df$horsepower, df = 5)               0.90226  
+## s(train.df$weight, df = 5)                   0.41496  
+## s(train.df$acceleration, df = 5)             0.67989  
+## origin2                                      0.18023  
+## origin3                                      0.26491  
+## `\\`as.factor(bn.list[[6]])\\`audi`          0.39233  
+## `\\`as.factor(bn.list[[6]])\\`bmw`           0.05635 .
+## `\\`as.factor(bn.list[[6]])\\`buick`         0.33460  
+## `\\`as.factor(bn.list[[6]])\\`cadillac`      0.75690  
+## `\\`as.factor(bn.list[[6]])\\`capri`         0.98494  
+## `\\`as.factor(bn.list[[6]])\\`chevrolet`     0.87244  
+## `\\`as.factor(bn.list[[6]])\\`chevy`         0.98454  
+## `\\`as.factor(bn.list[[6]])\\`chrysler`      0.02330 *
+## `\\`as.factor(bn.list[[6]])\\`datsun`        0.15233  
+## `\\`as.factor(bn.list[[6]])\\`dodge`         0.58186  
+## `\\`as.factor(bn.list[[6]])\\`fiat`          0.64469  
+## `\\`as.factor(bn.list[[6]])\\`ford`          0.08937 .
+## `\\`as.factor(bn.list[[6]])\\`hi`            0.84586  
+## `\\`as.factor(bn.list[[6]])\\`honda`         0.53679  
+## `\\`as.factor(bn.list[[6]])\\`mazda`         0.45459  
+## `\\`as.factor(bn.list[[6]])\\`mercedes-benz` 0.96840  
+## `\\`as.factor(bn.list[[6]])\\`mercury`       0.85133  
+## `\\`as.factor(bn.list[[6]])\\`nissan`        0.52028  
+## `\\`as.factor(bn.list[[6]])\\`oldsmobile`    0.15454  
+## `\\`as.factor(bn.list[[6]])\\`opel`          0.85372  
+## `\\`as.factor(bn.list[[6]])\\`peugeot`       0.65362  
+## `\\`as.factor(bn.list[[6]])\\`plymouth`      0.80775  
+## `\\`as.factor(bn.list[[6]])\\`pontiac`       0.48365  
+## `\\`as.factor(bn.list[[6]])\\`renault`       0.17383  
+## `\\`as.factor(bn.list[[6]])\\`saab`          0.91452  
+## `\\`as.factor(bn.list[[6]])\\`subaru`        0.99320  
+## `\\`as.factor(bn.list[[6]])\\`volkswagen`    0.78966  
+## Residuals                                             
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Anova for Nonparametric Effects
+##                                              Npar Df  Npar F  Pr(F)
+## (Intercept)                                                        
+## s(train.df$mpg, df = 5)                            4 0.97458 0.4219
+## s(train.df$cylinders, df = 5)                      3 0.63467 0.5933
+## s(train.df$displacement, df = 5)                   4 1.72358 0.1452
+## s(train.df$horsepower, df = 5)                     4 1.13935 0.3384
+## s(train.df$weight, df = 5)                         4 0.69772 0.5941
+## s(train.df$acceleration, df = 5)                   4 0.93342 0.4451
+## mpg                                                                
+## cylinders                                                          
+## displacement                                                       
+## horsepower                                                         
+## weight                                                             
+## acceleration                                                       
+## origin2                                                            
+## origin3                                                            
+## `\\`as.factor(bn.list[[6]])\\`audi`                                
+## `\\`as.factor(bn.list[[6]])\\`bmw`                                 
+## `\\`as.factor(bn.list[[6]])\\`buick`                               
+## `\\`as.factor(bn.list[[6]])\\`cadillac`                            
+## `\\`as.factor(bn.list[[6]])\\`capri`                               
+## `\\`as.factor(bn.list[[6]])\\`chevrolet`                           
+## `\\`as.factor(bn.list[[6]])\\`chevy`                               
+## `\\`as.factor(bn.list[[6]])\\`chrysler`                            
+## `\\`as.factor(bn.list[[6]])\\`datsun`                              
+## `\\`as.factor(bn.list[[6]])\\`dodge`                               
+## `\\`as.factor(bn.list[[6]])\\`fiat`                                
+## `\\`as.factor(bn.list[[6]])\\`ford`                                
+## `\\`as.factor(bn.list[[6]])\\`hi`                                  
+## `\\`as.factor(bn.list[[6]])\\`honda`                               
+## `\\`as.factor(bn.list[[6]])\\`mazda`                               
+## `\\`as.factor(bn.list[[6]])\\`mercedes-benz`                       
+## `\\`as.factor(bn.list[[6]])\\`mercury`                             
+## `\\`as.factor(bn.list[[6]])\\`nissan`                              
+## `\\`as.factor(bn.list[[6]])\\`oldsmobile`                          
+## `\\`as.factor(bn.list[[6]])\\`opel`                                
+## `\\`as.factor(bn.list[[6]])\\`peugeot`                             
+## `\\`as.factor(bn.list[[6]])\\`plymouth`                            
+## `\\`as.factor(bn.list[[6]])\\`pontiac`                             
+## `\\`as.factor(bn.list[[6]])\\`renault`                             
+## `\\`as.factor(bn.list[[6]])\\`saab`                                
+## `\\`as.factor(bn.list[[6]])\\`subaru`                              
+## `\\`as.factor(bn.list[[6]])\\`toyota`                              
+## `\\`as.factor(bn.list[[6]])\\`triumph`                             
+## `\\`as.factor(bn.list[[6]])\\`volkswagen`                          
+## `\\`as.factor(bn.list[[6]])\\`volvo`</code></pre>
+<p>It appears as if non of the parameters are good predictors.</p>
+<p>Then one could try out other models, or perhaps it is just very difficult with the data at hand to predict the year of the car.</p>
 </div>
 <div id="exercise-9" class="section level3" number="2.4.4">
 <h3><span class="header-section-number">2.4.4</span> Exercise 9</h3>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="exercises.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb88-2"><a href="exercises.html#cb88-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> Boston</span>
+<span id="cb88-3"><a href="exercises.html#cb88-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(df<span class="sc">$</span>nox,df<span class="sc">$</span>dis))</span>
+<span id="cb88-4"><a href="exercises.html#cb88-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;nox&quot;</span>,<span class="st">&quot;dis&quot;</span>)</span></code></pre></div>
+<div id="a-using-poly-function-to-fit-cubic-polynomial-regression" class="section level4" number="2.4.4.1">
+<h4><span class="header-section-number">2.4.4.1</span> (a) using poly function to fit cubic polynomial regression</h4>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="exercises.html#cb89-1" aria-hidden="true" tabindex="-1"></a>fit.poly <span class="ot">&lt;-</span> <span class="fu">lm</span>(nox <span class="sc">~</span> <span class="fu">poly</span>(dis,<span class="dv">3</span>),<span class="at">data =</span> df)</span>
+<span id="cb89-2"><a href="exercises.html#cb89-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.poly)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = nox ~ poly(dis, 3), data = df)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -0.121130 -0.040619 -0.009738  0.023385  0.194904 
+## 
+## Coefficients:
+##                Estimate Std. Error t value    Pr(&gt;|t|)    
+## (Intercept)    0.554695   0.002759 201.021     &lt; 2e-16 ***
+## poly(dis, 3)1 -2.003096   0.062071 -32.271     &lt; 2e-16 ***
+## poly(dis, 3)2  0.856330   0.062071  13.796     &lt; 2e-16 ***
+## poly(dis, 3)3 -0.318049   0.062071  -5.124 0.000000427 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.06207 on 502 degrees of freedom
+## Multiple R-squared:  0.7148, Adjusted R-squared:  0.7131 
+## F-statistic: 419.3 on 3 and 502 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Remember that we are not interested in the coefficients as they are misleading, thus we want to look at the shape.</p>
+<p>The table above is mostly presented for explanatory reasons.</p>
+<p>As we are interested in the curve, we can fit that.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="exercises.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Defining range</span></span>
+<span id="cb91-2"><a href="exercises.html#cb91-2" aria-hidden="true" tabindex="-1"></a>dislims <span class="ot">&lt;-</span> <span class="fu">range</span>(df<span class="sc">$</span>dis)</span>
+<span id="cb91-3"><a href="exercises.html#cb91-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> (dislims[<span class="dv">2</span>]<span class="sc">-</span>dislims[<span class="dv">1</span>])<span class="sc">/</span><span class="fu">nrow</span>(df)</span>
+<span id="cb91-4"><a href="exercises.html#cb91-4" aria-hidden="true" tabindex="-1"></a>dis.grid <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> dislims[<span class="dv">1</span>],<span class="at">to =</span> dislims[<span class="dv">2</span>],<span class="at">by =</span> n)</span>
+<span id="cb91-5"><a href="exercises.html#cb91-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-6"><a href="exercises.html#cb91-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Predictions for the plot</span></span>
+<span id="cb91-7"><a href="exercises.html#cb91-7" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="at">object =</span> fit.poly,<span class="at">newdata =</span> <span class="fu">list</span>(<span class="at">dis =</span> dis.grid))</span>
+<span id="cb91-8"><a href="exercises.html#cb91-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-9"><a href="exercises.html#cb91-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotting</span></span>
+<span id="cb91-10"><a href="exercises.html#cb91-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nox <span class="sc">~</span> dis, <span class="at">data =</span> df, <span class="at">col =</span> <span class="st">&quot;darkgrey&quot;</span>)</span>
+<span id="cb91-11"><a href="exercises.html#cb91-11" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb91-12"><a href="exercises.html#cb91-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">x =</span> dis.grid,<span class="at">y =</span>  preds, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,<span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb91-13"><a href="exercises.html#cb91-13" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;Cubic polynomial&quot;</span>)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-72-1.png" width="720" style="display: block; margin: auto;" /></p>
+</div>
+<div id="b-plotting-polynomial-fits-for-a-range-of-polynomials" class="section level4" number="2.4.4.2">
+<h4><span class="header-section-number">2.4.4.2</span> (b) Plotting polynomial fits for a range of polynomials</h4>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="exercises.html#cb92-1" aria-hidden="true" tabindex="-1"></a>models <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb92-2"><a href="exercises.html#cb92-2" aria-hidden="true" tabindex="-1"></a>RSS <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb92-3"><a href="exercises.html#cb92-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (d <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
+<span id="cb92-4"><a href="exercises.html#cb92-4" aria-hidden="true" tabindex="-1"></a>  models[[d]] <span class="ot">&lt;-</span> <span class="fu">lm</span>(nox <span class="sc">~</span> <span class="fu">poly</span>(dis,d),<span class="at">data =</span> df)</span>
+<span id="cb92-5"><a href="exercises.html#cb92-5" aria-hidden="true" tabindex="-1"></a>  RSS[d] <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">residuals</span>(models[[d]])<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb92-6"><a href="exercises.html#cb92-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb92-7"><a href="exercises.html#cb92-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(RSS,<span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span>
+<span id="cb92-8"><a href="exercises.html#cb92-8" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> <span class="fu">which.min</span>(RSS),<span class="at">y =</span> RSS[<span class="fu">which.min</span>(RSS)],<span class="at">col =</span> <span class="st">&quot;red&quot;</span>,<span class="at">pch =</span> <span class="dv">19</span>)</span>
+<span id="cb92-9"><a href="exercises.html#cb92-9" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb92-10"><a href="exercises.html#cb92-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">min</span>(RSS),<span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,<span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb92-11"><a href="exercises.html#cb92-11" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;In-sample error&quot;</span>)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-73-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>We see that the RSS decrease with complexity, that it as expected, as we fit to the in sample data. We could do this with a partition of the data to see out of performance instead.</p>
+</div>
+<div id="c-using-cv-to-select-best-degree-of-d" class="section level4" number="2.4.4.3">
+<h4><span class="header-section-number">2.4.4.3</span> (c) Using CV to select best degree of d</h4>
+<p>Here we run a loop with cross validation to see how the different order of d performs. As the partitions are randomly selected, we preduce 10 simulations to see which orders that tend to occur most often.</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="exercises.html#cb93-1" aria-hidden="true" tabindex="-1"></a>models <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb93-2"><a href="exercises.html#cb93-2" aria-hidden="true" tabindex="-1"></a>RSS <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb93-3"><a href="exercises.html#cb93-3" aria-hidden="true" tabindex="-1"></a>CV.RSS <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb93-4"><a href="exercises.html#cb93-4" aria-hidden="true" tabindex="-1"></a>CV.RSS.sim <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb93-5"><a href="exercises.html#cb93-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-6"><a href="exercises.html#cb93-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>) {</span>
+<span id="cb93-7"><a href="exercises.html#cb93-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (d <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
+<span id="cb93-8"><a href="exercises.html#cb93-8" aria-hidden="true" tabindex="-1"></a>  models[[d]] <span class="ot">&lt;-</span> <span class="fu">glm</span>(nox <span class="sc">~</span> <span class="fu">poly</span>(dis,d),<span class="at">data =</span> df)</span>
+<span id="cb93-9"><a href="exercises.html#cb93-9" aria-hidden="true" tabindex="-1"></a>  RSS[d] <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">residuals</span>(models[[d]])<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb93-10"><a href="exercises.html#cb93-10" aria-hidden="true" tabindex="-1"></a>  CV.RSS[d] <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(<span class="at">data =</span> df,<span class="at">glmfit =</span> models[[d]],<span class="at">K =</span> <span class="dv">10</span>)<span class="sc">$</span>delta[<span class="dv">2</span>] <span class="co">#Delta = prediction error (adjusted)</span></span>
+<span id="cb93-11"><a href="exercises.html#cb93-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb93-12"><a href="exercises.html#cb93-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb93-13"><a href="exercises.html#cb93-13" aria-hidden="true" tabindex="-1"></a>  CV.RSS.sim[i] <span class="ot">&lt;-</span> <span class="fu">which.min</span>(CV.RSS)</span>
+<span id="cb93-14"><a href="exercises.html#cb93-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb93-15"><a href="exercises.html#cb93-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-16"><a href="exercises.html#cb93-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotting prediction error</span></span>
+<span id="cb93-17"><a href="exercises.html#cb93-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(CV.RSS,<span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span>
+<span id="cb93-18"><a href="exercises.html#cb93-18" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> <span class="fu">which.min</span>(CV.RSS),<span class="at">y =</span> CV.RSS[<span class="fu">which.min</span>(CV.RSS)],<span class="at">col =</span> <span class="st">&quot;red&quot;</span>,<span class="at">pch =</span> <span class="dv">19</span>)</span>
+<span id="cb93-19"><a href="exercises.html#cb93-19" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb93-20"><a href="exercises.html#cb93-20" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">min</span>(CV.RSS),<span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,<span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb93-21"><a href="exercises.html#cb93-21" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;CV K = 10 prediction error&quot;</span>)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-74-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="exercises.html#cb94-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-2"><a href="exercises.html#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotting simulations</span></span>
+<span id="cb94-3"><a href="exercises.html#cb94-3" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(CV.RSS.sim),<span class="at">xlab =</span> <span class="st">&quot;Degree of d&quot;</span>,<span class="at">ylab =</span> <span class="st">&quot;Frequency&quot;</span>)</span>
+<span id="cb94-4"><a href="exercises.html#cb94-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>)</span>
+<span id="cb94-5"><a href="exercises.html#cb94-5" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;CV K = 10, Iterations = 20&quot;</span>)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-74-2.png" width="720" style="display: block; margin: auto;" /></p>
+<p>In these simulations we see that the best fit is likely to be with using .</p>
+<p>It is actually quite interesting that a model with 10 degrees of d is as competitive as 4 in this example, although the cubic model is far superior than the other models.</p>
+</div>
+<div id="d-use-bs-to-fit-a-regression-spline" class="section level4" number="2.4.4.4">
+<h4><span class="header-section-number">2.4.4.4</span> (d) Use <code>bs()</code> to fit a regression spline</h4>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="exercises.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb95-2"><a href="exercises.html#cb95-2" aria-hidden="true" tabindex="-1"></a>fit.bs <span class="ot">&lt;-</span> <span class="fu">lm</span>(nox <span class="sc">~</span> <span class="fu">bs</span>(dis,<span class="at">df =</span> <span class="dv">4</span>),<span class="at">data =</span> df) <span class="co">#Note as degree is not defined, default = 3</span></span>
+<span id="cb95-3"><a href="exercises.html#cb95-3" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="at">object =</span> fit.bs,<span class="at">newdata =</span> <span class="fu">list</span>(<span class="at">dis =</span> dis.grid))</span>
+<span id="cb95-4"><a href="exercises.html#cb95-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> df<span class="sc">$</span>dis,<span class="at">y =</span> df<span class="sc">$</span>nox,<span class="at">col =</span> <span class="st">&quot;darkgrey&quot;</span>,<span class="at">pch =</span> <span class="dv">20</span>,<span class="at">ylab =</span> <span class="st">&quot;nox&quot;</span>,<span class="at">xlab =</span> <span class="st">&quot;dis&quot;</span>)</span>
+<span id="cb95-5"><a href="exercises.html#cb95-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">x =</span> dis.grid,<span class="at">y =</span> preds,<span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,<span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb95-6"><a href="exercises.html#cb95-6" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb95-7"><a href="exercises.html#cb95-7" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;Regression Spline df = 4&quot;</span>)</span>
+<span id="cb95-8"><a href="exercises.html#cb95-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">3.20745</span>,<span class="at">col =</span> <span class="st">&quot;red&quot;</span>,<span class="at">lty =</span> <span class="dv">2</span>) <span class="co">#This is the cut, found in next chunk</span></span>
+<span id="cb95-9"><a href="exercises.html#cb95-9" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x =</span> <span class="st">&quot;topright&quot;</span>,<span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;fit&quot;</span>,<span class="st">&quot;cut&quot;</span>),<span class="at">lty =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;red&quot;</span>))</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-75-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>Notice that we merely specified the amount of df that we wanted. The function merely specified them automatically. We can interpret these, by using <code>dim()</code> and <code>attr()</code>.</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="exercises.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">dim</span>(<span class="fu">bs</span>(df<span class="sc">$</span>dis,<span class="at">df =</span> <span class="dv">4</span>)))</span></code></pre></div>
+<pre><code>## [1] 506   4</code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="exercises.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(<span class="fu">bs</span>(df<span class="sc">$</span>dis,<span class="at">df =</span> <span class="dv">4</span>),<span class="st">&quot;knots&quot;</span>)</span></code></pre></div>
+<pre><code>##     50% 
+## 3.20745</code></pre>
+<p>We see that a model with 4 degrees of freedom yields one cut. Where the model put this at 50%, hence the first half (up to 3.20745). For simplicity, this cut has been added to the plot above, to show where the spline is split.</p>
+</div>
+<div id="e-now-fit-a-regression-spline" class="section level4" number="2.4.4.5">
+<h4><span class="header-section-number">2.4.4.5</span> (e) Now fit a regression spline</h4>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="exercises.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb100-2"><a href="exercises.html#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (d <span class="cf">in</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">7</span>) {</span>
+<span id="cb100-3"><a href="exercises.html#cb100-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#The fit + preds</span></span>
+<span id="cb100-4"><a href="exercises.html#cb100-4" aria-hidden="true" tabindex="-1"></a>  fit.bs <span class="ot">&lt;-</span> <span class="fu">lm</span>(nox <span class="sc">~</span> <span class="fu">bs</span>(dis,<span class="at">df =</span> d,<span class="at">degree =</span> <span class="dv">3</span>),<span class="at">data =</span> df)</span>
+<span id="cb100-5"><a href="exercises.html#cb100-5" aria-hidden="true" tabindex="-1"></a>  preds <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="at">object =</span> fit.bs,<span class="at">newdata =</span> <span class="fu">list</span>(<span class="at">dis =</span> dis.grid))</span>
+<span id="cb100-6"><a href="exercises.html#cb100-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb100-7"><a href="exercises.html#cb100-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Cut</span></span>
+<span id="cb100-8"><a href="exercises.html#cb100-8" aria-hidden="true" tabindex="-1"></a>  cut <span class="ot">&lt;-</span> <span class="fu">attr</span>(<span class="fu">bs</span>(df<span class="sc">$</span>dis,<span class="at">df =</span> d),<span class="st">&quot;knots&quot;</span>)</span>
+<span id="cb100-9"><a href="exercises.html#cb100-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb100-10"><a href="exercises.html#cb100-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Plot</span></span>
+<span id="cb100-11"><a href="exercises.html#cb100-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">x =</span> df<span class="sc">$</span>dis,<span class="at">y =</span> df<span class="sc">$</span>nox,<span class="at">col =</span> <span class="st">&quot;darkgrey&quot;</span>,<span class="at">pch =</span> <span class="dv">20</span>,<span class="at">ylab =</span> <span class="st">&quot;nox&quot;</span>,<span class="at">xlab =</span> <span class="st">&quot;dis&quot;</span>)</span>
+<span id="cb100-12"><a href="exercises.html#cb100-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="at">x =</span> dis.grid,<span class="at">y =</span> preds,<span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,<span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb100-13"><a href="exercises.html#cb100-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grid</span>()</span>
+<span id="cb100-14"><a href="exercises.html#cb100-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">title</span>(<span class="fu">paste</span>(<span class="st">&quot;Cubic Regression Spline, df =&quot;</span>,d))</span>
+<span id="cb100-15"><a href="exercises.html#cb100-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">v =</span> cut,<span class="at">col =</span> <span class="st">&quot;red&quot;</span>,<span class="at">lty =</span> <span class="dv">2</span>) <span class="co">#This is the cut, found in next chunk</span></span>
+<span id="cb100-16"><a href="exercises.html#cb100-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="at">x =</span> <span class="st">&quot;topright&quot;</span>,<span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;fit&quot;</span>,<span class="st">&quot;cut&quot;</span>),<span class="at">lty =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;red&quot;</span>))</span>
+<span id="cb100-17"><a href="exercises.html#cb100-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-77-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>We start at four degrees of freedom as a model with only three degrees of freedom, hence cubic regression (three orders of polynomials) = three degrees of freedom <strong>(this has to be fact checked)</strong>.</p>
+<p>As we add complexity with knots we also adds degrees of freedom, where we add one degree of freedom for each cut, hence for the cubic spline with 7 degrees of freedom, four cuts and three polynomials <strong>(this has to be fact checked)</strong>.</p>
+</div>
+<div id="f" class="section level4" number="2.4.4.6">
+<h4><span class="header-section-number">2.4.4.6</span> (f)</h4>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="exercises.html#cb101-1" aria-hidden="true" tabindex="-1"></a>models <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb101-2"><a href="exercises.html#cb101-2" aria-hidden="true" tabindex="-1"></a>RSS <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb101-3"><a href="exercises.html#cb101-3" aria-hidden="true" tabindex="-1"></a>CV.RSS.sim <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb101-4"><a href="exercises.html#cb101-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-5"><a href="exercises.html#cb101-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>) {</span>
+<span id="cb101-6"><a href="exercises.html#cb101-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (d <span class="cf">in</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">15</span>) {</span>
+<span id="cb101-7"><a href="exercises.html#cb101-7" aria-hidden="true" tabindex="-1"></a>  models[[d]] <span class="ot">&lt;-</span> <span class="fu">glm</span>(nox <span class="sc">~</span> <span class="fu">bs</span>(dis,<span class="at">df =</span> d,<span class="at">degree =</span> <span class="dv">3</span>),<span class="at">data =</span> df)</span>
+<span id="cb101-8"><a href="exercises.html#cb101-8" aria-hidden="true" tabindex="-1"></a>  RSS[d] <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">residuals</span>(models[[d]])<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb101-9"><a href="exercises.html#cb101-9" aria-hidden="true" tabindex="-1"></a>  CV.RSS[d] <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(<span class="at">data =</span> df,<span class="at">glmfit =</span> models[[d]],<span class="at">K =</span> <span class="dv">10</span>)<span class="sc">$</span>delta[<span class="dv">2</span>] <span class="co">#Delta = prediction error (adjusted)</span></span>
+<span id="cb101-10"><a href="exercises.html#cb101-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb101-11"><a href="exercises.html#cb101-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb101-12"><a href="exercises.html#cb101-12" aria-hidden="true" tabindex="-1"></a>  CV.RSS.sim[i] <span class="ot">&lt;-</span> <span class="fu">which.min</span>(CV.RSS)</span>
+<span id="cb101-13"><a href="exercises.html#cb101-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb101-14"><a href="exercises.html#cb101-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-15"><a href="exercises.html#cb101-15" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="fl">4.5</span>,<span class="fl">4.5</span>,<span class="fl">2.1</span>),<span class="at">oma =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb101-16"><a href="exercises.html#cb101-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-17"><a href="exercises.html#cb101-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotting prediction error</span></span>
+<span id="cb101-18"><a href="exercises.html#cb101-18" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(CV.RSS,<span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span>
+<span id="cb101-19"><a href="exercises.html#cb101-19" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> <span class="fu">which.min</span>(CV.RSS),<span class="at">y =</span> CV.RSS[<span class="fu">which.min</span>(CV.RSS)],<span class="at">col =</span> <span class="st">&quot;red&quot;</span>,<span class="at">pch =</span> <span class="dv">19</span>)</span>
+<span id="cb101-20"><a href="exercises.html#cb101-20" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb101-21"><a href="exercises.html#cb101-21" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">min</span>(CV.RSS),<span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,<span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb101-22"><a href="exercises.html#cb101-22" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;CV K = 10 prediction error&quot;</span>)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-78-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="exercises.html#cb102-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-2"><a href="exercises.html#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotting simulations</span></span>
+<span id="cb102-3"><a href="exercises.html#cb102-3" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(CV.RSS.sim),<span class="at">xlab =</span> <span class="st">&quot;Degree of d&quot;</span>,<span class="at">ylab =</span> <span class="st">&quot;Frequency&quot;</span>)</span>
+<span id="cb102-4"><a href="exercises.html#cb102-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>)</span>
+<span id="cb102-5"><a href="exercises.html#cb102-5" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;CV K = 10, Iterations = 20&quot;</span>)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-78-2.png" width="720" style="display: block; margin: auto;" /></p>
+<p>First we see the last iteration and the prediction error hereof. Overall we see that it tend to be the rather complex models tend to be</p>
+</div>
 </div>
 <div id="exercise-10" class="section level3" number="2.4.5">
 <h3><span class="header-section-number">2.4.5</span> Exercise 10</h3>
+<div id="a-partitioning-the-data" class="section level4" number="2.4.5.1">
+<h4><span class="header-section-number">2.4.5.1</span> (a) Partitioning the data</h4>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="exercises.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Loading</span></span>
+<span id="cb103-2"><a href="exercises.html#cb103-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> College</span>
+<span id="cb103-3"><a href="exercises.html#cb103-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-4"><a href="exercises.html#cb103-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Partitioning</span></span>
+<span id="cb103-5"><a href="exercises.html#cb103-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1337</span>)</span>
+<span id="cb103-6"><a href="exercises.html#cb103-6" aria-hidden="true" tabindex="-1"></a>train.size <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="at">x =</span> <span class="fu">nrow</span>(df)<span class="sc">*</span><span class="fl">0.8</span>,<span class="at">digits =</span> <span class="dv">0</span>) <span class="co">#Setting the training size</span></span>
+<span id="cb103-7"><a href="exercises.html#cb103-7" aria-hidden="true" tabindex="-1"></a>train.index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df)),<span class="at">size =</span> train.size) <span class="co">#setting seed and creating vector for index</span></span>
+<span id="cb103-8"><a href="exercises.html#cb103-8" aria-hidden="true" tabindex="-1"></a>train.df <span class="ot">&lt;-</span> df[train.index,] <span class="co">#crating the training set</span></span>
+<span id="cb103-9"><a href="exercises.html#cb103-9" aria-hidden="true" tabindex="-1"></a>test.df <span class="ot">&lt;-</span> df[<span class="sc">-</span>train.index,] <span class="co">#creating the testing set</span></span>
+<span id="cb103-10"><a href="exercises.html#cb103-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(train.size)</span>
+<span id="cb103-11"><a href="exercises.html#cb103-11" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(train.index)</span></code></pre></div>
+<p>Finding the best subset using forward selection</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="exercises.html#cb104-1" aria-hidden="true" tabindex="-1"></a>reg_null <span class="ot">&lt;-</span> <span class="fu">lm</span>(Outstate <span class="sc">~</span> <span class="dv">1</span>,<span class="at">data =</span> train.df) <span class="co">#The null  models</span></span>
+<span id="cb104-2"><a href="exercises.html#cb104-2" aria-hidden="true" tabindex="-1"></a>reg_full <span class="ot">&lt;-</span> <span class="fu">lm</span>(Outstate <span class="sc">~</span> .,<span class="at">data =</span> train.df) <span class="co">#The full model</span></span>
+<span id="cb104-3"><a href="exercises.html#cb104-3" aria-hidden="true" tabindex="-1"></a>step.for <span class="ot">&lt;-</span> <span class="fu">stepAIC</span>(<span class="at">direction =</span> <span class="st">&quot;forward&quot;</span>,<span class="at">object =</span> reg_null,<span class="at">trace =</span> <span class="cn">TRUE</span>,<span class="at">scope =</span> <span class="fu">list</span>(<span class="at">upper =</span> reg_full,<span class="at">lower =</span> reg_null))</span></code></pre></div>
+<pre><code>## Start:  AIC=10345.68
+## Outstate ~ 1
+## 
+##               Df  Sum of Sq         RSS     AIC
+## + Expend       1 4629213116  5745572675  9980.1
+## + Room.Board   1 4590249421  5784536370  9984.3
+## + Grad.Rate    1 3627082940  6747702852 10080.1
+## + Top10perc    1 3457381465  6917404327 10095.6
+## + perc.alumni  1 3450011987  6924773804 10096.2
+## + S.F.Ratio    1 3359826734  7014959058 10104.3
+## + Private      1 3075173999  7299611793 10129.0
+## + Top25perc    1 2644625673  7730160118 10164.7
+## + Terminal     1 2115825269  8258960523 10205.8
+## + PhD          1 1886906305  8487879487 10222.8
+## + Personal     1  735337851  9639447941 10301.9
+## + P.Undergrad  1  571871111  9802914681 10312.4
+## + F.Undergrad  1  404016737  9970769054 10323.0
+## + Enroll       1  180722874 10194062918 10336.7
+## + Apps         1   52841694 10321944097 10344.5
+## &lt;none&gt;                      10374785791 10345.7
+## + Books        1   14584993 10360200799 10346.8
+## + Accept       1      90338 10374695453 10347.7
+## 
+## Step:  AIC=9980.11
+## Outstate ~ Expend
+## 
+##               Df  Sum of Sq        RSS    AIC
+## + Private      1 1549696145 4195876531 9786.6
+## + Room.Board   1 1512070540 4233502135 9792.1
+## + Grad.Rate    1 1328830834 4416741842 9818.5
+## + perc.alumni  1 1089768014 4655804661 9851.3
+## + Personal     1  501146318 5244426358 9925.3
+## + S.F.Ratio    1  464809224 5280763451 9929.6
+## + F.Undergrad  1  454756490 5290816185 9930.8
+## + P.Undergrad  1  349207380 5396365295 9943.1
+## + Top10perc    1  346779721 5398792955 9943.4
+## + Top25perc    1  345553704 5400018971 9943.5
+## + Enroll       1  331862326 5413710349 9945.1
+## + Terminal     1  269786468 5475786207 9952.2
+## + PhD          1  210830779 5534741896 9958.9
+## + Apps         1  110876800 5634695875 9970.0
+## + Accept       1   85558833 5660013842 9972.8
+## + Books        1   18850616 5726722060 9980.1
+## &lt;none&gt;                      5745572675 9980.1
+## 
+## Step:  AIC=9786.59
+## Outstate ~ Expend + Private
+## 
+##               Df Sum of Sq        RSS    AIC
+## + Room.Board   1 876836109 3319040422 9642.8
+## + Terminal     1 743790341 3452086190 9667.2
+## + Grad.Rate    1 703122598 3492753933 9674.5
+## + PhD          1 693220664 3502655866 9676.3
+## + perc.alumni  1 408270963 3787605568 9724.9
+## + Top25perc    1 401010315 3794866215 9726.1
+## + Top10perc    1 319956878 3875919653 9739.3
+## + Accept       1 152840390 4043036140 9765.5
+## + Personal     1 128047157 4067829374 9769.3
+## + Apps         1 118364448 4077512083 9770.8
+## + Enroll       1  37847497 4158029034 9783.0
+## + S.F.Ratio    1  28944091 4166932439 9784.3
+## + F.Undergrad  1  16848576 4179027955 9786.1
+## &lt;none&gt;                     4195876531 9786.6
+## + Books        1   5437161 4190439370 9787.8
+## + P.Undergrad  1   3721562 4192154968 9788.0
+## 
+## Step:  AIC=9642.78
+## Outstate ~ Expend + Private + Room.Board
+## 
+##               Df Sum of Sq        RSS    AIC
+## + perc.alumni  1 419740777 2899299645 9560.7
+## + Grad.Rate    1 412477957 2906562465 9562.2
+## + PhD          1 379305385 2939735036 9569.3
+## + Terminal     1 369656216 2949384206 9571.3
+## + Top25perc    1 311299881 3007740541 9583.5
+## + Top10perc    1 280108774 3038931648 9589.9
+## + Personal     1  84780679 3234259743 9628.7
+## + Accept       1  42471882 3276568540 9636.8
+## + Books        1  35245677 3283794745 9638.1
+## + P.Undergrad  1  29148614 3289891808 9639.3
+## + S.F.Ratio    1  27660641 3291379781 9639.6
+## + Apps         1  24109291 3294931131 9640.2
+## + Enroll       1  12561816 3306478606 9642.4
+## &lt;none&gt;                     3319040422 9642.8
+## + F.Undergrad  1   2021439 3317018983 9644.4
+## 
+## Step:  AIC=9560.68
+## Outstate ~ Expend + Private + Room.Board + perc.alumni
+## 
+##               Df Sum of Sq        RSS    AIC
+## + PhD          1 248319695 2650979950 9507.0
+## + Terminal     1 241588269 2657711376 9508.6
+## + Grad.Rate    1 194250957 2705048688 9519.5
+## + Top25perc    1 146504265 2752795380 9530.4
+## + Top10perc    1 124783671 2774515974 9535.3
+## + Accept       1  68407796 2830891849 9547.8
+## + Apps         1  37351605 2861948040 9554.6
+## + Personal     1  22021761 2877277884 9557.9
+## + Enroll       1  21250394 2878049251 9558.1
+## + Books        1  16826748 2882472897 9559.1
+## + S.F.Ratio    1  12022816 2887276829 9560.1
+## &lt;none&gt;                     2899299645 9560.7
+## + F.Undergrad  1   9250654 2890048991 9560.7
+## + P.Undergrad  1   5862353 2893437292 9561.4
+## 
+## Step:  AIC=9506.99
+## Outstate ~ Expend + Private + Room.Board + perc.alumni + PhD
+## 
+##               Df Sum of Sq        RSS    AIC
+## + Grad.Rate    1 138096695 2512883255 9475.7
+## + Top25perc    1  42169169 2608810781 9499.0
+## + Top10perc    1  35379421 2615600528 9500.6
+## + Terminal     1  26636450 2624343499 9502.7
+## + Personal     1  26014281 2624965669 9502.9
+## + Accept       1  25856057 2625123892 9502.9
+## + S.F.Ratio    1  20504248 2630475702 9504.2
+## + P.Undergrad  1  15565029 2635414921 9505.3
+## + Books        1  14472738 2636507212 9505.6
+## + Apps         1  10845099 2640134851 9506.4
+## &lt;none&gt;                     2650979950 9507.0
+## + Enroll       1   1715151 2649264798 9508.6
+## + F.Undergrad  1    235072 2650744878 9508.9
+## 
+## Step:  AIC=9475.71
+## Outstate ~ Expend + Private + Room.Board + perc.alumni + PhD + 
+##     Grad.Rate
+## 
+##               Df Sum of Sq        RSS    AIC
+## + Terminal     1  29069264 2483813991 9470.5
+## + S.F.Ratio    1  23980164 2488903091 9471.7
+## + Personal     1  15282065 2497601190 9473.9
+## + Top25perc    1  14080081 2498803174 9474.2
+## + Books        1  13787420 2499095834 9474.3
+## + Top10perc    1  10584708 2502298546 9475.1
+## + Accept       1  10459352 2502423903 9475.1
+## &lt;none&gt;                     2512883255 9475.7
+## + P.Undergrad  1   5510297 2507372958 9476.3
+## + F.Undergrad  1   1533109 2511350146 9477.3
+## + Apps         1    974955 2511908300 9477.5
+## + Enroll       1     16562 2512866693 9477.7
+## 
+## Step:  AIC=9470.48
+## Outstate ~ Expend + Private + Room.Board + perc.alumni + PhD + 
+##     Grad.Rate + Terminal
+## 
+##               Df Sum of Sq        RSS    AIC
+## + S.F.Ratio    1  21234904 2462579087 9467.1
+## + Books        1  18033724 2465780267 9467.9
+## + Personal     1  17438422 2466375568 9468.1
+## + Top25perc    1  11061012 2472752979 9469.7
+## + Top10perc    1  10503050 2473310941 9469.8
+## + Accept       1   8692072 2475121919 9470.3
+## &lt;none&gt;                     2483813991 9470.5
+## + P.Undergrad  1   6212554 2477601437 9470.9
+## + F.Undergrad  1   2755569 2481058422 9471.8
+## + Apps         1    617630 2483196361 9472.3
+## + Enroll       1     29501 2483784490 9472.5
+## 
+## Step:  AIC=9467.13
+## Outstate ~ Expend + Private + Room.Board + perc.alumni + PhD + 
+##     Grad.Rate + Terminal + S.F.Ratio
+## 
+##               Df Sum of Sq        RSS    AIC
+## + Personal     1  19556149 2443022938 9464.2
+## + Books        1  17642529 2444936558 9464.7
+## + Accept       1  12220653 2450358434 9466.0
+## + Top25perc    1  10915780 2451663307 9466.4
+## + Top10perc    1   9884752 2452694335 9466.6
+## &lt;none&gt;                     2462579087 9467.1
+## + P.Undergrad  1   5425216 2457153871 9467.8
+## + Apps         1   1708616 2460870471 9468.7
+## + F.Undergrad  1   1057807 2461521279 9468.9
+## + Enroll       1    169448 2462409639 9469.1
+## 
+## Step:  AIC=9464.18
+## Outstate ~ Expend + Private + Room.Board + perc.alumni + PhD + 
+##     Grad.Rate + Terminal + S.F.Ratio + Personal
+## 
+##               Df Sum of Sq        RSS    AIC
+## + Accept       1  16268824 2426754113 9462.0
+## + Books        1  12585987 2430436951 9463.0
+## + Top25perc    1  11662715 2431360223 9463.2
+## + Top10perc    1  10776478 2432246460 9463.4
+## &lt;none&gt;                     2443022938 9464.2
+## + Apps         1   3319537 2439703401 9465.3
+## + P.Undergrad  1   2234491 2440788447 9465.6
+## + Enroll       1   1504102 2441518836 9465.8
+## + F.Undergrad  1     17762 2443005175 9466.2
+## 
+## Step:  AIC=9462.02
+## Outstate ~ Expend + Private + Room.Board + perc.alumni + PhD + 
+##     Grad.Rate + Terminal + S.F.Ratio + Personal + Accept
+## 
+##               Df Sum of Sq        RSS    AIC
+## + F.Undergrad  1  34267884 2392486229 9455.2
+## + Apps         1  28349962 2398404152 9456.7
+## + Enroll       1  21722919 2405031194 9458.4
+## + Books        1  13764794 2412989319 9460.5
+## + Top10perc    1   9007820 2417746293 9461.7
+## + Top25perc    1   8657418 2418096695 9461.8
+## + P.Undergrad  1   7813774 2418940340 9462.0
+## &lt;none&gt;                     2426754113 9462.0
+## 
+## Step:  AIC=9455.17
+## Outstate ~ Expend + Private + Room.Board + perc.alumni + PhD + 
+##     Grad.Rate + Terminal + S.F.Ratio + Personal + Accept + F.Undergrad
+## 
+##               Df Sum of Sq        RSS    AIC
+## + Apps         1  33237860 2359248369 9448.5
+## + Top10perc    1  14141658 2378344572 9453.5
+## + Top25perc    1  13224939 2379261290 9453.7
+## + Books        1  11896812 2380589418 9454.1
+## &lt;none&gt;                     2392486229 9455.2
+## + P.Undergrad  1    793001 2391693228 9457.0
+## + Enroll       1     19024 2392467206 9457.2
+## 
+## Step:  AIC=9448.47
+## Outstate ~ Expend + Private + Room.Board + perc.alumni + PhD + 
+##     Grad.Rate + Terminal + S.F.Ratio + Personal + Accept + F.Undergrad + 
+##     Apps
+## 
+##               Df Sum of Sq        RSS    AIC
+## + Top10perc    1  34199271 2325049099 9441.4
+## + Top25perc    1  24042385 2335205985 9444.1
+## + Books        1  10661970 2348586399 9447.7
+## &lt;none&gt;                     2359248369 9448.5
+## + Enroll       1   1072888 2358175482 9450.2
+## + P.Undergrad  1    755069 2358493300 9450.3
+## 
+## Step:  AIC=9441.39
+## Outstate ~ Expend + Private + Room.Board + perc.alumni + PhD + 
+##     Grad.Rate + Terminal + S.F.Ratio + Personal + Accept + F.Undergrad + 
+##     Apps + Top10perc
+## 
+##               Df Sum of Sq        RSS    AIC
+## + Books        1  15416176 2309632923 9439.3
+## &lt;none&gt;                     2325049099 9441.4
+## + Enroll       1   3260513 2321788586 9442.5
+## + Top25perc    1    166941 2324882158 9443.3
+## + P.Undergrad  1       256 2325048842 9443.4
+## 
+## Step:  AIC=9439.25
+## Outstate ~ Expend + Private + Room.Board + perc.alumni + PhD + 
+##     Grad.Rate + Terminal + S.F.Ratio + Personal + Accept + F.Undergrad + 
+##     Apps + Top10perc + Books
+## 
+##               Df Sum of Sq        RSS    AIC
+## &lt;none&gt;                     2309632923 9439.3
+## + Enroll       1   3152187 2306480736 9440.4
+## + Top25perc    1    252598 2309380324 9441.2
+## + P.Undergrad  1        53 2309632870 9441.3</code></pre>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="exercises.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(step.for)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Outstate ~ Expend + Private + Room.Board + perc.alumni + 
+##     PhD + Grad.Rate + Terminal + S.F.Ratio + Personal + Accept + 
+##     F.Undergrad + Apps + Top10perc + Books, data = train.df)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+##  -6206  -1233     10   1325   5390 
+## 
+## Coefficients:
+##                Estimate  Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -2286.93077   865.13003  -2.643 0.008418 ** 
+## Expend          0.16360     0.02379   6.878 1.51e-11 ***
+## PrivateYes   2242.59519   268.94651   8.338 5.06e-16 ***
+## Room.Board      0.94499     0.09401  10.052  &lt; 2e-16 ***
+## perc.alumni    42.13604     8.50315   4.955 9.38e-07 ***
+## PhD            14.09387    10.16544   1.386 0.166118    
+## Grad.Rate      28.68532     6.13106   4.679 3.56e-06 ***
+## Terminal       32.16147    11.27001   2.854 0.004468 ** 
+## S.F.Ratio     -61.88646    28.54270  -2.168 0.030531 *  
+## Personal       -0.19357     0.13361  -1.449 0.147935    
+## Accept          0.67907     0.13205   5.143 3.66e-07 ***
+## F.Undergrad    -0.14101     0.03952  -3.568 0.000388 ***
+## Apps           -0.28245     0.07533  -3.749 0.000194 ***
+## Top10perc      23.14400     7.23340   3.200 0.001448 ** 
+## Books          -1.00042     0.49701  -2.013 0.044572 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1951 on 607 degrees of freedom
+## Multiple R-squared:  0.7774, Adjusted R-squared:  0.7722 
+## F-statistic: 151.4 on 14 and 607 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>We see that the forward selection decides on 14 variables to be included</p>
+</div>
+<div id="b-fitting-a-gam" class="section level4" number="2.4.5.2">
+<h4><span class="header-section-number">2.4.5.2</span> (b) Fitting a GAM</h4>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="exercises.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb108-2"><a href="exercises.html#cb108-2" aria-hidden="true" tabindex="-1"></a>best.formula <span class="ot">&lt;-</span> <span class="fu">formula</span>(step.for)</span>
+<span id="cb108-3"><a href="exercises.html#cb108-3" aria-hidden="true" tabindex="-1"></a>fit.gam <span class="ot">&lt;-</span> <span class="fu">gam</span>(<span class="at">formula =</span> best.formula,<span class="at">data =</span> train.df)</span>
+<span id="cb108-4"><a href="exercises.html#cb108-4" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="at">object =</span> fit.gam,<span class="at">newdata =</span> test.df)</span>
+<span id="cb108-5"><a href="exercises.html#cb108-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> preds,<span class="at">y =</span> preds<span class="sc">-</span>test.df<span class="sc">$</span>Outstate,<span class="at">ylab =</span> <span class="st">&quot;Residuals&quot;</span>,<span class="at">xlab =</span> <span class="st">&quot;Predicted values&quot;</span>)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-81-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>From the plot we see that in general we have a resdiausl around 0 withinn +/- 5000. Also the residuals do look rather normal. Although one could argue that the variance is a but smaller in the lower region of the predicted value, and it does in fact appear as if we are under estimating these result.</p>
+<p>We can interprete how Outstate responds in the following:</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="exercises.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>))</span>
+<span id="cb109-2"><a href="exercises.html#cb109-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit.gam <span class="co">#Note, automatically identifies the GAM object, hence plots for each variable</span></span>
+<span id="cb109-3"><a href="exercises.html#cb109-3" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">se =</span> <span class="cn">TRUE</span></span>
+<span id="cb109-4"><a href="exercises.html#cb109-4" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">col =</span><span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-82-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>Interpreting the plot: Recall that the plots assumes that we hold the other variables fixed, hence we see the following:</p>
+<ul>
+<li>e.g., Expend: We see that holding the other variables fixed, the outstate tends to increase over the expenditure.</li>
+<li>e.g., Apps: I assume that this is applicants, we see that holder the other variables fixed, outstate students tend to decrease as amount of applicants decrease.</li>
+</ul>
+<p>We can also assess the overall accuracy</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="exercises.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">accuracy</span>(preds,<span class="at">x =</span> test.df<span class="sc">$</span>Outstate)</span></code></pre></div>
+<pre><code>##                ME    RMSE      MAE       MPE     MAPE
+## Test set 85.03267 2041.19 1587.582 -1.863903 16.86691</code></pre>
+<p>We see that the MAE is 1587, where the mean absolute percentage error is almost 17%, hence it appear to be rather high.</p>
+</div>
+<div id="c-evaluating-on-the-test-set" class="section level4" number="2.4.5.3">
+<h4><span class="header-section-number">2.4.5.3</span> (c) Evaluating on the test set</h4>
+<p>This is what was done above. It is expected that if we compared applying on the train and test set, we will observe that the model has a lot of optimism on the train data, thus we should also see that the MAPE is lower on this partition, has this is what the model was trained on.</p>
+</div>
+<div id="d-which-variables-appear-to-have-a-non-linear-relationship" class="section level4" number="2.4.5.4">
+<h4><span class="header-section-number">2.4.5.4</span> (d) Which variables appear to have a non linear relationship?</h4>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="exercises.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb112-2"><a href="exercises.html#cb112-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-3"><a href="exercises.html#cb112-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>,<span class="dv">10</span><span class="sc">:</span><span class="dv">18</span>)) {</span>
+<span id="cb112-4"><a href="exercises.html#cb112-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">y =</span> df<span class="sc">$</span>Outstate,<span class="at">x =</span> df[,i],<span class="at">xlab =</span> <span class="fu">names</span>(df)[i],<span class="at">ylab =</span> <span class="st">&quot;Outstate&quot;</span>,<span class="at">pch =</span> <span class="dv">20</span>,<span class="at">col =</span> <span class="st">&quot;darkgrey&quot;</span>)</span>
+<span id="cb112-5"><a href="exercises.html#cb112-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grid</span>()</span>
+<span id="cb112-6"><a href="exercises.html#cb112-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(df)[i] <span class="sc">%&gt;%</span> <span class="fu">title</span>()</span>
+<span id="cb112-7"><a href="exercises.html#cb112-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-84-1.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-84-2.png" width="720" style="display: block; margin: auto;" /></p>
+<p>It appears as if expend has som non linear relationship with Outstate. Perhaps enroll, F.Undergrad, and P.Undergrad also have a non linear trend.</p>
+<p>To further decide if there is evidence for a non linear relationship, one could make, e.g., a smoothing model to assess the performance hereof.</p>
 
+</div>
 </div>
 </div>
 <!-- </div> -->
