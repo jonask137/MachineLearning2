@@ -147,7 +147,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.3.1" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#piecewise-polynomials"><i class="fa fa-check"></i><b>2.1.3.1</b> Piecewise Polynomials</a></li>
 <li class="chapter" data-level="2.1.3.2" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#constraints-and-splines"><i class="fa fa-check"></i><b>2.1.3.2</b> Constraints and Splines</a></li>
 <li class="chapter" data-level="2.1.3.3" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#choosing-the-number-and-location-of-the-knots"><i class="fa fa-check"></i><b>2.1.3.3</b> Choosing the number and location of the Knots</a></li>
-<li class="chapter" data-level="2.1.3.4" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#comparison-with-polynomial-regression"><i class="fa fa-check"></i><b>2.1.3.4</b> Comparison with Polynomial Regression</a></li>
+<li class="chapter" data-level="2.1.3.4" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#degrees-of-freedom"><i class="fa fa-check"></i><b>2.1.3.4</b> Degrees of freedom</a></li>
+<li class="chapter" data-level="2.1.3.5" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#comparison-with-polynomial-regression"><i class="fa fa-check"></i><b>2.1.3.5</b> Comparison with Polynomial Regression</a></li>
 </ul></li>
 <li class="chapter" data-level="2.1.4" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#smoothing-splines"><i class="fa fa-check"></i><b>2.1.4</b> Smoothing Splines</a>
 <ul>
@@ -201,7 +202,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.4.3" data-path="exercises.html"><a href="exercises.html#c-using-cv-to-select-best-degree-of-d"><i class="fa fa-check"></i><b>2.4.4.3</b> (c) Using CV to select best degree of d</a></li>
 <li class="chapter" data-level="2.4.4.4" data-path="exercises.html"><a href="exercises.html#d-use-bs-to-fit-a-regression-spline"><i class="fa fa-check"></i><b>2.4.4.4</b> (d) Use <code>bs()</code> to fit a regression spline</a></li>
 <li class="chapter" data-level="2.4.4.5" data-path="exercises.html"><a href="exercises.html#e-now-fit-a-regression-spline"><i class="fa fa-check"></i><b>2.4.4.5</b> (e) Now fit a regression spline</a></li>
-<li class="chapter" data-level="2.4.4.6" data-path="exercises.html"><a href="exercises.html#f"><i class="fa fa-check"></i><b>2.4.4.6</b> (f)</a></li>
+<li class="chapter" data-level="2.4.4.6" data-path="exercises.html"><a href="exercises.html#f-perform-cross-validation-to-select-degrees"><i class="fa fa-check"></i><b>2.4.4.6</b> (f) Perform cross-validation, to select degrees</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4.5" data-path="exercises.html"><a href="exercises.html#exercise-10"><i class="fa fa-check"></i><b>2.4.5</b> Exercise 10</a>
 <ul>
@@ -209,6 +210,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.5.2" data-path="exercises.html"><a href="exercises.html#b-fitting-a-gam"><i class="fa fa-check"></i><b>2.4.5.2</b> (b) Fitting a GAM</a></li>
 <li class="chapter" data-level="2.4.5.3" data-path="exercises.html"><a href="exercises.html#c-evaluating-on-the-test-set"><i class="fa fa-check"></i><b>2.4.5.3</b> (c) Evaluating on the test set</a></li>
 <li class="chapter" data-level="2.4.5.4" data-path="exercises.html"><a href="exercises.html#d-which-variables-appear-to-have-a-non-linear-relationship"><i class="fa fa-check"></i><b>2.4.5.4</b> (d) Which variables appear to have a non linear relationship?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="predicting-the-return-on-advertising-spent.html"><a href="predicting-the-return-on-advertising-spent.html"><i class="fa fa-check"></i><b>2.5</b> Predicting the Return on Advertising Spent</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="predicting-the-return-on-advertising-spent.html"><a href="predicting-the-return-on-advertising-spent.html#background"><i class="fa fa-check"></i><b>2.5.1</b> 1. Background</a></li>
+<li class="chapter" data-level="2.5.2" data-path="predicting-the-return-on-advertising-spent.html"><a href="predicting-the-return-on-advertising-spent.html#case-study-business-understanding-phase"><i class="fa fa-check"></i><b>2.5.2</b> 2. Case study (Business Understanding Phase)</a></li>
+<li class="chapter" data-level="2.5.3" data-path="predicting-the-return-on-advertising-spent.html"><a href="predicting-the-return-on-advertising-spent.html#the-data-data-understanding-phase"><i class="fa fa-check"></i><b>2.5.3</b> 3. The data (Data Understanding Phase)</a></li>
+<li class="chapter" data-level="2.5.4" data-path="predicting-the-return-on-advertising-spent.html"><a href="predicting-the-return-on-advertising-spent.html#specific-requirements"><i class="fa fa-check"></i><b>2.5.4</b> 4. Specific requirements:</a>
+<ul>
+<li class="chapter" data-level="2.5.4.1" data-path="predicting-the-return-on-advertising-spent.html"><a href="predicting-the-return-on-advertising-spent.html#task-1---import-and-overview"><i class="fa fa-check"></i><b>2.5.4.1</b> 4.1 Task 1 - Import and overview</a></li>
+<li class="chapter" data-level="2.5.4.2" data-path="predicting-the-return-on-advertising-spent.html"><a href="predicting-the-return-on-advertising-spent.html#task-2---data-inspection"><i class="fa fa-check"></i><b>2.5.4.2</b> 4.2 Task 2 - Data inspection</a></li>
+<li class="chapter" data-level="2.5.4.3" data-path="predicting-the-return-on-advertising-spent.html"><a href="predicting-the-return-on-advertising-spent.html#task-3---building-different-models"><i class="fa fa-check"></i><b>2.5.4.3</b> 4.3 Task 3 - Building different models</a>
+<ul>
+<li class="chapter" data-level="2.5.4.3.1" data-path="predicting-the-return-on-advertising-spent.html"><a href="predicting-the-return-on-advertising-spent.html#a-generalized-additive-model-gam-to-predict-roas"><i class="fa fa-check"></i><b>2.5.4.3.1</b> A Generalized Additive Model (GAM) to predict ROAS</a>
+<ul>
+<li class="chapter" data-level="2.5.4.3.1.1" data-path="predicting-the-return-on-advertising-spent.html"><a href="predicting-the-return-on-advertising-spent.html#c1-feature-selection-using-regsubsets"><i class="fa fa-check"></i><b>2.5.4.3.1.1</b> c1) Feature selection using regsubsets()</a></li>
+<li class="chapter" data-level="2.5.4.3.1.2" data-path="predicting-the-return-on-advertising-spent.html"><a href="predicting-the-return-on-advertising-spent.html#c2-feature-selection-using-step.gam"><i class="fa fa-check"></i><b>2.5.4.3.1.2</b> c2) Feature selection using step.GAM</a></li>
+<li class="chapter" data-level="2.5.4.3.1.3" data-path="predicting-the-return-on-advertising-spent.html"><a href="predicting-the-return-on-advertising-spent.html#c3-fetaure-selection-using-random-forest"><i class="fa fa-check"></i><b>2.5.4.3.1.3</b> c3) Fetaure selection using random forest</a></li>
+</ul></li>
+</ul></li>
 </ul></li>
 </ul></li>
 </ul></li>
@@ -276,7 +297,7 @@ y_{i\ }=\ \beta_0+\beta_1x_i+\beta_2x_i^2+...+\ \beta_dx_i^d\ +\ \epsilon_i
 </div>
 <div id="step-functions" class="section level3" number="2.1.2">
 <h3><span class="header-section-number">2.1.2</span> Step Functions</h3>
-<p>This is literally just fitting a constant in different bins, see example on page 269. This is also called discretizing x.</p>
+<p>This is literally just fitting a constant in different bins, see example on page 269. This is also called discretizing x. Thus it is not polynoomial, but it is non linear.</p>
 <p>It is often applied when we see, e.g., five year age bins, e.g., a 20-25 year old is expected to earn so and so much etc. But we can only really use it, when there are natural cuts, hence one must be considerate using the model.</p>
 <p><strong>Major disadvantage:</strong> If there are no natural breakpoints, then the model is likely to miss variance and also generalize too much.</p>
 <p>Remember, that the steps reflect the average increase in Y for each step. Hence the first bin (range) is defined by <span class="math inline">\(\beta_0\)</span>, and can be regarded as the average of that range of x. Thus each coefficient of the ranges of x is to be understood as the average increase of response.</p>
@@ -309,6 +330,7 @@ Figure 2.1: Piecewise Polynomials
 </div>
 <div id="constraints-and-splines" class="section level4" number="2.1.3.2">
 <h4><span class="header-section-number">2.1.3.2</span> Constraints and Splines</h4>
+<p><strong>It is a spline when the piecewise polynomials have been imposed with restrictions for continouity and derivatives, so the knot don’t break or so to say, hence the knot will not be visible.</strong></p>
 <p>Figure 7.3 show how the splines look, as the top left window tell, the jump is rather odd. Hence, we can force the fit to be continuous, by imposing a constraint.</p>
 <p>Notice, that it is a piecewise polynomial regression, when you merely fit polynomials onto bins of data. If you want to have the ends tied together, you impose contraints and thus created a spline.</p>
 <p>We can further constrain the model, with adding derivatives of the functions, hence the first derivative and the second derivative (where it in this instance created linear splines, that is because we have added <span class="math inline">\(d-1\)</span> i.e. 2 derivatives, if the function was to the power of 4, then we should have imposed 3 derivatives to achieve linearity in the splines.)</p>
@@ -330,8 +352,14 @@ Figure 2.1: Piecewise Polynomials
 </ol>
 <p>This can be followed by visualizing the MSE for the different simulations with different amount of knots.</p>
 </div>
-<div id="comparison-with-polynomial-regression" class="section level4" number="2.1.3.4">
-<h4><span class="header-section-number">2.1.3.4</span> Comparison with Polynomial Regression</h4>
+<div id="degrees-of-freedom" class="section level4" number="2.1.3.4">
+<h4><span class="header-section-number">2.1.3.4</span> Degrees of freedom</h4>
+<p>You count the amount of coefficients in the piecewise polynomial. Then you deduct df as you impose restrictions.</p>
+<p>e.g. with one knot, you impose conituity, then you deduct one 1 df. for each derivative that we impose we can subtract one df.</p>
+<p>Therefore the example above: 8 df in the beginning less 1 for the cut and two for the two derivatives. Hence, we end up with 5 df.</p>
+</div>
+<div id="comparison-with-polynomial-regression" class="section level4" number="2.1.3.5">
+<h4><span class="header-section-number">2.1.3.5</span> Comparison with Polynomial Regression</h4>
 <p>With regression splines we are able to introduce knots that account for variance as it slightly resets the model in each section, hence we can fit the model to the data without having to impose as much complexity as we would in normal polynomial regression.</p>
 <p>Hence one often observes that regression splines have more stability than polynomial regression.</p>
 </div>
@@ -348,6 +376,7 @@ RSS=\sum_{i=1}^n\left(y_i-g\left(x_i\right)\right)^{^2}+\lambda\int g&#39;&#39;\
 \tag{2.3}
 \end{equation}\]</span></p>
 <p><em>i.e. Loss + Penalty</em></p>
+<p><em>Recall that the penalty controls the curvature of the function</em></p>
 <p>Where:</p>
 <ul>
 <li>We define model g(x)</li>
@@ -359,6 +388,9 @@ RSS=\sum_{i=1}^n\left(y_i-g\left(x_i\right)\right)^{^2}+\lambda\int g&#39;&#39;\
 <h4><span class="header-section-number">2.1.4.1</span> Choosing optimal tuning parameter</h4>
 <p>The analytic LOOCV can be calculated, the procedure appears to be the same as for lasso and ridge regression. The book (page 279) describes this a bit in details. However it says that software is able to do this.</p>
 <p>Basically what is done, is LOOCV and simulating different tuning parameters to assess what model that performs the best.</p>
+<p>Notice, that in R we are not working with <span class="math inline">\(\lambda\)</span>, but we can control the df associated with lambda. Or we can just let the model choose.</p>
+<p>With this, degrees of freedom is not the same as we are used to. This creates sparsity as we know from regularization.</p>
+<p><em>We are not expected to explain this, but we should be able to interpret the results</em></p>
 </div>
 </div>
 <div id="local-regression" class="section level3" number="2.1.5">

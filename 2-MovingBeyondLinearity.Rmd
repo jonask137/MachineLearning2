@@ -74,7 +74,7 @@ The lecture shows exercise number 6 in chapter 7.
 
 ### Step Functions
 
-This is literally just fitting a constant in different bins, see example on page 269. This is also called discretizing x.
+This is literally just fitting a constant in different bins, see example on page 269. This is also called discretizing x. Thus it is not polynoomial, but it is non linear.
 
 It is often applied when we see, e.g., five year age bins, e.g., a 20-25 year old is expected to earn so and so much etc. But we can only really use it, when there are natural cuts, hence one must be considerate using the model.
 
@@ -87,6 +87,8 @@ In other words, $\beta_0$ is the reference level, where the following cuts refle
 Note that we can still use standard errors for coefficient estimates.
 
 ### Regression Splines
+
+
 
 #### Piecewise Polynomials
 
@@ -116,6 +118,8 @@ knitr::include_graphics(rep("Images/Piecewise regression.png"))
 
 #### Constraints and Splines
 
+**It is a spline when the piecewise polynomials have been imposed with restrictions for continouity and derivatives, so the knot don't break or so to say, hence the knot will not be visible.**
+
 Figure 7.3 show how the splines look, as the top left window tell, the jump is rather odd. Hence, we can force the fit to be continuous, by imposing a constraint.
 
 Notice, that it is a piecewise polynomial regression, when you merely fit polynomials onto bins of data. If you want to have the ends tied together, you impose contraints and thus created a spline.
@@ -141,6 +145,14 @@ We can let software estimate the best amount and the best locations. Here one ca
 2. Out-of-sample performance, e.g. with CV, perhaps extent to K folds with K tests, to ensure, that each variable has been held out once.
 
 This can be followed by visualizing the MSE for the different simulations with different amount of knots.
+
+#### Degrees of freedom
+
+You count the amount of coefficients in the piecewise polynomial. Then you deduct df as you impose restrictions.
+
+e.g. with one knot, you impose conituity, then you deduct one 1 df. for each derivative that we impose we can subtract one df.
+
+Therefore the example above: 8 df in the beginning less 1 for the cut and two for the two derivatives. Hence, we end up with 5 df.
 
 
 #### Comparison with Polynomial Regression
@@ -170,6 +182,8 @@ RSS=\sum_{i=1}^n\left(y_i-g\left(x_i\right)\right)^{^2}+\lambda\int g''\left(t\r
 
 _i.e. Loss + Penalty_
 
+*Recall that the penalty controls the curvature of the function*
+
 Where:
 
 + We define model g(x)
@@ -182,6 +196,12 @@ Where:
 The analytic LOOCV can be calculated, the procedure appears to be the same as for lasso and ridge regression. The book (page 279) describes this a bit in details. However it says that software is able to do this.
 
 Basically what is done, is LOOCV and simulating different tuning parameters to assess what model that performs the best.
+
+Notice, that in R we are not working with $\lambda$, but we can control the df associated with lambda. Or we can just let the model choose.
+
+With this, degrees of freedom is not the same as we are used to. This creates sparsity as we know from regularization.
+
+*We are not expected to explain this, but we should be able to interpret the results*
 
 
 ### Local Regression
@@ -1026,11 +1046,12 @@ We do not need a non-linear term for year.
 
 ### Exercise 6
 
+**Purpose, to practice polynomial regression and step functions**
+
 ```{r}
 library(ISLR)
 df <- Wage
 ```
-
 
 #### 6.a Polynomial Regression
 
@@ -1039,19 +1060,19 @@ We use orthogonal polynomials in the modeling process as we know that these are 
 Training the model
 
 ```{r}
-library(boot)
+library(boot) #For the cv.glm() function
 set.seed(1337)
-cv.error = rep (0,5)
+cv.error = rep (0,10)
 for (i in seq(from = 1,to = length(cv.error),by = 1)) {
   #Training
   fit.i <- glm(wage ~ poly(age,i),data = df)  # notice glm here in conjunction with cv.glm function
   
   #Performing cross validation
-  cv.error[i] <- cv.glm(data = df,glmfit = fit.i,K = 10)$delta[1] #K fold CV, delta = prediction error
+  cv.error[i] <- cv.glm(data = df,glmfit = fit.i,K = 10)$delta[1] #K fold CV, delta = prediction errer i.e. MSE
   }
 
 #Printing the 
-cv.error # the CV errors of the five polynomials models
+cv.error # MSE the CV errors of the five polynomials models
 ```
 
 The vector above are all of the prediction errors computed in the loop.
@@ -1059,6 +1080,7 @@ The vector above are all of the prediction errors computed in the loop.
 ```{r}
 which.min(cv.error)
 ```
+
 
 We see that the fifth prediction appear to yield the lowest MSE, but is it significantly different than e.g. forth or third order polynomial?
 
@@ -1071,13 +1093,23 @@ fit.5 <- glm(wage ~ poly(age,5),data = df)
 anova(fit.1,fit.2,fit.3,fit.4,fit.5,test = "F")
 ```
 
-Using the F test, we see that on a five percent level the 4th ppolynomial is not justified, but close to.
+***We can only use these as the models are nested as the variables are the same***
 
-Thus we select a model with three polynomials. Plotting the errors, we also see that there does not happen much after the thrid polynomial
+Using the F test, we see that on a five percent level the 4th polynomial is not justified, but close to. This argues that we should select the third order of polynomials as that is the last where there is statistical evidence for lowering the residuals.
+
+Thus we select a model with three polynomials. Plotting the errors, we also see that there does not happen much after the third polynomial. We also plotted the standard errors and thus we are able to select based on this.
 
 ```{r}
 plot(cv.error,type = "b")
+min.point = min(cv.error)
+sd.points = sd(cv.error)
+abline(h=min.point + 0.2 * sd.points, col="red", lty="dashed") #0.2 is just a rule of thumb, could be anything
+abline(h=min.point - 0.2 * sd.points, col="red", lty="dashed")
+legend("topright", "0.2-standard deviation lines", lty="dashed", col="red")
 ```
+
+Thus, there is even more information supporting selecting three degrees of freedom.
+
 
 **Plotting the polynomial regression**
 
@@ -1165,6 +1197,7 @@ Evaluating features other features to see how age respond hereon.
 We can plot the variables agains each other, to see how they interact.
 
 ```{r}
+library(dplyr)
 for (i in 1:10) {
   plot(y = df$wage,x = df[,i],xlab = names(df)[i],ylab = "Wage")
   grid()
@@ -1172,7 +1205,7 @@ for (i in 1:10) {
 }
 ```
 
-Looking at race, it appears as if there is some relationship between race and wage the same with maritial status. Region only has values in one category, jobclass appear to visually have different means. The same goes for health and health insurance. Naturall log of wage has a non linear relationship with wage. Although the variable is the same, thus it cant be used for much to predict wage levels.
+Looking at race, it appears as if there is some relationship between race and wage the same with maritial status. Region only has values in one category, jobclass appear to visually have different means. The same goes for health and health insurance. Naturally log of wage has a non linear relationship with wage. Although the variable is the same, thus it cant be used for much to predict wage levels.
 
 Since all the variables of interest, and we haven't worked with are all categorical, then we can't really do any polynomial regression with the data, as they are all factors.
 
@@ -1180,6 +1213,55 @@ What one could do is a mutlivariate linear model with different factors, or step
 
 Therefore, I will not elaborate much more on this.
 
+Ana made three different models, notice, that these are linear models, as the polynomial regression is not able to handle this.
+
+```{r}
+fit1 = lm(wage ~ maritl, data = df)
+deviance(fit1) # here deviance = RSS
+
+fit2 = lm(wage ~ jobclass, data = df)
+deviance(fit2)
+
+fit3 = lm(wage ~ maritl + jobclass, data = df)
+deviance(fit3)# Select model fit3 (smallest deviance)
+
+summary(fit3)
+```
+
+We can assess the groups with the contrasts function.
+
+```{r}
+# To interpret first identify which is ref category
+contrasts(Wage$maritl) # Never Married is the reference category
+contrasts(Wage$jobclass) # Industrial is the reference category
+```
+
+
+Anova can also show the deviances etc. but notice, these does not appear to be neste d(JK note)?????
+
++ The answer, fit 1 and fit 2 are nested into fit 3. Thus we dont compare fit 1 and fit 2, as these are not nested.
+
+```{r}
+anova(fit1,fit2,fit3)
+```
+
+
+Now we can check the residuals
+
+```{r}
+par(mfrow = c(2,2))
+plot(fit3)
+```
+
+Looking at: 
+
++ The top left of the plot (residuals vs fitted), we would like these to be around 0.
++ The top right, we want them to have a linear shape. This looks odd
+
+Based on this, the model may be questionable. The solution:
+
++ Exclude the extreme values
++ Finding a variable that account for them.
 
 ```{r,include=F}
 rm(list = ls())
@@ -1276,6 +1358,7 @@ summary(gam.m1)
 It appears as if non of the parameters are good predictors.
 
 Then one could try out other models, or perhaps it is just very difficult with the data at hand to predict the year of the car.
+
 
 ```{r,include=F}
 rm(list = ls())
@@ -1429,7 +1512,7 @@ We start at four degrees of freedom as a model with only three degrees of freedo
 As we add complexity with knots we also adds degrees of freedom, where we add one degree of freedom for each cut, hence for the cubic spline with 7 degrees of freedom, four cuts and three polynomials **(this has to be fact checked)**.
 
 
-#### (f) 
+#### (f) Perform cross-validation, to select degrees
 
 ```{r}
 models <- list()
@@ -1486,9 +1569,11 @@ Finding the best subset using forward selection
 ```{r}
 reg_null <- lm(Outstate ~ 1,data = train.df) #The null  models
 reg_full <- lm(Outstate ~ .,data = train.df) #The full model
-step.for <- stepAIC(direction = "forward",object = reg_null,trace = TRUE,scope = list(upper = reg_full,lower = reg_null))
+step.for <- stepAIC(direction = "forward",object = reg_null,trace = TRUE,scope = list(upper = reg_full,lower = reg_null)) #This could also have been done with regsubsets()
 summary(step.for)
 ```
+
+**NOTE:** Ana's solution has a nice example with regsubsets, where she applies standard errors to see if the results of the different combinations are the same.
 
 We see that the forward selection decides on 14 variables to be included
 
@@ -1496,9 +1581,10 @@ We see that the forward selection decides on 14 variables to be included
 #### (b) Fitting a GAM
 
 ```{r}
+par(mfrow = c(1,1))
 library(forecast)
 best.formula <- formula(step.for)
-fit.gam <- gam(formula = best.formula,data = train.df)
+fit.gam <-gam::gam(formula = best.formula,data = train.df) #Notice that it is linear
 preds <- predict(object = fit.gam,newdata = test.df)
 plot(x = preds,y = preds-test.df$Outstate,ylab = "Residuals",xlab = "Predicted values")
 ```
@@ -1548,3 +1634,590 @@ It appears as if expend has som non linear relationship with Outstate. Perhaps e
 
 To further decide if there is evidence for a non linear relationship, one could make, e.g., a smoothing model to assess the performance hereof.
 
+```{r}
+set.seed(1337)
+library(mgcv)
+gam.mgcv <- mgcv::gam(Outstate ~ Private + s(Room.Board) + s(PhD) + s(perc.alumni) + s(Expend) + s(Grad.Rate), data = train.df,method = 'REML')
+summary(gam.mgcv)
+# We look at the Approximate significance of smooth terms table, in particular to edf.
+# These edf´s suggests that the previous gam model (imposing all nonlinear) may be a little too restrictive 
+par(mfrow = c(2, 3))
+plot(gam.mgcv, se = T, col = "blue")
+# Check residuals diagnostics
+par(mfrow = c(2,2))
+gam.check(gam.mgcv)
+```
+
+
+
+
+## Predicting the Return on Advertising Spent
+
+```{r,echo=FALSE}
+detach("package:mgcv", unload=TRUE)
+detach("package:gam", unload=TRUE)
+```
+
+
+(Case and data source: kaggle.com)
+
+\
+
+### 1. Background 
+
+Along with Google's search and display networks, Facebook is one of the big players when it comes to online advertising. As Facebook users interact with the platform, adding demographic information, liking particular pages and commenting on specific posts, Facebook builds a profile of that user based on who they are and what they're interested in.
+
+This fact makes Facebook very attractive for advertisers. Advertisers can create Facebook adverts, then create an 'Audience' for that advert or group of adverts. Audiences can be built from a range of attributes including gender, age, location and interests. This specific targeting means advertisers can tailor content appropriately for a specific audience, even if the product being marketed is the same.
+
+For example, let's imagine a company wants to advertise its new car. They may wish to promote one set of features, performance and the 2 kW stereo, to women in their early twenties. They might decide that they want to talk about it's fuel efficiency and reduced emissions to men in their thirties, and they might want to push the spacious interior and safety rating to men and women in their thirties and early forties who are interested in Families magazine and who like pages of nappy and baby clothes manufacturers.
+
+In 2016, Facebook's revenue from advertising was **26bn, up from 17bn** the year before. This compares to Google's **79bn, the **638m that Twitter advertising made in Q4 2016, and $173m that LinkedIn made from ads in Q3 2016. These figures illustrate just how big an advertising platform is, although it faces challenges for the future with a decline in younger users in 2017, with generation Z moving to Snapchat and Instagram. When it comes to analyzing the Facebook adverts dataset, there are a lot of questions we can ask, and a lot of insight we can generate. However, from a business perspective we want to ask questions that will give us answers we can use to improve business performance. 
+
+&nbsp;
+&nbsp;
+
+
+### 2. Case study (Business Understanding Phase)
+
+The company xyz is an e-marketing company. It earns money based on how many people click the ads and how many people actually purchase the product advertised. The company will receive from the manufacturer **5 for each user that clicks on ad and signs up in the e-commerce shop, and respectively, **100 for each registered user that buys the product. On the other hand, the xyz pays to Facebook to display the ads. The objective of the company xyz is to maximize the return on advertising spent, while minimizing the amount spent on advertising. In order to attain this objective, the company needs to identify the factors (e.g. spending, campaign type, customer type, etc.) influencing most significantly the return on advertising spent (ROAS) based on the available data. 
+
+The analytical objective in this case is to predict the Return on Advertising Spent (ROAS) using the dataset KAG_conversion_data.csv. Given the scope of this case study, we aim to set up a non-linear regression model. The model can be used either to predict the value of the target variable, ROAS, for future observations of the explanatory variables or to provide a better understanding of the relationships (form and direction) between dependent and independent variables. 
+
+&nbsp;
+&nbsp;
+
+
+### 3. The data (Data Understanding Phase)
+
+The documentation describes the columns in the data as follows:
+
+1. ad_id: unique ID for each ad. It is just an identifier.
+2. xyz_campaign_id: an ID associated with each ad campaign of XYZ company
+3. fb_campaign_id: an ID associated with how Facebook tracks each campaign. Ignore this variable in the analysis
+4. age: age of the person to whom the ad is shown
+5. gender: gender of the person to whom the add is shown
+6. interest: a code specifying the category to which the person’s interest belongs (interests are as mentioned in the person’s Facebook public profile)
+7. Impressions: the number of times the ad was shown
+8. Clicks: number of clicks on for that ad
+9. Spent: Amount paid by company xyz to Facebook, to show that ad
+10. Total conversion: Total number of people who sign up to the webshop after seeing the ad
+11. Approved conversion/leads: Total number of people who bought the product after seeing the ad
+
+
+&nbsp;
+&nbsp;
+
+
+
+### 4. Specific requirements: 
+
+&nbsp;
+&nbsp;
+
+#### 4.1 Task 1 - Import and overview
+
+Import and view the data. A critical step in the data mining process is to understand the variables, and further to ensure that the software interprets the variables in the correct way. 
+
+```{r}
+KAG_conversion_data <- read.csv("Data/1. MovingBeyondLinearity/FacebookCasestudy/KAG_conversion_data.csv")
+```
+
+&nbsp;
+&nbsp;
+
+#### 4.2 Task 2 - Data inspection
+
+Inspect your data and do the required variable adaptations and transformations. These may include: treating the missing data, treating the outliers, log transformations, binning, standardizing, and creating additional features (e.g. in this particular case, one needs to calculate the DV (ROAS), which is not ready available in the dataset).
+
+In real practice, data preprocessing takes about 75% of the total time assigned to a project.
+
+```{r}
+library(tidyverse)
+glimpse(KAG_conversion_data) #Just a quick inspection
+dataTf <- KAG_conversion_data
+```
+
+
+```{r}
+# Rename variables
+dataTf <- dataTf %>% 
+  rename(xyzCampId = xyz_campaign_id, fbCampId = fb_campaign_id, impr = Impressions,
+         conv = Total_Conversion, appConv = Approved_Conversion)
+```
+
+
+```{r}
+# Create new features and calculate ROAS 
+# - Click-through-rate: how many of the impressions became clicks.CTR = Clicks/Impressions
+# - Cost Per Click: how much on average did each click cost.CPC = Spent/Clicks
+library(dplyr)
+dataTf <- dataTf %>%  
+  mutate(CTR = ((Clicks / impr) * 100), CPC = Spent / Clicks) 
+dataTf$CTR <- round(dataTf$CTR, 4)
+dataTf$CPC <- round(dataTf$CPC, 2)
+
+# - Conversion value: conval = 5 *  conv
+# - Approved conversion value: appConVal = 100 * appConv
+# - Total conversion: totConVal = conval + appConVal 
+# - Cost per conversion: costPerCon = Spent/totConv
+# - Return on Advertising Spend (the revenue as a % of advertising spend) : ROAS = totConVal/Spent
+dataTf <- dataTf %>%
+  mutate(totConv = conv + appConv,
+         conVal = conv * 5,
+         appConVal = appConv * 100) %>%
+  mutate(totConVal = conVal + appConVal) %>%
+  mutate(costPerCon = round(Spent / totConv, 2),
+         ROAS = round(totConVal / Spent, 2))
+
+# - Cost Per Mille: the cost of one thousand impressions. If our objective is ad exposure to increase brand awareness,this might be an important to measure. CPM = Spent/Impr *1000.
+
+dataTf <- dataTf %>%
+  mutate(CPM = round((Spent / impr) * 1000, 2))
+```
+
+
+```{r}
+# Dealing with missing, currupt and invalid data
+
+# Decide between missing values imputation or deletion 
+table(is.na(dataTf)) 
+summary(dataTf) 
+library(DataExplorer) 
+plot_missing(dataTf)
+dataTfo = na.omit(dataTf)
+
+# Dividing by zero create Inf values
+dataTfo$costPerCon <- ifelse(dataTfo$costPerCon == Inf, 0, dataTfo$costPerCon) 
+summary(dataTfo$costPerCon)
+
+```
+
+
+```{r}
+# Re-check the correctness of data type and adapt
+dataTfo$xyzCampId=as.factor(dataTfo$xyzCampId)
+dataTfo$age=as.factor(dataTfo$age)
+dataTfo$gender=as.factor(dataTfo$gender)
+dataTfo$interest=as.factor(dataTfo$interest) # too many (non-representative) categories?
+
+dataTfo$appConv= as.numeric(dataTfo$appConv)
+dataTfo$conv= as.numeric(dataTfo$conv)
+dataTfo$impr= as.numeric(dataTfo$impr)
+dataTfo$Clicks= as.numeric(dataTfo$Clicks)
+dataTfo$totConv= as.numeric(dataTfo$totConv)
+
+str(dataTfo)
+```
+
+
+```{r}
+# Check distribution of variables (univariate analysis) 
+library(DataExplorer) 
+options(repr.plot.width=4, repr.plot.height=4)
+plot_bar(dataTfo)
+```
+
+
+```{r}
+plot_histogram(dataTfo)
+```
+
+
+```{r}
+# Treat outliers 
+attach(dataTfo)
+  # e.g. for ROAS
+  boxplot(ROAS)
+  boxplot(ROAS)$out 
+  # Here I assign outliers to a vector and remove them
+  outliers <- boxplot(ROAS, plot=FALSE)$out
+  # remove the rows containing the outliers
+  dataTfo1 <- dataTfo[-which(ROAS %in% outliers),] 
+  boxplot(dataTfo1$ROAS)
+  # Alterative ways to treat outliers exist 
+```
+
+
+```{r}
+# Check bivariate distributions or measures of association 
+# pairs(data) # only numeric
+# or one by one
+ggplot(dataTfo1, aes(x=xyzCampId, y=ROAS)) + stat_summary(fun.y="mean", geom="bar")
+```
+
+
+```{r}
+ggplot(dataTfo1, aes(x=age, y=ROAS)) + stat_summary(fun.y="mean", geom="bar")
+```
+
+
+```{r}
+ggplot(dataTfo1, aes(x=gender, y=ROAS)) + stat_summary(fun.y="mean", geom="bar")
+```
+
+
+```{r}
+ggplot(dataTfo1, aes(x=interest, y=ROAS)) + stat_summary(fun.y="mean", geom="bar")
+```
+
+
+```{r}
+ggplot(dataTfo1, aes(Spent, ROAS)) + geom_point() + labs(x = "Amount spent on campaign", y = "ROAS")
+```
+
+
+```{r}
+options(repr.plot.width=6, repr.plot.height=3)
+ggplot(dataTfo1, aes(Spent, totConv)) + geom_point() + labs(x = "Amount spent on campaign", y = "Total Conversions")
+```
+
+```{r}
+# Measure of associations 
+par(mfrow = c(1, 1))
+library(corrplot)
+cormatrix = corrplot(cor(dataTfo1 [, -c(1:6)]))
+# Or
+```
+
+
+The following is the same, but presented just with correlations.
+
+```{r}
+cor(dataTfo1[,-c(1:6)],dataTfo1$ROAS)
+```
+
+&nbsp;
+&nbsp;
+
+Other exploration techniques can be implemented. Data pre-processing remains an active area of research because of the huge amount of inconsistent or "dirty" data.
+
+&nbsp;
+&nbsp;
+
+
+
+#### 4.3 Task 3 - Building different models
+
+Build several predictive models and evaluate their performance. First, consider reflecting about these specific questions:
+
+  Q1) Which of the so far introduced models can be applied to explain and predict the return on advertising spent (ROAS)? Later on, construct several models that answer to this question, using a training dataset. 
+  
+  Q2) Which sample should one use to evaluate the model? Furthermore, which model assessment and selection criteria applies in this case? Later on, evaluate the model based on applicable assessment and selection criteria.
+  
+  Q3) Reflect about how one can improve the model prediction power.
+
+
+```{r}
+# Splitting the data
+library(ISLR)
+smp_size <- floor(0.75 * nrow(dataTfo1))
+set.seed(123)
+train_ind <- sample(seq_len(nrow(dataTfo1)), size = smp_size)
+trainTfo1 <- dataTfo1[train_ind, ]
+testTfo1 <- dataTfo1[-train_ind, ]
+```
+
+&nbsp;
+&nbsp;
+
+##### A Generalized Additive Model (GAM) to predict ROAS
+
+The questions that arise are: 
+
+  i) What subset of all the predictors can best explain and predict ROAS?
+  ii) What is the form of the relationships between them and ROAS? 
+
+&nbsp;
+&nbsp;
+
+
+Feature selection approaches include: 
+
+ a) Generally looking at the variables "one by one", to understand what features are important and to figure out how they contribute towards solving the problem.
+
+ b) Looking at the correlation matrix:  If we are working with a model which assumes a linear relationship between the dependent and the independent variables, corr matrix can help us come up with an initial list of variable importance. However, corr matrix also works as a "rough informative tool" for nonlinear modelling. 
+
+ c) Running automatic feature selection algorithms. Functions in R include, among others:  
+
+ - c1. regsubsets() function in "leaps" library (presented in ISL, p. 244); used to select the best size model that contains a given number of predictors, where best is quantified using Residual Sum of Squares (RSS). Although regsubsets() is based on testing linear models, it works as a "rough" list for nonlinear models.
+
+ - c2. step.Gam() function in "gam" library for stepwise selection of variables in GAM models. This is useful when the number of predictors is not very high.
+
+ - c3. advanced feature selection methods based on other data-mining techniques, including but not only: random forests, Bayesian Networks, Neural Networks, or other. 
+
+
+###### c1) Feature selection using regsubsets()
+
+```{r}
+str(trainTfo1)
+# One may exclude ad_id and variables used to calculate our dependent variable ROAS, as they have a deterministic relation with it. The variable "interests" can be preprocessed to reduce the categories to the most representative ones, but for simplicity we keep it as it is. See later it creates some problems.
+library(leaps) 
+reg.fit = regsubsets(trainTfo1$ROAS ~ ., data = trainTfo1[,-c(1,3, 14:17)], method = "forward", nvmax=14)
+reg.summary = summary(reg.fit)
+reg.summary
+```
+
+Recall, an asteriks indicates that a given variable is included in the corresponding model. The default is "1 subsets of each size up to 8", but using "nvmax" option we can control as many variables as are desired.
+
+```{r}
+# Use a prediction error criteria (Adj^R2 BIC, Cp) to select the "best overall" model:
+# names(reg.summary)
+
+reg.summary$rsq
+# Rsquare increases monotonically as more variables are included. 
+# This is expected; the model containing all predictors will always have the smallest RSS and the largest R^2. 
+plot(reg.summary$adjr2, xlab = "Number of Variables", ylab = "Adjusted R2", type = "p", ylim = c(0.1, 1), main = " Adj R2 for each model")
+max.adjr2 = max(reg.summary$adjr2)
+std.adjr2 = sd(reg.summary$adjr2)
+abline(h = max.adjr2 + 0.2 * std.adjr2, col = "red", lty = 2)
+abline(h = max.adjr2 - 0.2 * std.adjr2, col = "red", lty = 2)
+```
+
+The plot shows the size 10-11 is the minimum size for the subset for which the scores are within 0.2 standard deviations of optimum. We pick 5 as the parsimonious subset size.
+
+```{r}
+# A common approach when dataset is small is to find best 10 variables using entire dataset.
+reg.fit = regsubsets(dataTfo1$ROAS ~ ., data = dataTfo1[,-c(1,3, 14:17)], method = "forward", nvmax=14)
+summary(reg.fit)
+coefi = coef(reg.fit, id=10)
+names(coefi) # most important variables based on regsubsets() feature selection
+```
+
+
+####### 1) I run a linear regression using the selected features, to have a benchmark 
+
+```{r}
+model1<-lm(ROAS ~  interest + impr + conv + appConv + CTR + costPerCon + CPM, data = trainTfo1)
+summary(model1) # summary.aov(model1) #Alternatice
+```
+
+
+```{r}
+AIC(model1)
+```
+
+The model diagnostics
+
+```{r}
+par(mfrow = c(2, 2))
+plot(model1)
+```
+
+Further inspecting residuals
+
+```{r}
+hist(model1$residuals)
+```
+
+
+####### 2) Linked to the topic of this lecture, run a non-liner model, such as the Generalized Additive Model (GAM) with smoothing splines.**
+
+We have two available approaches at hand:
+
+1. Option 1: using  "gam" function from "gam" package
+2. Option 2: using  "gam" function from "mgcv" package
+
++ Recall mgcv package and gam package may interact. Uncall one of them if you get an error.   
+
+```{r}
+library('mgcv')
+set.seed(123)
+gam.mgcv <- mgcv::gam(ROAS ~ interest + s(impr) + s(conv) + s(appConv) + s(CTR) + s(costPerCon) + s(CPM), data = trainTfo1) # "gam" function from "mgcv" package estimates the smoothness automatically based on cross-validation (LOOCV, the default) or REML (Restricted Maximum Likelihood)
+summary(gam.mgcv)
+```
+
+For which variables, if any, is there evidence of a non-linear relationship with the response? in the output, the edf (estimated degrees of freedom) column allow us to interpret the degree of nonlinearity for each predictor.
+
+```{r}
+# contrasts(trainTfo1$interest)
+
+AIC(gam.mgcv) # decreases compared to linear model
+```
+
+***Other checks***
+
+```{r}
+plot(gam.mgcv$residuals)
+qqnorm(gam.mgcv$residuals)
+qqline(gam.mgcv$residuals)
+hist((gam.mgcv$residuals))
+```
+
+
+```{r}
+# interpreting the partial effects of the smooth terms visually using plot(gam_model) (see p. 284 ISL).
+par(mfrow = c(2, 2))
+plot(gam.mgcv, se = T, col = "blue", scheme=1,unconditional = TRUE, residuals = TRUE) 
+```
+
+Holding all the other variables in the model fixed, return on advertising spent tends to decrease with increasing impr (the number of times the ad was shown). holding all the other variables in the model fixed, total people signing up to the webshop (conv) has no significant effect on ROAS. Holding all the other variables in the model fixed, total people purchasing the product (appConv) and click-through-rate (CTR) have a significant positive nonlinear effect on ROAS. However, the CI in some areas is also very large due to very few observations, thus more data is required to evaluate the results. Finally cost-per-click (CPM = Spent/Impr *1000) has a decreasing nonlinear effect on ROAS, but the effect is very uncertain given CI become very large when CPM >1. Overall, the relationships found are intuitive but the effec ts are not strong. 
+
+
+
+```{r}
+# Evaluating test MSE using using k-fold cross-validation
+set.seed(1)
+k=5
+folds = sample(1:k, nrow(trainTfo1), replace = TRUE)
+gam.err = matrix(NA, k)
+gam.tss = matrix(NA, k)
+cv.r2 = matrix(NA, k)
+
+for (j in 1:k) {
+  gam.mgcv = mgcv::gam(ROAS ~ s(impr) + s(conv) + s(appConv) + s(CTR) + s(costPerCon) + s(CPM), data = trainTfo1[folds!=j,])  # interest returns an error 
+  pred = predict(gam.mgcv, trainTfo1[folds==j,])
+  gam.err[j] = mean((trainTfo1$ROAS[folds==j] - pred)^2) 
+  gam.tss[j] = mean((trainTfo1$ROAS[folds==j] - mean(trainTfo1$ROAS[folds==j]))^2) 
+  cv.r2[j] = 1 - gam.err[j]/gam.tss[j] 
+  cv.r2[j] 
+}
+
+cv.r2
+```
+
+We see the different R squares
+
+```{r}
+mean.cv.R2=apply (cv.r2, 2, mean)
+mean.cv.R2
+```
+
+The mean is 0.697
+
+
+***Evaluating the model test MSE and R^2 using the test dataset***
+
+```{r}
+gam.pred = predict(gam.mgcv, testTfo1)
+gam.err = mean((testTfo1$ROAS - gam.pred)^2) 
+gam.tss = mean((testTfo1$ROAS - mean(testTfo1$ROAS))^2) 
+test.r2 = 1 - gam.err/gam.tss 
+test.r2 # the % of explained variance (R^2 in the data test)
+```
+
+We see that R2 is similar, hence the model does not appear to have high optimisim.
+
+***Accuracy***
+
+Accuracy: correlation Actual vs. Predicted values
+
+```{r}
+actuals_preds <- data.frame(cbind(actuals=testTfo1$ROAS,predicteds=gam.pred))  
+correlation_accuracy <- cor(actuals_preds)  
+correlation_accuracy
+```
+
+&nbsp;
+&nbsp;
+
+General discussion: Although the fitted GAM yields to a decent R^2 on the test set and cross-validation, it could further be evaluated in comparison with the fit of other models. It is also possible to improve the model by including additional variables. Product advertised or Price may improve the model fit. It is important to consider all possible input variables and make a good selection early in the analytical process.    
+
+&nbsp;
+&nbsp;
+
+
+###### c2) Feature selection using step.GAM
+
+in package gam, the analysist has to search for the effective df.
+One can create a scope list with possible splines for each continous variable. 
+Below, we considered splines up to maximum 5 degrees of freedom.
+
+
+```{r}
+library(gam)
+scope_list = list("xyzCampId" = ~1 + xyzCampId,
+                  "age" = ~1 + age,
+                  "gender" = ~1 + gender,
+                  "interest" = ~1 + interest,
+                  "impr" = ~1 + impr + s(impr, df=2) + s(impr, df=3) + s(impr, df =4) + s(impr, df=5),
+                  "Clicks" = ~1+Clicks+s(Clicks, df=2)+s(Clicks, df=3)+s(Clicks, df=4)+s(Clicks, df=5),
+                  "Spent" = ~1 + Spent + s(Spent, df=2) + s(Spent, df=3) + s(Spent, df=4) + s(Spent, df=5),
+                  "conv" = ~1 + conv + s(conv, df=2) + s(conv, df=3) + s(conv, df=4) + s(conv, df=5),
+                  "appConv" = ~1+appConv+s(appConv,df=2)+s(appConv,df=3)+s(appConv,df=4)+s(appConv,df=5),
+                  "CTR" = ~1 + CTR + s(CTR, df=2) + s(CTR, df=3) + s(CTR, df=4) + s(CTR, df=5),
+                  "CPC" = ~1 + CPC + s(CPC, df=2) + s(CPC, df=3) + s(CPC, df=4) + s(CPC, df=5),
+                  "CPM" = ~1 + CPM + s(CPM, df=2) + s(CPM, df=3) + s(CPM, df=4) + s(CPM, df=5))
+
+# Define the starting model
+gam.start <- gam::gam(ROAS ~ xyzCampId + age + gender + interest + impr + Clicks + Spent + conv + appConv + CTR + CPC + CPM, data = trainTfo1) 
+
+# Finally, search among different models
+# Remove "tick / check mark" from the package mgcv if you get an error next
+gam::step.Gam(gam.start, scope_list)
+```
+
++ AIC is used internally to pick the best model.
++ This is reported in the function output at every step.
++ The “best” model meaning it has the lowest AIC in the space it has searched.
++ In this case, the best model was:
++ ROAS ~ impr + s(Clicks, df = 5) + s(appConv,df = 5) + s(CTR, df = 3) + s(CPC, df = 4) + CPM.
+
+
+**Next, run the recommended model and evaluate the AIC. Is it better than the previous ones?**
+
+```{r}
+library(gam)
+gam.step <- gam::gam(ROAS ~  impr + s(Clicks, df = 5) + s(appConv,df = 5) + s(CTR, df = 3) + s(CPC, df = 4) + CPM, data = trainTfo1)
+summary(gam.step)
+```
+
+
+```{r}
+par(mfrow = c(2, 3))
+plot(gam.step, se = T, col = "blue")
+```
+
+
+```{r}
+AIC(gam.step)
+```
+
+Compare AIC values for all fitted models
+
+```{r}
+AIC(model1, gam.mgcv, gam.step) 
+```
+
+Not better than the previous gam model
+
+&nbsp;
+&nbsp;
+
+###### c3) Fetaure selection using random forest
+
+Advanced feature selection methods is an active domain of research. Modern techniques include, among others, using random forests to find a set of predictors that best explains the variance in the response variable (Random forests models is covered in Ch.8). For a review of all methods, consider this suplementary readings: A. Jović, K. Brkić and N. Bogunović "A review of feature selection methods with applications". 
+
+Feature selection using Random Forest (RF) 
+
+RF is covered in-depth in the next lectures 
+
+
+```{r}
+library(party)
+cf1 <- cforest(trainTfo1$ROAS ~ . , data = trainTfo1[,-c(1, 3, 14:17)], control=cforest_unbiased(mtry=2,ntree=100))
+sort(varimp(cf1), decreasing = TRUE)  
+```
+
+Based on the estimated variable importance, select the most relevant ones. Different feature selection methods, yield to slighly different variables, but majority coincide. 
+
+```{r}
+library(mgcv)
+gam.rforest <- mgcv::gam(ROAS ~ s(appConv) + s(costPerCon) + s(Spent) + s(Clicks) + s(impr) + s(conv) + s(CPM) + xyzCampId + s(CTR), data = trainTfo1)
+summary(gam.rforest)
+```
+
+discuss sig.
+
+```{r}
+AIC(gam.rforest)
+```
+
+Compare AIC values for all fitted models
+
+```{r}
+AIC(model1, gam.mgcv, gam.step, gam.rforest) 
+```
+
+Evaluate the gam.rforest using k-fold cv-error, MSE and R^2 as done before with gam.mgcv.
+
+Conclude about the best model.
