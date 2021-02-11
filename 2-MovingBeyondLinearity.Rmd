@@ -254,6 +254,31 @@ That is the beuty of GAMs, as we preserve the ability of having transparancy in 
 + 
 
 
+#### Feature Selection
+
+There are naturally a bunch of different approaches, we either manually assess this, running an automatic feature selection algorithm or both, see examples below. Also the casestudy in section \@ref(FacebookCasestudy) provides an example of all approaches to assess the features.
+
+Feature selection approaches includes:
+
+ a) Generally looking at the variables "one by one", to understand what features are important and to figure out how they contribute towards solving the problem.
+
+ b) Looking at the correlation matrix:  If we are working with a model which assumes a linear relationship between the dependent and the independent variables, corr matrix can help us come up with an initial list of variable importance. However, corr matrix also works as a "rough informative tool" for nonlinear modelling. 
+
+ c) Running automatic feature selection algorithms. Functions in R include, among others: 
+
+     - c1. regsubsets() function in "leaps" library (presented in ISL, p. 244); used to select the best size model that contains a given number of predictors, where best is quantified using Residual Sum of Squares (RSS). Although regsubsets() is based on testing linear models, it works as a "rough" list for nonlinear models.
+     - c2. step.Gam() function in "gam" library for stepwise selection of variables in GAM models. This is useful when the number of predictors is not very high.
+     - c3. advanced feature selection methods based on other data-mining techniques, including but not only: random forests, Bayesian Networks, Neural Networks, or other. Notice, that we can use very complex methods of feature selection, and then construct a model that is more transparant, for instance GAMs
+
+
+We will end up with candidate models, during the case study a new approach was introduced, which was quite nice, this has the following procedure:
+
+1. Train the candidate model
+2. Do cross validation of k partitions on the train data.
+3. Select the best model.
+4. Run this on the test data. *NB: Ideally we don't want to run more than one model on the test data, as that will lead to data leakage and we may choose the best model based on the best fit to the test data. That is wrong.*
+
+
 #### GAM for regression problems
 
 Now we move beyond being constrained to only one predictor variable, hence GAM can be seen more as an extension of multiple linear regression. Hence GAM is a combination of different functions, where they are each fitted while holding the other variables fixed. GAM can consist of any different non-linear model, e.g., we can just as well use local regression, polynomial regression, or any combination of the approaches seen above in this subsection.
@@ -274,6 +299,19 @@ __Advantages of GAM:__
 5. Often applied when aiming for explanatory analysis (instead of prediction)
 
 
+##### Interpretation of output
+
+Remember GAM is a construct of M different models, hence there are different areas one must be aware of.
+
++ With smooth variables: `summary()` will output *approximate signifcance of smooth terms*, 
+    + Here we can assess if there is statistical evidence for including the smoothing on the variable. But notice, that this is merely the p-value.
+    + We can also assess the `edf` = estimated degrees of freedom, hence the flexibility of each smoothed variable.
+    
++ With linear variables we get *Parametric coefficients* (from `summary()`): These are what we know from the linear scenario. It assigns a p-value and coefficients to the linear variables. Interpretation wise, we should not pay too much attention to this, although it is always good to have the p-values in mind.
+
++ With `summary()` we also get the traditional information, such as $R^2$ and adjusted. This can also be found in the documentation.
+    
+
 #### GAM for classification problems
 
 When y is qualitative (categorical), GAM can also be applied in the logistical form.
@@ -281,6 +319,13 @@ When y is qualitative (categorical), GAM can also be applied in the logistical f
 As discovered in the classification section, we can apply logits (log of odds) and odds, see material from first semester.
 
 The same advantages and disadvantages as in the prior section applies.
+
+
+### Model assessment
+
+The same applies as in ML1, thus I refer to ML1.
+
+Also one must always assess the residuals, e.g., for normality.
 
 
 ## Lecture notes
@@ -1657,7 +1702,7 @@ gam.check(gam.mgcv)
 
 
 
-## Predicting the Return on Advertising Spent
+## Predicting the Return on Advertising Spent {#FacebookCasestudy}
 
 ```{r,echo=FALSE}
 detach("package:mgcv", unload=TRUE)
@@ -2222,7 +2267,9 @@ General discussion: Although the fitted GAM yields to a decent R^2 on the test s
 
 Notice, that this is just another approach.
 
-in package gam, the analysist has to search for the effective df. One can create a scope list with possible splines for each continous variable. Below, we considered splines up to maximum 5 degrees of freedom.
+in package gam, the analysist has to search for the effective df. One can create a scope list with possible splines for each continous variable. Below, we considered splines up to maximum 10 degrees of freedom.
+
+Notice, that the categorical variables are just included as raw data, as we can't take the polynomial of this.
 
 
 ```{r}
@@ -2233,17 +2280,17 @@ scope_list = list("xyzCampId" = ~1 + xyzCampId,
                   "age" = ~1 + age,
                   "gender" = ~1 + gender,
                   "interest" = ~1 + interest,
-                  "impr" = ~1 + impr + s(impr, df=2) + s(impr, df=3) + s(impr, df =4) + s(impr, df=5),
-                  "Clicks" = ~1+Clicks+s(Clicks, df=2)+s(Clicks, df=3)+s(Clicks, df=4)+s(Clicks, df=5),
-                  "Spent" = ~1 + Spent + s(Spent, df=2) + s(Spent, df=3) + s(Spent, df=4) + s(Spent, df=5),
-                  "conv" = ~1 + conv + s(conv, df=2) + s(conv, df=3) + s(conv, df=4) + s(conv, df=5),
-                  "appConv" = ~1+appConv+s(appConv,df=2)+s(appConv,df=3)+s(appConv,df=4)+s(appConv,df=5),
-                  "CTR" = ~1 + CTR + s(CTR, df=2) + s(CTR, df=3) + s(CTR, df=4) + s(CTR, df=5),
-                  "CPC" = ~1 + CPC + s(CPC, df=2) + s(CPC, df=3) + s(CPC, df=4) + s(CPC, df=5),
-                  "CPM" = ~1 + CPM + s(CPM, df=2) + s(CPM, df=3) + s(CPM, df=4) + s(CPM, df=5))
+                  "impr" = ~1 + impr + s(impr, df=2) + s(impr, df=3) + s(impr, df =4) + s(impr, df=5) + s(impr, df=6) + s(impr, df=7) + s(impr, df=8) + s(impr, df=9) + s(impr, df=10),
+                  "Clicks" = ~1+Clicks+s(Clicks, df=2)+s(Clicks, df=3)+s(Clicks, df=4)+s(Clicks, df=5)+s(Clicks, df=6)+s(Clicks, df=7)+s(Clicks, df=8)+s(Clicks, df=9)+s(Clicks, df=10),
+                  "Spent" = ~1 + Spent + s(Spent, df=2) + s(Spent, df=3) + s(Spent, df=4) + s(Spent, df=5) + s(Spent, df=6) + s(Spent, df=7) + s(Spent, df=8) + s(Spent, df=9) + s(Spent, df=10),
+                  "conv" = ~1 + conv + s(conv, df=2) + s(conv, df=3) + s(conv, df=4) + s(conv, df=5) + s(conv, df=6) + s(conv, df=7) + s(conv, df=8) + s(conv, df=9) + s(conv, df=10),
+                  "appConv" = ~1+appConv+s(appConv,df=2)+s(appConv,df=3)+s(appConv,df=4)+s(appConv,df=5) + s(appConv,df=6) + s(appConv,df=7) + s(appConv,df=8) + s(appConv,df=9) + s(appConv,df=10),
+                  "CTR" = ~1 + CTR + s(CTR, df=2) + s(CTR, df=3) + s(CTR, df=4) + s(CTR, df=5) + s(CTR, df=6) + s(CTR, df=7) + s(CTR, df=8) + s(CTR, df=9) + s(CTR, df=10),
+                  "CPC" = ~1 + CPC + s(CPC, df=2) + s(CPC, df=3) + s(CPC, df=4) + s(CPC, df=5) + s(CPC, df=6) + s(CPC, df=7) + s(CPC, df=8) + s(CPC, df=9) + s(CPC, df=10),
+                  "CPM" = ~1 + CPM + s(CPM, df=2) + s(CPM, df=3) + s(CPM, df=4) + s(CPM, df=5) + s(CPM, df=6) + s(CPM, df=7) + s(CPM, df=8) + s(CPM, df=9) + s(CPM, df=10))
 
 # Define the starting model
-gam.start <- gam::gam(ROAS ~ xyzCampId + age + gender + interest + impr + Clicks + Spent + conv + appConv + CTR + CPC + CPM, data = trainTfo1) 
+gam.start <- gam::gam(ROAS ~ xyzCampId + age + gender + interest + impr + Clicks + Spent + conv + appConv + CTR + CPC + CPM, data = trainTfo1) #Note, this is just linear
 
 # Finally, search among different models
 # Remove "tick / check mark" from the package mgcv if you get an error next

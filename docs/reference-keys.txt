@@ -25,8 +25,11 @@ smoothing-splines
 choosing-optimal-tuning-parameter
 local-regression
 generalized-additive-models
+feature-selection
 gam-for-regression-problems
+interpretation-of-output
 gam-for-classification-problems
+model-assessment
 lecture-notes
 lab-section
 polynomial-regression-and-step-functions
@@ -62,7 +65,7 @@ a-partitioning-the-data
 b-fitting-a-gam
 c-evaluating-on-the-test-set
 d-which-variables-appear-to-have-a-non-linear-relationship
-predicting-the-return-on-advertising-spent
+FacebookCasestudy
 background
 case-study-business-understanding-phase
 the-data-data-understanding-phase
