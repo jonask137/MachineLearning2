@@ -856,6 +856,11 @@ From the plot we also see that the model with the largest span has the smoothest
 We want to predict wage, where year, age and education (as categorical) as predictors.
 
 
+***What are the assumptions for GAMS??***
+
++ 
+
+
 #### With only natural splines
 
 According to the @hastie2013, 294, this is just a bunch of linear functions, hence we can merely apply `lm()`, see the following.
@@ -1700,9 +1705,10 @@ The documentation describes the columns in the data as follows:
 7. Impressions: the number of times the ad was shown
 8. Clicks: number of clicks on for that ad
 9. Spent: Amount paid by company xyz to Facebook, to show that ad
-10. Total conversion: Total number of people who sign up to the webshop after seeing the ad
-11. Approved conversion/leads: Total number of people who bought the product after seeing the ad
+10. Total conversion: Total number of people who sign up to the webshop after seeing the ad (here we (the add company) receives 5$)
+11. Approved conversion/leads: Total number of people who bought the product after seeing the ad (here we (the add company) receives 10$)
 
+**We want to predict ROAS, that is return on advertising spending**
 
 &nbsp;
 &nbsp;
@@ -1729,38 +1735,52 @@ KAG_conversion_data <- read.csv("Data/1. MovingBeyondLinearity/FacebookCasestudy
 
 Inspect your data and do the required variable adaptations and transformations. These may include: treating the missing data, treating the outliers, log transformations, binning, standardizing, and creating additional features (e.g. in this particular case, one needs to calculate the DV (ROAS), which is not ready available in the dataset).
 
+**NOTICE for the exam, we will not be asked to transform the data. Or at least the will specify what to do**
+
 In real practice, data preprocessing takes about 75% of the total time assigned to a project.
 
 ```{r}
 library(tidyverse)
-glimpse(KAG_conversion_data) #Just a quick inspection
 dataTf <- KAG_conversion_data
+glimpse(KAG_conversion_data) #Just a quick inspection
 ```
 
+Renaming variables
+
+*In general it is a good idea not to have special charactors in the variable name.*
 
 ```{r}
-# Rename variables
 dataTf <- dataTf %>% 
   rename(xyzCampId = xyz_campaign_id, fbCampId = fb_campaign_id, impr = Impressions,
          conv = Total_Conversion, appConv = Approved_Conversion)
 ```
 
+Create new features and calculate ROAS 
+
+*Notice, that we use `mutate()` to make the new variables*
+
+- Click-through-rate: how many of the impressions became clicks.CTR = Clicks/Impressions
+- Cost Per Click: how much on average did each click cost.CPC = Spent/Clicks
 
 ```{r}
-# Create new features and calculate ROAS 
-# - Click-through-rate: how many of the impressions became clicks.CTR = Clicks/Impressions
-# - Cost Per Click: how much on average did each click cost.CPC = Spent/Clicks
 library(dplyr)
 dataTf <- dataTf %>%  
   mutate(CTR = ((Clicks / impr) * 100), CPC = Spent / Clicks) 
-dataTf$CTR <- round(dataTf$CTR, 4)
+dataTf$CTR <- round(dataTf$CTR, 4) #NB: Sometime rounding is necessary for packages to work
 dataTf$CPC <- round(dataTf$CPC, 2)
+```
 
-# - Conversion value: conval = 5 *  conv
-# - Approved conversion value: appConVal = 100 * appConv
-# - Total conversion: totConVal = conval + appConVal 
-# - Cost per conversion: costPerCon = Spent/totConv
-# - Return on Advertising Spend (the revenue as a % of advertising spend) : ROAS = totConVal/Spent
+Now we can also make the following variables:
+
+- Conversion value: conval = 5 *  conv
+- Approved conversion value: appConVal = 100 * appConv
+- Total conversion: totConVal = conval + appConVal 
+- Cost per conversion: costPerCon = Spent/totConv
+- Return on Advertising Spend (the revenue as a % of advertising spend) : ROAS = totConVal/Spent
+- Cost Per Mille: the cost of one thousand impressions. If our objective is ad exposure to increase brand awareness,this might be an important to measure. CPM = Spent/Impr *1000. I.e. how much of the overall spenditure divided by the amount of impressions. We multiply with 1000, to have more readable numbers instead of decimals.
+
+
+```{r}
 dataTf <- dataTf %>%
   mutate(totConv = conv + appConv,
          conVal = conv * 5,
@@ -1768,28 +1788,32 @@ dataTf <- dataTf %>%
   mutate(totConVal = conVal + appConVal) %>%
   mutate(costPerCon = round(Spent / totConv, 2),
          ROAS = round(totConVal / Spent, 2))
-
-# - Cost Per Mille: the cost of one thousand impressions. If our objective is ad exposure to increase brand awareness,this might be an important to measure. CPM = Spent/Impr *1000.
-
 dataTf <- dataTf %>%
-  mutate(CPM = round((Spent / impr) * 1000, 2))
+  mutate(CPM = round((Spent / impr) * 1000, 2)) #Cost per Mille.
 ```
 
+We see that this produce a lot of INF, that is because some of the underlying varaibles contain NaNs, which is regarded as non available values, hence we cant do math with it. These observations will be identified in the following.
+
+Hence: Dealing with missing, currupt and invalid data
 
 ```{r}
-# Dealing with missing, currupt and invalid data
-
 # Decide between missing values imputation or deletion 
 table(is.na(dataTf)) 
 summary(dataTf) 
 library(DataExplorer) 
 plot_missing(dataTf)
-dataTfo = na.omit(dataTf)
+```
+
+**Genereal rule of thumb, if we have less than 5%, we can exclude them, if more than 5%, then we should impute values, so we preserve the dataset. One must make aware of this**
+
+We just choose to ommit despite missing 18% in CPC
+
+```{r}
+dataTfo = na.omit(dataTf) #Df with the NA's omitted
 
 # Dividing by zero create Inf values
 dataTfo$costPerCon <- ifelse(dataTfo$costPerCon == Inf, 0, dataTfo$costPerCon) 
 summary(dataTfo$costPerCon)
-
 ```
 
 
@@ -1814,28 +1838,50 @@ str(dataTfo)
 # Check distribution of variables (univariate analysis) 
 library(DataExplorer) 
 options(repr.plot.width=4, repr.plot.height=4)
-plot_bar(dataTfo)
+plot_bar(dataTfo) #This is a really good tool to plot all bars
 ```
 
+We can also check all of the distributions.
 
 ```{r}
 plot_histogram(dataTfo)
 ```
 
+Now we can treat outliers.
 
 ```{r}
-# Treat outliers 
+# Treat outliers
 attach(dataTfo)
   # e.g. for ROAS
   boxplot(ROAS)
-  boxplot(ROAS)$out 
-  # Here I assign outliers to a vector and remove them
-  outliers <- boxplot(ROAS, plot=FALSE)$out
+```
+
+We want to see the boxplot being like a plot.
+
+We observe that some of the observations are outside of the whiskers, these appear to be outliers. We can identify these with the $out command, see the following.
+
+```{r}
+boxplot(ROAS)$out
+```
+
+We see that all of these above are outliers.
+
+```{r}
+# Here I assign outliers to a vector and remove them
+  outliers <- boxplot(ROAS
+                      ,plot=FALSE)$out #PLOT = TRUE will plot the boxplot
+
   # remove the rows containing the outliers
   dataTfo1 <- dataTfo[-which(ROAS %in% outliers),] 
   boxplot(dataTfo1$ROAS)
   # Alterative ways to treat outliers exist 
 ```
+
+Naturally there are other ways of identifying outliers, this is just one approach.
+
+Looking at the new boxplot, we see that most observations are within the whiskers (the lines).
+
+*Notice, it does not have to be errors in the data and thus it does not necessarily be non representing of the data, thus one may not want to delete them*
 
 
 ```{r}
@@ -1865,7 +1911,6 @@ ggplot(dataTfo1, aes(x=interest, y=ROAS)) + stat_summary(fun.y="mean", geom="bar
 ggplot(dataTfo1, aes(Spent, ROAS)) + geom_point() + labs(x = "Amount spent on campaign", y = "ROAS")
 ```
 
-
 ```{r}
 options(repr.plot.width=6, repr.plot.height=3)
 ggplot(dataTfo1, aes(Spent, totConv)) + geom_point() + labs(x = "Amount spent on campaign", y = "Total Conversions")
@@ -1876,11 +1921,15 @@ ggplot(dataTfo1, aes(Spent, totConv)) + geom_point() + labs(x = "Amount spent on
 par(mfrow = c(1, 1))
 library(corrplot)
 cormatrix = corrplot(cor(dataTfo1 [, -c(1:6)]))
-# Or
 ```
 
+We seee that some variables appear to have a strong correlation with other variables, e.g. CTR and CPM.
 
-The following is the same, but presented just with correlations.
+We want to see how they interact with ROAS as well, to get an idea of wether they are positive and negative relationship.
+
+***NOTICE, this is based on a linear relationship between the variables. Since we are now in non linear models, we cannot use it the same way as when working in the linear scenarios. But we must be aware of variables that appear to have a really high correlation with one and other, hence we may exclude these.***
+
+The following is the same, but presented just with actual correlations.
 
 ```{r}
 cor(dataTfo1[,-c(1:6)],dataTfo1$ROAS)
@@ -1939,18 +1988,23 @@ Feature selection approaches include:
 
  c) Running automatic feature selection algorithms. Functions in R include, among others:  
 
- - c1. regsubsets() function in "leaps" library (presented in ISL, p. 244); used to select the best size model that contains a given number of predictors, where best is quantified using Residual Sum of Squares (RSS). Although regsubsets() is based on testing linear models, it works as a "rough" list for nonlinear models.
-
- - c2. step.Gam() function in "gam" library for stepwise selection of variables in GAM models. This is useful when the number of predictors is not very high.
-
- - c3. advanced feature selection methods based on other data-mining techniques, including but not only: random forests, Bayesian Networks, Neural Networks, or other. 
+     - c1. regsubsets() function in "leaps" library (presented in ISL, p. 244); used to select the best size model that contains a given number of predictors, where best is quantified using Residual Sum of Squares (RSS). Although regsubsets() is based on testing linear models, it works as a "rough" list for nonlinear models.
+    
+     - c2. step.Gam() function in "gam" library for stepwise selection of variables in GAM models. This is useful when the number of predictors is not very high.
+    
+     - c3. advanced feature selection methods based on other data-mining techniques, including but not only: random forests, Bayesian Networks, Neural Networks, or other. 
 
 
 ###### c1) Feature selection using regsubsets()
 
+One may exclude ad_id and variables used to calculate our dependent variable ROAS, as they have a deterministic relation with it. The variable "interests" can be preprocessed to reduce the categories to the most representative ones, but for simplicity we keep it as it is. See later it creates some problems.
+
 ```{r}
 str(trainTfo1)
-# One may exclude ad_id and variables used to calculate our dependent variable ROAS, as they have a deterministic relation with it. The variable "interests" can be preprocessed to reduce the categories to the most representative ones, but for simplicity we keep it as it is. See later it creates some problems.
+```
+
+
+```{r}
 library(leaps) 
 reg.fit = regsubsets(trainTfo1$ROAS ~ ., data = trainTfo1[,-c(1,3, 14:17)], method = "forward", nvmax=14)
 reg.summary = summary(reg.fit)
