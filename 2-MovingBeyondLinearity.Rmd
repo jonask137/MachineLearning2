@@ -248,6 +248,12 @@ We have previously worked with non parametric models (e.g., KNN regression). GAM
 
 That is the beuty of GAMs, as we preserve the ability of having transparancy in the model, despite it coming at a cost of worse prediction power than neural networks, but at such complex models, you are not able to deduct how the variables are interrelated, you can only say which are important and which are not.
 
+
+***What are the assumptions for GAMS??***
+
++ 
+
+
 #### GAM for regression problems
 
 Now we move beyond being constrained to only one predictor variable, hence GAM can be seen more as an extension of multiple linear regression. Hence GAM is a combination of different functions, where they are each fitted while holding the other variables fixed. GAM can consist of any different non-linear model, e.g., we can just as well use local regression, polynomial regression, or any combination of the approaches seen above in this subsection.
@@ -854,11 +860,6 @@ From the plot we also see that the model with the largest span has the smoothest
 ### GAMs
 
 We want to predict wage, where year, age and education (as categorical) as predictors.
-
-
-***What are the assumptions for GAMS??***
-
-+ 
 
 
 #### With only natural splines
@@ -1986,13 +1987,11 @@ Feature selection approaches include:
 
  b) Looking at the correlation matrix:  If we are working with a model which assumes a linear relationship between the dependent and the independent variables, corr matrix can help us come up with an initial list of variable importance. However, corr matrix also works as a "rough informative tool" for nonlinear modelling. 
 
- c) Running automatic feature selection algorithms. Functions in R include, among others:  
+ c) Running automatic feature selection algorithms. Functions in R include, among others: 
 
      - c1. regsubsets() function in "leaps" library (presented in ISL, p. 244); used to select the best size model that contains a given number of predictors, where best is quantified using Residual Sum of Squares (RSS). Although regsubsets() is based on testing linear models, it works as a "rough" list for nonlinear models.
-    
      - c2. step.Gam() function in "gam" library for stepwise selection of variables in GAM models. This is useful when the number of predictors is not very high.
-    
-     - c3. advanced feature selection methods based on other data-mining techniques, including but not only: random forests, Bayesian Networks, Neural Networks, or other. 
+     - c3. advanced feature selection methods based on other data-mining techniques, including but not only: random forests, Bayesian Networks, Neural Networks, or other. Notice, that we can use very complex methods of feature selection, and then construct a model that is more transparant, for instance GAMs
 
 
 ###### c1) Feature selection using regsubsets()
@@ -2003,6 +2002,7 @@ One may exclude ad_id and variables used to calculate our dependent variable ROA
 str(trainTfo1)
 ```
 
+Now we can make the selection with forward selection.
 
 ```{r}
 library(leaps) 
@@ -2013,32 +2013,52 @@ reg.summary
 
 Recall, an asteriks indicates that a given variable is included in the corresponding model. The default is "1 subsets of each size up to 8", but using "nvmax" option we can control as many variables as are desired.
 
-```{r}
-# Use a prediction error criteria (Adj^R2 BIC, Cp) to select the "best overall" model:
-# names(reg.summary)
+Use a prediction error criteria (Adj^R2 BIC, Cp) to select the "best overall" model: names(reg.summary)
 
+In this example $R^2$ is applied.
+
+```{r}
 reg.summary$rsq
-# Rsquare increases monotonically as more variables are included. 
-# This is expected; the model containing all predictors will always have the smallest RSS and the largest R^2. 
+```
+
+Rsquare increases monotonically as more variables are included. This is expected; the model containing all predictors will always have the smallest RSS and the largest $R^2$. 
+
+```{r}
 plot(reg.summary$adjr2, xlab = "Number of Variables", ylab = "Adjusted R2", type = "p", ylim = c(0.1, 1), main = " Adj R2 for each model")
+grid(col = "darkgrey")
 max.adjr2 = max(reg.summary$adjr2)
 std.adjr2 = sd(reg.summary$adjr2)
 abline(h = max.adjr2 + 0.2 * std.adjr2, col = "red", lty = 2)
 abline(h = max.adjr2 - 0.2 * std.adjr2, col = "red", lty = 2)
 ```
 
-The plot shows the size 10-11 is the minimum size for the subset for which the scores are within 0.2 standard deviations of optimum. We pick 5 as the parsimonious subset size.
+The plot shows the size 10-11 is the minimum size for the subset for which the scores are within 0.2 standard deviations of optimum. 
+
+That is because the $R^2$ does not significantly change. Therefore, we can just limit ourselves with a more simple model.
+
+**We can see how the selection changes if we use the full model**
+
+*A common approach when dataset is small is to find best 10 variables using entire dataset.*
+
+Notice, that some researches will argue that this implies data leakage.
 
 ```{r}
-# A common approach when dataset is small is to find best 10 variables using entire dataset.
 reg.fit = regsubsets(dataTfo1$ROAS ~ ., data = dataTfo1[,-c(1,3, 14:17)], method = "forward", nvmax=14)
 summary(reg.fit)
-coefi = coef(reg.fit, id=10)
+```
+
+We want to select 10 variables.
+
+```{r}
+coefi = coef(reg.fit
+             , id=10) #Selection 10 variables
 names(coefi) # most important variables based on regsubsets() feature selection
 ```
 
 
 ####### 1) I run a linear regression using the selected features, to have a benchmark 
+
+In general, one should start with a simple model to see graudally advance, instead of jumping directly to complex models.
 
 ```{r}
 model1<-lm(ROAS ~  interest + impr + conv + appConv + CTR + costPerCon + CPM, data = trainTfo1)
@@ -2057,11 +2077,17 @@ par(mfrow = c(2, 2))
 plot(model1)
 ```
 
-Further inspecting residuals
+Notice, that the top right is the theoretical distribution (or quantiles) of a normal distribution. We see that the is a wave in the residuals, implying that there may be some non linearity.
+
+
+Further inspecting the residuals
 
 ```{r}
+par(mfrow = c(1,1))
 hist(model1$residuals)
 ```
+
+The residuals look quite well
 
 
 ####### 2) Linked to the topic of this lecture, run a non-liner model, such as the Generalized Additive Model (GAM) with smoothing splines.**
@@ -2080,6 +2106,25 @@ gam.mgcv <- mgcv::gam(ROAS ~ interest + s(impr) + s(conv) + s(appConv) + s(CTR) 
 summary(gam.mgcv)
 ```
 
+We see from the **approximate significance of the smooth terms**, that the smoothed variables appear to be siginificant, hence the smoothing splines are justified. We can also see the edf (estimated degrees of freedom), for each of the variables.
+
+The first ***parametric coefficients*** show how the varibles perform compared to the reference (baseline), we see that there are different p-values, where it looks as if interest 36 is the only significant, although we must remember that this is in reference to the baseline, hence it does not imply that the categories with p > 5% is insignificant. If we look further into the variable, we see that some of the categories have very few variables, hence we can bin the categories together. E.g.,
+
+```{r}
+table(trainTfo1$interest)
+```
+
+E.g. interest 114 have only four obsevationbs, we can aggregate groups, e.g., by looking at the means of the groups.
+
+```{r}
+aggregate(trainTfo1$ROAS,by = list(trainTfo1$interest),mean)
+```
+
+We see that they are close to each other, where one could combine groups based on this.
+
+
+\
+
 For which variables, if any, is there evidence of a non-linear relationship with the response? in the output, the edf (estimated degrees of freedom) column allow us to interpret the degree of nonlinearity for each predictor.
 
 ```{r}
@@ -2090,16 +2135,19 @@ AIC(gam.mgcv) # decreases compared to linear model
 
 ***Other checks***
 
+**One should always check the residuals**
+
 ```{r}
+par(mfrow = c(1,1))
 plot(gam.mgcv$residuals)
 qqnorm(gam.mgcv$residuals)
 qqline(gam.mgcv$residuals)
 hist((gam.mgcv$residuals))
 ```
 
+interpreting the partial effects of the smooth terms visually using plot(gam_model) (see p. 284 ISL).
 
 ```{r}
-# interpreting the partial effects of the smooth terms visually using plot(gam_model) (see p. 284 ISL).
 par(mfrow = c(2, 2))
 plot(gam.mgcv, se = T, col = "blue", scheme=1,unconditional = TRUE, residuals = TRUE) 
 ```
@@ -2118,7 +2166,7 @@ gam.tss = matrix(NA, k)
 cv.r2 = matrix(NA, k)
 
 for (j in 1:k) {
-  gam.mgcv = mgcv::gam(ROAS ~ s(impr) + s(conv) + s(appConv) + s(CTR) + s(costPerCon) + s(CPM), data = trainTfo1[folds!=j,])  # interest returns an error 
+  gam.mgcv = mgcv::gam(ROAS ~ s(impr) + s(conv) + s(appConv) + s(CTR) + s(costPerCon) + s(CPM), data = trainTfo1[folds!=j,])  # folds !=j returns the in-sample data
   pred = predict(gam.mgcv, trainTfo1[folds==j,])
   gam.err[j] = mean((trainTfo1$ROAS[folds==j] - pred)^2) 
   gam.tss[j] = mean((trainTfo1$ROAS[folds==j] - mean(trainTfo1$ROAS[folds==j]))^2) 
@@ -2129,14 +2177,14 @@ for (j in 1:k) {
 cv.r2
 ```
 
-We see the different R squares
+We see the different R squares, this we are now going to take the mean of.
 
 ```{r}
 mean.cv.R2=apply (cv.r2, 2, mean)
 mean.cv.R2
 ```
 
-The mean is 0.697
+The mean is 0.697. Now we can compare the model with the test partition.
 
 
 ***Evaluating the model test MSE and R^2 using the test dataset***
@@ -2172,13 +2220,15 @@ General discussion: Although the fitted GAM yields to a decent R^2 on the test s
 
 ###### c2) Feature selection using step.GAM
 
-in package gam, the analysist has to search for the effective df.
-One can create a scope list with possible splines for each continous variable. 
-Below, we considered splines up to maximum 5 degrees of freedom.
+Notice, that this is just another approach.
+
+in package gam, the analysist has to search for the effective df. One can create a scope list with possible splines for each continous variable. Below, we considered splines up to maximum 5 degrees of freedom.
 
 
 ```{r}
 library(gam)
+
+#Making a list with the different models
 scope_list = list("xyzCampId" = ~1 + xyzCampId,
                   "age" = ~1 + age,
                   "gender" = ~1 + gender,
@@ -2197,8 +2247,12 @@ gam.start <- gam::gam(ROAS ~ xyzCampId + age + gender + interest + impr + Clicks
 
 # Finally, search among different models
 # Remove "tick / check mark" from the package mgcv if you get an error next
-gam::step.Gam(gam.start, scope_list)
+gam::step.Gam(gam.start,scope = scope_list)
 ```
+
+The last model is the best model, hence
+
+gam::gam(formula = ROAS ~ impr + s(Clicks, df = 5) + s(appConv,df = 5) + s(CTR, df = 3) + s(CPC, df = 4) + CPM, data = trainTfo1,trace = FALSE)
 
 + AIC is used internally to pick the best model.
 + This is reported in the function output at every step.
@@ -2211,7 +2265,10 @@ gam::step.Gam(gam.start, scope_list)
 
 ```{r}
 library(gam)
+
+#The model found in gam.step()
 gam.step <- gam::gam(ROAS ~  impr + s(Clicks, df = 5) + s(appConv,df = 5) + s(CTR, df = 3) + s(CPC, df = 4) + CPM, data = trainTfo1)
+
 summary(gam.step)
 ```
 
@@ -2232,7 +2289,7 @@ Compare AIC values for all fitted models
 AIC(model1, gam.mgcv, gam.step) 
 ```
 
-Not better than the previous gam model
+We see that the second approach appear to be better than the step model.
 
 &nbsp;
 &nbsp;
@@ -2248,7 +2305,10 @@ RF is covered in-depth in the next lectures
 
 ```{r}
 library(party)
-cf1 <- cforest(trainTfo1$ROAS ~ . , data = trainTfo1[,-c(1, 3, 14:17)], control=cforest_unbiased(mtry=2,ntree=100))
+cf1 <- cforest(trainTfo1$ROAS ~ . , data = trainTfo1[,-c(1, 3, 14:17)]
+               ,control=cforest_unbiased(mtry=2,ntree=100))
+
+#We sort the variables for where importance is decreasing
 sort(varimp(cf1), decreasing = TRUE)  
 ```
 

@@ -580,9 +580,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Looking at the correlation matrix: If we are working with a model which assumes a linear relationship between the dependent and the independent variables, corr matrix can help us come up with an initial list of variable importance. However, corr matrix also works as a “rough informative tool” for nonlinear modelling.</p></li>
 <li><p>Running automatic feature selection algorithms. Functions in R include, among others:</p>
 <ul>
-<li><p>c1. regsubsets() function in “leaps” library (presented in ISL, p. 244); used to select the best size model that contains a given number of predictors, where best is quantified using Residual Sum of Squares (RSS). Although regsubsets() is based on testing linear models, it works as a “rough” list for nonlinear models.</p></li>
-<li><p>c2. step.Gam() function in “gam” library for stepwise selection of variables in GAM models. This is useful when the number of predictors is not very high.</p></li>
-<li><p>c3. advanced feature selection methods based on other data-mining techniques, including but not only: random forests, Bayesian Networks, Neural Networks, or other.</p></li>
+<li>c1. regsubsets() function in “leaps” library (presented in ISL, p. 244); used to select the best size model that contains a given number of predictors, where best is quantified using Residual Sum of Squares (RSS). Although regsubsets() is based on testing linear models, it works as a “rough” list for nonlinear models.</li>
+<li>c2. step.Gam() function in “gam” library for stepwise selection of variables in GAM models. This is useful when the number of predictors is not very high.</li>
+<li>c3. advanced feature selection methods based on other data-mining techniques, including but not only: random forests, Bayesian Networks, Neural Networks, or other. Notice, that we can use very complex methods of feature selection, and then construct a model that is more transparant, for instance GAMs</li>
 </ul></li>
 </ol>
 <div id="c1-feature-selection-using-regsubsets" class="section level6" number="2.5.4.3.1.1">
@@ -612,6 +612,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  $ CPM       : num  0.32 0.33 0.29 0.27 0.39 0.56 0.23 0.24 0.21 0.31 ...
 ##  - attr(*, &quot;na.action&quot;)= &#39;omit&#39; Named int [1:207] 3 6 11 12 13 14 16 18 21 25 ...
 ##   ..- attr(*, &quot;names&quot;)= chr [1:207] &quot;3&quot; &quot;6&quot; &quot;11&quot; &quot;12&quot; ...</code></pre>
+<p>Now we can make the selection with forward selection.</p>
 <div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="predicting-the-return-on-advertising-spent.html#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaps) </span>
 <span id="cb166-2"><a href="predicting-the-return-on-advertising-spent.html#cb166-2" aria-hidden="true" tabindex="-1"></a>reg.fit <span class="ot">=</span> <span class="fu">regsubsets</span>(trainTfo1<span class="sc">$</span>ROAS <span class="sc">~</span> ., <span class="at">data =</span> trainTfo1[,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>, <span class="dv">14</span><span class="sc">:</span><span class="dv">17</span>)], <span class="at">method =</span> <span class="st">&quot;forward&quot;</span>, <span class="at">nvmax=</span><span class="dv">14</span>)</span>
 <span id="cb166-3"><a href="predicting-the-return-on-advertising-spent.html#cb166-3" aria-hidden="true" tabindex="-1"></a>reg.summary <span class="ot">=</span> <span class="fu">summary</span>(reg.fit)</span>
@@ -813,24 +814,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 13  ( 1 ) &quot; &quot;    &quot;*&quot;   &quot;*&quot;  &quot;*&quot;     &quot;*&quot; &quot; &quot; &quot;*&quot;        &quot;*&quot;
 ## 14  ( 1 ) &quot; &quot;    &quot;*&quot;   &quot;*&quot;  &quot;*&quot;     &quot;*&quot; &quot; &quot; &quot;*&quot;        &quot;*&quot;</code></pre>
 <p>Recall, an asteriks indicates that a given variable is included in the corresponding model. The default is “1 subsets of each size up to 8,” but using “nvmax” option we can control as many variables as are desired.</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="predicting-the-return-on-advertising-spent.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a prediction error criteria (Adj^R2 BIC, Cp) to select the &quot;best overall&quot; model:</span></span>
-<span id="cb168-2"><a href="predicting-the-return-on-advertising-spent.html#cb168-2" aria-hidden="true" tabindex="-1"></a><span class="co"># names(reg.summary)</span></span>
-<span id="cb168-3"><a href="predicting-the-return-on-advertising-spent.html#cb168-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb168-4"><a href="predicting-the-return-on-advertising-spent.html#cb168-4" aria-hidden="true" tabindex="-1"></a>reg.summary<span class="sc">$</span>rsq</span></code></pre></div>
+<p>Use a prediction error criteria (Adj^R2 BIC, Cp) to select the “best overall” model: names(reg.summary)</p>
+<p>In this example <span class="math inline">\(R^2\)</span> is applied.</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="predicting-the-return-on-advertising-spent.html#cb168-1" aria-hidden="true" tabindex="-1"></a>reg.summary<span class="sc">$</span>rsq</span></code></pre></div>
 <pre><code>##  [1] 0.1596916 0.2163240 0.3276550 0.3437687 0.3584745 0.3676564 0.3766836
 ##  [8] 0.3843347 0.3880903 0.3913334 0.3946034 0.3973916 0.4003809 0.4033252</code></pre>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="predicting-the-return-on-advertising-spent.html#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rsquare increases monotonically as more variables are included. </span></span>
-<span id="cb170-2"><a href="predicting-the-return-on-advertising-spent.html#cb170-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This is expected; the model containing all predictors will always have the smallest RSS and the largest R^2. </span></span>
-<span id="cb170-3"><a href="predicting-the-return-on-advertising-spent.html#cb170-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(reg.summary<span class="sc">$</span>adjr2, <span class="at">xlab =</span> <span class="st">&quot;Number of Variables&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Adjusted R2&quot;</span>, <span class="at">type =</span> <span class="st">&quot;p&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">1</span>), <span class="at">main =</span> <span class="st">&quot; Adj R2 for each model&quot;</span>)</span>
-<span id="cb170-4"><a href="predicting-the-return-on-advertising-spent.html#cb170-4" aria-hidden="true" tabindex="-1"></a>max.adjr2 <span class="ot">=</span> <span class="fu">max</span>(reg.summary<span class="sc">$</span>adjr2)</span>
-<span id="cb170-5"><a href="predicting-the-return-on-advertising-spent.html#cb170-5" aria-hidden="true" tabindex="-1"></a>std.adjr2 <span class="ot">=</span> <span class="fu">sd</span>(reg.summary<span class="sc">$</span>adjr2)</span>
-<span id="cb170-6"><a href="predicting-the-return-on-advertising-spent.html#cb170-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> max.adjr2 <span class="sc">+</span> <span class="fl">0.2</span> <span class="sc">*</span> std.adjr2, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
-<span id="cb170-7"><a href="predicting-the-return-on-advertising-spent.html#cb170-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> max.adjr2 <span class="sc">-</span> <span class="fl">0.2</span> <span class="sc">*</span> std.adjr2, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-115-1.png" width="720" style="display: block; margin: auto;" /></p>
-<p>The plot shows the size 10-11 is the minimum size for the subset for which the scores are within 0.2 standard deviations of optimum. We pick 5 as the parsimonious subset size.</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="predicting-the-return-on-advertising-spent.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A common approach when dataset is small is to find best 10 variables using entire dataset.</span></span>
-<span id="cb171-2"><a href="predicting-the-return-on-advertising-spent.html#cb171-2" aria-hidden="true" tabindex="-1"></a>reg.fit <span class="ot">=</span> <span class="fu">regsubsets</span>(dataTfo1<span class="sc">$</span>ROAS <span class="sc">~</span> ., <span class="at">data =</span> dataTfo1[,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>, <span class="dv">14</span><span class="sc">:</span><span class="dv">17</span>)], <span class="at">method =</span> <span class="st">&quot;forward&quot;</span>, <span class="at">nvmax=</span><span class="dv">14</span>)</span>
-<span id="cb171-3"><a href="predicting-the-return-on-advertising-spent.html#cb171-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(reg.fit)</span></code></pre></div>
+<p>Rsquare increases monotonically as more variables are included. This is expected; the model containing all predictors will always have the smallest RSS and the largest <span class="math inline">\(R^2\)</span>.</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="predicting-the-return-on-advertising-spent.html#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(reg.summary<span class="sc">$</span>adjr2, <span class="at">xlab =</span> <span class="st">&quot;Number of Variables&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Adjusted R2&quot;</span>, <span class="at">type =</span> <span class="st">&quot;p&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">1</span>), <span class="at">main =</span> <span class="st">&quot; Adj R2 for each model&quot;</span>)</span>
+<span id="cb170-2"><a href="predicting-the-return-on-advertising-spent.html#cb170-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;darkgrey&quot;</span>)</span>
+<span id="cb170-3"><a href="predicting-the-return-on-advertising-spent.html#cb170-3" aria-hidden="true" tabindex="-1"></a>max.adjr2 <span class="ot">=</span> <span class="fu">max</span>(reg.summary<span class="sc">$</span>adjr2)</span>
+<span id="cb170-4"><a href="predicting-the-return-on-advertising-spent.html#cb170-4" aria-hidden="true" tabindex="-1"></a>std.adjr2 <span class="ot">=</span> <span class="fu">sd</span>(reg.summary<span class="sc">$</span>adjr2)</span>
+<span id="cb170-5"><a href="predicting-the-return-on-advertising-spent.html#cb170-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> max.adjr2 <span class="sc">+</span> <span class="fl">0.2</span> <span class="sc">*</span> std.adjr2, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb170-6"><a href="predicting-the-return-on-advertising-spent.html#cb170-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> max.adjr2 <span class="sc">-</span> <span class="fl">0.2</span> <span class="sc">*</span> std.adjr2, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-116-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>The plot shows the size 10-11 is the minimum size for the subset for which the scores are within 0.2 standard deviations of optimum.</p>
+<p>That is because the <span class="math inline">\(R^2\)</span> does not significantly change. Therefore, we can just limit ourselves with a more simple model.</p>
+<p><strong>We can see how the selection changes if we use the full model</strong></p>
+<p><em>A common approach when dataset is small is to find best 10 variables using entire dataset.</em></p>
+<p>Notice, that some researches will argue that this implies data leakage.</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="predicting-the-return-on-advertising-spent.html#cb171-1" aria-hidden="true" tabindex="-1"></a>reg.fit <span class="ot">=</span> <span class="fu">regsubsets</span>(dataTfo1<span class="sc">$</span>ROAS <span class="sc">~</span> ., <span class="at">data =</span> dataTfo1[,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>, <span class="dv">14</span><span class="sc">:</span><span class="dv">17</span>)], <span class="at">method =</span> <span class="st">&quot;forward&quot;</span>, <span class="at">nvmax=</span><span class="dv">14</span>)</span>
+<span id="cb171-2"><a href="predicting-the-return-on-advertising-spent.html#cb171-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(reg.fit)</span></code></pre></div>
 <pre><code>## Subset selection object
 ## Call: regsubsets.formula(dataTfo1$ROAS ~ ., data = dataTfo1[, -c(1, 
 ##     3, 14:17)], method = &quot;forward&quot;, nvmax = 14)
@@ -1027,13 +1030,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 12  ( 1 ) &quot; &quot;    &quot;*&quot;   &quot;*&quot;  &quot;*&quot;     &quot;*&quot; &quot; &quot; &quot;*&quot;        &quot;*&quot;
 ## 13  ( 1 ) &quot; &quot;    &quot;*&quot;   &quot;*&quot;  &quot;*&quot;     &quot;*&quot; &quot; &quot; &quot;*&quot;        &quot;*&quot;
 ## 14  ( 1 ) &quot; &quot;    &quot;*&quot;   &quot;*&quot;  &quot;*&quot;     &quot;*&quot; &quot; &quot; &quot;*&quot;        &quot;*&quot;</code></pre>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="predicting-the-return-on-advertising-spent.html#cb173-1" aria-hidden="true" tabindex="-1"></a>coefi <span class="ot">=</span> <span class="fu">coef</span>(reg.fit, <span class="at">id=</span><span class="dv">10</span>)</span>
-<span id="cb173-2"><a href="predicting-the-return-on-advertising-spent.html#cb173-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(coefi) <span class="co"># most important variables based on regsubsets() feature selection</span></span></code></pre></div>
+<p>We want to select 10 variables.</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="predicting-the-return-on-advertising-spent.html#cb173-1" aria-hidden="true" tabindex="-1"></a>coefi <span class="ot">=</span> <span class="fu">coef</span>(reg.fit</span>
+<span id="cb173-2"><a href="predicting-the-return-on-advertising-spent.html#cb173-2" aria-hidden="true" tabindex="-1"></a>             , <span class="at">id=</span><span class="dv">10</span>) <span class="co">#Selection 10 variables</span></span>
+<span id="cb173-3"><a href="predicting-the-return-on-advertising-spent.html#cb173-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(coefi) <span class="co"># most important variables based on regsubsets() feature selection</span></span></code></pre></div>
 <pre><code>##  [1] &quot;(Intercept)&quot; &quot;interest15&quot;  &quot;interest22&quot;  &quot;interest36&quot;  &quot;interest113&quot;
 ##  [6] &quot;impr&quot;        &quot;conv&quot;        &quot;appConv&quot;     &quot;CTR&quot;         &quot;costPerCon&quot; 
 ## [11] &quot;CPM&quot;</code></pre>
 <div id="i-run-a-linear-regression-using-the-selected-features-to-have-a-benchmark" class="section level7" number="2.5.4.3.1.1.1">
 <p class="heading" number="2.5.4.3.1.1.1"><span class="header-section-number">2.5.4.3.1.1.1</span> 1) I run a linear regression using the selected features, to have a benchmark</p>
+<p>In general, one should start with a simple model to see graudally advance, instead of jumping directly to complex models.</p>
 <div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="predicting-the-return-on-advertising-spent.html#cb175-1" aria-hidden="true" tabindex="-1"></a>model1<span class="ot">&lt;-</span><span class="fu">lm</span>(ROAS <span class="sc">~</span>  interest <span class="sc">+</span> impr <span class="sc">+</span> conv <span class="sc">+</span> appConv <span class="sc">+</span> CTR <span class="sc">+</span> costPerCon <span class="sc">+</span> CPM, <span class="at">data =</span> trainTfo1)</span>
 <span id="cb175-2"><a href="predicting-the-return-on-advertising-spent.html#cb175-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1) <span class="co"># summary.aov(model1) #Alternatice</span></span></code></pre></div>
 <pre><code>## 
@@ -1104,10 +1110,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The model diagnostics</p>
 <div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="predicting-the-return-on-advertising-spent.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
 <span id="cb179-2"><a href="predicting-the-return-on-advertising-spent.html#cb179-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model1)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-119-1.png" width="720" style="display: block; margin: auto;" /></p>
-<p>Further inspecting residuals</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="predicting-the-return-on-advertising-spent.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(model1<span class="sc">$</span>residuals)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-120-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-121-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>Notice, that the top right is the theoretical distribution (or quantiles) of a normal distribution. We see that the is a wave in the residuals, implying that there may be some non linearity.</p>
+<p>Further inspecting the residuals</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="predicting-the-return-on-advertising-spent.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb180-2"><a href="predicting-the-return-on-advertising-spent.html#cb180-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(model1<span class="sc">$</span>residuals)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-122-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>The residuals look quite well</p>
 </div>
 <div id="linked-to-the-topic-of-this-lecture-run-a-non-liner-model-such-as-the-generalized-additive-model-gam-with-smoothing-splines." class="section level7" number="2.5.4.3.1.1.2">
 <p class="heading" number="2.5.4.3.1.1.2"><span class="header-section-number">2.5.4.3.1.1.2</span> 2) Linked to the topic of this lecture, run a non-liner model, such as the Generalized Additive Model (GAM) with smoothing splines.**</p>
@@ -1189,66 +1198,253 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## R-sq.(adj) =  0.735   Deviance explained = 76.9%
 ## GCV =  2.027  Scale est. = 1.7676    n = 596</code></pre>
+<p>We see from the <strong>approximate significance of the smooth terms</strong>, that the smoothed variables appear to be siginificant, hence the smoothing splines are justified. We can also see the edf (estimated degrees of freedom), for each of the variables.</p>
+<p>The first <strong><em>parametric coefficients</em></strong> show how the varibles perform compared to the reference (baseline), we see that there are different p-values, where it looks as if interest 36 is the only significant, although we must remember that this is in reference to the baseline, hence it does not imply that the categories with p &gt; 5% is insignificant. If we look further into the variable, we see that some of the categories have very few variables, hence we can bin the categories together. E.g.,</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="predicting-the-return-on-advertising-spent.html#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(trainTfo1<span class="sc">$</span>interest)</span></code></pre></div>
+<pre><code>## 
+##   2   7  10  15  16  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32 
+##  10  13  48  21  60  23  17  25  18  19  17  14  18  17  37  26  38   9   7  14 
+##  36  63  64  65  66 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 
+##  11  24  25  11   7   4   3   3   4   3   5   5   7   5   5   6   4   4   5   4</code></pre>
+<p>E.g. interest 114 have only four obsevationbs, we can aggregate groups, e.g., by looking at the means of the groups.</p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="predicting-the-return-on-advertising-spent.html#cb185-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(trainTfo1<span class="sc">$</span>ROAS,<span class="at">by =</span> <span class="fu">list</span>(trainTfo1<span class="sc">$</span>interest),mean)</span></code></pre></div>
+<div class="kable-table">
+<table>
+<thead>
+<tr class="header">
+<th align="left">Group.1</th>
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2</td>
+<td align="right">2.3410000</td>
+</tr>
+<tr class="even">
+<td align="left">7</td>
+<td align="right">2.2507692</td>
+</tr>
+<tr class="odd">
+<td align="left">10</td>
+<td align="right">2.2810417</td>
+</tr>
+<tr class="even">
+<td align="left">15</td>
+<td align="right">3.1423810</td>
+</tr>
+<tr class="odd">
+<td align="left">16</td>
+<td align="right">2.3663333</td>
+</tr>
+<tr class="even">
+<td align="left">18</td>
+<td align="right">2.8282609</td>
+</tr>
+<tr class="odd">
+<td align="left">19</td>
+<td align="right">2.8247059</td>
+</tr>
+<tr class="even">
+<td align="left">20</td>
+<td align="right">2.9944000</td>
+</tr>
+<tr class="odd">
+<td align="left">21</td>
+<td align="right">2.6822222</td>
+</tr>
+<tr class="even">
+<td align="left">22</td>
+<td align="right">0.5963158</td>
+</tr>
+<tr class="odd">
+<td align="left">23</td>
+<td align="right">1.4623529</td>
+</tr>
+<tr class="even">
+<td align="left">24</td>
+<td align="right">2.2957143</td>
+</tr>
+<tr class="odd">
+<td align="left">25</td>
+<td align="right">1.8588889</td>
+</tr>
+<tr class="even">
+<td align="left">26</td>
+<td align="right">1.3188235</td>
+</tr>
+<tr class="odd">
+<td align="left">27</td>
+<td align="right">1.5972973</td>
+</tr>
+<tr class="even">
+<td align="left">28</td>
+<td align="right">1.6423077</td>
+</tr>
+<tr class="odd">
+<td align="left">29</td>
+<td align="right">2.4734211</td>
+</tr>
+<tr class="even">
+<td align="left">30</td>
+<td align="right">2.4400000</td>
+</tr>
+<tr class="odd">
+<td align="left">31</td>
+<td align="right">3.5300000</td>
+</tr>
+<tr class="even">
+<td align="left">32</td>
+<td align="right">2.0764286</td>
+</tr>
+<tr class="odd">
+<td align="left">36</td>
+<td align="right">4.4445455</td>
+</tr>
+<tr class="even">
+<td align="left">63</td>
+<td align="right">2.2858333</td>
+</tr>
+<tr class="odd">
+<td align="left">64</td>
+<td align="right">2.6624000</td>
+</tr>
+<tr class="even">
+<td align="left">65</td>
+<td align="right">2.4272727</td>
+</tr>
+<tr class="odd">
+<td align="left">66</td>
+<td align="right">2.8700000</td>
+</tr>
+<tr class="even">
+<td align="left">100</td>
+<td align="right">3.8350000</td>
+</tr>
+<tr class="odd">
+<td align="left">101</td>
+<td align="right">1.9500000</td>
+</tr>
+<tr class="even">
+<td align="left">102</td>
+<td align="right">3.3900000</td>
+</tr>
+<tr class="odd">
+<td align="left">103</td>
+<td align="right">1.7875000</td>
+</tr>
+<tr class="even">
+<td align="left">104</td>
+<td align="right">2.3033333</td>
+</tr>
+<tr class="odd">
+<td align="left">105</td>
+<td align="right">0.9300000</td>
+</tr>
+<tr class="even">
+<td align="left">106</td>
+<td align="right">1.1320000</td>
+</tr>
+<tr class="odd">
+<td align="left">107</td>
+<td align="right">3.1528571</td>
+</tr>
+<tr class="even">
+<td align="left">108</td>
+<td align="right">3.2280000</td>
+</tr>
+<tr class="odd">
+<td align="left">109</td>
+<td align="right">1.1380000</td>
+</tr>
+<tr class="even">
+<td align="left">110</td>
+<td align="right">4.3983333</td>
+</tr>
+<tr class="odd">
+<td align="left">111</td>
+<td align="right">3.6075000</td>
+</tr>
+<tr class="even">
+<td align="left">112</td>
+<td align="right">1.9150000</td>
+</tr>
+<tr class="odd">
+<td align="left">113</td>
+<td align="right">3.7440000</td>
+</tr>
+<tr class="even">
+<td align="left">114</td>
+<td align="right">1.0275000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>We see that they are close to each other, where one could combine groups based on this.</p>
+<p><br />
+</p>
 <p>For which variables, if any, is there evidence of a non-linear relationship with the response? in the output, the edf (estimated degrees of freedom) column allow us to interpret the degree of nonlinearity for each predictor.</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="predicting-the-return-on-advertising-spent.html#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="co"># contrasts(trainTfo1$interest)</span></span>
-<span id="cb183-2"><a href="predicting-the-return-on-advertising-spent.html#cb183-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb183-3"><a href="predicting-the-return-on-advertising-spent.html#cb183-3" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(gam.mgcv) <span class="co"># decreases compared to linear model</span></span></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="predicting-the-return-on-advertising-spent.html#cb186-1" aria-hidden="true" tabindex="-1"></a><span class="co"># contrasts(trainTfo1$interest)</span></span>
+<span id="cb186-2"><a href="predicting-the-return-on-advertising-spent.html#cb186-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb186-3"><a href="predicting-the-return-on-advertising-spent.html#cb186-3" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(gam.mgcv) <span class="co"># decreases compared to linear model</span></span></code></pre></div>
 <pre><code>## [1] 2103.794</code></pre>
 <p><strong><em>Other checks</em></strong></p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="predicting-the-return-on-advertising-spent.html#cb185-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gam.mgcv<span class="sc">$</span>residuals)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-123-1.png" width="720" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="predicting-the-return-on-advertising-spent.html#cb186-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(gam.mgcv<span class="sc">$</span>residuals)</span>
-<span id="cb186-2"><a href="predicting-the-return-on-advertising-spent.html#cb186-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(gam.mgcv<span class="sc">$</span>residuals)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-123-2.png" width="720" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="predicting-the-return-on-advertising-spent.html#cb187-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>((gam.mgcv<span class="sc">$</span>residuals))</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-123-3.png" width="720" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="predicting-the-return-on-advertising-spent.html#cb188-1" aria-hidden="true" tabindex="-1"></a><span class="co"># interpreting the partial effects of the smooth terms visually using plot(gam_model) (see p. 284 ISL).</span></span>
-<span id="cb188-2"><a href="predicting-the-return-on-advertising-spent.html#cb188-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb188-3"><a href="predicting-the-return-on-advertising-spent.html#cb188-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gam.mgcv, <span class="at">se =</span> T, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">scheme=</span><span class="dv">1</span>,<span class="at">unconditional =</span> <span class="cn">TRUE</span>, <span class="at">residuals =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-124-1.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-124-2.png" width="720" style="display: block; margin: auto;" /></p>
+<p><strong>One should always check the residuals</strong></p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="predicting-the-return-on-advertising-spent.html#cb188-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb188-2"><a href="predicting-the-return-on-advertising-spent.html#cb188-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gam.mgcv<span class="sc">$</span>residuals)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-127-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="predicting-the-return-on-advertising-spent.html#cb189-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(gam.mgcv<span class="sc">$</span>residuals)</span>
+<span id="cb189-2"><a href="predicting-the-return-on-advertising-spent.html#cb189-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(gam.mgcv<span class="sc">$</span>residuals)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-127-2.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="predicting-the-return-on-advertising-spent.html#cb190-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>((gam.mgcv<span class="sc">$</span>residuals))</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-127-3.png" width="720" style="display: block; margin: auto;" /></p>
+<p>interpreting the partial effects of the smooth terms visually using plot(gam_model) (see p. 284 ISL).</p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="predicting-the-return-on-advertising-spent.html#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb191-2"><a href="predicting-the-return-on-advertising-spent.html#cb191-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gam.mgcv, <span class="at">se =</span> T, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">scheme=</span><span class="dv">1</span>,<span class="at">unconditional =</span> <span class="cn">TRUE</span>, <span class="at">residuals =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-128-1.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-128-2.png" width="720" style="display: block; margin: auto;" /></p>
 <p>Holding all the other variables in the model fixed, return on advertising spent tends to decrease with increasing impr (the number of times the ad was shown). holding all the other variables in the model fixed, total people signing up to the webshop (conv) has no significant effect on ROAS. Holding all the other variables in the model fixed, total people purchasing the product (appConv) and click-through-rate (CTR) have a significant positive nonlinear effect on ROAS. However, the CI in some areas is also very large due to very few observations, thus more data is required to evaluate the results. Finally cost-per-click (CPM = Spent/Impr *1000) has a decreasing nonlinear effect on ROAS, but the effect is very uncertain given CI become very large when CPM &gt;1. Overall, the relationships found are intuitive but the effec ts are not strong.</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="predicting-the-return-on-advertising-spent.html#cb189-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluating test MSE using using k-fold cross-validation</span></span>
-<span id="cb189-2"><a href="predicting-the-return-on-advertising-spent.html#cb189-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb189-3"><a href="predicting-the-return-on-advertising-spent.html#cb189-3" aria-hidden="true" tabindex="-1"></a>k<span class="ot">=</span><span class="dv">5</span></span>
-<span id="cb189-4"><a href="predicting-the-return-on-advertising-spent.html#cb189-4" aria-hidden="true" tabindex="-1"></a>folds <span class="ot">=</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>k, <span class="fu">nrow</span>(trainTfo1), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb189-5"><a href="predicting-the-return-on-advertising-spent.html#cb189-5" aria-hidden="true" tabindex="-1"></a>gam.err <span class="ot">=</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, k)</span>
-<span id="cb189-6"><a href="predicting-the-return-on-advertising-spent.html#cb189-6" aria-hidden="true" tabindex="-1"></a>gam.tss <span class="ot">=</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, k)</span>
-<span id="cb189-7"><a href="predicting-the-return-on-advertising-spent.html#cb189-7" aria-hidden="true" tabindex="-1"></a>cv.r2 <span class="ot">=</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, k)</span>
-<span id="cb189-8"><a href="predicting-the-return-on-advertising-spent.html#cb189-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb189-9"><a href="predicting-the-return-on-advertising-spent.html#cb189-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) {</span>
-<span id="cb189-10"><a href="predicting-the-return-on-advertising-spent.html#cb189-10" aria-hidden="true" tabindex="-1"></a>  gam.mgcv <span class="ot">=</span> mgcv<span class="sc">::</span><span class="fu">gam</span>(ROAS <span class="sc">~</span> <span class="fu">s</span>(impr) <span class="sc">+</span> <span class="fu">s</span>(conv) <span class="sc">+</span> <span class="fu">s</span>(appConv) <span class="sc">+</span> <span class="fu">s</span>(CTR) <span class="sc">+</span> <span class="fu">s</span>(costPerCon) <span class="sc">+</span> <span class="fu">s</span>(CPM), <span class="at">data =</span> trainTfo1[folds<span class="sc">!=</span>j,])  <span class="co"># interest returns an error </span></span>
-<span id="cb189-11"><a href="predicting-the-return-on-advertising-spent.html#cb189-11" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">=</span> <span class="fu">predict</span>(gam.mgcv, trainTfo1[folds<span class="sc">==</span>j,])</span>
-<span id="cb189-12"><a href="predicting-the-return-on-advertising-spent.html#cb189-12" aria-hidden="true" tabindex="-1"></a>  gam.err[j] <span class="ot">=</span> <span class="fu">mean</span>((trainTfo1<span class="sc">$</span>ROAS[folds<span class="sc">==</span>j] <span class="sc">-</span> pred)<span class="sc">^</span><span class="dv">2</span>) </span>
-<span id="cb189-13"><a href="predicting-the-return-on-advertising-spent.html#cb189-13" aria-hidden="true" tabindex="-1"></a>  gam.tss[j] <span class="ot">=</span> <span class="fu">mean</span>((trainTfo1<span class="sc">$</span>ROAS[folds<span class="sc">==</span>j] <span class="sc">-</span> <span class="fu">mean</span>(trainTfo1<span class="sc">$</span>ROAS[folds<span class="sc">==</span>j]))<span class="sc">^</span><span class="dv">2</span>) </span>
-<span id="cb189-14"><a href="predicting-the-return-on-advertising-spent.html#cb189-14" aria-hidden="true" tabindex="-1"></a>  cv.r2[j] <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> gam.err[j]<span class="sc">/</span>gam.tss[j] </span>
-<span id="cb189-15"><a href="predicting-the-return-on-advertising-spent.html#cb189-15" aria-hidden="true" tabindex="-1"></a>  cv.r2[j] </span>
-<span id="cb189-16"><a href="predicting-the-return-on-advertising-spent.html#cb189-16" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb189-17"><a href="predicting-the-return-on-advertising-spent.html#cb189-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb189-18"><a href="predicting-the-return-on-advertising-spent.html#cb189-18" aria-hidden="true" tabindex="-1"></a>cv.r2</span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="predicting-the-return-on-advertising-spent.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluating test MSE using using k-fold cross-validation</span></span>
+<span id="cb192-2"><a href="predicting-the-return-on-advertising-spent.html#cb192-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb192-3"><a href="predicting-the-return-on-advertising-spent.html#cb192-3" aria-hidden="true" tabindex="-1"></a>k<span class="ot">=</span><span class="dv">5</span></span>
+<span id="cb192-4"><a href="predicting-the-return-on-advertising-spent.html#cb192-4" aria-hidden="true" tabindex="-1"></a>folds <span class="ot">=</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>k, <span class="fu">nrow</span>(trainTfo1), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb192-5"><a href="predicting-the-return-on-advertising-spent.html#cb192-5" aria-hidden="true" tabindex="-1"></a>gam.err <span class="ot">=</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, k)</span>
+<span id="cb192-6"><a href="predicting-the-return-on-advertising-spent.html#cb192-6" aria-hidden="true" tabindex="-1"></a>gam.tss <span class="ot">=</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, k)</span>
+<span id="cb192-7"><a href="predicting-the-return-on-advertising-spent.html#cb192-7" aria-hidden="true" tabindex="-1"></a>cv.r2 <span class="ot">=</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, k)</span>
+<span id="cb192-8"><a href="predicting-the-return-on-advertising-spent.html#cb192-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb192-9"><a href="predicting-the-return-on-advertising-spent.html#cb192-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) {</span>
+<span id="cb192-10"><a href="predicting-the-return-on-advertising-spent.html#cb192-10" aria-hidden="true" tabindex="-1"></a>  gam.mgcv <span class="ot">=</span> mgcv<span class="sc">::</span><span class="fu">gam</span>(ROAS <span class="sc">~</span> <span class="fu">s</span>(impr) <span class="sc">+</span> <span class="fu">s</span>(conv) <span class="sc">+</span> <span class="fu">s</span>(appConv) <span class="sc">+</span> <span class="fu">s</span>(CTR) <span class="sc">+</span> <span class="fu">s</span>(costPerCon) <span class="sc">+</span> <span class="fu">s</span>(CPM), <span class="at">data =</span> trainTfo1[folds<span class="sc">!=</span>j,])  <span class="co"># folds !=j returns the in-sample data</span></span>
+<span id="cb192-11"><a href="predicting-the-return-on-advertising-spent.html#cb192-11" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">=</span> <span class="fu">predict</span>(gam.mgcv, trainTfo1[folds<span class="sc">==</span>j,])</span>
+<span id="cb192-12"><a href="predicting-the-return-on-advertising-spent.html#cb192-12" aria-hidden="true" tabindex="-1"></a>  gam.err[j] <span class="ot">=</span> <span class="fu">mean</span>((trainTfo1<span class="sc">$</span>ROAS[folds<span class="sc">==</span>j] <span class="sc">-</span> pred)<span class="sc">^</span><span class="dv">2</span>) </span>
+<span id="cb192-13"><a href="predicting-the-return-on-advertising-spent.html#cb192-13" aria-hidden="true" tabindex="-1"></a>  gam.tss[j] <span class="ot">=</span> <span class="fu">mean</span>((trainTfo1<span class="sc">$</span>ROAS[folds<span class="sc">==</span>j] <span class="sc">-</span> <span class="fu">mean</span>(trainTfo1<span class="sc">$</span>ROAS[folds<span class="sc">==</span>j]))<span class="sc">^</span><span class="dv">2</span>) </span>
+<span id="cb192-14"><a href="predicting-the-return-on-advertising-spent.html#cb192-14" aria-hidden="true" tabindex="-1"></a>  cv.r2[j] <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> gam.err[j]<span class="sc">/</span>gam.tss[j] </span>
+<span id="cb192-15"><a href="predicting-the-return-on-advertising-spent.html#cb192-15" aria-hidden="true" tabindex="-1"></a>  cv.r2[j] </span>
+<span id="cb192-16"><a href="predicting-the-return-on-advertising-spent.html#cb192-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb192-17"><a href="predicting-the-return-on-advertising-spent.html#cb192-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb192-18"><a href="predicting-the-return-on-advertising-spent.html#cb192-18" aria-hidden="true" tabindex="-1"></a>cv.r2</span></code></pre></div>
 <pre><code>##           [,1]
 ## [1,] 0.6894129
 ## [2,] 0.7195426
 ## [3,] 0.7299054
 ## [4,] 0.7580761
 ## [5,] 0.5879333</code></pre>
-<p>We see the different R squares</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="predicting-the-return-on-advertising-spent.html#cb191-1" aria-hidden="true" tabindex="-1"></a>mean.cv.R2<span class="ot">=</span><span class="fu">apply</span> (cv.r2, <span class="dv">2</span>, mean)</span>
-<span id="cb191-2"><a href="predicting-the-return-on-advertising-spent.html#cb191-2" aria-hidden="true" tabindex="-1"></a>mean.cv.R2</span></code></pre></div>
+<p>We see the different R squares, this we are now going to take the mean of.</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="predicting-the-return-on-advertising-spent.html#cb194-1" aria-hidden="true" tabindex="-1"></a>mean.cv.R2<span class="ot">=</span><span class="fu">apply</span> (cv.r2, <span class="dv">2</span>, mean)</span>
+<span id="cb194-2"><a href="predicting-the-return-on-advertising-spent.html#cb194-2" aria-hidden="true" tabindex="-1"></a>mean.cv.R2</span></code></pre></div>
 <pre><code>## [1] 0.6969741</code></pre>
-<p>The mean is 0.697</p>
+<p>The mean is 0.697. Now we can compare the model with the test partition.</p>
 <p><strong><em>Evaluating the model test MSE and R^2 using the test dataset</em></strong></p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="predicting-the-return-on-advertising-spent.html#cb193-1" aria-hidden="true" tabindex="-1"></a>gam.pred <span class="ot">=</span> <span class="fu">predict</span>(gam.mgcv, testTfo1)</span>
-<span id="cb193-2"><a href="predicting-the-return-on-advertising-spent.html#cb193-2" aria-hidden="true" tabindex="-1"></a>gam.err <span class="ot">=</span> <span class="fu">mean</span>((testTfo1<span class="sc">$</span>ROAS <span class="sc">-</span> gam.pred)<span class="sc">^</span><span class="dv">2</span>) </span>
-<span id="cb193-3"><a href="predicting-the-return-on-advertising-spent.html#cb193-3" aria-hidden="true" tabindex="-1"></a>gam.tss <span class="ot">=</span> <span class="fu">mean</span>((testTfo1<span class="sc">$</span>ROAS <span class="sc">-</span> <span class="fu">mean</span>(testTfo1<span class="sc">$</span>ROAS))<span class="sc">^</span><span class="dv">2</span>) </span>
-<span id="cb193-4"><a href="predicting-the-return-on-advertising-spent.html#cb193-4" aria-hidden="true" tabindex="-1"></a>test.r2 <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> gam.err<span class="sc">/</span>gam.tss </span>
-<span id="cb193-5"><a href="predicting-the-return-on-advertising-spent.html#cb193-5" aria-hidden="true" tabindex="-1"></a>test.r2 <span class="co"># the % of explained variance (R^2 in the data test)</span></span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="predicting-the-return-on-advertising-spent.html#cb196-1" aria-hidden="true" tabindex="-1"></a>gam.pred <span class="ot">=</span> <span class="fu">predict</span>(gam.mgcv, testTfo1)</span>
+<span id="cb196-2"><a href="predicting-the-return-on-advertising-spent.html#cb196-2" aria-hidden="true" tabindex="-1"></a>gam.err <span class="ot">=</span> <span class="fu">mean</span>((testTfo1<span class="sc">$</span>ROAS <span class="sc">-</span> gam.pred)<span class="sc">^</span><span class="dv">2</span>) </span>
+<span id="cb196-3"><a href="predicting-the-return-on-advertising-spent.html#cb196-3" aria-hidden="true" tabindex="-1"></a>gam.tss <span class="ot">=</span> <span class="fu">mean</span>((testTfo1<span class="sc">$</span>ROAS <span class="sc">-</span> <span class="fu">mean</span>(testTfo1<span class="sc">$</span>ROAS))<span class="sc">^</span><span class="dv">2</span>) </span>
+<span id="cb196-4"><a href="predicting-the-return-on-advertising-spent.html#cb196-4" aria-hidden="true" tabindex="-1"></a>test.r2 <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> gam.err<span class="sc">/</span>gam.tss </span>
+<span id="cb196-5"><a href="predicting-the-return-on-advertising-spent.html#cb196-5" aria-hidden="true" tabindex="-1"></a>test.r2 <span class="co"># the % of explained variance (R^2 in the data test)</span></span></code></pre></div>
 <pre><code>## [1] 0.6703216</code></pre>
 <p>We see that R2 is similar, hence the model does not appear to have high optimisim.</p>
 <p><strong><em>Accuracy</em></strong></p>
 <p>Accuracy: correlation Actual vs. Predicted values</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="predicting-the-return-on-advertising-spent.html#cb195-1" aria-hidden="true" tabindex="-1"></a>actuals_preds <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(<span class="at">actuals=</span>testTfo1<span class="sc">$</span>ROAS,<span class="at">predicteds=</span>gam.pred))  </span>
-<span id="cb195-2"><a href="predicting-the-return-on-advertising-spent.html#cb195-2" aria-hidden="true" tabindex="-1"></a>correlation_accuracy <span class="ot">&lt;-</span> <span class="fu">cor</span>(actuals_preds)  </span>
-<span id="cb195-3"><a href="predicting-the-return-on-advertising-spent.html#cb195-3" aria-hidden="true" tabindex="-1"></a>correlation_accuracy</span></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="predicting-the-return-on-advertising-spent.html#cb198-1" aria-hidden="true" tabindex="-1"></a>actuals_preds <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(<span class="at">actuals=</span>testTfo1<span class="sc">$</span>ROAS,<span class="at">predicteds=</span>gam.pred))  </span>
+<span id="cb198-2"><a href="predicting-the-return-on-advertising-spent.html#cb198-2" aria-hidden="true" tabindex="-1"></a>correlation_accuracy <span class="ot">&lt;-</span> <span class="fu">cor</span>(actuals_preds)  </span>
+<span id="cb198-3"><a href="predicting-the-return-on-advertising-spent.html#cb198-3" aria-hidden="true" tabindex="-1"></a>correlation_accuracy</span></code></pre></div>
 <pre><code>##              actuals predicteds
 ## actuals    1.0000000  0.8305841
 ## predicteds 0.8305841  1.0000000</code></pre>
@@ -1261,29 +1457,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="c2-feature-selection-using-step.gam" class="section level6" number="2.5.4.3.1.2">
 <h6><span class="header-section-number">2.5.4.3.1.2</span> c2) Feature selection using step.GAM</h6>
-<p>in package gam, the analysist has to search for the effective df.
-One can create a scope list with possible splines for each continous variable.
-Below, we considered splines up to maximum 5 degrees of freedom.</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="predicting-the-return-on-advertising-spent.html#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gam)</span>
-<span id="cb197-2"><a href="predicting-the-return-on-advertising-spent.html#cb197-2" aria-hidden="true" tabindex="-1"></a>scope_list <span class="ot">=</span> <span class="fu">list</span>(<span class="st">&quot;xyzCampId&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span> <span class="sc">+</span> xyzCampId,</span>
-<span id="cb197-3"><a href="predicting-the-return-on-advertising-spent.html#cb197-3" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;age&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span> <span class="sc">+</span> age,</span>
-<span id="cb197-4"><a href="predicting-the-return-on-advertising-spent.html#cb197-4" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;gender&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span> <span class="sc">+</span> gender,</span>
-<span id="cb197-5"><a href="predicting-the-return-on-advertising-spent.html#cb197-5" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;interest&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span> <span class="sc">+</span> interest,</span>
-<span id="cb197-6"><a href="predicting-the-return-on-advertising-spent.html#cb197-6" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;impr&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span> <span class="sc">+</span> impr <span class="sc">+</span> <span class="fu">s</span>(impr, <span class="at">df=</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">s</span>(impr, <span class="at">df=</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">s</span>(impr, <span class="at">df =</span><span class="dv">4</span>) <span class="sc">+</span> <span class="fu">s</span>(impr, <span class="at">df=</span><span class="dv">5</span>),</span>
-<span id="cb197-7"><a href="predicting-the-return-on-advertising-spent.html#cb197-7" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Clicks&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span><span class="sc">+</span>Clicks<span class="sc">+</span><span class="fu">s</span>(Clicks, <span class="at">df=</span><span class="dv">2</span>)<span class="sc">+</span><span class="fu">s</span>(Clicks, <span class="at">df=</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">s</span>(Clicks, <span class="at">df=</span><span class="dv">4</span>)<span class="sc">+</span><span class="fu">s</span>(Clicks, <span class="at">df=</span><span class="dv">5</span>),</span>
-<span id="cb197-8"><a href="predicting-the-return-on-advertising-spent.html#cb197-8" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Spent&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span> <span class="sc">+</span> Spent <span class="sc">+</span> <span class="fu">s</span>(Spent, <span class="at">df=</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">s</span>(Spent, <span class="at">df=</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">s</span>(Spent, <span class="at">df=</span><span class="dv">4</span>) <span class="sc">+</span> <span class="fu">s</span>(Spent, <span class="at">df=</span><span class="dv">5</span>),</span>
-<span id="cb197-9"><a href="predicting-the-return-on-advertising-spent.html#cb197-9" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;conv&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span> <span class="sc">+</span> conv <span class="sc">+</span> <span class="fu">s</span>(conv, <span class="at">df=</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">s</span>(conv, <span class="at">df=</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">s</span>(conv, <span class="at">df=</span><span class="dv">4</span>) <span class="sc">+</span> <span class="fu">s</span>(conv, <span class="at">df=</span><span class="dv">5</span>),</span>
-<span id="cb197-10"><a href="predicting-the-return-on-advertising-spent.html#cb197-10" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;appConv&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span><span class="sc">+</span>appConv<span class="sc">+</span><span class="fu">s</span>(appConv,<span class="at">df=</span><span class="dv">2</span>)<span class="sc">+</span><span class="fu">s</span>(appConv,<span class="at">df=</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">s</span>(appConv,<span class="at">df=</span><span class="dv">4</span>)<span class="sc">+</span><span class="fu">s</span>(appConv,<span class="at">df=</span><span class="dv">5</span>),</span>
-<span id="cb197-11"><a href="predicting-the-return-on-advertising-spent.html#cb197-11" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;CTR&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span> <span class="sc">+</span> CTR <span class="sc">+</span> <span class="fu">s</span>(CTR, <span class="at">df=</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">s</span>(CTR, <span class="at">df=</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">s</span>(CTR, <span class="at">df=</span><span class="dv">4</span>) <span class="sc">+</span> <span class="fu">s</span>(CTR, <span class="at">df=</span><span class="dv">5</span>),</span>
-<span id="cb197-12"><a href="predicting-the-return-on-advertising-spent.html#cb197-12" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;CPC&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span> <span class="sc">+</span> CPC <span class="sc">+</span> <span class="fu">s</span>(CPC, <span class="at">df=</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">s</span>(CPC, <span class="at">df=</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">s</span>(CPC, <span class="at">df=</span><span class="dv">4</span>) <span class="sc">+</span> <span class="fu">s</span>(CPC, <span class="at">df=</span><span class="dv">5</span>),</span>
-<span id="cb197-13"><a href="predicting-the-return-on-advertising-spent.html#cb197-13" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;CPM&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span> <span class="sc">+</span> CPM <span class="sc">+</span> <span class="fu">s</span>(CPM, <span class="at">df=</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">s</span>(CPM, <span class="at">df=</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">s</span>(CPM, <span class="at">df=</span><span class="dv">4</span>) <span class="sc">+</span> <span class="fu">s</span>(CPM, <span class="at">df=</span><span class="dv">5</span>))</span>
-<span id="cb197-14"><a href="predicting-the-return-on-advertising-spent.html#cb197-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb197-15"><a href="predicting-the-return-on-advertising-spent.html#cb197-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the starting model</span></span>
-<span id="cb197-16"><a href="predicting-the-return-on-advertising-spent.html#cb197-16" aria-hidden="true" tabindex="-1"></a>gam.start <span class="ot">&lt;-</span> gam<span class="sc">::</span><span class="fu">gam</span>(ROAS <span class="sc">~</span> xyzCampId <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> interest <span class="sc">+</span> impr <span class="sc">+</span> Clicks <span class="sc">+</span> Spent <span class="sc">+</span> conv <span class="sc">+</span> appConv <span class="sc">+</span> CTR <span class="sc">+</span> CPC <span class="sc">+</span> CPM, <span class="at">data =</span> trainTfo1) </span>
-<span id="cb197-17"><a href="predicting-the-return-on-advertising-spent.html#cb197-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb197-18"><a href="predicting-the-return-on-advertising-spent.html#cb197-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Finally, search among different models</span></span>
-<span id="cb197-19"><a href="predicting-the-return-on-advertising-spent.html#cb197-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove &quot;tick / check mark&quot; from the package mgcv if you get an error next</span></span>
-<span id="cb197-20"><a href="predicting-the-return-on-advertising-spent.html#cb197-20" aria-hidden="true" tabindex="-1"></a>gam<span class="sc">::</span><span class="fu">step.Gam</span>(gam.start, scope_list)</span></code></pre></div>
+<p>Notice, that this is just another approach.</p>
+<p>in package gam, the analysist has to search for the effective df. One can create a scope list with possible splines for each continous variable. Below, we considered splines up to maximum 5 degrees of freedom.</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="predicting-the-return-on-advertising-spent.html#cb200-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gam)</span>
+<span id="cb200-2"><a href="predicting-the-return-on-advertising-spent.html#cb200-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb200-3"><a href="predicting-the-return-on-advertising-spent.html#cb200-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Making a list with the different models</span></span>
+<span id="cb200-4"><a href="predicting-the-return-on-advertising-spent.html#cb200-4" aria-hidden="true" tabindex="-1"></a>scope_list <span class="ot">=</span> <span class="fu">list</span>(<span class="st">&quot;xyzCampId&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span> <span class="sc">+</span> xyzCampId,</span>
+<span id="cb200-5"><a href="predicting-the-return-on-advertising-spent.html#cb200-5" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;age&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span> <span class="sc">+</span> age,</span>
+<span id="cb200-6"><a href="predicting-the-return-on-advertising-spent.html#cb200-6" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;gender&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span> <span class="sc">+</span> gender,</span>
+<span id="cb200-7"><a href="predicting-the-return-on-advertising-spent.html#cb200-7" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;interest&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span> <span class="sc">+</span> interest,</span>
+<span id="cb200-8"><a href="predicting-the-return-on-advertising-spent.html#cb200-8" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;impr&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span> <span class="sc">+</span> impr <span class="sc">+</span> <span class="fu">s</span>(impr, <span class="at">df=</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">s</span>(impr, <span class="at">df=</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">s</span>(impr, <span class="at">df =</span><span class="dv">4</span>) <span class="sc">+</span> <span class="fu">s</span>(impr, <span class="at">df=</span><span class="dv">5</span>),</span>
+<span id="cb200-9"><a href="predicting-the-return-on-advertising-spent.html#cb200-9" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Clicks&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span><span class="sc">+</span>Clicks<span class="sc">+</span><span class="fu">s</span>(Clicks, <span class="at">df=</span><span class="dv">2</span>)<span class="sc">+</span><span class="fu">s</span>(Clicks, <span class="at">df=</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">s</span>(Clicks, <span class="at">df=</span><span class="dv">4</span>)<span class="sc">+</span><span class="fu">s</span>(Clicks, <span class="at">df=</span><span class="dv">5</span>),</span>
+<span id="cb200-10"><a href="predicting-the-return-on-advertising-spent.html#cb200-10" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Spent&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span> <span class="sc">+</span> Spent <span class="sc">+</span> <span class="fu">s</span>(Spent, <span class="at">df=</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">s</span>(Spent, <span class="at">df=</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">s</span>(Spent, <span class="at">df=</span><span class="dv">4</span>) <span class="sc">+</span> <span class="fu">s</span>(Spent, <span class="at">df=</span><span class="dv">5</span>),</span>
+<span id="cb200-11"><a href="predicting-the-return-on-advertising-spent.html#cb200-11" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;conv&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span> <span class="sc">+</span> conv <span class="sc">+</span> <span class="fu">s</span>(conv, <span class="at">df=</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">s</span>(conv, <span class="at">df=</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">s</span>(conv, <span class="at">df=</span><span class="dv">4</span>) <span class="sc">+</span> <span class="fu">s</span>(conv, <span class="at">df=</span><span class="dv">5</span>),</span>
+<span id="cb200-12"><a href="predicting-the-return-on-advertising-spent.html#cb200-12" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;appConv&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span><span class="sc">+</span>appConv<span class="sc">+</span><span class="fu">s</span>(appConv,<span class="at">df=</span><span class="dv">2</span>)<span class="sc">+</span><span class="fu">s</span>(appConv,<span class="at">df=</span><span class="dv">3</span>)<span class="sc">+</span><span class="fu">s</span>(appConv,<span class="at">df=</span><span class="dv">4</span>)<span class="sc">+</span><span class="fu">s</span>(appConv,<span class="at">df=</span><span class="dv">5</span>),</span>
+<span id="cb200-13"><a href="predicting-the-return-on-advertising-spent.html#cb200-13" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;CTR&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span> <span class="sc">+</span> CTR <span class="sc">+</span> <span class="fu">s</span>(CTR, <span class="at">df=</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">s</span>(CTR, <span class="at">df=</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">s</span>(CTR, <span class="at">df=</span><span class="dv">4</span>) <span class="sc">+</span> <span class="fu">s</span>(CTR, <span class="at">df=</span><span class="dv">5</span>),</span>
+<span id="cb200-14"><a href="predicting-the-return-on-advertising-spent.html#cb200-14" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;CPC&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span> <span class="sc">+</span> CPC <span class="sc">+</span> <span class="fu">s</span>(CPC, <span class="at">df=</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">s</span>(CPC, <span class="at">df=</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">s</span>(CPC, <span class="at">df=</span><span class="dv">4</span>) <span class="sc">+</span> <span class="fu">s</span>(CPC, <span class="at">df=</span><span class="dv">5</span>),</span>
+<span id="cb200-15"><a href="predicting-the-return-on-advertising-spent.html#cb200-15" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;CPM&quot;</span> <span class="ot">=</span> <span class="er">~</span><span class="dv">1</span> <span class="sc">+</span> CPM <span class="sc">+</span> <span class="fu">s</span>(CPM, <span class="at">df=</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">s</span>(CPM, <span class="at">df=</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">s</span>(CPM, <span class="at">df=</span><span class="dv">4</span>) <span class="sc">+</span> <span class="fu">s</span>(CPM, <span class="at">df=</span><span class="dv">5</span>))</span>
+<span id="cb200-16"><a href="predicting-the-return-on-advertising-spent.html#cb200-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb200-17"><a href="predicting-the-return-on-advertising-spent.html#cb200-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the starting model</span></span>
+<span id="cb200-18"><a href="predicting-the-return-on-advertising-spent.html#cb200-18" aria-hidden="true" tabindex="-1"></a>gam.start <span class="ot">&lt;-</span> gam<span class="sc">::</span><span class="fu">gam</span>(ROAS <span class="sc">~</span> xyzCampId <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> interest <span class="sc">+</span> impr <span class="sc">+</span> Clicks <span class="sc">+</span> Spent <span class="sc">+</span> conv <span class="sc">+</span> appConv <span class="sc">+</span> CTR <span class="sc">+</span> CPC <span class="sc">+</span> CPM, <span class="at">data =</span> trainTfo1) </span>
+<span id="cb200-19"><a href="predicting-the-return-on-advertising-spent.html#cb200-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb200-20"><a href="predicting-the-return-on-advertising-spent.html#cb200-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Finally, search among different models</span></span>
+<span id="cb200-21"><a href="predicting-the-return-on-advertising-spent.html#cb200-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove &quot;tick / check mark&quot; from the package mgcv if you get an error next</span></span>
+<span id="cb200-22"><a href="predicting-the-return-on-advertising-spent.html#cb200-22" aria-hidden="true" tabindex="-1"></a>gam<span class="sc">::</span><span class="fu">step.Gam</span>(gam.start,<span class="at">scope =</span> scope_list)</span></code></pre></div>
 <pre><code>## Start:  ROAS ~ xyzCampId + age + gender + interest + impr + Clicks +      Spent + conv + appConv + CTR + CPC + CPM; AIC= 2611.094 
 ## Step:1 ROAS ~ xyzCampId + age + gender + interest + impr + Clicks +      Spent + conv + s(appConv, df = 2) + CTR + CPC + CPM ; AIC= 2541.326 
 ## Step:2 ROAS ~ xyzCampId + age + gender + interest + impr + Clicks +      Spent + conv + s(appConv, df = 3) + CTR + CPC + CPM ; AIC= 2487.485 
@@ -1311,6 +1508,8 @@ Below, we considered splines up to maximum 5 degrees of freedom.</p>
 ## 
 ## Degrees of Freedom: 595 total; 575.9999 Residual
 ## Residual Deviance: 1446.543</code></pre>
+<p>The last model is the best model, hence</p>
+<p>gam::gam(formula = ROAS ~ impr + s(Clicks, df = 5) + s(appConv,df = 5) + s(CTR, df = 3) + s(CPC, df = 4) + CPM, data = trainTfo1,trace = FALSE)</p>
 <ul>
 <li>AIC is used internally to pick the best model.</li>
 <li>This is reported in the function output at every step.</li>
@@ -1319,9 +1518,12 @@ Below, we considered splines up to maximum 5 degrees of freedom.</p>
 <li>ROAS ~ impr + s(Clicks, df = 5) + s(appConv,df = 5) + s(CTR, df = 3) + s(CPC, df = 4) + CPM.</li>
 </ul>
 <p><strong>Next, run the recommended model and evaluate the AIC. Is it better than the previous ones?</strong></p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="predicting-the-return-on-advertising-spent.html#cb200-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gam)</span>
-<span id="cb200-2"><a href="predicting-the-return-on-advertising-spent.html#cb200-2" aria-hidden="true" tabindex="-1"></a>gam.step <span class="ot">&lt;-</span> gam<span class="sc">::</span><span class="fu">gam</span>(ROAS <span class="sc">~</span>  impr <span class="sc">+</span> <span class="fu">s</span>(Clicks, <span class="at">df =</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="fu">s</span>(appConv,<span class="at">df =</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="fu">s</span>(CTR, <span class="at">df =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="fu">s</span>(CPC, <span class="at">df =</span> <span class="dv">4</span>) <span class="sc">+</span> CPM, <span class="at">data =</span> trainTfo1)</span>
-<span id="cb200-3"><a href="predicting-the-return-on-advertising-spent.html#cb200-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gam.step)</span></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="predicting-the-return-on-advertising-spent.html#cb203-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gam)</span>
+<span id="cb203-2"><a href="predicting-the-return-on-advertising-spent.html#cb203-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb203-3"><a href="predicting-the-return-on-advertising-spent.html#cb203-3" aria-hidden="true" tabindex="-1"></a><span class="co">#The model found in gam.step()</span></span>
+<span id="cb203-4"><a href="predicting-the-return-on-advertising-spent.html#cb203-4" aria-hidden="true" tabindex="-1"></a>gam.step <span class="ot">&lt;-</span> gam<span class="sc">::</span><span class="fu">gam</span>(ROAS <span class="sc">~</span>  impr <span class="sc">+</span> <span class="fu">s</span>(Clicks, <span class="at">df =</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="fu">s</span>(appConv,<span class="at">df =</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="fu">s</span>(CTR, <span class="at">df =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="fu">s</span>(CPC, <span class="at">df =</span> <span class="dv">4</span>) <span class="sc">+</span> CPM, <span class="at">data =</span> trainTfo1)</span>
+<span id="cb203-5"><a href="predicting-the-return-on-advertising-spent.html#cb203-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb203-6"><a href="predicting-the-return-on-advertising-spent.html#cb203-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gam.step)</span></code></pre></div>
 <pre><code>## 
 ## Call: gam::gam(formula = ROAS ~ impr + s(Clicks, df = 5) + s(appConv, 
 ##     df = 5) + s(CTR, df = 3) + s(CPC, df = 4) + CPM, data = trainTfo1)
@@ -1360,13 +1562,13 @@ Below, we considered splines up to maximum 5 degrees of freedom.</p>
 ## CPM                                                 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="predicting-the-return-on-advertising-spent.html#cb202-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
-<span id="cb202-2"><a href="predicting-the-return-on-advertising-spent.html#cb202-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gam.step, <span class="at">se =</span> T, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-131-1.png" width="720" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="predicting-the-return-on-advertising-spent.html#cb203-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(gam.step)</span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="predicting-the-return-on-advertising-spent.html#cb205-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb205-2"><a href="predicting-the-return-on-advertising-spent.html#cb205-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gam.step, <span class="at">se =</span> T, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-135-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="predicting-the-return-on-advertising-spent.html#cb206-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(gam.step)</span></code></pre></div>
 <pre><code>## [1] 2261.843</code></pre>
 <p>Compare AIC values for all fitted models</p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="predicting-the-return-on-advertising-spent.html#cb205-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(model1, gam.mgcv, gam.step) </span></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="predicting-the-return-on-advertising-spent.html#cb208-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(model1, gam.mgcv, gam.step) </span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -1395,7 +1597,7 @@ Below, we considered splines up to maximum 5 degrees of freedom.</p>
 </tbody>
 </table>
 </div>
-<p>Not better than the previous gam model</p>
+<p>We see that the second approach appear to be better than the step model.</p>
 <p> 
  </p>
 </div>
@@ -1404,9 +1606,12 @@ Below, we considered splines up to maximum 5 degrees of freedom.</p>
 <p>Advanced feature selection methods is an active domain of research. Modern techniques include, among others, using random forests to find a set of predictors that best explains the variance in the response variable (Random forests models is covered in Ch.8). For a review of all methods, consider this suplementary readings: A. Jović, K. Brkić and N. Bogunović “A review of feature selection methods with applications.”</p>
 <p>Feature selection using Random Forest (RF)</p>
 <p>RF is covered in-depth in the next lectures</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="predicting-the-return-on-advertising-spent.html#cb206-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(party)</span>
-<span id="cb206-2"><a href="predicting-the-return-on-advertising-spent.html#cb206-2" aria-hidden="true" tabindex="-1"></a>cf1 <span class="ot">&lt;-</span> <span class="fu">cforest</span>(trainTfo1<span class="sc">$</span>ROAS <span class="sc">~</span> . , <span class="at">data =</span> trainTfo1[,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">14</span><span class="sc">:</span><span class="dv">17</span>)], <span class="at">control=</span><span class="fu">cforest_unbiased</span>(<span class="at">mtry=</span><span class="dv">2</span>,<span class="at">ntree=</span><span class="dv">100</span>))</span>
-<span id="cb206-3"><a href="predicting-the-return-on-advertising-spent.html#cb206-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">varimp</span>(cf1), <span class="at">decreasing =</span> <span class="cn">TRUE</span>)  </span></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="predicting-the-return-on-advertising-spent.html#cb209-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(party)</span>
+<span id="cb209-2"><a href="predicting-the-return-on-advertising-spent.html#cb209-2" aria-hidden="true" tabindex="-1"></a>cf1 <span class="ot">&lt;-</span> <span class="fu">cforest</span>(trainTfo1<span class="sc">$</span>ROAS <span class="sc">~</span> . , <span class="at">data =</span> trainTfo1[,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">14</span><span class="sc">:</span><span class="dv">17</span>)]</span>
+<span id="cb209-3"><a href="predicting-the-return-on-advertising-spent.html#cb209-3" aria-hidden="true" tabindex="-1"></a>               ,<span class="at">control=</span><span class="fu">cforest_unbiased</span>(<span class="at">mtry=</span><span class="dv">2</span>,<span class="at">ntree=</span><span class="dv">100</span>))</span>
+<span id="cb209-4"><a href="predicting-the-return-on-advertising-spent.html#cb209-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-5"><a href="predicting-the-return-on-advertising-spent.html#cb209-5" aria-hidden="true" tabindex="-1"></a><span class="co">#We sort the variables for where importance is decreasing</span></span>
+<span id="cb209-6"><a href="predicting-the-return-on-advertising-spent.html#cb209-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">varimp</span>(cf1), <span class="at">decreasing =</span> <span class="cn">TRUE</span>)  </span></code></pre></div>
 <pre><code>##     appConv  costPerCon      Clicks       Spent        impr        conv 
 ## 4.982585204 2.651832080 1.193535977 1.028742086 0.664008402 0.269207329 
 ##         CPM   xyzCampId         CTR         age         CPC    interest 
@@ -1414,9 +1619,9 @@ Below, we considered splines up to maximum 5 degrees of freedom.</p>
 ##      gender 
 ## 0.009347033</code></pre>
 <p>Based on the estimated variable importance, select the most relevant ones. Different feature selection methods, yield to slighly different variables, but majority coincide.</p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="predicting-the-return-on-advertising-spent.html#cb208-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mgcv)</span>
-<span id="cb208-2"><a href="predicting-the-return-on-advertising-spent.html#cb208-2" aria-hidden="true" tabindex="-1"></a>gam.rforest <span class="ot">&lt;-</span> mgcv<span class="sc">::</span><span class="fu">gam</span>(ROAS <span class="sc">~</span> <span class="fu">s</span>(appConv) <span class="sc">+</span> <span class="fu">s</span>(costPerCon) <span class="sc">+</span> <span class="fu">s</span>(Spent) <span class="sc">+</span> <span class="fu">s</span>(Clicks) <span class="sc">+</span> <span class="fu">s</span>(impr) <span class="sc">+</span> <span class="fu">s</span>(conv) <span class="sc">+</span> <span class="fu">s</span>(CPM) <span class="sc">+</span> xyzCampId <span class="sc">+</span> <span class="fu">s</span>(CTR), <span class="at">data =</span> trainTfo1)</span>
-<span id="cb208-3"><a href="predicting-the-return-on-advertising-spent.html#cb208-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gam.rforest)</span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="predicting-the-return-on-advertising-spent.html#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mgcv)</span>
+<span id="cb211-2"><a href="predicting-the-return-on-advertising-spent.html#cb211-2" aria-hidden="true" tabindex="-1"></a>gam.rforest <span class="ot">&lt;-</span> mgcv<span class="sc">::</span><span class="fu">gam</span>(ROAS <span class="sc">~</span> <span class="fu">s</span>(appConv) <span class="sc">+</span> <span class="fu">s</span>(costPerCon) <span class="sc">+</span> <span class="fu">s</span>(Spent) <span class="sc">+</span> <span class="fu">s</span>(Clicks) <span class="sc">+</span> <span class="fu">s</span>(impr) <span class="sc">+</span> <span class="fu">s</span>(conv) <span class="sc">+</span> <span class="fu">s</span>(CPM) <span class="sc">+</span> xyzCampId <span class="sc">+</span> <span class="fu">s</span>(CTR), <span class="at">data =</span> trainTfo1)</span>
+<span id="cb211-3"><a href="predicting-the-return-on-advertising-spent.html#cb211-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gam.rforest)</span></code></pre></div>
 <pre><code>## 
 ## Family: gaussian 
 ## Link function: identity 
@@ -1449,10 +1654,10 @@ Below, we considered splines up to maximum 5 degrees of freedom.</p>
 ## R-sq.(adj) =   0.74   Deviance explained = 75.9%
 ## GCV = 1.8726  Scale est. = 1.7334    n = 596</code></pre>
 <p>discuss sig.</p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="predicting-the-return-on-advertising-spent.html#cb210-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(gam.rforest)</span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="predicting-the-return-on-advertising-spent.html#cb213-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(gam.rforest)</span></code></pre></div>
 <pre><code>## [1] 2063.802</code></pre>
 <p>Compare AIC values for all fitted models</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="predicting-the-return-on-advertising-spent.html#cb212-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(model1, gam.mgcv, gam.step, gam.rforest) </span></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="predicting-the-return-on-advertising-spent.html#cb215-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(model1, gam.mgcv, gam.step, gam.rforest) </span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
