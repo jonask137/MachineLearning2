@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Machine Learning for Business Intelligence 2</title>
-  <meta name="description" content="Machine Learning for Business Intelligence 2" />
+  <title>3.2 Bagging, Random Forests, Boosting | Machine Learning for Business Intelligence 2</title>
+  <meta name="description" content="3.2 Bagging, Random Forests, Boosting | Machine Learning for Business Intelligence 2" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Machine Learning for Business Intelligence 2" />
+  <meta property="og:title" content="3.2 Bagging, Random Forests, Boosting | Machine Learning for Business Intelligence 2" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Machine Learning for Business Intelligence 2" />
+  <meta name="twitter:title" content="3.2 Bagging, Random Forests, Boosting | Machine Learning for Business Intelligence 2" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="introduction.html"/>
+<link rel="prev" href="the-basics-of-decision-trees.html"/>
+<link rel="next" href="subject-1.html"/>
 <script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -281,36 +281,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Machine Learning for Business Intelligence 2</h1>
+<div id="bagging-random-forests-boosting" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Bagging, Random Forests, Boosting</h2>
+<p>These are merely building blocks to improve the prediction power.</p>
+<div id="bagging-bootstrap-aggregation" class="section level3" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Bagging (Bootstrap Aggregation)</h3>
+<p>We want to reduce the variance, and thus the instability of the model, by training the decision tree on different training data. To solve this without requiring a huge amount of data, we introduce bootstrapping. We then have the following procedure:</p>
+<ol style="list-style-type: decimal">
+<li>Sample from the train data B times</li>
+<li>Train the model, making B amount of models, can be written as <span class="math inline">\(\hat{f}^{*b}(x)\)</span>
+<em>a. Notice that we didn’t prune the tree, that is intentional.</em></li>
+<li>Make predictions</li>
+<li>Average the predictions - these are the final predictions. Hence we obtain:</li>
+</ol>
+<p><span class="math display" id="eq:BaggingTrees">\[\begin{equation}
+\hat{y}_{bag}(x) = 1/B*\sum_{b=1}^{B}\hat{f}^{*b}(x)
+\tag{3.4}
+\end{equation}\]</span></p>
+<p>We have therefore created B amount of models, that are each very flexible. But altogether we they create a consensus that acts like the principle estimation of the crowds. Therefore, by including B amount of models we avoid overfitting.</p>
+<p>In a classification setting, it is very common to classify based on the majority vote.</p>
+<p>Terms:</p>
+<ul>
+<li>OOB = out-of-bag. These are observations that are not included in the bagging process.</li>
+</ul>
 </div>
-<div id="setup" class="section level1 unnumbered">
-<h1>setup</h1>
-<p>All the output formatting is done in the _output.yml file while all bookdown rendering options is done in the _bookdown.yml file.§</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bookdown)</span></code></pre></div>
-<p><strong>Tips and tricks</strong></p>
-<p><em>Referencing</em></p>
-<p>This is making a figure with a caption and where we center the figure and set the size. Notice, that the figure is automatically numbered according to the chapter number.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pressure,<span class="at">type =</span> <span class="st">&#39;b&#39;</span>,<span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:nice-fig"></span>
-<img src="Machine-Learning-Notes_files/figure-html/nice-fig-1.png" alt="A fig" width="80%" />
-<p class="caption">
-Figure 0.1: A fig
-</p>
+<div id="random-forests" class="section level3" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Random Forests</h3>
+<p>Illustrate the scenario of a clear ranking in the importance of the predictor variables, then the bagging method will almost everytime end up with the same trees, perhaps with different cutpoints, but in general, the trees are similar. This countereffects the reduction of variability that we are trying to impose.</p>
+<p>With random forests we force the model only to select a subset of the predictors to avoid constructing trees that are very much alike, due to the independent selection. Thus, each time the algorithm considers a split, it is only able to choose among a random sample of m predictors amongst all of the p predictors. Notice, that we are still bagging the data.</p>
+<p>By doings so, we are able to construct more different trees, that yields a far more stable model and also preserves the same prediction power through the bagging and hence averaging the consensus of each tree.</p>
 </div>
-<p>Now we are able to make a reference to the chunk.</p>
-<p>Refer to a chunk: <a href="index.html#fig:nice-fig">0.1</a></p>
-<p><em>Options</em></p>
-<p><a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf?_ga=2.47682403.59925266.1608407175-330761457.1608407175">RMarkdown Reference Guide</a></p>
+<div id="boosting" class="section level3" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Boosting</h3>
+<p><em>Note, boosting is a general approach, that can be applied to many statistical learning methods</em></p>
+<p>The whole idea, is that we can construct one model and based on the residuals hereof, we can construct a new tree which is fitted to the residuals on the prior model. Therefore, the boosting method allows for learning. To control the learning we have three different tuning parameters:</p>
+<ol style="list-style-type: decimal">
+<li>B = the number of trees. As we constantly improve the model, by fitting to the residuals, we are now able to overfit the training data by iterating too much.</li>
+<li><span class="math inline">\(\lambda\)</span> = the shrinkage parameter. This is a small positive number. It controls at which rate the boosting works. Often the smaller lambda the higher does B need to be.</li>
+<li>d = number of d splits (d for depth). This controls the complexity of the boosted ensemble. <em>Note: often <span class="math inline">\(d = 1\)</span> works very well, this is a stump with only one split</em>. The higher the d, the more interactions between the variables will be reflected. Although, the reason that d = 1 works well, is that each tree accounts for previous trees.</li>
+</ol>
+<p>See the procedure on <span class="citation"><a href="references.html#ref-hastie2013" role="doc-biblioref">Hastie et al.</a> (<a href="references.html#ref-hastie2013" role="doc-biblioref">2013</a>)</span>, p. 323.</p>
+<p><strong>Notice, boosting in classification is a bit different and more complex, the details hereof are omitted in the book</strong></p>
 
 </div>
+</div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="introduction.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="the-basics-of-decision-trees.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="subject-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

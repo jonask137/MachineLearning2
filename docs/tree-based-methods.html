@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="FacebookCasestudy.html"/>
-<link rel="next" href="subject-1.html"/>
+<link rel="next" href="the-basics-of-decision-trees.html"/>
 <script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -238,7 +238,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="tree-based-methods.html"><a href="tree-based-methods.html"><i class="fa fa-check"></i><b>3</b> Tree Based Methods</a></li>
+<li class="chapter" data-level="3" data-path="tree-based-methods.html"><a href="tree-based-methods.html"><i class="fa fa-check"></i><b>3</b> Tree Based Methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="the-basics-of-decision-trees.html"><a href="the-basics-of-decision-trees.html"><i class="fa fa-check"></i><b>3.1</b> The Basics of Decision Trees</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="the-basics-of-decision-trees.html"><a href="the-basics-of-decision-trees.html#regression-trees"><i class="fa fa-check"></i><b>3.1.1</b> Regression Trees</a>
+<ul>
+<li class="chapter" data-level="3.1.1.1" data-path="the-basics-of-decision-trees.html"><a href="the-basics-of-decision-trees.html#how-to-make-the-decision-trees"><i class="fa fa-check"></i><b>3.1.1.1</b> How to make the decision trees</a>
+<ul>
+<li class="chapter" data-level="3.1.1.1.1" data-path="the-basics-of-decision-trees.html"><a href="the-basics-of-decision-trees.html#the-goal-of-regression"><i class="fa fa-check"></i><b>3.1.1.1.1</b> The goal of regression</a></li>
+<li class="chapter" data-level="3.1.1.1.2" data-path="the-basics-of-decision-trees.html"><a href="the-basics-of-decision-trees.html#tree-pruning-algoritm"><i class="fa fa-check"></i><b>3.1.1.1.2</b> Tree Pruning &amp; Algoritm</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3.1.2" data-path="the-basics-of-decision-trees.html"><a href="the-basics-of-decision-trees.html#classification-trees"><i class="fa fa-check"></i><b>3.1.2</b> Classification Trees</a></li>
+<li class="chapter" data-level="3.1.3" data-path="the-basics-of-decision-trees.html"><a href="the-basics-of-decision-trees.html#tree-vs.-lienar-models"><i class="fa fa-check"></i><b>3.1.3</b> Tree vs. Lienar Models</a></li>
+<li class="chapter" data-level="3.1.4" data-path="the-basics-of-decision-trees.html"><a href="the-basics-of-decision-trees.html#advantages-and-disadvantages-of-trees"><i class="fa fa-check"></i><b>3.1.4</b> Advantages and Disadvantages of Trees</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="bagging-random-forests-boosting.html"><a href="bagging-random-forests-boosting.html"><i class="fa fa-check"></i><b>3.2</b> Bagging, Random Forests, Boosting</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="bagging-random-forests-boosting.html"><a href="bagging-random-forests-boosting.html#bagging-bootstrap-aggregation"><i class="fa fa-check"></i><b>3.2.1</b> Bagging (Bootstrap Aggregation)</a></li>
+<li class="chapter" data-level="3.2.2" data-path="bagging-random-forests-boosting.html"><a href="bagging-random-forests-boosting.html#random-forests"><i class="fa fa-check"></i><b>3.2.2</b> Random Forests</a></li>
+<li class="chapter" data-level="3.2.3" data-path="bagging-random-forests-boosting.html"><a href="bagging-random-forests-boosting.html#boosting"><i class="fa fa-check"></i><b>3.2.3</b> Boosting</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="4" data-path="subject-1.html"><a href="subject-1.html"><i class="fa fa-check"></i><b>4</b> Subject 1</a></li>
 <li class="chapter" data-level="5" data-path="subject-1-1.html"><a href="subject-1-1.html"><i class="fa fa-check"></i><b>5</b> Subject 1</a></li>
 <li class="chapter" data-level="6" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>6</b> References</a></li>
@@ -261,7 +283,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="tree-based-methods" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Tree Based Methods</h1>
-
+<p>In its essence the tree based methods are decisions trees, which is a set of splitting rules, which can be drawn as a tree, hence the name - decision tree.</p>
+<p>In its initial form, the decision tree is typically not competitive with non linear models and shrinkage methods prediction wise. Although the decision trees can be improve through:</p>
+<ol style="list-style-type: decimal">
+<li>Bagging</li>
+<li>Random forests</li>
+<li>Boosting</li>
+</ol>
+<p>The methods above yields several decision trees, which yields a single consensus prediction. We see that combining a large number of trees improves prediction power greatly but also decrease the interpretability.</p>
 </div>
             </section>
 
@@ -269,7 +298,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="FacebookCasestudy.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="subject-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="the-basics-of-decision-trees.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
