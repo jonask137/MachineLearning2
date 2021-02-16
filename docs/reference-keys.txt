@@ -92,6 +92,7 @@ regression-trees
 how-to-make-the-decision-trees
 the-goal-of-regression
 tree-pruning-algoritm
+setting-contrains-of-the-tree-sise
 classification-trees
 tree-vs.-lienar-models
 advantages-and-disadvantages-of-trees

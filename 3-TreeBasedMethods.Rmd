@@ -8,11 +8,19 @@ editor_options:
 
 In its essence the tree based methods are decisions trees, which is a set of splitting rules, which can be drawn as a tree, hence the name - decision tree.
 
+We have three types of trees:
+
+1. Regression trees
+2. Classification trees
+3. Ensemble methods of trees, e.g., bagging, random forests and boosting
+
 In its initial form, the decision tree is typically not competitive with non linear models and shrinkage methods prediction wise. Although the decision trees can be improve through:
 
 1. Bagging
 2. Random forests
 3. Boosting
+
+*Those above are ensemble methods of trees, those above are controlled with hyper-parameters that counterfeits overfitting*
 
 The methods above yields several decision trees, which yields a single consensus prediction. We see that combining a large number of trees improves prediction power greatly but also decrease the interpretability.
 
@@ -26,11 +34,20 @@ knitr::include_graphics(rep("Images/DecisionTree.png"))
 
 We see that the illustration has __2 internal nodes__ - years < 4.5 and hits < 117.5 -- and __3 terminal nodes__ (i.e. leaf/leaves). The leaves consist of the mean of the response given the criterias in the decision tree. The lines connecting the nodes (internal and terminal) are called branches.
 
+_Notice, that the same variables can occurs several times in the tree._
+
 Each leaf can also be written as:
 
 1. $R_1=${X|Years<4.5}
 1. $R_2=${X|Years>=4.5,Hits<117.5}
 1. $R_2=${X|Years>=4.5,HIts>=117.5}
+
+___Terminology:___
+
++ Root: best predictor
++ Splitting: This is when we do the splitting on the internal nodes / decision node
++ Leaf: The leafs contain the mean or the mode of the respons from the observations which meet the circumstances that are set in the splits.
+
 
 ### Regression Trees
 
@@ -62,7 +79,7 @@ Notice the top left illustration, this is not from a recursive binary splitting 
 We want to minimize the RSS. That can be written as:
 
 \begin{equation}
-\text{}\sum_{j=1}^J\sum_{i\ \in R_j}^{ }\left(y_i-y_{R_j}\right)^{^2}
+\text{}\sum_{j=1}^J\sum_{i\ \in R_j}^{ }\left(y_i-\hat{y}_{R_j}\right)^{^2}
 (\#eq:DTRSS)
 \end{equation}
 
@@ -78,7 +95,7 @@ So what it says is that we take the sum of all squeard residuals. But then how d
 
 \begin{equation}
 R_1\left(j,s\right)=\left\{X|X_j<s\right\}\ AND\ R_2\left(j,s\right)=\left\{X|X_j\ge s\right\}
-(\#InternalNodesSplit)
+(\#eq:InternalNodesSplit)
 \end{equation}
 
 Where:
@@ -91,7 +108,7 @@ Where:
 Thus in general terms we wish to select j and s that minimize the RSS, therefore we can also write the equation for RSS in general terms with:
 
 \begin{equation}
-\sum_{i:\ e_i\in R_1\left(j,s\right)}^{ }\left(y_i-y_{R_1}\right)^{^2}+\sum_{i:\ e_i\in R_2\left(j,s\right)}^{ }\left(y_i-y_{R_2}\right)^{^2}
+\sum_{i:\ e_i\in R_1\left(j,s\right)}^{ }\left(y_i-\hat{y}_{R_1}\right)^{^2}+\sum_{i:\ e_i\in R_2\left(j,s\right)}^{ }\left(y_i-\hat{y}_{R_2}\right)^{^2}
 (\#eq:InternalNodesSplit)
 \end{equation}
 
@@ -130,13 +147,13 @@ A better approach is the opposite, where we start with making a huge tree (this 
 
 $\alpha$ behaves in the following way:
 
-+ If $\alpha$ = 0, then the subtree = $T_0$, hence the big tree.
-+ As $\alpha$ increases we prune $T_0$ into subtree.
++ If $\alpha$ = 0, then the subtree = $T_0$, hence the big tree and therefore controls the complexity of the model
++ As $\alpha$ increases we prune $T_0$ into a subtree.
 
 Thus the higher the tuning parameter, the smaller the tree. This can be compared with the lasso [@hastie2013]. Thus, for each $\alpha$ there corresponds a subtree of $T_0$, i.e. $T \subset T_0$. This can be written as:
 
 \begin{equation}
-\sum_{m=1}^{\left|T\right|}\sum_{i:\ x_i\in R_m}^{ }\left(y_{i\ }-y_{R_m}\right)^{^{2\ }}+\ \alpha\left|T\right|
+\sum_{m=1}^{\left|T\right|}\sum_{i:\ x_i\in R_m}^{ }\left(y_{i\ }-\hat{y}_{R_m}\right)^{^{2\ }}+\ \alpha\left|T\right|
 (\#eq:Subtree)
 \end{equation}
 
@@ -164,18 +181,32 @@ _We see the big tree, that can be pruned to optimize prediction, the following i
 knitr::include_graphics(rep("Images/TreePruningHitters.png"))
 ```
 
-_We see that the lowest train and CV MSE is at the tree size of 10, although between three terminal nodes and 10 terminal nodes appear to be equally good, hence we go for the most parsimoneous model, see that tree in figure \@ref(fig:SubtreeHitters)_
+_We see that the lowest train and CV MSE is at the tree size of 10, although between three terminal nodes and 10 terminal nodes appear to be equally good, hence we go for the most parsimonious model, see that tree in figure \@ref(fig:SubtreeHitters)_
 
 \
 
+##### Setting contrains of the tree sise
+
+An alternative to tree pruning is contraining the size of the tree. That can be done with four approaches:
+
+1. Maxim
+
+
 ### Classification Trees
 
-The procedure is very much the same as what we saw for regression trees, where the same pruning process etc. In the classification setting we predict qualitative outcomes, e.g., yes/no. We can either select based on frequency (i.e. most commonly occuring) or the proportions.
+The procedure is very much the same as what we saw for regression trees, where the same pruning process etc. In the classification setting we predict qualitative outcomes, e.g., yes/no. We can either select based on frequency (i.e. most commonly occuring i.e. mode) or the proportions.
 
 In classification we use error rate instead of RSS, as we can't do RSS in a classification setting. I guess we can construct a confusion matrix as well.
 
 We introduce a new term: _node purity_. This is about including internal nodes that leads to two terminal nodes which has the same conclusion. It will not reduce the classification error, it does improve the certainty of the classification. Therefore, to account for the certianty and thus the node purity, one should also make the _Gini Index_ and the _Entropy_, equations can be found in @hastie2013, p. 312.
 
+Thus the splits are made to optimize the Gini, Entropy or perhaps Chi-Squared.
+
+If we want to write it in math, we can do the following:
+
+$$y = f(x_1,x_2)$$
+
+Where we see that y is a function of $x_1$ and $x_2$
 
 ### Tree vs. Lienar Models
 
@@ -194,6 +225,15 @@ ___Advantges:___
 2. Some argues that decision trees better mimiic human reasoning and decision making.
 3. Can be shown graphically
 4. One don't have to construct dummy variables.
+5. Simple and useful for interpretation
+1. No need to transform features
+1. Less cleaning required and not so sensible to outliers
+1. No need to transform features
+1. No assumptions, purely data driven
+1. Capturing interactions between features
+1. Ensemble trees compete with neural networks in terms of predictions
+1. Useful in data exploration and feature selection
+
 
 ___Disadvantages:___
 
@@ -204,9 +244,11 @@ Although decision trees can be advanced with:
 
 1. Bagging
 2. Random Forests
-3. Boosing
+3. Boosting
 
-To improce prediction power and therefore compete with other advanced models.
+To improve prediction power and therefore compete with other advanced models.
+
+
 
 
 ## Bagging, Random Forests, Boosting

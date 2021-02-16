@@ -248,6 +248,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="3.1.1.1.1" data-path="the-basics-of-decision-trees.html"><a href="the-basics-of-decision-trees.html#the-goal-of-regression"><i class="fa fa-check"></i><b>3.1.1.1.1</b> The goal of regression</a></li>
 <li class="chapter" data-level="3.1.1.1.2" data-path="the-basics-of-decision-trees.html"><a href="the-basics-of-decision-trees.html#tree-pruning-algoritm"><i class="fa fa-check"></i><b>3.1.1.1.2</b> Tree Pruning &amp; Algoritm</a></li>
+<li class="chapter" data-level="3.1.1.1.3" data-path="the-basics-of-decision-trees.html"><a href="the-basics-of-decision-trees.html#setting-contrains-of-the-tree-sise"><i class="fa fa-check"></i><b>3.1.1.1.3</b> Setting contrains of the tree sise</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3.1.2" data-path="the-basics-of-decision-trees.html"><a href="the-basics-of-decision-trees.html#classification-trees"><i class="fa fa-check"></i><b>3.1.2</b> Classification Trees</a></li>
@@ -291,12 +292,19 @@ Figure 3.1: Decision Tree
 </p>
 </div>
 <p>We see that the illustration has <strong>2 internal nodes</strong> - years &lt; 4.5 and hits &lt; 117.5 – and <strong>3 terminal nodes</strong> (i.e. leaf/leaves). The leaves consist of the mean of the response given the criterias in the decision tree. The lines connecting the nodes (internal and terminal) are called branches.</p>
+<p><em>Notice, that the same variables can occurs several times in the tree.</em></p>
 <p>Each leaf can also be written as:</p>
 <ol style="list-style-type: decimal">
 <li><span class="math inline">\(R_1=\)</span>{X|Years&lt;4.5}</li>
 <li><span class="math inline">\(R_2=\)</span>{X|Years&gt;=4.5,Hits&lt;117.5}</li>
 <li><span class="math inline">\(R_2=\)</span>{X|Years&gt;=4.5,HIts&gt;=117.5}</li>
 </ol>
+<p><strong><em>Terminology:</em></strong></p>
+<ul>
+<li>Root: best predictor</li>
+<li>Splitting: This is when we do the splitting on the internal nodes / decision node</li>
+<li>Leaf: The leafs contain the mean or the mode of the respons from the observations which meet the circumstances that are set in the splits.</li>
+</ul>
 <div id="regression-trees" class="section level3" number="3.1.1">
 <h3><span class="header-section-number">3.1.1</span> Regression Trees</h3>
 <p>We can take an example:</p>
@@ -322,7 +330,7 @@ Figure 3.2: Decision Tree Hitters data
 <h5><span class="header-section-number">3.1.1.1.1</span> The goal of regression</h5>
 <p>We want to minimize the RSS. That can be written as:</p>
 <p><span class="math display" id="eq:DTRSS">\[\begin{equation}
-\text{}\sum_{j=1}^J\sum_{i\ \in R_j}^{ }\left(y_i-y_{R_j}\right)^{^2}
+\text{}\sum_{j=1}^J\sum_{i\ \in R_j}^{ }\left(y_i-\hat{y}_{R_j}\right)^{^2}
 \tag{3.1}
 \end{equation}\]</span></p>
 <p>Where:</p>
@@ -334,9 +342,9 @@ Figure 3.2: Decision Tree Hitters data
 <li><span class="math inline">\(\hat{y}_{R_j}\)</span> = The predicted values in the specific regions, i.e. the mean response</li>
 </ul>
 <p>So what it says is that we take the sum of all squeard residuals. But then how do we split the regions? In general terms in can be written as the following:</p>
-<p><span class="math display">\[\begin{equation}
+<p><span class="math display" id="eq:InternalNodesSplit">\[\begin{equation}
 R_1\left(j,s\right)=\left\{X|X_j&lt;s\right\}\ AND\ R_2\left(j,s\right)=\left\{X|X_j\ge s\right\}
-(\#InternalNodesSplit)
+\tag{3.2}
 \end{equation}\]</span></p>
 <p>Where:</p>
 <ul>
@@ -347,7 +355,7 @@ R_1\left(j,s\right)=\left\{X|X_j&lt;s\right\}\ AND\ R_2\left(j,s\right)=\left\{X
 </ul>
 <p>Thus in general terms we wish to select j and s that minimize the RSS, therefore we can also write the equation for RSS in general terms with:</p>
 <p><span class="math display" id="eq:InternalNodesSplit">\[\begin{equation}
-\sum_{i:\ e_i\in R_1\left(j,s\right)}^{ }\left(y_i-y_{R_1}\right)^{^2}+\sum_{i:\ e_i\in R_2\left(j,s\right)}^{ }\left(y_i-y_{R_2}\right)^{^2}
+\sum_{i:\ e_i\in R_1\left(j,s\right)}^{ }\left(y_i-\hat{y}_{R_1}\right)^{^2}+\sum_{i:\ e_i\in R_2\left(j,s\right)}^{ }\left(y_i-\hat{y}_{R_2}\right)^{^2}
 \tag{3.2}
 \end{equation}\]</span></p>
 <p>Where:</p>
@@ -379,12 +387,12 @@ Figure 3.3: Decision Tree Hitters data
 </ul>
 <p><span class="math inline">\(\alpha\)</span> behaves in the following way:</p>
 <ul>
-<li>If <span class="math inline">\(\alpha\)</span> = 0, then the subtree = <span class="math inline">\(T_0\)</span>, hence the big tree.</li>
-<li>As <span class="math inline">\(\alpha\)</span> increases we prune <span class="math inline">\(T_0\)</span> into subtree.</li>
+<li>If <span class="math inline">\(\alpha\)</span> = 0, then the subtree = <span class="math inline">\(T_0\)</span>, hence the big tree and therefore controls the complexity of the model</li>
+<li>As <span class="math inline">\(\alpha\)</span> increases we prune <span class="math inline">\(T_0\)</span> into a subtree.</li>
 </ul>
 <p>Thus the higher the tuning parameter, the smaller the tree. This can be compared with the lasso <span class="citation">(<a href="references.html#ref-hastie2013" role="doc-biblioref">Hastie et al. 2013</a>)</span>. Thus, for each <span class="math inline">\(\alpha\)</span> there corresponds a subtree of <span class="math inline">\(T_0\)</span>, i.e. <span class="math inline">\(T \subset T_0\)</span>. This can be written as:</p>
 <p><span class="math display" id="eq:Subtree">\[\begin{equation}
-\sum_{m=1}^{\left|T\right|}\sum_{i:\ x_i\in R_m}^{ }\left(y_{i\ }-y_{R_m}\right)^{^{2\ }}+\ \alpha\left|T\right|
+\sum_{m=1}^{\left|T\right|}\sum_{i:\ x_i\in R_m}^{ }\left(y_{i\ }-\hat{y}_{R_m}\right)^{^{2\ }}+\ \alpha\left|T\right|
 \tag{3.3}
 \end{equation}\]</span></p>
 <p>Where:</p>
@@ -418,17 +426,28 @@ Figure 3.4: T0 Hitters
 Figure 3.5: Tree Pruning Hitters
 </p>
 </div>
-<p><em>We see that the lowest train and CV MSE is at the tree size of 10, although between three terminal nodes and 10 terminal nodes appear to be equally good, hence we go for the most parsimoneous model, see that tree in figure <a href="the-basics-of-decision-trees.html#fig:SubtreeHitters">3.1</a></em></p>
+<p><em>We see that the lowest train and CV MSE is at the tree size of 10, although between three terminal nodes and 10 terminal nodes appear to be equally good, hence we go for the most parsimonious model, see that tree in figure <a href="the-basics-of-decision-trees.html#fig:SubtreeHitters">3.1</a></em></p>
 <p><br />
 </p>
+</div>
+<div id="setting-contrains-of-the-tree-sise" class="section level5" number="3.1.1.1.3">
+<h5><span class="header-section-number">3.1.1.1.3</span> Setting contrains of the tree sise</h5>
+<p>An alternative to tree pruning is contraining the size of the tree. That can be done with four approaches:</p>
+<ol style="list-style-type: decimal">
+<li>Maxim</li>
+</ol>
 </div>
 </div>
 </div>
 <div id="classification-trees" class="section level3" number="3.1.2">
 <h3><span class="header-section-number">3.1.2</span> Classification Trees</h3>
-<p>The procedure is very much the same as what we saw for regression trees, where the same pruning process etc. In the classification setting we predict qualitative outcomes, e.g., yes/no. We can either select based on frequency (i.e. most commonly occuring) or the proportions.</p>
+<p>The procedure is very much the same as what we saw for regression trees, where the same pruning process etc. In the classification setting we predict qualitative outcomes, e.g., yes/no. We can either select based on frequency (i.e. most commonly occuring i.e. mode) or the proportions.</p>
 <p>In classification we use error rate instead of RSS, as we can’t do RSS in a classification setting. I guess we can construct a confusion matrix as well.</p>
 <p>We introduce a new term: <em>node purity</em>. This is about including internal nodes that leads to two terminal nodes which has the same conclusion. It will not reduce the classification error, it does improve the certainty of the classification. Therefore, to account for the certianty and thus the node purity, one should also make the <em>Gini Index</em> and the <em>Entropy</em>, equations can be found in <span class="citation"><a href="references.html#ref-hastie2013" role="doc-biblioref">Hastie et al.</a> (<a href="references.html#ref-hastie2013" role="doc-biblioref">2013</a>)</span>, p. 312.</p>
+<p>Thus the splits are made to optimize the Gini, Entropy or perhaps Chi-Squared.</p>
+<p>If we want to write it in math, we can do the following:</p>
+<p><span class="math display">\[y = f(x_1,x_2)\]</span></p>
+<p>Where we see that y is a function of <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span></p>
 </div>
 <div id="tree-vs.-lienar-models" class="section level3" number="3.1.3">
 <h3><span class="header-section-number">3.1.3</span> Tree vs. Lienar Models</h3>
@@ -444,6 +463,14 @@ Figure 3.5: Tree Pruning Hitters
 <li>Some argues that decision trees better mimiic human reasoning and decision making.</li>
 <li>Can be shown graphically</li>
 <li>One don’t have to construct dummy variables.</li>
+<li>Simple and useful for interpretation</li>
+<li>No need to transform features</li>
+<li>Less cleaning required and not so sensible to outliers</li>
+<li>No need to transform features</li>
+<li>No assumptions, purely data driven</li>
+<li>Capturing interactions between features</li>
+<li>Ensemble trees compete with neural networks in terms of predictions</li>
+<li>Useful in data exploration and feature selection</li>
 </ol>
 <p><strong><em>Disadvantages:</em></strong></p>
 <ol style="list-style-type: decimal">
@@ -454,9 +481,9 @@ Figure 3.5: Tree Pruning Hitters
 <ol style="list-style-type: decimal">
 <li>Bagging</li>
 <li>Random Forests</li>
-<li>Boosing</li>
+<li>Boosting</li>
 </ol>
-<p>To improce prediction power and therefore compete with other advanced models.</p>
+<p>To improve prediction power and therefore compete with other advanced models.</p>
 </div>
 </div>
             </section>
