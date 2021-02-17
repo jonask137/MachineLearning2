@@ -259,7 +259,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="3.2.1" data-path="bagging-random-forests-boosting.html"><a href="bagging-random-forests-boosting.html#bagging-bootstrap-aggregation"><i class="fa fa-check"></i><b>3.2.1</b> Bagging (Bootstrap Aggregation)</a></li>
 <li class="chapter" data-level="3.2.2" data-path="bagging-random-forests-boosting.html"><a href="bagging-random-forests-boosting.html#random-forests"><i class="fa fa-check"></i><b>3.2.2</b> Random Forests</a></li>
-<li class="chapter" data-level="3.2.3" data-path="bagging-random-forests-boosting.html"><a href="bagging-random-forests-boosting.html#boosting"><i class="fa fa-check"></i><b>3.2.3</b> Boosting</a></li>
+<li class="chapter" data-level="3.2.3" data-path="bagging-random-forests-boosting.html"><a href="bagging-random-forests-boosting.html#boosting-i.e.-gradient-boosting"><i class="fa fa-check"></i><b>3.2.3</b> Boosting (i.e. Gradient Boosting)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="application-in-r.html"><a href="application-in-r.html"><i class="fa fa-check"></i><b>3.3</b> Application in R</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="application-in-r.html"><a href="application-in-r.html#decision-trees"><i class="fa fa-check"></i><b>3.3.1</b> Decision trees</a></li>
+<li class="chapter" data-level="3.3.2" data-path="application-in-r.html"><a href="application-in-r.html#bagging"><i class="fa fa-check"></i><b>3.3.2</b> Bagging</a></li>
+<li class="chapter" data-level="3.3.3" data-path="application-in-r.html"><a href="application-in-r.html#random-forests-1"><i class="fa fa-check"></i><b>3.3.3</b> Random Forests</a></li>
+<li class="chapter" data-level="3.3.4" data-path="application-in-r.html"><a href="application-in-r.html#boosting"><i class="fa fa-check"></i><b>3.3.4</b> Boosting</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="subject-1.html"><a href="subject-1.html"><i class="fa fa-check"></i><b>4</b> Subject 1</a></li>
@@ -434,7 +441,10 @@ Figure 3.5: Tree Pruning Hitters
 <h5><span class="header-section-number">3.1.1.1.3</span> Setting contrains of the tree sise</h5>
 <p>An alternative to tree pruning is contraining the size of the tree. That can be done with four approaches:</p>
 <ol style="list-style-type: decimal">
-<li>Maxim</li>
+<li>Maximum depth of the tree (vertical depth) - tuned using CV</li>
+<li>Minimum observations for a node split - tuned using CV</li>
+<li>Minimum observations for a terminal node (lead) - lower values for inbalanced classes</li>
+<li>Maximum number of terminal nodes - can be defined instead of depth.</li>
 </ol>
 </div>
 </div>
@@ -443,7 +453,8 @@ Figure 3.5: Tree Pruning Hitters
 <h3><span class="header-section-number">3.1.2</span> Classification Trees</h3>
 <p>The procedure is very much the same as what we saw for regression trees, where the same pruning process etc. In the classification setting we predict qualitative outcomes, e.g., yes/no. We can either select based on frequency (i.e. most commonly occuring i.e. mode) or the proportions.</p>
 <p>In classification we use error rate instead of RSS, as we can’t do RSS in a classification setting. I guess we can construct a confusion matrix as well.</p>
-<p>We introduce a new term: <em>node purity</em>. This is about including internal nodes that leads to two terminal nodes which has the same conclusion. It will not reduce the classification error, it does improve the certainty of the classification. Therefore, to account for the certianty and thus the node purity, one should also make the <em>Gini Index</em> and the <em>Entropy</em>, equations can be found in <span class="citation"><a href="references.html#ref-hastie2013" role="doc-biblioref">Hastie et al.</a> (<a href="references.html#ref-hastie2013" role="doc-biblioref">2013</a>)</span>, p. 312.</p>
+<p>We introduce a new term: <em>node purity</em>. This is about including internal nodes that leads to two terminal nodes which has the same conclusion. It will not reduce the classification error, it does improve the certainty of the classification. Therefore, to account for the certainty and thus the node purity, one should also make the <em>Gini Index</em> and the <em>Entropy</em>, equations can be found in <span class="citation"><a href="references.html#ref-hastie2013" role="doc-biblioref">Hastie et al.</a> (<a href="references.html#ref-hastie2013" role="doc-biblioref">2013</a>)</span>, p. 312.</p>
+<p><strong><em>More on purity: as we classify based on the mode of the response variable, we intentionally misclassify some observations. Naturally, we want to avoid this. Thus we can increase purity, that is often seen by splitting the same variable consecutive times or just several times. Hence to circle in the actual classifications. Although, doing this too much leads to overfitting to the data. That is why the Gini and Entropy adds a penalty to the in-sample error and thus accounting for purity. But one should also make an out of sample validation</em></strong></p>
 <p>Thus the splits are made to optimize the Gini, Entropy or perhaps Chi-Squared.</p>
 <p>If we want to write it in math, we can do the following:</p>
 <p><span class="math display">\[y = f(x_1,x_2)\]</span></p>
@@ -476,6 +487,7 @@ Figure 3.5: Tree Pruning Hitters
 <ol style="list-style-type: decimal">
 <li>Trees is typically outperformed by more advanced methods, included in <span class="citation"><a href="references.html#ref-hastie2013" role="doc-biblioref">Hastie et al.</a> (<a href="references.html#ref-hastie2013" role="doc-biblioref">2013</a>)</span>.</li>
 <li>Trees are not robust and small changes in the data may lead to big changes in the model.</li>
+<li>It is easy to overfit the data, hence high variance and low bias. This is dealt with by using the ensemble approach, hereunder, bagging, random forests and boosting.</li>
 </ol>
 <p>Although decision trees can be advanced with:</p>
 <ol style="list-style-type: decimal">

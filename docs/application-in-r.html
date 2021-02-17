@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2.1 Models Beyond Linearity | Machine Learning for Business Intelligence 2</title>
-  <meta name="description" content="2.1 Models Beyond Linearity | Machine Learning for Business Intelligence 2" />
+  <title>3.3 Application in R | Machine Learning for Business Intelligence 2</title>
+  <meta name="description" content="3.3 Application in R | Machine Learning for Business Intelligence 2" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2.1 Models Beyond Linearity | Machine Learning for Business Intelligence 2" />
+  <meta property="og:title" content="3.3 Application in R | Machine Learning for Business Intelligence 2" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2.1 Models Beyond Linearity | Machine Learning for Business Intelligence 2" />
+  <meta name="twitter:title" content="3.3 Application in R | Machine Learning for Business Intelligence 2" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="moving-beyond-linearity.html"/>
-<link rel="next" href="lecture-notes.html"/>
+<link rel="prev" href="bagging-random-forests-boosting.html"/>
+<link rel="next" href="subject-1.html"/>
 <script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -289,257 +289,115 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="models-beyond-linearity" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Models Beyond Linearity</h2>
-<p>Notice that all approaches despite GAM are extensions of simple linear regression, as it only takes on one predictor variable.</p>
-<div id="polynomial-regression" class="section level3" number="2.1.1">
-<h3><span class="header-section-number">2.1.1</span> Polynomial Regression</h3>
-<p>Can be defined by the following</p>
-<p><span class="math display" id="eq:PolynomialRegression">\[\begin{equation}
-y_{i\ }=\ \beta_0+\beta_1x_i+\beta_2x_i^2+...+\ \beta_dx_i^d\ +\ \epsilon_i
-\tag{2.1}
-\end{equation}\]</span></p>
-<p>Rules of thumb:</p>
-<ul>
-<li>We don’t take on more than 3 or 4 degrees of d, as that yields strange lines</li>
-</ul>
-<p>Note that we can still use standard errors for coefficient estimates.</p>
-<div id="beta-coefficients-and-variance" class="section level4" number="2.1.1.1">
-<h4><span class="header-section-number">2.1.1.1</span> Beta coefficients and variance</h4>
-<p>Each beta coefficient has its own variance (just as in linear regression).</p>
-<p>It can be defined by a matrix of j dimensions, e.g., if you have 5 betas (including beta 0) we can construct the correlation matrix.</p>
-<p>Covariance matrix can be identified by <span class="math inline">\(\hat{C}\)</span>.</p>
-<p>Generally we get point estimates, but it is also interesting to show the confidence intervals (using 2 standard errors).</p>
-<p>Notice, that we cant really interprete beta coefficients as we do with linear regression, hence we dont have the same ability to do inference as the coefficients are missleading.</p>
-</div>
-<div id="application-procedure" class="section level4" number="2.1.1.2">
-<h4><span class="header-section-number">2.1.1.2</span> Application procedure</h4>
+<div id="application-in-r" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Application in R</h2>
+<div id="decision-trees" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Decision trees</h3>
 <ol style="list-style-type: decimal">
-<li>Use <code>lm()</code> or <code>glm()</code></li>
-<li>Use DV~poly(IV,degree)</li>
-<li>Perform CV with <code>cv.glment()</code> / aonva F-test to select degree
+<li>In library <code>tree</code>
 <ul>
-<li>This is basically either visually selecting the degrees that are the best using CV or using an ANOVA to assess if the MSE are significantly different from each other, hence an ANOVA test. Regarding ANOVA, if there stop being significance, then significant changes, e.g., in a poly 8, where the previous polynomials was not significant, then we can also disregard the 8’th polynomial.</li>
+<li>Use <code>tree(DV~IV,data = ...)</code></li>
 </ul></li>
-<li>Fit the selected model</li>
-<li>Look at <code>coef(summary(fit))</code></li>
-<li>Plot data and predictions with <code>predict()</code></li>
-<li>Check residuals</li>
-<li>Interpret</li>
-</ol>
-<p>The lecture shows exercise number 6 in chapter 7.</p>
-</div>
-</div>
-<div id="step-functions" class="section level3" number="2.1.2">
-<h3><span class="header-section-number">2.1.2</span> Step Functions</h3>
-<p>This is literally just fitting a constant in different bins, see example on page 269. This is also called discretizing x. Thus it is not polynoomial, but it is non linear.</p>
-<p>It is often applied when we see, e.g., five year age bins, e.g., a 20-25 year old is expected to earn so and so much etc. But we can only really use it, when there are natural cuts, hence one must be considerate using the model.</p>
-<p><strong>Major disadvantage:</strong> If there are no natural breakpoints, then the model is likely to miss variance and also generalize too much.</p>
-<p>Remember, that the steps reflect the average increase in Y for each step. Hence the first bin (range) is defined by <span class="math inline">\(\beta_0\)</span>, and can be regarded as the average of that range of x. Thus each coefficient of the ranges of x is to be understood as the average increase of response.</p>
-<p>In other words, <span class="math inline">\(\beta_0\)</span> is the reference level, where the following cuts reflect the average increase or decrease hereon.</p>
-<p>Note that we can still use standard errors for coefficient estimates.</p>
-</div>
-<div id="regression-splines" class="section level3" number="2.1.3">
-<h3><span class="header-section-number">2.1.3</span> Regression Splines</h3>
-<div id="piecewise-polynomials" class="section level4" number="2.1.3.1">
-<h4><span class="header-section-number">2.1.3.1</span> Piecewise Polynomials</h4>
-<p>This is basically polynomial regression, where the coefficients apply to specified ranges of X. The points where the coefficients changes are called <strong><em>knots</em></strong>. Hence a cubic function will look like the following.</p>
-<p>Notice, that a piecewise polynomial function with no knots, is merely a standard polynomial function.</p>
-<p><span class="math display" id="eq:PiecewisePolynomials">\[\begin{equation}
-y_{i\ }=\ \beta_0+\beta_1x_i+\beta_2x_i^2+\ \beta_3x_i^3\ +\ \epsilon_i
-\tag{2.2}
-\end{equation}\]</span></p>
-<p>Where it can be extended to be written for each range.</p>
-<p>The coefficients can then be written with: <span class="math inline">\(\beta_{01},\beta_{11},\beta_{21}\)</span> etc. and for the second set: <span class="math inline">\(\beta_{02},\beta_{12},\beta_{22}\)</span></p>
-<p>And for each of the betas in all of the cuts, you add one degree of freedom.</p>
-<p>Rule of thumb:</p>
+<li>In library <code>rpart</code>
 <ul>
-<li>The more knots, the more complex = the more variance capture and noise trailed, hence low model bias but large model variance.</li>
-</ul>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-6"></span>
-<img src="Images/Piecewise%20regression.png" alt="Piecewise Polynomials" width="488" />
-<p class="caption">
-Figure 2.1: Piecewise Polynomials
-</p>
-</div>
-</div>
-<div id="constraints-and-splines" class="section level4" number="2.1.3.2">
-<h4><span class="header-section-number">2.1.3.2</span> Constraints and Splines</h4>
-<p><strong>It is a spline when the piecewise polynomials have been imposed with restrictions for continouity and derivatives, so the knot don’t break or so to say, hence the knot will not be visible.</strong></p>
-<p>Figure 7.3 show how the splines look, as the top left window tell, the jump is rather odd. Hence, we can force the fit to be continuous, by imposing a constraint.</p>
-<p>Notice, that it is a piecewise polynomial regression, when you merely fit polynomials onto bins of data. If you want to have the ends tied together, you impose contraints and thus created a spline.</p>
-<p>We can further constrain the model, with adding derivatives of the functions, hence the first derivative and the second derivative (where it in this instance created linear splines, that is because we have added <span class="math inline">\(d-1\)</span> i.e. 2 derivatives, if the function was to the power of 4, then we should have imposed 3 derivatives to achieve linearity in the splines.)</p>
-<p>Hence, the <em>linear spline</em> can be defined by: It is piecewise splines of degree-d polynomials, with continuity in derivatives up to degree <span class="math inline">\(d-1\)</span> at each knot.</p>
-<p>Hence we have the following constraints:</p>
-<ol style="list-style-type: decimal">
-<li>Continuity</li>
-<li>Derivatives</li>
-</ol>
-</div>
-<div id="choosing-the-number-and-location-of-the-knots" class="section level4" number="2.1.3.3">
-<h4><span class="header-section-number">2.1.3.3</span> Choosing the number and location of the Knots</h4>
-<p>Choosing amount of knots? One may ask themself, how many degrees of freedom do you want to include in the model?</p>
-<p>Amount of knots is therefore corresponding to amount of degrees of freedom.</p>
-<p>We can let software estimate the best amount and the best locations. Here one can use:</p>
-<ol style="list-style-type: decimal">
-<li>In-sample performance</li>
-<li>Out-of-sample performance, e.g. with CV, perhaps extent to K folds with K tests, to ensure, that each variable has been held out once.</li>
-</ol>
-<p>This can be followed by visualizing the MSE for the different simulations with different amount of knots.</p>
-</div>
-<div id="degrees-of-freedom" class="section level4" number="2.1.3.4">
-<h4><span class="header-section-number">2.1.3.4</span> Degrees of freedom</h4>
-<p>You count the amount of coefficients in the piecewise polynomial. Then you deduct df as you impose restrictions.</p>
-<p>e.g. with one knot, you impose conituity, then you deduct one 1 df. for each derivative that we impose we can subtract one df.</p>
-<p>Therefore the example above: 8 df in the beginning less 1 for the cut and two for the two derivatives. Hence, we end up with 5 df.</p>
-</div>
-<div id="comparison-with-polynomial-regression" class="section level4" number="2.1.3.5">
-<h4><span class="header-section-number">2.1.3.5</span> Comparison with Polynomial Regression</h4>
-<p>With regression splines we are able to introduce knots that account for variance as it slightly resets the model in each section, hence we can fit the model to the data without having to impose as much complexity as we would in normal polynomial regression.</p>
-<p>Hence one often observes that regression splines have more stability than polynomial regression.</p>
-</div>
-</div>
-<div id="smoothing-splines" class="section level3" number="2.1.4">
-<h3><span class="header-section-number">2.1.4</span> Smoothing Splines</h3>
-<p>In prediction this is slightly better than basic functions and natural splines.</p>
-<p>This is basically attempting to find a model that captures the variance by a smoothing line. Doing so, we fit a very flexible model and impose restrictions upon this, to achieve a shrunken model, just as with Lasso and Ridge Regression. Thus, the smoothing (imposing restrictions) deals with overfitting.</p>
-<p>Also as we havee discovered previously, that degrees of freedom is equivilant with amount of knots, e.g., in polynomial splines, then three knots in a cubic function leads to 6 degrees of freedom, hence an smooth spline with df = 6.8 can be said to approximately have 3 knots, but we will never really know.</p>
-<p>This can be defined as a cubic spline with knot at every unique value of <span class="math inline">\(x_i\)</span></p>
-<p>Hence we have the following model:</p>
-<p><span class="math display" id="eq:SmoothingSplines">\[\begin{equation}
-RSS=\sum_{i=1}^n\left(y_i-g\left(x_i\right)\right)^{^2}+\lambda\int g&#39;&#39;\left(t\right)^{^2}dt
-\tag{2.3}
-\end{equation}\]</span></p>
-<p><em>i.e. Loss + Penalty</em></p>
-<p><em>Recall that the penalty controls the curvature of the function</em></p>
-<p>Where:</p>
-<ul>
-<li>We define model g(x)</li>
-<li><span class="math inline">\((y_i-g(x_i))^{^2}\)</span> = the loss, meaning the difference between the fitted model and the actual y’s</li>
-<li><span class="math inline">\(\lambda\)</span> = the tuning parameter, hence the restriction that we want to impose. If lambda is low, then much flexibility, if lambda is high, then low flexibility. Hence, controls the bias variance tradeoff.</li>
-<li><span class="math inline">\(\int g&#39;&#39;\left(t\right)^{^2}dt\)</span> = a measure of how much <span class="math inline">\(g&#39;(x)\)</span> changes oer time. Hence, the higher we set <span class="math inline">\(\lambda\)</span> the more imposed restrictions, meaning the smoother the model, as lambda gets closer to infinity, the model becomes linear.</li>
-</ul>
-<div id="choosing-optimal-tuning-parameter" class="section level4" number="2.1.4.1">
-<h4><span class="header-section-number">2.1.4.1</span> Choosing optimal tuning parameter</h4>
-<p>The analytic LOOCV can be calculated, the procedure appears to be the same as for lasso and ridge regression. The book (page 279) describes this a bit in details. However it says that software is able to do this.</p>
-<p>Basically what is done, is LOOCV and simulating different tuning parameters to assess what model that performs the best.</p>
-<p>Notice, that in R we are not working with <span class="math inline">\(\lambda\)</span>, but we can control the df associated with lambda. Or we can just let the model choose.</p>
-<p>With this, degrees of freedom is not the same as we are used to. This creates sparsity as we know from regularization.</p>
-<p><em>We are not expected to explain this, but we should be able to interpret the results</em></p>
-</div>
-</div>
-<div id="local-regression" class="section level3" number="2.1.5">
-<h3><span class="header-section-number">2.1.5</span> Local Regression</h3>
-<p>This i basically fitting a linear regression to each x, where s observations are included in the fitting procedure. Thus, one creates several fits, that are based on the observations weighted, where observations close to <span class="math inline">\(x_0\)</span> (the center of the regression) are given the highest weight and then the weight is gradually decreasing.</p>
-<p>This is often really good when you have outliers, as you define how big a neighborhood you want to evaluate (also called the span, e.g. span of 0.5 = 50% of the observations).</p>
-<p>This can be visualized with:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-7"></span>
-<img src="Images/Local%20Regression.png" alt="Local regression" width="494" />
-<p class="caption">
-Figure 2.2: Local regression
-</p>
-</div>
-<p>Doing local regression has the following procedure (algorithm)</p>
-<ol style="list-style-type: decimal">
-<li>Gather the fraction <span class="math inline">\(s = k/n\)</span> of training points whose <span class="math inline">\(x_i\)</span> are closest to <span class="math inline">\(x_0\)</span>.</li>
-<li>Assign a weight <span class="math inline">\(K_{i0} = K(x_i, x_0)\)</span> to each point in this neighborhood, so that the point furthest from x0 has weight zero, and the closest has the highest weight. All but these k nearest neighbors get weight zero.</li>
-<li>Fit a weighted least squares regression of the <span class="math inline">\(y_i\)</span> on the <span class="math inline">\(x_i\)</span> using the aforementioned weights, by finding <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span> that minimize</li>
-</ol>
-<p><span class="math display" id="eq:LocalRegression">\[\begin{equation}
-\sum_{i=1}^nK_{i0}\left(y_i-\beta_0-\beta_1x_i\right)^{^2}
-\tag{2.4}
-\end{equation}\]</span></p>
-<ol start="4" style="list-style-type: decimal">
-<li>The fitted value at <span class="math inline">\(x_0\)</span> is given by <span class="math inline">\(\hat{f}(x_0)=\hat\beta_0+\hat\beta_1x_0\)</span></li>
-</ol>
-<p>Where we see how the model is</p>
-</div>
-<div id="generalized-additive-models" class="section level3" number="2.1.6">
-<h3><span class="header-section-number">2.1.6</span> Generalized Additive Models</h3>
-<p>This can naturally both be applied in regression and classification problems, futher elaborated in the following.</p>
-<p>It is called generalized, as the dependent variable can be both continuous (e.g. Gaussian) and categorical (e.g., binomial, Poisson, or other distributions) distributed</p>
-<p>Additive = the model is adding different polynomials of the IDV toghether. Notice, as the model is additive, it does not account for interactions, then you have to specify the interactions.</p>
-<p>Thus GAM is merely an approach to make a model, where we include the posibility of having non linear components. Hence we include more complex model (with the ability to trail the observations more than linear models).</p>
-<p>But the advantage of linear regressions, are that we are able to quickly deduct the effects the variables. Although we dont always have a linear relationship, hence you can be forced to choose a more complex model. (see the R file “GAMs with discussion R”).</p>
-<p>We have previously worked with non parametric models (e.g., KNN regression). GAM is in between linear regression and non parametric models.</p>
-<p>That is the beuty of GAMs, as we preserve the ability of having transparancy in the model, despite it coming at a cost of worse prediction power than neural networks, but at such complex models, you are not able to deduct how the variables are interrelated, you can only say which are important and which are not.</p>
-<p><strong><em>What are the assumptions for GAMS??</em></strong></p>
-<ul>
-<li></li>
-</ul>
-<div id="feature-selection" class="section level4" number="2.1.6.1">
-<h4><span class="header-section-number">2.1.6.1</span> Feature Selection</h4>
-<p>There are naturally a bunch of different approaches, we either manually assess this, running an automatic feature selection algorithm or both, see examples below. Also the casestudy in section <a href="FacebookCasestudy.html#FacebookCasestudy">2.5</a> provides an example of all approaches to assess the features.</p>
-<p>Feature selection approaches includes:</p>
-<ol style="list-style-type: lower-alpha">
-<li><p>Generally looking at the variables “one by one,” to understand what features are important and to figure out how they contribute towards solving the problem.</p></li>
-<li><p>Looking at the correlation matrix: If we are working with a model which assumes a linear relationship between the dependent and the independent variables, corr matrix can help us come up with an initial list of variable importance. However, corr matrix also works as a “rough informative tool” for nonlinear modelling.</p></li>
-<li><p>Running automatic feature selection algorithms. Functions in R include, among others:</p>
-<ul>
-<li>c1. regsubsets() function in “leaps” library (presented in ISL, p. 244); used to select the best size model that contains a given number of predictors, where best is quantified using Residual Sum of Squares (RSS). Although regsubsets() is based on testing linear models, it works as a “rough” list for nonlinear models.</li>
-<li>c2. step.Gam() function in “gam” library for stepwise selection of variables in GAM models. This is useful when the number of predictors is not very high.</li>
-<li>c3. advanced feature selection methods based on other data-mining techniques, including but not only: random forests, Bayesian Networks, Neural Networks, or other. Notice, that we can use very complex methods of feature selection, and then construct a model that is more transparant, for instance GAMs</li>
+<li>Use <code>rpart(DV~IV,daata = ...)</code></li>
+<li><em>Note, this has better visualization</em></li>
 </ul></li>
+<li>Check summary using <code>summary()</code></li>
+<li>Plot the tree using <code>plot()</code></li>
+<li>Use <code>predict()</code> and evaluate the test error of the unpruned tree</li>
+<li>Evaluate optimal level of tree complexity using <code>cv.tree()</code></li>
+<li>Prune the tree with <code>prune.misclass()</code> / <code>prune.tree()</code></li>
+<li>Use <code>predict()</code> and evaluate the test error of the pruned tree</li>
 </ol>
-<p>We will end up with candidate models, during the case study a new approach was introduced, which was quite nice, this has the following procedure:</p>
-<ol style="list-style-type: decimal">
-<li>Train the candidate model</li>
-<li>Do cross validation of k partitions on the train data.</li>
-<li>Select the best model.</li>
-<li>Run this on the test data. <em>NB: Ideally we don’t want to run more than one model on the test data, as that will lead to data leakage and we may choose the best model based on the best fit to the test data. That is wrong.</em></li>
-</ol>
-</div>
-<div id="gam-for-regression-problems" class="section level4" number="2.1.6.2">
-<h4><span class="header-section-number">2.1.6.2</span> GAM for regression problems</h4>
-<p>Now we move beyond being constrained to only one predictor variable, hence GAM can be seen more as an extension of multiple linear regression. Hence GAM is a combination of different functions, where they are each fitted while holding the other variables fixed. GAM can consist of any different non-linear model, e.g., we can just as well use local regression, polynomial regression, or any combination of the approaches seen above in this subsection.</p>
-<p>See section @ref(fig:GAMPlotLab7.8.3) for explanation of interpretation of the plots.</p>
-<p><strong>Disadvantages of GAM:</strong></p>
-<ol style="list-style-type: decimal">
-<li>The fitting procedure holds the other variables fixed, hence it does not count for interactions. Therefore, one may manually construct interaction variables to account for this, just like in mulitple linear regression.</li>
-<li>Prediction wise it is not competitive with Neural Networks and Support Vector Machines.</li>
-</ol>
-<p><strong>Advantages of GAM:</strong></p>
-<ol style="list-style-type: decimal">
-<li>Allowing to fit non linear function for j variables (<span class="math inline">\(f_j\)</span>)</li>
-<li>Has potential of making more accurate predictions</li>
-<li>As the model is additive (meaning that each function is fitted holding the other variables fixed) we are still able to make inference, e.g., assessing how one variable affects the y variable.</li>
-<li>Smoothness of function <span class="math inline">\(f_j\)</span> can be summarized with degrees of freedom.</li>
-<li>Often applied when aiming for explanatory analysis (instead of prediction)</li>
-</ol>
-<div id="interpretation-of-output" class="section level5" number="2.1.6.2.1">
-<h5><span class="header-section-number">2.1.6.2.1</span> Interpretation of output</h5>
-<p>Remember GAM is a construct of M different models, hence there are different areas one must be aware of.</p>
+<p><strong>Interpreting summary()</strong></p>
+<p>We want to look at:</p>
 <ul>
-<li><p>With smooth variables: <code>summary()</code> will output <em>approximate signifcance of smooth terms</em>,</p>
-<ul>
-<li>Here we can assess if there is statistical evidence for including the smoothing on the variable. But notice, that this is merely the p-value.</li>
-<li>We can also assess the <code>edf</code> = estimated degrees of freedom, hence the flexibility of each smoothed variable.</li>
-</ul></li>
-<li><p>With linear variables we get <em>Parametric coefficients</em> (from <code>summary()</code>): These are what we know from the linear scenario. It assigns a p-value and coefficients to the linear variables. Interpretation wise, we should not pay too much attention to this, although it is always good to have the p-values in mind.</p></li>
-<li><p>With <code>summary()</code> we also get the traditional information, such as <span class="math inline">\(R^2\)</span> and adjusted. This can also be found in the documentation.</p></li>
+<li>Variables actually used in the tree construction, to see what variables that are in there</li>
+<li>Number of terminal nodes: count of the leafs</li>
+<li>Residual mean deviance: that is the error</li>
+<li>We also have distribution of the errors.</li>
 </ul>
+<p><strong>Interpreting the cv.tree() object</strong></p>
+<p>We see following:
++ Size, amount of leaves
++ Deviance, that is the error. Where we want to find the model with the lowes deciance
++ We can get the alpha by calling <code>$k</code> on the <code>cv.tree()</code> model.</p>
+<p><strong>Interpreting the prdict() object</strong></p>
+<p>Here we find the predictions.</p>
+</div>
+<div id="bagging" class="section level3" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Bagging</h3>
+<ol style="list-style-type: decimal">
+<li>Un library <code>randomFores``     + Use</code>randomForest(DV~IV,mtry = p,ntree = …,importance = TRUE)</li>
+<li>Use <code>predict()</code> evalutae the test error</li>
+<li>Use <code>ìmportance()</code> to see the importance of each variable</li>
+<li>Use <code>varImpPlot()</code> to plot the importance of each variable</li>
+</ol>
+<p><strong>Interpreteing importance()</strong></p>
+<p>We get two coloumns:</p>
+<ol style="list-style-type: decimal">
+<li>%IncMSE: each of the numbers is the mean decrease in accuracy of prediction (i.e. increase error). Hence if we exclude a specific variable from the model we can read how much the error will increase.</li>
+<li>IncNodePurity: This is a measure of total increase of node purity by splitting over the specific variable.</li>
+</ol>
+<p>Hence both coloumns return information about how the variables impact the performance of the model.</p>
+<p>This can also be Plotted</p>
+</div>
+<div id="random-forests-1" class="section level3" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Random Forests</h3>
+<ol style="list-style-type: decimal">
+<li>Un library <code>randomFores``     + Use</code>randomForest(DV~IV,mtry = p,ntree = …,importance = TRUE)
+<ul>
+<li>For RF of regression tree default <em>mtry = p/3</em></li>
+<li>FOr RF of classification tree fedault <em>mtry = <span class="math inline">\(\sqrt{p}\)</span></em></li>
+</ul></li>
+<li>Use <code>ìmportance()</code> to see the importance of each variable</li>
+<li>Use <code>varImpPlot()</code> to plot the importance of each variable</li>
+</ol>
+<p>We see that this is basically the same as bagging, merely where mtry is different, as we define how many variables that should be randomly considered.</p>
+<p>Interpretation of the variable importance is the same as in bagging.</p>
+</div>
+<div id="boosting" class="section level3" number="3.3.4">
+<h3><span class="header-section-number">3.3.4</span> Boosting</h3>
+<ol style="list-style-type: decimal">
+<li>In library <code>gbm</code>
+<ul>
+<li>Use <code>gm(DF~IV,shrinkage = ,n.trees = ,interaction.depth = ,)</code></li>
+<li>We have to define the distribution, in exercise 8, she used Bernoulli</li>
+</ul></li>
+<li>Use <code>summary()</code> to see the relative influence of the variables</li>
+<li>Use <code>plot()</code> to produce partial dependence plot for each variable</li>
+<li>Use <code>predict()</code> to evaluate the test error</li>
+</ol>
+<p><strong>Interpreting summary()</strong></p>
+<p>We get two columns:</p>
+<ol style="list-style-type: decimal">
+<li>var: that is the variable</li>
+<li>Rel. inf: that is the relative influence: We see the highest values are the variables with the highest relationship with the</li>
+</ol>
+<p>We are also abe to plot the relationship between an X variable and the y, that is done with <code>plot(&lt;boost.model&gt;,i = "the variable")</code></p>
+<p><strong>Interpreting predict()</strong></p>
+<p>we have to define:</p>
+<ul>
+<li>Trained boosting model</li>
+<li>The test data</li>
+<li>The amount of trees, that is with n.trees</li>
+<li>If classification, then type = “response.” Thus, one get probabilities.
+<ul>
+<li>If type is not = “response,” then we get the odds. We are interested in the probability, hence we must use type = “response”</li>
+</ul></li>
+</ul>
+
 </div>
 </div>
-<div id="gam-for-classification-problems" class="section level4" number="2.1.6.3">
-<h4><span class="header-section-number">2.1.6.3</span> GAM for classification problems</h4>
-<p>When y is qualitative (categorical), GAM can also be applied in the logistical form.</p>
-<p>As discovered in the classification section, we can apply logits (log of odds) and odds, see material from first semester.</p>
-<p>The same advantages and disadvantages as in the prior section applies.</p>
-</div>
-</div>
-<div id="model-assessment" class="section level3" number="2.1.7">
-<h3><span class="header-section-number">2.1.7</span> Model assessment</h3>
-<p>The same applies as in ML1, thus I refer to ML1.</p>
-<p>Also one must always assess the residuals, e.g., for normality.</p>
-</div>
-</div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="moving-beyond-linearity.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lecture-notes.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="bagging-random-forests-boosting.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="subject-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

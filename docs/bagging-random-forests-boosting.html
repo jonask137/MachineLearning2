@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="the-basics-of-decision-trees.html"/>
-<link rel="next" href="subject-1.html"/>
+<link rel="next" href="application-in-r.html"/>
 <script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -259,7 +259,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="3.2.1" data-path="bagging-random-forests-boosting.html"><a href="bagging-random-forests-boosting.html#bagging-bootstrap-aggregation"><i class="fa fa-check"></i><b>3.2.1</b> Bagging (Bootstrap Aggregation)</a></li>
 <li class="chapter" data-level="3.2.2" data-path="bagging-random-forests-boosting.html"><a href="bagging-random-forests-boosting.html#random-forests"><i class="fa fa-check"></i><b>3.2.2</b> Random Forests</a></li>
-<li class="chapter" data-level="3.2.3" data-path="bagging-random-forests-boosting.html"><a href="bagging-random-forests-boosting.html#boosting"><i class="fa fa-check"></i><b>3.2.3</b> Boosting</a></li>
+<li class="chapter" data-level="3.2.3" data-path="bagging-random-forests-boosting.html"><a href="bagging-random-forests-boosting.html#boosting-i.e.-gradient-boosting"><i class="fa fa-check"></i><b>3.2.3</b> Boosting (i.e. Gradient Boosting)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="application-in-r.html"><a href="application-in-r.html"><i class="fa fa-check"></i><b>3.3</b> Application in R</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="application-in-r.html"><a href="application-in-r.html#decision-trees"><i class="fa fa-check"></i><b>3.3.1</b> Decision trees</a></li>
+<li class="chapter" data-level="3.3.2" data-path="application-in-r.html"><a href="application-in-r.html#bagging"><i class="fa fa-check"></i><b>3.3.2</b> Bagging</a></li>
+<li class="chapter" data-level="3.3.3" data-path="application-in-r.html"><a href="application-in-r.html#random-forests-1"><i class="fa fa-check"></i><b>3.3.3</b> Random Forests</a></li>
+<li class="chapter" data-level="3.3.4" data-path="application-in-r.html"><a href="application-in-r.html#boosting"><i class="fa fa-check"></i><b>3.3.4</b> Boosting</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="subject-1.html"><a href="subject-1.html"><i class="fa fa-check"></i><b>4</b> Subject 1</a></li>
@@ -304,36 +311,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Terms:</p>
 <ul>
 <li>OOB = out-of-bag. These are observations that are not included in the bagging process.</li>
+<li>OOB Error Estimation: This is an estimation of the CV error on the test data.</li>
 </ul>
 </div>
 <div id="random-forests" class="section level3" number="3.2.2">
 <h3><span class="header-section-number">3.2.2</span> Random Forests</h3>
 <p>Illustrate the scenario of a clear ranking in the importance of the predictor variables, then the bagging method will almost everytime end up with the same trees, perhaps with different cutpoints, but in general, the trees are similar. This countereffects the reduction of variability that we are trying to impose.</p>
-<p>With random forests we force the model only to select a subset of the predictors to avoid constructing trees that are very much alike, due to the independent selection. Thus, each time the algorithm considers a split, it is only able to choose among a random sample of m predictors amongst all of the p predictors. Notice, that we are still bagging the data.</p>
+<p>With random forests we force the model only to select a subset of the predictors to avoid constructing trees that are very much alike, due to the independent selection. Thus, each time the algorithm considers a split, it is only able to choose among a random sample of m predictors among all of the p predictors. Notice, that we are still bagging the data.</p>
+<p>The <strong>rule of thumb</strong> is <span class="math inline">\(p/3\)</span> that is a part of the variables that are randomly considered.</p>
 <p>By doings so, we are able to construct more different trees, that yields a far more stable model and also preserves the same prediction power through the bagging and hence averaging the consensus of each tree.</p>
 </div>
-<div id="boosting" class="section level3" number="3.2.3">
-<h3><span class="header-section-number">3.2.3</span> Boosting</h3>
+<div id="boosting-i.e.-gradient-boosting" class="section level3" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Boosting (i.e. Gradient Boosting)</h3>
 <p><em>Note, boosting is a general approach, that can be applied to many statistical learning methods</em></p>
 <p>The whole idea, is that we can construct one model and based on the residuals hereof, we can construct a new tree which is fitted to the residuals on the prior model. Therefore, the boosting method allows for learning. To control the learning we have three different tuning parameters:</p>
 <ol style="list-style-type: decimal">
-<li>B = the number of trees. As we constantly improve the model, by fitting to the residuals, we are now able to overfit the training data by iterating too much.</li>
-<li><span class="math inline">\(\lambda\)</span> = the shrinkage parameter. This is a small positive number. It controls at which rate the boosting works. Often the smaller lambda the higher does B need to be.</li>
-<li>d = number of d splits (d for depth). This controls the complexity of the boosted ensemble. <em>Note: often <span class="math inline">\(d = 1\)</span> works very well, this is a stump with only one split</em>. The higher the d, the more interactions between the variables will be reflected. Although, the reason that d = 1 works well, is that each tree accounts for previous trees.</li>
+<li><strong>B = the number of trees.</strong> As we constantly improve the model, by fitting to the residuals, we are now able to overfit the training data by iterating too much.</li>
+<li><strong><span class="math inline">\(\lambda\)</span> = the shrinkage parameter.</strong> This is a small positive number. It controls at which rate the boosting works. Often the smaller lambda the higher does B need to be.</li>
+<li><strong>d = number of d splits (d for depth).</strong> This controls the complexity of the boosted ensemble. <em>Note: often <span class="math inline">\(d = 1\)</span> works very well, this is a stump with only one split</em>. The higher the d, the more interactions between the variables will be reflected. Although, the reason that d = 1 works well, is that each tree accounts for previous trees.</li>
 </ol>
 <p>See the procedure on <span class="citation"><a href="references.html#ref-hastie2013" role="doc-biblioref">Hastie et al.</a> (<a href="references.html#ref-hastie2013" role="doc-biblioref">2013</a>)</span>, p. 323.</p>
 <p><strong>Notice, boosting in classification is a bit different and more complex, the details hereof are omitted in the book</strong></p>
-
 </div>
 </div>
-<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
 <a href="the-basics-of-decision-trees.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="subject-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="application-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

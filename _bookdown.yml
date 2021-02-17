@@ -4,4 +4,4 @@ book_filename: "Machine Learning Notes"
 delete_merged_file: true
 output_dir: "docs"
 before_chapter_script: ["before_chapter_script.R"]
-after_chapter_script: []
+after_chapter_script: ["after_chapter_script"]

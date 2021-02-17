@@ -189,7 +189,10 @@ _We see that the lowest train and CV MSE is at the tree size of 10, although bet
 
 An alternative to tree pruning is contraining the size of the tree. That can be done with four approaches:
 
-1. Maxim
+1. Maximum depth of the tree (vertical depth) - tuned using CV
+1. Minimum observations for a node split - tuned using CV
+1. Minimum observations for a terminal node (lead) - lower values for inbalanced classes
+1. Maximum number of terminal nodes - can be defined instead of depth.
 
 
 ### Classification Trees
@@ -198,7 +201,9 @@ The procedure is very much the same as what we saw for regression trees, where t
 
 In classification we use error rate instead of RSS, as we can't do RSS in a classification setting. I guess we can construct a confusion matrix as well.
 
-We introduce a new term: _node purity_. This is about including internal nodes that leads to two terminal nodes which has the same conclusion. It will not reduce the classification error, it does improve the certainty of the classification. Therefore, to account for the certianty and thus the node purity, one should also make the _Gini Index_ and the _Entropy_, equations can be found in @hastie2013, p. 312.
+We introduce a new term: _node purity_. This is about including internal nodes that leads to two terminal nodes which has the same conclusion. It will not reduce the classification error, it does improve the certainty of the classification. Therefore, to account for the certainty and thus the node purity, one should also make the _Gini Index_ and the _Entropy_, equations can be found in @hastie2013, p. 312.
+
+___More on purity: as we classify based on the mode of the response variable, we intentionally misclassify some observations. Naturally, we want to avoid this. Thus we can increase purity, that is often seen by splitting the same variable consecutive times or just several times. Hence to circle in the actual classifications. Although, doing this too much leads to overfitting to the data. That is why the Gini and Entropy adds a penalty to the in-sample error and thus accounting for purity. But one should also make an out of sample validation___
 
 Thus the splits are made to optimize the Gini, Entropy or perhaps Chi-Squared.
 
@@ -239,6 +244,7 @@ ___Disadvantages:___
 
 1. Trees is typically outperformed by more advanced methods, included in @hastie2013.
 2. Trees are not robust and small changes in the data may lead to big changes in the model.
+1. It is easy to overfit the data, hence high variance and low bias. This is dealt with by using the ensemble approach, hereunder, bagging, random forests and boosting.
 
 Although decision trees can be advanced with:
 
@@ -277,28 +283,130 @@ In a classification setting, it is very common to classify based on the majority
 Terms:
 
 + OOB = out-of-bag. These are observations that are not included in the bagging process.
++ OOB Error Estimation: This is an estimation of the CV error on the test data.
 
 ### Random Forests
 
 Illustrate the scenario of a clear ranking in the importance of the predictor variables, then the bagging method will almost everytime end up with the same trees, perhaps with different cutpoints, but in general, the trees are similar. This countereffects the reduction of variability that we are trying to impose.
 
-With random forests we force the model only to select a subset of the predictors to avoid constructing trees that are very much alike, due to the independent selection. Thus, each time the algorithm considers a split, it is only able to choose among a random sample of m predictors amongst all of the p predictors. Notice, that we are still bagging the data.
+With random forests we force the model only to select a subset of the predictors to avoid constructing trees that are very much alike, due to the independent selection. Thus, each time the algorithm considers a split, it is only able to choose among a random sample of m predictors among all of the p predictors. Notice, that we are still bagging the data.
+
+The __rule of thumb__ is $p/3$ that is a part of the variables that are randomly considered.
 
 By doings so, we are able to construct more different trees, that yields a far more stable model and also preserves the same prediction power through the bagging and hence averaging the consensus of each tree.
 
-### Boosting
+### Boosting (i.e. Gradient Boosting)
 
 _Note, boosting is a general approach, that can be applied to many statistical learning methods_
 
 The whole idea, is that we can construct one model and based on the residuals hereof, we can construct a new tree which is fitted to the residuals on the prior model. Therefore, the boosting method allows for learning. To control the learning we have three different tuning parameters:
 
-1. B = the number of trees. As we constantly improve the model, by fitting to the residuals, we are now able to overfit the training data by iterating too much.
-2. $\lambda$ = the shrinkage parameter. This is a small positive number. It controls at which rate the boosting works. Often the smaller lambda the higher does B need to be.
-3. d = number of d splits (d for depth). This controls the complexity of the boosted ensemble. _Note: often $d = 1$ works very well, this is a stump with only one split_. The higher the d, the more interactions between the variables will be reflected. Although, the reason that d = 1 works well, is that each tree accounts for previous trees.
+1. __B = the number of trees.__ As we constantly improve the model, by fitting to the residuals, we are now able to overfit the training data by iterating too much.
+2. __$\lambda$ = the shrinkage parameter.__ This is a small positive number. It controls at which rate the boosting works. Often the smaller lambda the higher does B need to be.
+3. __d = number of d splits (d for depth).__ This controls the complexity of the boosted ensemble. _Note: often $d = 1$ works very well, this is a stump with only one split_. The higher the d, the more interactions between the variables will be reflected. Although, the reason that d = 1 works well, is that each tree accounts for previous trees.
 
 See the procedure on @hastie2013, p. 323.
 
 __Notice, boosting in classification is a bit different and more complex, the details hereof are omitted in the book__
+
+
+## Application in R
+
+### Decision trees
+
+1. In library `tree`
+    + Use `tree(DV~IV,data = ...)`
+1. In library `rpart`
+    + Use `rpart(DV~IV,daata = ...)`
+    + _Note, this has better visualization_
+1. Check summary using `summary()`
+1. Plot the tree using `plot()`
+1. Use `predict()` and evaluate the test error of the unpruned tree
+1. Evaluate optimal level of tree complexity using `cv.tree()`
+1. Prune the tree with `prune.misclass()` / `prune.tree()`
+1. Use `predict()` and evaluate the test error of the pruned tree
+
+__Interpreting summary()__
+
+We want to look at:
+
++ Variables actually used in the tree construction, to see what variables that are in there
++ Number of terminal nodes: count of the leafs
++ Residual mean deviance: that is the error
++ We also have distribution of the errors.
+
+__Interpreting the cv.tree() object__
+
+We see following:
++ Size, amount of leaves
++ Deviance, that is the error. Where we want to find the model with the lowes deciance
++ We can get the alpha by calling `$k` on the `cv.tree()` model.
+
+
+__Interpreting the prdict() object__
+
+Here we find the predictions.
+
+### Bagging
+
+1. Un library `randomFores``
+    + Use `randomForest(DV~IV,mtry = p,ntree = ...,importance = TRUE)
+1. Use `predict()` evalutae the test error
+1. Use `ìmportance()` to see the importance of each variable
+1. Use `varImpPlot()` to plot the importance of each variable
+
+__Interpreteing importance()__
+
+We get two coloumns:
+
+1. %IncMSE: each of the numbers is the mean decrease in accuracy of prediction (i.e. increase error). Hence if we exclude a specific variable from the model we can read how much the error will increase.
+2. IncNodePurity: This is a measure of total increase of node purity by splitting over the specific variable.
+
+Hence both coloumns return information about how the variables impact the performance of the model.
+
+This can also be Plotted
+
+### Random Forests
+
+1. Un library `randomFores``
+    + Use `randomForest(DV~IV,mtry = p,ntree = ...,importance = TRUE)
+    + For RF of regression tree default _mtry = p/3_
+    + FOr RF of classification tree fedault _mtry = $\sqrt{p}$_
+1. Use `ìmportance()` to see the importance of each variable
+1. Use `varImpPlot()` to plot the importance of each variable
+
+We see that this is basically the same as bagging, merely where mtry is different, as we define how many variables that should be randomly considered.
+
+Interpretation of the variable importance is the same as in bagging.
+
+
+### Boosting
+
+1. In library `gbm`
+    + Use `gm(DF~IV,shrinkage = ,n.trees = ,interaction.depth = ,)`
+    + We have to define the distribution, in exercise 8, she used Bernoulli
+1. Use `summary()` to see the relative influence of the variables
+1. Use `plot()` to produce partial dependence plot for each variable
+1. Use `predict()` to evaluate the test error
+
+__Interpreting summary()__
+
+We get two columns:
+
+1. var: that is the variable
+2. Rel. inf: that is the relative influence: We see the highest values are the variables with the highest relationship with the 
+
+We are also abe to plot the relationship between an X variable and the y, that is done with `plot(<boost.model>,i = "the variable")`
+
+__Interpreting predict()__
+
+we have to define:
+
++ Trained boosting model
++ The test data
++ The amount of trees, that is with n.trees
++ If classification, then type = "response". Thus, one get probabilities.
+  + If type is not = "response", then we get the odds. We are interested in the probability, hence we must use type = "response"
 
 
 

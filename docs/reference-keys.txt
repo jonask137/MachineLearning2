@@ -99,6 +99,11 @@ advantages-and-disadvantages-of-trees
 bagging-random-forests-boosting
 bagging-bootstrap-aggregation
 random-forests
+boosting-i.e.-gradient-boosting
+application-in-r
+decision-trees
+bagging
+random-forests-1
 boosting
 subject-1
 subject-1-1
