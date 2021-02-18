@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3.4 Lab section | Machine Learning for Business Intelligence 2</title>
+  <meta name="description" content="3.4 Lab section | Machine Learning for Business Intelligence 2" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3.4 Lab section | Machine Learning for Business Intelligence 2" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3.4 Lab section | Machine Learning for Business Intelligence 2" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="application-in-r.html"/>
+<link rel="next" href="subject-1.html"/>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>setup</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html"><i class="fa fa-check"></i><b>2</b> Moving Beyond Linearity</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html"><i class="fa fa-check"></i><b>2.1</b> Models Beyond Linearity</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#polynomial-regression"><i class="fa fa-check"></i><b>2.1.1</b> Polynomial Regression</a>
+<ul>
+<li class="chapter" data-level="2.1.1.1" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#beta-coefficients-and-variance"><i class="fa fa-check"></i><b>2.1.1.1</b> Beta coefficients and variance</a></li>
+<li class="chapter" data-level="2.1.1.2" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#application-procedure"><i class="fa fa-check"></i><b>2.1.1.2</b> Application procedure</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1.2" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#step-functions"><i class="fa fa-check"></i><b>2.1.2</b> Step Functions</a></li>
+<li class="chapter" data-level="2.1.3" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#regression-splines"><i class="fa fa-check"></i><b>2.1.3</b> Regression Splines</a>
+<ul>
+<li class="chapter" data-level="2.1.3.1" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#piecewise-polynomials"><i class="fa fa-check"></i><b>2.1.3.1</b> Piecewise Polynomials</a></li>
+<li class="chapter" data-level="2.1.3.2" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#constraints-and-splines"><i class="fa fa-check"></i><b>2.1.3.2</b> Constraints and Splines</a></li>
+<li class="chapter" data-level="2.1.3.3" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#choosing-the-number-and-location-of-the-knots"><i class="fa fa-check"></i><b>2.1.3.3</b> Choosing the number and location of the Knots</a></li>
+<li class="chapter" data-level="2.1.3.4" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#degrees-of-freedom"><i class="fa fa-check"></i><b>2.1.3.4</b> Degrees of freedom</a></li>
+<li class="chapter" data-level="2.1.3.5" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#comparison-with-polynomial-regression"><i class="fa fa-check"></i><b>2.1.3.5</b> Comparison with Polynomial Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1.4" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#smoothing-splines"><i class="fa fa-check"></i><b>2.1.4</b> Smoothing Splines</a>
+<ul>
+<li class="chapter" data-level="2.1.4.1" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#choosing-optimal-tuning-parameter"><i class="fa fa-check"></i><b>2.1.4.1</b> Choosing optimal tuning parameter</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1.5" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#local-regression"><i class="fa fa-check"></i><b>2.1.5</b> Local Regression</a></li>
+<li class="chapter" data-level="2.1.6" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#generalized-additive-models"><i class="fa fa-check"></i><b>2.1.6</b> Generalized Additive Models</a>
+<ul>
+<li class="chapter" data-level="2.1.6.1" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#feature-selection"><i class="fa fa-check"></i><b>2.1.6.1</b> Feature Selection</a></li>
+<li class="chapter" data-level="2.1.6.2" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#gam-for-regression-problems"><i class="fa fa-check"></i><b>2.1.6.2</b> GAM for regression problems</a>
+<ul>
+<li class="chapter" data-level="2.1.6.2.1" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#interpretation-of-output"><i class="fa fa-check"></i><b>2.1.6.2.1</b> Interpretation of output</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1.6.3" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#gam-for-classification-problems"><i class="fa fa-check"></i><b>2.1.6.3</b> GAM for classification problems</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1.7" data-path="models-beyond-linearity.html"><a href="models-beyond-linearity.html#model-assessment"><i class="fa fa-check"></i><b>2.1.7</b> Model assessment</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="lecture-notes.html"><a href="lecture-notes.html"><i class="fa fa-check"></i><b>2.2</b> Lecture notes</a></li>
+<li class="chapter" data-level="2.3" data-path="lab-section.html"><a href="lab-section.html"><i class="fa fa-check"></i><b>2.3</b> Lab section</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="lab-section.html"><a href="lab-section.html#polynomial-regression-and-step-functions"><i class="fa fa-check"></i><b>2.3.1</b> Polynomial Regression and Step Functions</a>
+<ul>
+<li class="chapter" data-level="2.3.1.1" data-path="lab-section.html"><a href="lab-section.html#continous-model"><i class="fa fa-check"></i><b>2.3.1.1</b> Continous model</a></li>
+<li class="chapter" data-level="2.3.1.2" data-path="lab-section.html"><a href="lab-section.html#logarithmic-model"><i class="fa fa-check"></i><b>2.3.1.2</b> Logarithmic model</a></li>
+<li class="chapter" data-level="2.3.1.3" data-path="lab-section.html"><a href="lab-section.html#step-function"><i class="fa fa-check"></i><b>2.3.1.3</b> Step function</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3.2" data-path="lab-section.html"><a href="lab-section.html#splines"><i class="fa fa-check"></i><b>2.3.2</b> Splines</a>
+<ul>
+<li class="chapter" data-level="2.3.2.1" data-path="lab-section.html"><a href="lab-section.html#basis-function-splines"><i class="fa fa-check"></i><b>2.3.2.1</b> Basis Function Splines</a></li>
+<li class="chapter" data-level="2.3.2.2" data-path="lab-section.html"><a href="lab-section.html#natural-splines"><i class="fa fa-check"></i><b>2.3.2.2</b> Natural Splines</a></li>
+<li class="chapter" data-level="2.3.2.3" data-path="lab-section.html"><a href="lab-section.html#smooth-splines"><i class="fa fa-check"></i><b>2.3.2.3</b> Smooth Splines</a></li>
+<li class="chapter" data-level="2.3.2.4" data-path="lab-section.html"><a href="lab-section.html#local-regression-1"><i class="fa fa-check"></i><b>2.3.2.4</b> Local Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3.3" data-path="lab-section.html"><a href="lab-section.html#gams"><i class="fa fa-check"></i><b>2.3.3</b> GAMs</a>
+<ul>
+<li class="chapter" data-level="2.3.3.1" data-path="lab-section.html"><a href="lab-section.html#with-only-natural-splines"><i class="fa fa-check"></i><b>2.3.3.1</b> With only natural splines</a></li>
+<li class="chapter" data-level="2.3.3.2" data-path="lab-section.html"><a href="lab-section.html#with-different-splines"><i class="fa fa-check"></i><b>2.3.3.2</b> With different splines</a></li>
+<li class="chapter" data-level="2.3.3.3" data-path="lab-section.html"><a href="lab-section.html#but-what-variables-to-include"><i class="fa fa-check"></i><b>2.3.3.3</b> But what variables to include?</a></li>
+<li class="chapter" data-level="2.3.3.4" data-path="lab-section.html"><a href="lab-section.html#gam-with-local-regression"><i class="fa fa-check"></i><b>2.3.3.4</b> GAM with local regression</a></li>
+<li class="chapter" data-level="2.3.3.5" data-path="lab-section.html"><a href="lab-section.html#logistic-regression"><i class="fa fa-check"></i><b>2.3.3.5</b> Logistic Regression</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>2.4</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="exercises.html"><a href="exercises.html#exercise-6"><i class="fa fa-check"></i><b>2.4.1</b> Exercise 6</a>
+<ul>
+<li class="chapter" data-level="2.4.1.1" data-path="exercises.html"><a href="exercises.html#a-polynomial-regression"><i class="fa fa-check"></i><b>2.4.1.1</b> 6.a Polynomial Regression</a></li>
+<li class="chapter" data-level="2.4.1.2" data-path="exercises.html"><a href="exercises.html#b-step-function"><i class="fa fa-check"></i><b>2.4.1.2</b> 6.b Step function</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4.2" data-path="exercises.html"><a href="exercises.html#exercise-7"><i class="fa fa-check"></i><b>2.4.2</b> Exercise 7</a></li>
+<li class="chapter" data-level="2.4.3" data-path="exercises.html"><a href="exercises.html#exercise-8"><i class="fa fa-check"></i><b>2.4.3</b> Exercise 8</a></li>
+<li class="chapter" data-level="2.4.4" data-path="exercises.html"><a href="exercises.html#exercise-9"><i class="fa fa-check"></i><b>2.4.4</b> Exercise 9</a>
+<ul>
+<li class="chapter" data-level="2.4.4.1" data-path="exercises.html"><a href="exercises.html#a-using-poly-function-to-fit-cubic-polynomial-regression"><i class="fa fa-check"></i><b>2.4.4.1</b> (a) using poly function to fit cubic polynomial regression</a></li>
+<li class="chapter" data-level="2.4.4.2" data-path="exercises.html"><a href="exercises.html#b-plotting-polynomial-fits-for-a-range-of-polynomials"><i class="fa fa-check"></i><b>2.4.4.2</b> (b) Plotting polynomial fits for a range of polynomials</a></li>
+<li class="chapter" data-level="2.4.4.3" data-path="exercises.html"><a href="exercises.html#c-using-cv-to-select-best-degree-of-d"><i class="fa fa-check"></i><b>2.4.4.3</b> (c) Using CV to select best degree of d</a></li>
+<li class="chapter" data-level="2.4.4.4" data-path="exercises.html"><a href="exercises.html#d-use-bs-to-fit-a-regression-spline"><i class="fa fa-check"></i><b>2.4.4.4</b> (d) Use <code>bs()</code> to fit a regression spline</a></li>
+<li class="chapter" data-level="2.4.4.5" data-path="exercises.html"><a href="exercises.html#e-now-fit-a-regression-spline"><i class="fa fa-check"></i><b>2.4.4.5</b> (e) Now fit a regression spline</a></li>
+<li class="chapter" data-level="2.4.4.6" data-path="exercises.html"><a href="exercises.html#f-perform-cross-validation-to-select-degrees"><i class="fa fa-check"></i><b>2.4.4.6</b> (f) Perform cross-validation, to select degrees</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4.5" data-path="exercises.html"><a href="exercises.html#exercise-10"><i class="fa fa-check"></i><b>2.4.5</b> Exercise 10</a>
+<ul>
+<li class="chapter" data-level="2.4.5.1" data-path="exercises.html"><a href="exercises.html#a-partitioning-the-data"><i class="fa fa-check"></i><b>2.4.5.1</b> (a) Partitioning the data</a></li>
+<li class="chapter" data-level="2.4.5.2" data-path="exercises.html"><a href="exercises.html#b-fitting-a-gam"><i class="fa fa-check"></i><b>2.4.5.2</b> (b) Fitting a GAM</a></li>
+<li class="chapter" data-level="2.4.5.3" data-path="exercises.html"><a href="exercises.html#c-evaluating-on-the-test-set"><i class="fa fa-check"></i><b>2.4.5.3</b> (c) Evaluating on the test set</a></li>
+<li class="chapter" data-level="2.4.5.4" data-path="exercises.html"><a href="exercises.html#d-which-variables-appear-to-have-a-non-linear-relationship"><i class="fa fa-check"></i><b>2.4.5.4</b> (d) Which variables appear to have a non linear relationship?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="FacebookCasestudy.html"><a href="FacebookCasestudy.html"><i class="fa fa-check"></i><b>2.5</b> Predicting the Return on Advertising Spent</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="FacebookCasestudy.html"><a href="FacebookCasestudy.html#background"><i class="fa fa-check"></i><b>2.5.1</b> 1. Background</a></li>
+<li class="chapter" data-level="2.5.2" data-path="FacebookCasestudy.html"><a href="FacebookCasestudy.html#case-study-business-understanding-phase"><i class="fa fa-check"></i><b>2.5.2</b> 2. Case study (Business Understanding Phase)</a></li>
+<li class="chapter" data-level="2.5.3" data-path="FacebookCasestudy.html"><a href="FacebookCasestudy.html#the-data-data-understanding-phase"><i class="fa fa-check"></i><b>2.5.3</b> 3. The data (Data Understanding Phase)</a></li>
+<li class="chapter" data-level="2.5.4" data-path="FacebookCasestudy.html"><a href="FacebookCasestudy.html#specific-requirements"><i class="fa fa-check"></i><b>2.5.4</b> 4. Specific requirements:</a>
+<ul>
+<li class="chapter" data-level="2.5.4.1" data-path="FacebookCasestudy.html"><a href="FacebookCasestudy.html#task-1---import-and-overview"><i class="fa fa-check"></i><b>2.5.4.1</b> 4.1 Task 1 - Import and overview</a></li>
+<li class="chapter" data-level="2.5.4.2" data-path="FacebookCasestudy.html"><a href="FacebookCasestudy.html#task-2---data-inspection"><i class="fa fa-check"></i><b>2.5.4.2</b> 4.2 Task 2 - Data inspection</a></li>
+<li class="chapter" data-level="2.5.4.3" data-path="FacebookCasestudy.html"><a href="FacebookCasestudy.html#task-3---building-different-models"><i class="fa fa-check"></i><b>2.5.4.3</b> 4.3 Task 3 - Building different models</a>
+<ul>
+<li class="chapter" data-level="2.5.4.3.1" data-path="FacebookCasestudy.html"><a href="FacebookCasestudy.html#a-generalized-additive-model-gam-to-predict-roas"><i class="fa fa-check"></i><b>2.5.4.3.1</b> A Generalized Additive Model (GAM) to predict ROAS</a>
+<ul>
+<li class="chapter" data-level="2.5.4.3.1.1" data-path="FacebookCasestudy.html"><a href="FacebookCasestudy.html#c1-feature-selection-using-regsubsets"><i class="fa fa-check"></i><b>2.5.4.3.1.1</b> c1) Feature selection using regsubsets()</a></li>
+<li class="chapter" data-level="2.5.4.3.1.2" data-path="FacebookCasestudy.html"><a href="FacebookCasestudy.html#c2-feature-selection-using-step.gam"><i class="fa fa-check"></i><b>2.5.4.3.1.2</b> c2) Feature selection using step.GAM</a></li>
+<li class="chapter" data-level="2.5.4.3.1.3" data-path="FacebookCasestudy.html"><a href="FacebookCasestudy.html#c3-fetaure-selection-using-random-forest"><i class="fa fa-check"></i><b>2.5.4.3.1.3</b> c3) Fetaure selection using random forest</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tree-based-methods.html"><a href="tree-based-methods.html"><i class="fa fa-check"></i><b>3</b> Tree Based Methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="the-basics-of-decision-trees.html"><a href="the-basics-of-decision-trees.html"><i class="fa fa-check"></i><b>3.1</b> The Basics of Decision Trees</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="the-basics-of-decision-trees.html"><a href="the-basics-of-decision-trees.html#regression-trees"><i class="fa fa-check"></i><b>3.1.1</b> Regression Trees</a>
+<ul>
+<li class="chapter" data-level="3.1.1.1" data-path="the-basics-of-decision-trees.html"><a href="the-basics-of-decision-trees.html#how-to-make-the-decision-trees"><i class="fa fa-check"></i><b>3.1.1.1</b> How to make the decision trees</a>
+<ul>
+<li class="chapter" data-level="3.1.1.1.1" data-path="the-basics-of-decision-trees.html"><a href="the-basics-of-decision-trees.html#the-goal-of-regression"><i class="fa fa-check"></i><b>3.1.1.1.1</b> The goal of regression</a></li>
+<li class="chapter" data-level="3.1.1.1.2" data-path="the-basics-of-decision-trees.html"><a href="the-basics-of-decision-trees.html#tree-pruning-algoritm"><i class="fa fa-check"></i><b>3.1.1.1.2</b> Tree Pruning &amp; Algoritm</a></li>
+<li class="chapter" data-level="3.1.1.1.3" data-path="the-basics-of-decision-trees.html"><a href="the-basics-of-decision-trees.html#setting-contrains-of-the-tree-sise"><i class="fa fa-check"></i><b>3.1.1.1.3</b> Setting contrains of the tree sise</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3.1.2" data-path="the-basics-of-decision-trees.html"><a href="the-basics-of-decision-trees.html#classification-trees"><i class="fa fa-check"></i><b>3.1.2</b> Classification Trees</a></li>
+<li class="chapter" data-level="3.1.3" data-path="the-basics-of-decision-trees.html"><a href="the-basics-of-decision-trees.html#tree-vs.-lienar-models"><i class="fa fa-check"></i><b>3.1.3</b> Tree vs. Lienar Models</a></li>
+<li class="chapter" data-level="3.1.4" data-path="the-basics-of-decision-trees.html"><a href="the-basics-of-decision-trees.html#advantages-and-disadvantages-of-trees"><i class="fa fa-check"></i><b>3.1.4</b> Advantages and Disadvantages of Trees</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="bagging-random-forests-boosting.html"><a href="bagging-random-forests-boosting.html"><i class="fa fa-check"></i><b>3.2</b> Bagging, Random Forests, Boosting</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="bagging-random-forests-boosting.html"><a href="bagging-random-forests-boosting.html#bagging-bootstrap-aggregation"><i class="fa fa-check"></i><b>3.2.1</b> Bagging (Bootstrap Aggregation)</a></li>
+<li class="chapter" data-level="3.2.2" data-path="bagging-random-forests-boosting.html"><a href="bagging-random-forests-boosting.html#random-forests"><i class="fa fa-check"></i><b>3.2.2</b> Random Forests</a></li>
+<li class="chapter" data-level="3.2.3" data-path="bagging-random-forests-boosting.html"><a href="bagging-random-forests-boosting.html#boosting-i.e.-gradient-boosting"><i class="fa fa-check"></i><b>3.2.3</b> Boosting (i.e. Gradient Boosting)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="application-in-r.html"><a href="application-in-r.html"><i class="fa fa-check"></i><b>3.3</b> Application in R</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="application-in-r.html"><a href="application-in-r.html#decision-trees"><i class="fa fa-check"></i><b>3.3.1</b> Decision trees</a></li>
+<li class="chapter" data-level="3.3.2" data-path="application-in-r.html"><a href="application-in-r.html#bagging"><i class="fa fa-check"></i><b>3.3.2</b> Bagging</a></li>
+<li class="chapter" data-level="3.3.3" data-path="application-in-r.html"><a href="application-in-r.html#random-forests-1"><i class="fa fa-check"></i><b>3.3.3</b> Random Forests</a></li>
+<li class="chapter" data-level="3.3.4" data-path="application-in-r.html"><a href="application-in-r.html#boosting"><i class="fa fa-check"></i><b>3.3.4</b> Boosting</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="lab-section-1.html"><a href="lab-section-1.html"><i class="fa fa-check"></i><b>3.4</b> Lab section</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="lab-section-1.html"><a href="lab-section-1.html#LabClassification"><i class="fa fa-check"></i><b>3.4.1</b> Fitting Classification Trees</a></li>
+<li class="chapter" data-level="3.4.2" data-path="lab-section-1.html"><a href="lab-section-1.html#fitting-regression-trees"><i class="fa fa-check"></i><b>3.4.2</b> Fitting Regression Trees</a></li>
+<li class="chapter" data-level="3.4.3" data-path="lab-section-1.html"><a href="lab-section-1.html#bagging-and-random-forests"><i class="fa fa-check"></i><b>3.4.3</b> Bagging and Random Forests</a>
+<ul>
+<li class="chapter" data-level="3.4.3.1" data-path="lab-section-1.html"><a href="lab-section-1.html#bagging-1"><i class="fa fa-check"></i><b>3.4.3.1</b> Bagging</a></li>
+<li class="chapter" data-level="3.4.3.2" data-path="lab-section-1.html"><a href="lab-section-1.html#random-forest"><i class="fa fa-check"></i><b>3.4.3.2</b> Random Forest</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4.4" data-path="lab-section-1.html"><a href="lab-section-1.html#boosting-1"><i class="fa fa-check"></i><b>3.4.4</b> Boosting</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="subject-1.html"><a href="subject-1.html"><i class="fa fa-check"></i><b>4</b> Subject 1</a></li>
+<li class="chapter" data-level="5" data-path="subject-1-1.html"><a href="subject-1-1.html"><i class="fa fa-check"></i><b>5</b> Subject 1</a></li>
+<li class="chapter" data-level="6" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>6</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Machine Learning for Business Intelligence 2</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="lab-section-1" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Lab section</h2>
+<div id="LabClassification" class="section level3" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Fitting Classification Trees</h3>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="lab-section-1.html#cb216-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tree)</span></code></pre></div>
+<p>We want to use the carseats data, where sales = Unit sales (in thousands) at each location. We want to predict whether they sold more or less than 8.000, i.e. 8 as the variable is encoded in thousands.</p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="lab-section-1.html#cb217-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR)</span>
+<span id="cb217-2"><a href="lab-section-1.html#cb217-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> Carseats</span>
+<span id="cb217-3"><a href="lab-section-1.html#cb217-3" aria-hidden="true" tabindex="-1"></a>High <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(df<span class="sc">$</span>Sales <span class="sc">&lt;=</span> <span class="dv">8</span>,<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)</span></code></pre></div>
+<p>Merging the vector and the data set.</p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="lab-section-1.html#cb218-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Carseats,High)</span>
+<span id="cb218-2"><a href="lab-section-1.html#cb218-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>High <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(df<span class="sc">$</span>High)</span></code></pre></div>
+<p>We now want to predict the High variable.</p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="lab-section-1.html#cb219-1" aria-hidden="true" tabindex="-1"></a>tree.carseats <span class="ot">&lt;-</span> <span class="fu">tree</span>(<span class="at">formula =</span> High <span class="sc">~</span> . <span class="sc">-</span> Sales</span>
+<span id="cb219-2"><a href="lab-section-1.html#cb219-2" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">data =</span> df)</span>
+<span id="cb219-3"><a href="lab-section-1.html#cb219-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tree.carseats)</span></code></pre></div>
+<pre><code>## 
+## Classification tree:
+## tree(formula = High ~ . - Sales, data = df)
+## Variables actually used in tree construction:
+## [1] &quot;ShelveLoc&quot;   &quot;Price&quot;       &quot;Income&quot;      &quot;CompPrice&quot;   &quot;Population&quot; 
+## [6] &quot;Advertising&quot; &quot;Age&quot;         &quot;US&quot;         
+## Number of terminal nodes:  27 
+## Residual mean deviance:  0.4575 = 170.7 / 373 
+## Misclassification error rate: 0.09 = 36 / 400</code></pre>
+<ul>
+<li>We see the variables that are included</li>
+<li>We see that there are 27 terminal nodes</li>
+<li>Information about the error (deviance) and the missclassification rate = 9%</li>
+</ul>
+<p>The deviance reported is from the calculation:</p>
+<p><span class="math display" id="eq:deviance">\[\begin{equation}
+-2\sum_m\sum_kn_{mk}log\hat{p}_{mk}
+\tag{3.5}
+\end{equation}\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(n_{mk}\)</span> = the number of observations in the <em>m</em>th terminal node, that belong to the <em>k</em>th class.</li>
+</ul>
+<p>A small deviance = low error, hence a good fit to the train data.</p>
+<p><em>Thus similar to the RSS calculation that we have seen earlier.</em></p>
+<p>we find the residual mean deviance to be:</p>
+<p><span class="math display" id="eq:ResidualMeanDeviance">\[\begin{equation}
+\frac{Deviance}{n-|T_0|}
+\tag{3.6}
+\end{equation}\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[\frac{170.7}{(400-27)}=373\]</span></p>
+<p>Where <span class="math inline">\(T_0\)</span> is the unpruned tree, which we see is with 27 terminal nodes. And <span class="math inline">\(n\)</span> is merely the amount of observations.</p>
+<p><strong>PLotting the tree:</strong></p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="lab-section-1.html#cb221-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tree.carseats)</span>
+<span id="cb221-2"><a href="lab-section-1.html#cb221-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(tree.carseats</span>
+<span id="cb221-3"><a href="lab-section-1.html#cb221-3" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">pretty =</span> <span class="dv">0</span>)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-150-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>We see that the tree. Notice on the right side, we see that price occurs twice. This is probably due to purity and more certainty on the predictions.</p>
+<p>We see that Shelve Location Bad and Medium appear to be the best predictor. As we start out with that variable.</p>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="lab-section-1.html#cb222-1" aria-hidden="true" tabindex="-1"></a>tree.carseats[<span class="dv">1</span>] <span class="co">#Added [1] to get it in a table</span></span></code></pre></div>
+<pre><code>## $frame
+##             var   n        dev yval splits.cutleft splits.cutright   yprob.No
+## 1     ShelveLoc 400 541.486837   No            :ac              :b 0.59000000
+## 2         Price 315 390.591685   No          &lt;92.5           &gt;92.5 0.68888889
+## 4        Income  46  56.534305  Yes            &lt;57             &gt;57 0.30434783
+## 8     CompPrice  10  12.217286   No         &lt;110.5          &gt;110.5 0.70000000
+## 16       &lt;leaf&gt;   5   0.000000   No                                1.00000000
+## 17       &lt;leaf&gt;   5   6.730117  Yes                                0.40000000
+## 9    Population  36  35.467463  Yes         &lt;207.5          &gt;207.5 0.19444444
+## 18       &lt;leaf&gt;  16  21.170024  Yes                                0.37500000
+## 19       &lt;leaf&gt;  20   7.940610  Yes                                0.05000000
+## 5   Advertising 269 299.758669   No          &lt;13.5           &gt;13.5 0.75464684
+## 10    CompPrice 224 213.232590   No         &lt;124.5          &gt;124.5 0.81696429
+## 20        Price  96  44.887998   No         &lt;106.5          &gt;106.5 0.93750000
+## 40   Population  38  33.148337   No           &lt;177            &gt;177 0.84210526
+## 80       Income  12  16.300638   No          &lt;60.5           &gt;60.5 0.58333333
+## 160      &lt;leaf&gt;   6   0.000000   No                                1.00000000
+## 161      &lt;leaf&gt;   6   5.406735  Yes                                0.16666667
+## 81       &lt;leaf&gt;  26   8.477229   No                                0.96153846
+## 41       &lt;leaf&gt;  58   0.000000   No                                1.00000000
+## 21        Price 128 150.181878   No         &lt;122.5          &gt;122.5 0.72656250
+## 42    ShelveLoc  51  70.681403  Yes             :a              :c 0.49019608
+## 84       &lt;leaf&gt;  11   6.701994   No                                0.90909091
+## 85        Price  40  52.925059  Yes         &lt;109.5          &gt;109.5 0.37500000
+## 170      &lt;leaf&gt;  16   7.481333  Yes                                0.06250000
+## 171         Age  24  32.601277   No          &lt;49.5           &gt;49.5 0.58333333
+## 342      &lt;leaf&gt;  13  16.048286  Yes                                0.30769231
+## 343      &lt;leaf&gt;  11   6.701994   No                                0.90909091
+## 43    CompPrice  77  55.542945   No         &lt;147.5          &gt;147.5 0.88311688
+## 86       &lt;leaf&gt;  58  17.399411   No                                0.96551724
+## 87        Price  19  25.008180   No           &lt;147            &gt;147 0.63157895
+## 174   CompPrice  12  16.300638  Yes         &lt;152.5          &gt;152.5 0.41666667
+## 348      &lt;leaf&gt;   7   5.741628  Yes                                0.14285714
+## 349      &lt;leaf&gt;   5   5.004024   No                                0.80000000
+## 175      &lt;leaf&gt;   7   0.000000   No                                1.00000000
+## 11          Age  45  61.826542  Yes          &lt;54.5           &gt;54.5 0.44444444
+## 22    CompPrice  25  25.020121  Yes         &lt;130.5          &gt;130.5 0.20000000
+## 44       Income  14  18.249184  Yes           &lt;100            &gt;100 0.35714286
+## 88       &lt;leaf&gt;   9  12.365308   No                                0.55555556
+## 89       &lt;leaf&gt;   5   0.000000  Yes                                0.00000000
+## 45       &lt;leaf&gt;  11   0.000000  Yes                                0.00000000
+## 23    CompPrice  20  22.493406   No         &lt;122.5          &gt;122.5 0.75000000
+## 46       &lt;leaf&gt;  10   0.000000   No                                1.00000000
+## 47        Price  10  13.862944   No           &lt;125            &gt;125 0.50000000
+## 94       &lt;leaf&gt;   5   0.000000  Yes                                0.00000000
+## 95       &lt;leaf&gt;   5   0.000000   No                                1.00000000
+## 3         Price  85  90.327606  Yes           &lt;135            &gt;135 0.22352941
+## 6            US  68  49.260636  Yes             :a              :b 0.11764706
+## 12        Price  17  22.074444  Yes           &lt;109            &gt;109 0.35294118
+## 24       &lt;leaf&gt;   8   0.000000  Yes                                0.00000000
+## 25       &lt;leaf&gt;   9  11.457255   No                                0.66666667
+## 13       &lt;leaf&gt;  51  16.875237  Yes                                0.03921569
+## 7        Income  17  22.074444   No            &lt;46             &gt;46 0.64705882
+## 14       &lt;leaf&gt;   6   0.000000   No                                1.00000000
+## 15       &lt;leaf&gt;  11  15.158203  Yes                                0.45454545
+##      yprob.Yes
+## 1   0.41000000
+## 2   0.31111111
+## 4   0.69565217
+## 8   0.30000000
+## 16  0.00000000
+## 17  0.60000000
+## 9   0.80555556
+## 18  0.62500000
+## 19  0.95000000
+## 5   0.24535316
+## 10  0.18303571
+## 20  0.06250000
+## 40  0.15789474
+## 80  0.41666667
+## 160 0.00000000
+## 161 0.83333333
+## 81  0.03846154
+## 41  0.00000000
+## 21  0.27343750
+## 42  0.50980392
+## 84  0.09090909
+## 85  0.62500000
+## 170 0.93750000
+## 171 0.41666667
+## 342 0.69230769
+## 343 0.09090909
+## 43  0.11688312
+## 86  0.03448276
+## 87  0.36842105
+## 174 0.58333333
+## 348 0.85714286
+## 349 0.20000000
+## 175 0.00000000
+## 11  0.55555556
+## 22  0.80000000
+## 44  0.64285714
+## 88  0.44444444
+## 89  1.00000000
+## 45  1.00000000
+## 23  0.25000000
+## 46  0.00000000
+## 47  0.50000000
+## 94  1.00000000
+## 95  0.00000000
+## 3   0.77647059
+## 6   0.88235294
+## 12  0.64705882
+## 24  1.00000000
+## 25  0.33333333
+## 13  0.96078431
+## 7   0.35294118
+## 14  0.00000000
+## 15  0.54545455</code></pre>
+<p>We are able to see the following from the print:</p>
+<ol style="list-style-type: decimal">
+<li>Variable</li>
+<li>Criterion</li>
+<li>Observations in the criterion, i.e. branch</li>
+<li>The deviance</li>
+<li>The overall prediction for the branch</li>
+<li>The fraction of observations in that branch that take on values 1 and 0 (Y/N).</li>
+</ol>
+<p>We also see that branches that leads to a terminal node is marked with an "*".</p>
+<p><em>Notice, that the ShelveLoc Says a and c for cut left. That is because the categories are not ordered. We can inspect the order with contrasts()</em></p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="lab-section-1.html#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(df<span class="sc">$</span>ShelveLoc)</span></code></pre></div>
+<pre><code>##        Good Medium
+## Bad       0      0
+## Good      1      0
+## Medium    0      1</code></pre>
+<p><em>Where it is ranked, bad, good, medium. Perhaps it could have been ordered correctly. But it does not matter when we are working with a decision tree, as it is purely data driven.</em></p>
+<p><strong>Using test and train data</strong></p>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="lab-section-1.html#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb226-2"><a href="lab-section-1.html#cb226-2" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df),<span class="at">size =</span> <span class="dv">200</span>)</span>
+<span id="cb226-3"><a href="lab-section-1.html#cb226-3" aria-hidden="true" tabindex="-1"></a>df.train <span class="ot">&lt;-</span> df[index,]</span>
+<span id="cb226-4"><a href="lab-section-1.html#cb226-4" aria-hidden="true" tabindex="-1"></a>df.test <span class="ot">&lt;-</span> df[<span class="sc">-</span>index,]</span>
+<span id="cb226-5"><a href="lab-section-1.html#cb226-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb226-6"><a href="lab-section-1.html#cb226-6" aria-hidden="true" tabindex="-1"></a>tree.carseats <span class="ot">&lt;-</span> <span class="fu">tree</span>(High <span class="sc">~</span> . <span class="sc">-</span> Sales,<span class="at">data =</span> df.train)</span>
+<span id="cb226-7"><a href="lab-section-1.html#cb226-7" aria-hidden="true" tabindex="-1"></a>tree.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(tree.carseats,<span class="at">newdata =</span> df.test,<span class="at">type =</span> <span class="st">&quot;class&quot;</span>)</span>
+<span id="cb226-8"><a href="lab-section-1.html#cb226-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb226-9"><a href="lab-section-1.html#cb226-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb226-10"><a href="lab-section-1.html#cb226-10" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(<span class="at">data =</span> tree.pred,<span class="at">reference =</span> df.test<span class="sc">$</span>High,<span class="at">positive =</span> <span class="st">&quot;Yes&quot;</span>)</span></code></pre></div>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction  No Yes
+##        No  104  33
+##        Yes  13  50
+##                                           
+##                Accuracy : 0.77            
+##                  95% CI : (0.7054, 0.8264)
+##     No Information Rate : 0.585           
+##     P-Value [Acc &gt; NIR] : 0.00000002938   
+##                                           
+##                   Kappa : 0.5091          
+##                                           
+##  Mcnemar&#39;s Test P-Value : 0.005088        
+##                                           
+##             Sensitivity : 0.6024          
+##             Specificity : 0.8889          
+##          Pos Pred Value : 0.7937          
+##          Neg Pred Value : 0.7591          
+##              Prevalence : 0.4150          
+##          Detection Rate : 0.2500          
+##    Detection Prevalence : 0.3150          
+##       Balanced Accuracy : 0.7456          
+##                                           
+##        &#39;Positive&#39; Class : Yes             
+## </code></pre>
+<p>We see a sensitivity of 60% and specificity of 88%</p>
+<p><strong>Pruning the tree</strong></p>
+<p>It is likely that we are able to improve the model by pruning the tree. That is performed in the following.</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="lab-section-1.html#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1337</span>)</span>
+<span id="cb228-2"><a href="lab-section-1.html#cb228-2" aria-hidden="true" tabindex="-1"></a>cv.carseats <span class="ot">&lt;-</span> <span class="fu">cv.tree</span>(<span class="at">object =</span> tree.carseats</span>
+<span id="cb228-3"><a href="lab-section-1.html#cb228-3" aria-hidden="true" tabindex="-1"></a>                       ,<span class="at">FUN =</span> prune.misclass) <span class="co"># we are pruning to optimize against misclassifications</span></span>
+<span id="cb228-4"><a href="lab-section-1.html#cb228-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb228-5"><a href="lab-section-1.html#cb228-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Listing objects in the cv.carseats</span></span>
+<span id="cb228-6"><a href="lab-section-1.html#cb228-6" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(cv.carseats)</span></code></pre></div>
+<pre><code>## [1] &quot;size&quot;   &quot;dev&quot;    &quot;k&quot;      &quot;method&quot;</code></pre>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="lab-section-1.html#cb230-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb230-2"><a href="lab-section-1.html#cb230-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Retrieving informaiton in the object</span></span>
+<span id="cb230-3"><a href="lab-section-1.html#cb230-3" aria-hidden="true" tabindex="-1"></a>cv.carseats</span></code></pre></div>
+<pre><code>## $size
+## [1] 21 19 14  9  8  5  3  2  1
+## 
+## $dev
+## [1] 69 70 69 67 68 71 72 81 81
+## 
+## $k
+## [1] -Inf  0.0  1.0  1.4  2.0  3.0  4.0  9.0 18.0
+## 
+## $method
+## [1] &quot;misclass&quot;
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;prune&quot;         &quot;tree.sequence&quot;</code></pre>
+<p><strong>Size:</strong>
+This is the size of the subtrees created</p>
+<p><strong>dev:</strong>
+The cross-validation error rate in this instance. We want to select the tree that yields the lowest error rate, that appear to be tree no. 4 with 9 terminal nodes.</p>
+<p><strong>k:</strong>
+Recall that we prune trees based on the tuning parameter <span class="math inline">\(\alpha\)</span>, see equation <a href="the-basics-of-decision-trees.html#eq:Subtree">(3.3)</a>. This is corresponding to k.</p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="lab-section-1.html#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb232-2"><a href="lab-section-1.html#cb232-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> cv.carseats<span class="sc">$</span>size,<span class="at">y =</span> cv.carseats<span class="sc">$</span>dev,<span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span>
+<span id="cb232-3"><a href="lab-section-1.html#cb232-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> cv.carseats<span class="sc">$</span>k,<span class="at">y =</span> cv.carseats<span class="sc">$</span>dev,<span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-155-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>We new apply the <code>prune.misclass()</code> function in order to prune the tree to obtain the nine-node tree.</p>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="lab-section-1.html#cb233-1" aria-hidden="true" tabindex="-1"></a>prune.carseats <span class="ot">&lt;-</span> <span class="fu">prune.misclass</span>(tree.carseats</span>
+<span id="cb233-2"><a href="lab-section-1.html#cb233-2" aria-hidden="true" tabindex="-1"></a>                                 ,<span class="at">best =</span> <span class="dv">9</span>) <span class="co">#We want to inspect a tree of size 9</span></span>
+<span id="cb233-3"><a href="lab-section-1.html#cb233-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb233-4"><a href="lab-section-1.html#cb233-4" aria-hidden="true" tabindex="-1"></a>{<span class="fu">plot</span>(prune.carseats)</span>
+<span id="cb233-5"><a href="lab-section-1.html#cb233-5" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(prune.carseats,<span class="at">pretty =</span> <span class="dv">0</span>)}</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-156-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="lab-section-1.html#cb234-1" aria-hidden="true" tabindex="-1"></a>tree.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="at">object =</span> prune.carseats,<span class="at">newdata =</span> df.test,<span class="at">type =</span> <span class="st">&quot;class&quot;</span>)</span>
+<span id="cb234-2"><a href="lab-section-1.html#cb234-2" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(tree.pred,<span class="at">reference =</span> df.test<span class="sc">$</span>High,<span class="at">positive =</span> <span class="st">&quot;Yes&quot;</span>)</span></code></pre></div>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction No Yes
+##        No  97  25
+##        Yes 20  58
+##                                           
+##                Accuracy : 0.775           
+##                  95% CI : (0.7108, 0.8309)
+##     No Information Rate : 0.585           
+##     P-Value [Acc &gt; NIR] : 0.00000001206   
+##                                           
+##                   Kappa : 0.5325          
+##                                           
+##  Mcnemar&#39;s Test P-Value : 0.551           
+##                                           
+##             Sensitivity : 0.6988          
+##             Specificity : 0.8291          
+##          Pos Pred Value : 0.7436          
+##          Neg Pred Value : 0.7951          
+##              Prevalence : 0.4150          
+##          Detection Rate : 0.2900          
+##    Detection Prevalence : 0.3900          
+##       Balanced Accuracy : 0.7639          
+##                                           
+##        &#39;Positive&#39; Class : Yes             
+## </code></pre>
+<p>We see that we have both improved the sensitivity to 69.9% and the specificity to 82.9% from respectively 60% and 88%.</p>
+<p>The overall accuracy is 77.5%.</p>
+<p>We can show the accuracy of other trees as well. But these will perform worse.</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="lab-section-1.html#cb236-1" aria-hidden="true" tabindex="-1"></a>prune.carseats <span class="ot">&lt;-</span> <span class="fu">prune.misclass</span>(tree.carseats,<span class="at">best =</span> <span class="dv">15</span>)</span>
+<span id="cb236-2"><a href="lab-section-1.html#cb236-2" aria-hidden="true" tabindex="-1"></a>{<span class="fu">plot</span>(prune.carseats)</span>
+<span id="cb236-3"><a href="lab-section-1.html#cb236-3" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(prune.carseats,<span class="at">pretty =</span> <span class="dv">0</span>)}</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-158-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="lab-section-1.html#cb237-1" aria-hidden="true" tabindex="-1"></a>tree.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="at">object =</span> prune.carseats,<span class="at">newdata =</span> df.test,<span class="at">type =</span> <span class="st">&quot;class&quot;</span>)</span>
+<span id="cb237-2"><a href="lab-section-1.html#cb237-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Confusion matrix</span></span>
+<span id="cb237-3"><a href="lab-section-1.html#cb237-3" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(<span class="at">data =</span> tree.pred,<span class="at">reference =</span> df.test<span class="sc">$</span>High,<span class="at">positive =</span> <span class="st">&quot;Yes&quot;</span>)</span></code></pre></div>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction  No Yes
+##        No  102  30
+##        Yes  15  53
+##                                           
+##                Accuracy : 0.775           
+##                  95% CI : (0.7108, 0.8309)
+##     No Information Rate : 0.585           
+##     P-Value [Acc &gt; NIR] : 0.00000001206   
+##                                           
+##                   Kappa : 0.5241          
+##                                           
+##  Mcnemar&#39;s Test P-Value : 0.03689         
+##                                           
+##             Sensitivity : 0.6386          
+##             Specificity : 0.8718          
+##          Pos Pred Value : 0.7794          
+##          Neg Pred Value : 0.7727          
+##              Prevalence : 0.4150          
+##          Detection Rate : 0.2650          
+##    Detection Prevalence : 0.3400          
+##       Balanced Accuracy : 0.7552          
+##                                           
+##        &#39;Positive&#39; Class : Yes             
+## </code></pre>
+<p>We see that the overall accuracy is actually the same, but the sensitivity and specificity is worse.</p>
+<p><br />
+</p>
+</div>
+<div id="fitting-regression-trees" class="section level3" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Fitting Regression Trees</h3>
+<p>We use the Boston data set.</p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="lab-section-1.html#cb239-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb239-2"><a href="lab-section-1.html#cb239-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb239-3"><a href="lab-section-1.html#cb239-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> Boston</span>
+<span id="cb239-4"><a href="lab-section-1.html#cb239-4" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="fu">nrow</span>(df),<span class="at">size =</span> <span class="fu">nrow</span>(df)<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb239-5"><a href="lab-section-1.html#cb239-5" aria-hidden="true" tabindex="-1"></a>df.train <span class="ot">&lt;-</span> df[index,]</span>
+<span id="cb239-6"><a href="lab-section-1.html#cb239-6" aria-hidden="true" tabindex="-1"></a>df.test <span class="ot">&lt;-</span> df[<span class="sc">-</span>index,]</span>
+<span id="cb239-7"><a href="lab-section-1.html#cb239-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb239-8"><a href="lab-section-1.html#cb239-8" aria-hidden="true" tabindex="-1"></a>tree.boston <span class="ot">&lt;-</span> <span class="fu">tree</span>(medv <span class="sc">~</span> .,<span class="at">data =</span> df.train)</span>
+<span id="cb239-9"><a href="lab-section-1.html#cb239-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tree.boston)</span></code></pre></div>
+<pre><code>## 
+## Regression tree:
+## tree(formula = medv ~ ., data = df.train)
+## Variables actually used in tree construction:
+## [1] &quot;rm&quot;    &quot;lstat&quot; &quot;crim&quot;  &quot;age&quot;  
+## Number of terminal nodes:  7 
+## Residual mean deviance:  10.38 = 2555 / 246 
+## Distribution of residuals:
+##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+## -10.1800  -1.7770  -0.1775   0.0000   1.9230  16.5800</code></pre>
+<p>For the interpretation hereof, i refer to section <a href="lab-section-1.html#LabClassification">3.4.1</a>. But notice, that we are now wirking with a continous response variable, hence deviance = RSS, also found equation <a href="the-basics-of-decision-trees.html#eq:DTRSS">(3.1)</a>.</p>
+<p>We can now plot the tree.</p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="lab-section-1.html#cb241-1" aria-hidden="true" tabindex="-1"></a>{<span class="fu">plot</span>(tree.boston)</span>
+<span id="cb241-2"><a href="lab-section-1.html#cb241-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(tree.boston,<span class="at">pretty =</span> <span class="dv">0</span>)}</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-161-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>Recall that the Y variable is median value of owner-occupied homes in $1000s. We see that the predicted median house price is 45,380 when the amount of rooms are over 7.5.</p>
+<p>Let us now use cross validation to see whether pruning the tree will improve the model.</p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="lab-section-1.html#cb242-1" aria-hidden="true" tabindex="-1"></a>cv.boston <span class="ot">&lt;-</span> <span class="fu">cv.tree</span>(tree.boston)</span>
+<span id="cb242-2"><a href="lab-section-1.html#cb242-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> cv.boston<span class="sc">$</span>size,<span class="at">y =</span> cv.boston<span class="sc">$</span>dev,<span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-162-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>We see that as the tree size increases. This in this case it does not appear to improve the model with pruning the tree.</p>
+<p>However, let us say, that we know that we want to prune the tree. Then we can do the following:</p>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="lab-section-1.html#cb243-1" aria-hidden="true" tabindex="-1"></a>prune.boston <span class="ot">&lt;-</span> <span class="fu">prune.tree</span>(<span class="at">tree =</span> tree.boston,<span class="at">best =</span> <span class="dv">5</span>) <span class="co">#5 terminal nodes</span></span>
+<span id="cb243-2"><a href="lab-section-1.html#cb243-2" aria-hidden="true" tabindex="-1"></a>{<span class="fu">plot</span>(prune.boston)</span>
+<span id="cb243-3"><a href="lab-section-1.html#cb243-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(prune.boston,<span class="at">pretty =</span> <span class="dv">0</span>)}</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-163-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="lab-section-1.html#cb244-1" aria-hidden="true" tabindex="-1"></a>tree.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="at">object =</span> tree.boston,<span class="at">newdata =</span> df.train)</span>
+<span id="cb244-2"><a href="lab-section-1.html#cb244-2" aria-hidden="true" tabindex="-1"></a>{<span class="fu">plot</span>(tree.pred,df.test<span class="sc">$</span>medv)</span>
+<span id="cb244-3"><a href="lab-section-1.html#cb244-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>,<span class="at">b =</span> <span class="dv">1</span>)}</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-164-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="lab-section-1.html#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((tree.pred <span class="sc">-</span> df.test<span class="sc">$</span>medv)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 153.5446</code></pre>
+<p>We see an MSE of 153.5.</p>
+</div>
+<div id="bagging-and-random-forests" class="section level3" number="3.4.3">
+<h3><span class="header-section-number">3.4.3</span> Bagging and Random Forests</h3>
+<p>Notice that bagging and random forests are basically the same. Where random forests merely tweak the bagging trees with a random selection of IV, instead of the model always being able to select all models. Therefore, it can also be said that <span class="math inline">\(m = p\)</span>, and thus the same function can be applied to both bagging and random forests.</p>
+<div id="bagging-1" class="section level4" number="3.4.3.1">
+<h4><span class="header-section-number">3.4.3.1</span> Bagging</h4>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="lab-section-1.html#cb247-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb247-2"><a href="lab-section-1.html#cb247-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> Boston</span>
+<span id="cb247-3"><a href="lab-section-1.html#cb247-3" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="fu">nrow</span>(df),<span class="at">size =</span> <span class="fu">nrow</span>(df)<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb247-4"><a href="lab-section-1.html#cb247-4" aria-hidden="true" tabindex="-1"></a>df.train <span class="ot">&lt;-</span> df[index,]</span>
+<span id="cb247-5"><a href="lab-section-1.html#cb247-5" aria-hidden="true" tabindex="-1"></a>df.test <span class="ot">&lt;-</span> df[<span class="sc">-</span>index,]</span></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="lab-section-1.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
+<span id="cb248-2"><a href="lab-section-1.html#cb248-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb248-3"><a href="lab-section-1.html#cb248-3" aria-hidden="true" tabindex="-1"></a>bag.boston <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(medv <span class="sc">~</span> .,<span class="at">data =</span> df.train,<span class="at">mtry =</span> <span class="dv">13</span>,<span class="at">importance =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb248-4"><a href="lab-section-1.html#cb248-4" aria-hidden="true" tabindex="-1"></a>bag.boston</span></code></pre></div>
+<pre><code>## 
+## Call:
+##  randomForest(formula = medv ~ ., data = df.train, mtry = 13,      importance = TRUE) 
+##                Type of random forest: regression
+##                      Number of trees: 500
+## No. of variables tried at each split: 13
+## 
+##           Mean of squared residuals: 14.45243
+##                     % Var explained: 81.83</code></pre>
+<p>We see that we have constructed 500 trees and tried 13 (all) variables at each split.</p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="lab-section-1.html#cb250-1" aria-hidden="true" tabindex="-1"></a>bag.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="at">object =</span> bag.boston,<span class="at">newdata =</span> df.test)</span>
+<span id="cb250-2"><a href="lab-section-1.html#cb250-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> bag.pred,<span class="at">y =</span> df.test<span class="sc">$</span>medv)</span>
+<span id="cb250-3"><a href="lab-section-1.html#cb250-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-169-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="lab-section-1.html#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((bag.pred<span class="sc">-</span>df.test<span class="sc">$</span>medv)<span class="sc">^</span><span class="dv">2</span>) <span class="co">#MSE</span></span></code></pre></div>
+<pre><code>## [1] 19.81565</code></pre>
+<p>We see that the MSE is 19.8 which is an immense improvement.</p>
+<p>Notice, that we also have specified how many trees we want to grow:</p>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="lab-section-1.html#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb253-2"><a href="lab-section-1.html#cb253-2" aria-hidden="true" tabindex="-1"></a>bag.boston <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(medv <span class="sc">~</span> .,<span class="at">data =</span> df.train,<span class="at">mtry =</span> <span class="dv">13</span>,<span class="at">ntrees =</span> <span class="dv">25</span>,<span class="at">importance =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb253-3"><a href="lab-section-1.html#cb253-3" aria-hidden="true" tabindex="-1"></a>bag.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="at">object =</span> bag.boston,<span class="at">newdata =</span> df.test)</span>
+<span id="cb253-4"><a href="lab-section-1.html#cb253-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((bag.pred<span class="sc">-</span>df.test<span class="sc">$</span>medv)<span class="sc">^</span><span class="dv">2</span>) <span class="co">#MSE</span></span></code></pre></div>
+<pre><code>## [1] 19.81565</code></pre>
+<p>We see that the MSE is a bit higher than before. That is also intuitively correct, although with bagging we are actually also at risk of overfitting the data by growing too many trees, as it is likely that the trees are similar. To overcome this risk, we can grow a random forest instead, that is done in the following.</p>
+</div>
+<div id="random-forest" class="section level4" number="3.4.3.2">
+<h4><span class="header-section-number">3.4.3.2</span> Random Forest</h4>
+<p>We use the same procedure except that we use fewer variables under evaluation. By default R follows a rule of thumb with <span class="math inline">\(\frac{p}{3}\)</span> for regression and <span class="math inline">\(\sqrt{p}\)</span> for classification. In this example, we use 6 variables.</p>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="lab-section-1.html#cb255-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb255-2"><a href="lab-section-1.html#cb255-2" aria-hidden="true" tabindex="-1"></a>rf.boston <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(medv <span class="sc">~</span> .,<span class="at">data =</span> df.train,<span class="at">mtry =</span> <span class="dv">6</span>,<span class="at">importance =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb255-3"><a href="lab-section-1.html#cb255-3" aria-hidden="true" tabindex="-1"></a>rf.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="at">object =</span> rf.boston,<span class="at">newdata =</span> df.test)</span>
+<span id="cb255-4"><a href="lab-section-1.html#cb255-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((rf.pred<span class="sc">-</span>df.test<span class="sc">$</span>medv)<span class="sc">^</span><span class="dv">2</span>) <span class="co">#MSE</span></span></code></pre></div>
+<pre><code>## [1] 16.4081</code></pre>
+<p>Now we see that the model is even better, with MSE of 16.4.</p>
+<p>We can use <code>importance()</code> to interprete the variables.</p>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="lab-section-1.html#cb257-1" aria-hidden="true" tabindex="-1"></a><span class="fu">importance</span>(rf.boston)</span></code></pre></div>
+<pre><code>##           %IncMSE IncNodePurity
+## crim    13.732304    1107.67668
+## zn       4.410510      95.63934
+## indus    5.670870     443.23264
+## chas     1.353168      39.59940
+## nox     16.662050     923.03154
+## rm      33.368987    7865.44385
+## age     13.600352     626.64334
+## dis     11.469812     765.61445
+## rad      4.417249     108.77438
+## tax      9.424190     550.22440
+## ptratio 13.150528    1353.27803
+## black    7.213603     310.30963
+## lstat   25.921218    5666.64169</code></pre>
+<p>We see that rm (rooms pr. dwelling) has the highest influence on the model performance, and we see by removing this variable, the error increase by 32.3.</p>
+<p>We also see that rm leads to the highest purity impact.</p>
+<p><em>Notice, that these metrics are based on the train data.</em></p>
+<p>The data above can also be plotted with.</p>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="lab-section-1.html#cb259-1" aria-hidden="true" tabindex="-1"></a><span class="fu">varImpPlot</span>(rf.boston)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-173-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>Where we see that the varaibles are ranked according to the metrics.</p>
+</div>
+</div>
+<div id="boosting-1" class="section level3" number="3.4.4">
+<h3><span class="header-section-number">3.4.4</span> Boosting</h3>
+<p>Recall that this model initially fits a tree to the data and then afterwards fits consecutive models to the residuals of that model. This is why it is also called gradient boosting.</p>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="lab-section-1.html#cb260-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gbm)</span>
+<span id="cb260-2"><a href="lab-section-1.html#cb260-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb260-3"><a href="lab-section-1.html#cb260-3" aria-hidden="true" tabindex="-1"></a>boost.boston <span class="ot">&lt;-</span> <span class="fu">gbm</span>(medv <span class="sc">~</span> .</span>
+<span id="cb260-4"><a href="lab-section-1.html#cb260-4" aria-hidden="true" tabindex="-1"></a>                    ,<span class="at">data =</span> df.train</span>
+<span id="cb260-5"><a href="lab-section-1.html#cb260-5" aria-hidden="true" tabindex="-1"></a>                    ,<span class="at">distribution =</span> <span class="st">&quot;gaussian&quot;</span> <span class="co">#Since it is regression</span></span>
+<span id="cb260-6"><a href="lab-section-1.html#cb260-6" aria-hidden="true" tabindex="-1"></a>                    ,<span class="at">n.trees =</span> <span class="dv">5000</span></span>
+<span id="cb260-7"><a href="lab-section-1.html#cb260-7" aria-hidden="true" tabindex="-1"></a>                    ,<span class="at">interaction.depth =</span> <span class="dv">4</span></span>
+<span id="cb260-8"><a href="lab-section-1.html#cb260-8" aria-hidden="true" tabindex="-1"></a>                    ) <span class="co">#Lambda is by default = 0.001</span></span>
+<span id="cb260-9"><a href="lab-section-1.html#cb260-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(boost.boston)</span></code></pre></div>
+<img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-174-1.png" width="720" style="display: block; margin: auto;" />
+<div class="kable-table">
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">var</th>
+<th align="right">rel.inf</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">rm</td>
+<td align="left">rm</td>
+<td align="right">35.8641661</td>
+</tr>
+<tr class="even">
+<td align="left">lstat</td>
+<td align="left">lstat</td>
+<td align="right">33.1527531</td>
+</tr>
+<tr class="odd">
+<td align="left">dis</td>
+<td align="left">dis</td>
+<td align="right">5.9907969</td>
+</tr>
+<tr class="even">
+<td align="left">nox</td>
+<td align="left">nox</td>
+<td align="right">4.8861341</td>
+</tr>
+<tr class="odd">
+<td align="left">crim</td>
+<td align="left">crim</td>
+<td align="right">4.5736239</td>
+</tr>
+<tr class="even">
+<td align="left">age</td>
+<td align="left">age</td>
+<td align="right">4.2570248</td>
+</tr>
+<tr class="odd">
+<td align="left">ptratio</td>
+<td align="left">ptratio</td>
+<td align="right">4.2345152</td>
+</tr>
+<tr class="even">
+<td align="left">black</td>
+<td align="left">black</td>
+<td align="right">3.5107293</td>
+</tr>
+<tr class="odd">
+<td align="left">tax</td>
+<td align="left">tax</td>
+<td align="right">1.7363601</td>
+</tr>
+<tr class="even">
+<td align="left">rad</td>
+<td align="left">rad</td>
+<td align="right">0.8599312</td>
+</tr>
+<tr class="odd">
+<td align="left">indus</td>
+<td align="left">indus</td>
+<td align="right">0.7808803</td>
+</tr>
+<tr class="even">
+<td align="left">chas</td>
+<td align="left">chas</td>
+<td align="right">0.0800761</td>
+</tr>
+<tr class="odd">
+<td align="left">zn</td>
+<td align="left">zn</td>
+<td align="right">0.0730089</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>We see that the model ranks relative influence, which is also plotted. Again we see that rm is the most important variable. lstat is also noticable.</p>
+<p>We can plot <em>partial dependence plots</em> for these variables.</p>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="lab-section-1.html#cb261-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(boost.boston,<span class="at">i.var =</span> <span class="st">&quot;rm&quot;</span>)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-175-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="lab-section-1.html#cb262-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(boost.boston,<span class="at">i.var =</span> <span class="st">&quot;lstat&quot;</span>)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-175-2.png" width="720" style="display: block; margin: auto;" /></p>
+<p>We can now predict medv for the test data.</p>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="lab-section-1.html#cb263-1" aria-hidden="true" tabindex="-1"></a>boost.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="at">object =</span> boost.boston</span>
+<span id="cb263-2"><a href="lab-section-1.html#cb263-2" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">newdata =</span> df.test</span>
+<span id="cb263-3"><a href="lab-section-1.html#cb263-3" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">n.trees =</span> <span class="dv">5000</span> <span class="co">#Notice that we specify amount of trees</span></span>
+<span id="cb263-4"><a href="lab-section-1.html#cb263-4" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb263-5"><a href="lab-section-1.html#cb263-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((boost.pred<span class="sc">-</span>df.test<span class="sc">$</span>medv)<span class="sc">^</span><span class="dv">2</span>) </span></code></pre></div>
+<pre><code>## [1] 14.63457</code></pre>
+<p>We see that the MSE is lowered further by 14.6.</p>
+<p>We can also fit a tree that has another tuning parameter, hence it is learning faster.</p>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="lab-section-1.html#cb265-1" aria-hidden="true" tabindex="-1"></a>boost.boston <span class="ot">&lt;-</span> <span class="fu">gbm</span>(medv <span class="sc">~</span> .</span>
+<span id="cb265-2"><a href="lab-section-1.html#cb265-2" aria-hidden="true" tabindex="-1"></a>                    ,<span class="at">data =</span> df.train</span>
+<span id="cb265-3"><a href="lab-section-1.html#cb265-3" aria-hidden="true" tabindex="-1"></a>                    ,<span class="at">distribution =</span> <span class="st">&quot;gaussian&quot;</span></span>
+<span id="cb265-4"><a href="lab-section-1.html#cb265-4" aria-hidden="true" tabindex="-1"></a>                    ,<span class="at">n.trees =</span> <span class="dv">5000</span></span>
+<span id="cb265-5"><a href="lab-section-1.html#cb265-5" aria-hidden="true" tabindex="-1"></a>                    ,<span class="at">interaction.depth =</span> <span class="dv">4</span></span>
+<span id="cb265-6"><a href="lab-section-1.html#cb265-6" aria-hidden="true" tabindex="-1"></a>                    ,<span class="at">shrinkage =</span> <span class="fl">0.2</span> <span class="co">#Lambda, tuning parameter</span></span>
+<span id="cb265-7"><a href="lab-section-1.html#cb265-7" aria-hidden="true" tabindex="-1"></a>                    ,<span class="at">verbose =</span> <span class="cn">FALSE</span> <span class="co">#If = T, then it plots the progress</span></span>
+<span id="cb265-8"><a href="lab-section-1.html#cb265-8" aria-hidden="true" tabindex="-1"></a>                    )</span>
+<span id="cb265-9"><a href="lab-section-1.html#cb265-9" aria-hidden="true" tabindex="-1"></a>boost.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(boost.boston</span>
+<span id="cb265-10"><a href="lab-section-1.html#cb265-10" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">newdata =</span> df.test</span>
+<span id="cb265-11"><a href="lab-section-1.html#cb265-11" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">n.trees =</span> <span class="dv">5000</span>)</span>
+<span id="cb265-12"><a href="lab-section-1.html#cb265-12" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((boost.pred<span class="sc">-</span>df.test<span class="sc">$</span>medv)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 17.22542</code></pre>
+<p>We see that the MSE is 17.22, with lambda = standard value of 0.001, hence it is not learning as fast.</p>
+
+</div>
+</div>
+<!-- </div> -->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="application-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="subject-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

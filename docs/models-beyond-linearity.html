@@ -268,6 +268,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.3" data-path="application-in-r.html"><a href="application-in-r.html#random-forests-1"><i class="fa fa-check"></i><b>3.3.3</b> Random Forests</a></li>
 <li class="chapter" data-level="3.3.4" data-path="application-in-r.html"><a href="application-in-r.html#boosting"><i class="fa fa-check"></i><b>3.3.4</b> Boosting</a></li>
 </ul></li>
+<li class="chapter" data-level="3.4" data-path="lab-section-1.html"><a href="lab-section-1.html"><i class="fa fa-check"></i><b>3.4</b> Lab section</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="lab-section-1.html"><a href="lab-section-1.html#LabClassification"><i class="fa fa-check"></i><b>3.4.1</b> Fitting Classification Trees</a></li>
+<li class="chapter" data-level="3.4.2" data-path="lab-section-1.html"><a href="lab-section-1.html#fitting-regression-trees"><i class="fa fa-check"></i><b>3.4.2</b> Fitting Regression Trees</a></li>
+<li class="chapter" data-level="3.4.3" data-path="lab-section-1.html"><a href="lab-section-1.html#bagging-and-random-forests"><i class="fa fa-check"></i><b>3.4.3</b> Bagging and Random Forests</a>
+<ul>
+<li class="chapter" data-level="3.4.3.1" data-path="lab-section-1.html"><a href="lab-section-1.html#bagging-1"><i class="fa fa-check"></i><b>3.4.3.1</b> Bagging</a></li>
+<li class="chapter" data-level="3.4.3.2" data-path="lab-section-1.html"><a href="lab-section-1.html#random-forest"><i class="fa fa-check"></i><b>3.4.3.2</b> Random Forest</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4.4" data-path="lab-section-1.html"><a href="lab-section-1.html#boosting-1"><i class="fa fa-check"></i><b>3.4.4</b> Boosting</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="subject-1.html"><a href="subject-1.html"><i class="fa fa-check"></i><b>4</b> Subject 1</a></li>
 <li class="chapter" data-level="5" data-path="subject-1-1.html"><a href="subject-1-1.html"><i class="fa fa-check"></i><b>5</b> Subject 1</a></li>
@@ -356,7 +367,7 @@ y_{i\ }=\ \beta_0+\beta_1x_i+\beta_2x_i^2+\ \beta_3x_i^3\ +\ \epsilon_i
 <ul>
 <li>The more knots, the more complex = the more variance capture and noise trailed, hence low model bias but large model variance.</li>
 </ul>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-6"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-8"></span>
 <img src="Images/Piecewise%20regression.png" alt="Piecewise Polynomials" width="488" />
 <p class="caption">
 Figure 2.1: Piecewise Polynomials
@@ -433,7 +444,7 @@ RSS=\sum_{i=1}^n\left(y_i-g\left(x_i\right)\right)^{^2}+\lambda\int g&#39;&#39;\
 <p>This i basically fitting a linear regression to each x, where s observations are included in the fitting procedure. Thus, one creates several fits, that are based on the observations weighted, where observations close to <span class="math inline">\(x_0\)</span> (the center of the regression) are given the highest weight and then the weight is gradually decreasing.</p>
 <p>This is often really good when you have outliers, as you define how big a neighborhood you want to evaluate (also called the span, e.g. span of 0.5 = 50% of the observations).</p>
 <p>This can be visualized with:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-7"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-9"></span>
 <img src="Images/Local%20Regression.png" alt="Local regression" width="494" />
 <p class="caption">
 Figure 2.2: Local regression

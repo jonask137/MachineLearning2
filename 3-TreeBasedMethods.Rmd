@@ -410,3 +410,387 @@ we have to define:
 
 
 
+## Lab section
+
+### Fitting Classification Trees {#LabClassification}
+
+```{r}
+library(tree)
+```
+
+We want to use the carseats data, where sales = Unit sales (in thousands) at each location. We want to predict whether they sold more or less than 8.000, i.e. 8 as the variable is encoded in thousands.
+
+```{r}
+library(ISLR)
+df <- Carseats
+High <- ifelse(df$Sales <= 8,"No","Yes")
+```
+
+Merging the vector and the data set.
+
+```{r}
+df <- data.frame(Carseats,High)
+df$High <- as.factor(df$High)
+```
+
+We now want to predict the High variable.
+
+```{r}
+tree.carseats <- tree(formula = High ~ . - Sales
+                      ,data = df)
+summary(tree.carseats)
+```
+
++ We see the variables that are included
++ We see that there are 27 terminal nodes
++ Information about the error (deviance) and the missclassification rate = 9%
+
+The deviance reported is from the calculation:
+
+\begin{equation}
+-2\sum_m\sum_kn_{mk}log\hat{p}_{mk}
+(\#eq:deviance)
+\end{equation}
+
+Where:
+
++ $n_{mk}$ = the number of observations in the *m*th terminal node, that belong to the *k*th class.
+
+A small deviance = low error, hence a good fit to the train data.
+
+_Thus similar to the RSS calculation that we have seen earlier._
+
+we find the residual mean deviance to be:
+
+\begin{equation}
+\frac{Deviance}{n-|T_0|}
+(\#eq:ResidualMeanDeviance)
+\end{equation}
+
+Hence
+
+$$\frac{170.7}{(400-27)}=373$$
+
+Where $T_0$ is the unpruned tree, which we see is with 27 terminal nodes. And $n$ is merely the amount of observations.
+
+__PLotting the tree:__
+
+```{r}
+plot(tree.carseats)
+text(tree.carseats
+     ,pretty = 0)
+```
+
+We see that the tree. Notice on the right side, we see that price occurs twice. This is probably due to purity and more certainty on the predictions.
+
+We see that Shelve Location Bad and Medium appear to be the best predictor. As we start out with that variable.
+
+```{r}
+tree.carseats[1] #Added [1] to get it in a table
+```
+
+We are able to see the following from the print:
+
+1. Variable
+1. Criterion
+1. Observations in the criterion, i.e. branch
+1. The deviance
+1. The overall prediction for the branch
+1. The fraction of observations in that branch that take on values 1 and 0 (Y/N).
+
+We also see that branches that leads to a terminal node is marked with an "*".
+
+_Notice, that the ShelveLoc Says a and c for cut left. That is because the categories are not ordered. We can inspect the order with contrasts()_
+
+```{r}
+contrasts(df$ShelveLoc)
+```
+
+_Where it is ranked, bad, good, medium. Perhaps it could have been ordered correctly. But it does not matter when we are working with a decision tree, as it is purely data driven._
+
+__Using test and train data__
+
+```{r}
+set.seed(2)
+index <- sample(1:nrow(df),size = 200)
+df.train <- df[index,]
+df.test <- df[-index,]
+
+tree.carseats <- tree(High ~ . - Sales,data = df.train)
+tree.pred <- predict(tree.carseats,newdata = df.test,type = "class")
+
+library(caret)
+confusionMatrix(data = tree.pred,reference = df.test$High,positive = "Yes")
+```
+
+We see a sensitivity of 60% and specificity of 88%
+
+
+__Pruning the tree__
+
+It is likely that we are able to improve the model by pruning the tree. That is performed in the following.
+
+```{r}
+set.seed(1337)
+cv.carseats <- cv.tree(object = tree.carseats
+                       ,FUN = prune.misclass) # we are pruning to optimize against misclassifications
+
+#Listing objects in the cv.carseats
+names(cv.carseats)
+
+#Retrieving informaiton in the object
+cv.carseats
+```
+
+
+__Size:__
+This is the size of the subtrees created
+
+__dev:__
+The cross-validation error rate in this instance. We want to select the tree that yields the lowest error rate, that appear to be tree no. 4 with 9 terminal nodes.
+
+__k:__
+Recall that we prune trees based on the tuning parameter $\alpha$, see equation \@ref(eq:Subtree). This is corresponding to k.
+
+```{r}
+par(mfrow = c(1,2))
+plot(x = cv.carseats$size,y = cv.carseats$dev,type = "b")
+plot(x = cv.carseats$k,y = cv.carseats$dev,type = "b")
+```
+
+We new apply the `prune.misclass()` function in order to prune the tree to obtain the nine-node tree.
+
+```{r}
+prune.carseats <- prune.misclass(tree.carseats
+                                 ,best = 9) #We want to inspect a tree of size 9
+par(mfrow = c(1,1))
+{plot(prune.carseats)
+text(prune.carseats,pretty = 0)}
+```
+
+```{r}
+tree.pred <- predict(object = prune.carseats,newdata = df.test,type = "class")
+confusionMatrix(tree.pred,reference = df.test$High,positive = "Yes")
+```
+
+We see that we have both improved the sensitivity to 69.9% and the specificity to 82.9% from respectively 60% and 88%.
+
+The overall accuracy is 77.5%.
+
+We can show the accuracy of other trees as well. But these will perform worse.
+
+```{r}
+prune.carseats <- prune.misclass(tree.carseats,best = 15)
+{plot(prune.carseats)
+text(prune.carseats,pretty = 0)}
+tree.pred <- predict(object = prune.carseats,newdata = df.test,type = "class")
+#Confusion matrix
+confusionMatrix(data = tree.pred,reference = df.test$High,positive = "Yes")
+```
+
+We see that the overall accuracy is actually the same, but the sensitivity and specificity is worse.
+
+\
+
+```{r,include=F}
+rm(list = ls())
+```
+
+### Fitting Regression Trees
+
+We use the Boston data set.
+
+```{r}
+library(MASS)
+set.seed(1)
+df <- Boston
+index <- sample(x = nrow(df),size = nrow(df)/2)
+df.train <- df[index,]
+df.test <- df[-index,]
+
+tree.boston <- tree(medv ~ .,data = df.train)
+summary(tree.boston)
+```
+
+For the interpretation hereof, i refer to section \@ref(LabClassification). But notice, that we are now wirking with a continous response variable, hence deviance = RSS, also found equation \@ref(eq:DTRSS).
+
+We can now plot the tree.
+
+```{r}
+{plot(tree.boston)
+  text(tree.boston,pretty = 0)}
+```
+
+Recall that the Y variable is median value of owner-occupied homes in \$1000s. We see that the predicted median house price is 45,380 when the amount of rooms are over 7.5.
+
+Let us now use cross validation to see whether pruning the tree will improve the model.
+
+```{r}
+cv.boston <- cv.tree(tree.boston)
+plot(x = cv.boston$size,y = cv.boston$dev,type = "b")
+```
+
+We see that as the tree size increases. This in this case it does not appear to improve the model with pruning the tree.
+
+However, let us say, that we know that we want to prune the tree. Then we can do the following:
+
+```{r}
+prune.boston <- prune.tree(tree = tree.boston,best = 5) #5 terminal nodes
+{plot(prune.boston)
+  text(prune.boston,pretty = 0)}
+```
+
+```{r}
+tree.pred <- predict(object = tree.boston,newdata = df.train)
+{plot(tree.pred,df.test$medv)
+abline(a = 0,b = 1)}
+```
+
+```{r}
+mean((tree.pred - df.test$medv)^2)
+```
+
+We see an MSE of 153.5.
+
+
+```{r,include=F}
+rm(list = ls())
+```
+
+
+### Bagging and Random Forests
+
+Notice that bagging and random forests are basically the same. Where random forests merely tweak the bagging trees with a random selection of IV, instead of the model always being able to select all models. Therefore, it can also be said that $m = p$, and thus the same function can be applied to both bagging and random forests.
+
+#### Bagging
+
+```{r}
+library(MASS)
+df <- Boston
+index <- sample(x = nrow(df),size = nrow(df)/2)
+df.train <- df[index,]
+df.test <- df[-index,]
+```
+
+
+```{r}
+library(randomForest)
+set.seed(1)
+bag.boston <- randomForest(medv ~ .,data = df.train,mtry = 13,importance = TRUE)
+bag.boston
+```
+
+We see that we have constructed 500 trees and tried 13 (all) variables at each split.
+
+```{r}
+bag.pred <- predict(object = bag.boston,newdata = df.test)
+plot(x = bag.pred,y = df.test$medv)
+abline(0,1)
+mean((bag.pred-df.test$medv)^2) #MSE
+```
+
+We see that the MSE is 19.8 which is an immense improvement.
+
+Notice, that we also have specified how many trees we want to grow:
+
+```{r}
+set.seed(1)
+bag.boston <- randomForest(medv ~ .,data = df.train,mtry = 13,ntrees = 25,importance = TRUE)
+bag.pred <- predict(object = bag.boston,newdata = df.test)
+mean((bag.pred-df.test$medv)^2) #MSE
+```
+
+We see that the MSE is a bit higher than before. That is also intuitively correct, although with bagging we are actually also at risk of overfitting the data by growing too many trees, as it is likely that the trees are similar. To overcome this risk, we can grow a random forest instead, that is done in the following.
+
+#### Random Forest
+
+We use the same procedure except that we use fewer variables under evaluation. By default R follows a rule of thumb with $\frac{p}{3}$ for regression and $\sqrt{p}$ for classification. In this example, we use 6 variables.
+
+```{r}
+set.seed(1)
+rf.boston <- randomForest(medv ~ .,data = df.train,mtry = 6,importance = TRUE)
+rf.pred <- predict(object = rf.boston,newdata = df.test)
+mean((rf.pred-df.test$medv)^2) #MSE
+```
+
+Now we see that the model is even better, with MSE of 16.4.
+
+We can use `importance()` to interprete the variables.
+
+```{r}
+importance(rf.boston)
+```
+
+We see that rm (rooms pr. dwelling) has the highest influence on the model performance, and we see by removing this variable, the error increase by 32.3.
+
+We also see that rm leads to the highest purity impact.
+
+_Notice, that these metrics are based on the train data._
+
+The data above can also be plotted with.
+
+```{r}
+varImpPlot(rf.boston)
+```
+
+Where we see that the varaibles are ranked according to the metrics.
+
+
+### Boosting
+
+Recall that this model initially fits a tree to the data and then afterwards fits consecutive models to the residuals of that model. This is why it is also called gradient boosting.
+
+```{r}
+library(gbm)
+set.seed(1)
+boost.boston <- gbm(medv ~ .
+                    ,data = df.train
+                    ,distribution = "gaussian" #Since it is regression
+                    ,n.trees = 5000
+                    ,interaction.depth = 4
+                    ) #Lambda is by default = 0.001
+summary(boost.boston)
+```
+
+We see that the model ranks relative influence, which is also plotted. Again we see that rm is the most important variable. lstat is also noticable.
+
+We can plot _partial dependence plots_ for these variables.
+
+```{r}
+plot(boost.boston,i.var = "rm")
+plot(boost.boston,i.var = "lstat")
+```
+
+We can now predict medv for the test data.
+
+```{r}
+boost.pred <- predict(object = boost.boston
+                      ,newdata = df.test
+                      ,n.trees = 5000 #Notice that we specify amount of trees
+                      )
+mean((boost.pred-df.test$medv)^2) 
+```
+
+We see that the MSE is lowered further by 14.6.
+
+We can also fit a tree that has another tuning parameter, hence it is learning faster.
+
+```{r}
+boost.boston <- gbm(medv ~ .
+                    ,data = df.train
+                    ,distribution = "gaussian"
+                    ,n.trees = 5000
+                    ,interaction.depth = 4
+                    ,shrinkage = 0.2 #Lambda, tuning parameter
+                    ,verbose = FALSE #If = T, then it plots the progress
+                    )
+boost.pred <- predict(boost.boston
+                      ,newdata = df.test
+                      ,n.trees = 5000)
+mean((boost.pred-df.test$medv)^2)
+```
+
+We see that the MSE is 17.22, with lambda = standard value of 0.001, hence it is not learning as fast.
+
+
+

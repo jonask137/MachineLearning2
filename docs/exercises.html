@@ -268,6 +268,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.3" data-path="application-in-r.html"><a href="application-in-r.html#random-forests-1"><i class="fa fa-check"></i><b>3.3.3</b> Random Forests</a></li>
 <li class="chapter" data-level="3.3.4" data-path="application-in-r.html"><a href="application-in-r.html#boosting"><i class="fa fa-check"></i><b>3.3.4</b> Boosting</a></li>
 </ul></li>
+<li class="chapter" data-level="3.4" data-path="lab-section-1.html"><a href="lab-section-1.html"><i class="fa fa-check"></i><b>3.4</b> Lab section</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="lab-section-1.html"><a href="lab-section-1.html#LabClassification"><i class="fa fa-check"></i><b>3.4.1</b> Fitting Classification Trees</a></li>
+<li class="chapter" data-level="3.4.2" data-path="lab-section-1.html"><a href="lab-section-1.html#fitting-regression-trees"><i class="fa fa-check"></i><b>3.4.2</b> Fitting Regression Trees</a></li>
+<li class="chapter" data-level="3.4.3" data-path="lab-section-1.html"><a href="lab-section-1.html#bagging-and-random-forests"><i class="fa fa-check"></i><b>3.4.3</b> Bagging and Random Forests</a>
+<ul>
+<li class="chapter" data-level="3.4.3.1" data-path="lab-section-1.html"><a href="lab-section-1.html#bagging-1"><i class="fa fa-check"></i><b>3.4.3.1</b> Bagging</a></li>
+<li class="chapter" data-level="3.4.3.2" data-path="lab-section-1.html"><a href="lab-section-1.html#random-forest"><i class="fa fa-check"></i><b>3.4.3.2</b> Random Forest</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4.4" data-path="lab-section-1.html"><a href="lab-section-1.html#boosting-1"><i class="fa fa-check"></i><b>3.4.4</b> Boosting</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="subject-1.html"><a href="subject-1.html"><i class="fa fa-check"></i><b>4</b> Subject 1</a></li>
 <li class="chapter" data-level="5" data-path="subject-1-1.html"><a href="subject-1-1.html"><i class="fa fa-check"></i><b>5</b> Subject 1</a></li>
@@ -390,7 +401,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb70-4"><a href="exercises.html#cb70-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>min.point <span class="sc">+</span> <span class="fl">0.2</span> <span class="sc">*</span> sd.points, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lty=</span><span class="st">&quot;dashed&quot;</span>) <span class="co">#0.2 is just a rule of thumb, could be anything</span></span>
 <span id="cb70-5"><a href="exercises.html#cb70-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>min.point <span class="sc">-</span> <span class="fl">0.2</span> <span class="sc">*</span> sd.points, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lty=</span><span class="st">&quot;dashed&quot;</span>)</span>
 <span id="cb70-6"><a href="exercises.html#cb70-6" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="st">&quot;0.2-standard deviation lines&quot;</span>, <span class="at">lty=</span><span class="st">&quot;dashed&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-55-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-57-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>Thus, there is even more information supporting selecting three degrees of freedom.</p>
 <p><strong>Plotting the polynomial regression</strong></p>
 <p>This is done with the following procedure:</p>
@@ -416,7 +427,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb71-13"><a href="exercises.html#cb71-13" aria-hidden="true" tabindex="-1"></a>      ,<span class="at">y =</span> preds<span class="sc">$</span>fit</span>
 <span id="cb71-14"><a href="exercises.html#cb71-14" aria-hidden="true" tabindex="-1"></a>      ,<span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
 <span id="cb71-15"><a href="exercises.html#cb71-15" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;Polynomial of 3rd order&quot;</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-56-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-58-1.png" width="720" style="display: block; margin: auto;" /></p>
 </div>
 <div id="b-step-function" class="section level4" number="2.4.1.2">
 <h4><span class="header-section-number">2.4.1.2</span> 6.b Step function</h4>
@@ -470,7 +481,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb78-4"><a href="exercises.html#cb78-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grid</span>()</span>
 <span id="cb78-5"><a href="exercises.html#cb78-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(df)[i] <span class="sc">%&gt;%</span> <span class="fu">title</span>()</span>
 <span id="cb78-6"><a href="exercises.html#cb78-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-61-1.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-61-2.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-61-3.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-61-4.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-61-5.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-61-6.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-61-7.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-61-8.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-61-9.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-61-10.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-63-1.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-63-2.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-63-3.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-63-4.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-63-5.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-63-6.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-63-7.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-63-8.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-63-9.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-63-10.png" width="720" style="display: block; margin: auto;" /></p>
 <p>Looking at race, it appears as if there is some relationship between race and wage the same with maritial status. Region only has values in one category, jobclass appear to visually have different means. The same goes for health and health insurance. Naturally log of wage has a non linear relationship with wage. Although the variable is the same, thus it cant be used for much to predict wage levels.</p>
 <p>Since all the variables of interest, and we haven’t worked with are all categorical, then we can’t really do any polynomial regression with the data, as they are all factors.</p>
 <p>What one could do is a mutlivariate linear model with different factors, or step functions or perhaps GAM where a continous varaible with polynomials are included.</p>
@@ -572,7 +583,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Now we can check the residuals</p>
 <div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="exercises.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
 <span id="cb92-2"><a href="exercises.html#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit3)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-65-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-67-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>Looking at:</p>
 <ul>
 <li>The top left of the plot (residuals vs fitted), we would like these to be around 0.</li>
@@ -853,7 +864,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb105-11"><a href="exercises.html#cb105-11" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
 <span id="cb105-12"><a href="exercises.html#cb105-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">x =</span> dis.grid,<span class="at">y =</span>  preds, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,<span class="at">lwd =</span> <span class="dv">2</span>)</span>
 <span id="cb105-13"><a href="exercises.html#cb105-13" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;Cubic polynomial&quot;</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-76-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-78-1.png" width="720" style="display: block; margin: auto;" /></p>
 </div>
 <div id="b-plotting-polynomial-fits-for-a-range-of-polynomials" class="section level4" number="2.4.4.2">
 <h4><span class="header-section-number">2.4.4.2</span> (b) Plotting polynomial fits for a range of polynomials</h4>
@@ -868,7 +879,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb106-9"><a href="exercises.html#cb106-9" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
 <span id="cb106-10"><a href="exercises.html#cb106-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">min</span>(RSS),<span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,<span class="at">lty =</span> <span class="dv">2</span>)</span>
 <span id="cb106-11"><a href="exercises.html#cb106-11" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;In-sample error&quot;</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-77-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-79-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>We see that the RSS decrease with complexity, that it as expected, as we fit to the in sample data. We could do this with a partition of the data to see out of performance instead.</p>
 </div>
 <div id="c-using-cv-to-select-best-degree-of-d" class="section level4" number="2.4.4.3">
@@ -895,13 +906,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb107-19"><a href="exercises.html#cb107-19" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
 <span id="cb107-20"><a href="exercises.html#cb107-20" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">min</span>(CV.RSS),<span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,<span class="at">lty =</span> <span class="dv">2</span>)</span>
 <span id="cb107-21"><a href="exercises.html#cb107-21" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;CV K = 10 prediction error&quot;</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-78-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-80-1.png" width="720" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="exercises.html#cb108-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb108-2"><a href="exercises.html#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotting simulations</span></span>
 <span id="cb108-3"><a href="exercises.html#cb108-3" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(CV.RSS.sim),<span class="at">xlab =</span> <span class="st">&quot;Degree of d&quot;</span>,<span class="at">ylab =</span> <span class="st">&quot;Frequency&quot;</span>)</span>
 <span id="cb108-4"><a href="exercises.html#cb108-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>)</span>
 <span id="cb108-5"><a href="exercises.html#cb108-5" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;CV K = 10, Iterations = 20&quot;</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-78-2.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-80-2.png" width="720" style="display: block; margin: auto;" /></p>
 <p>In these simulations we see that the best fit is likely to be with using .</p>
 <p>It is actually quite interesting that a model with 10 degrees of d is as competitive as 4 in this example, although the cubic model is far superior than the other models.</p>
 </div>
@@ -916,7 +927,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb109-7"><a href="exercises.html#cb109-7" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;Regression Spline df = 4&quot;</span>)</span>
 <span id="cb109-8"><a href="exercises.html#cb109-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">3.20745</span>,<span class="at">col =</span> <span class="st">&quot;red&quot;</span>,<span class="at">lty =</span> <span class="dv">2</span>) <span class="co">#This is the cut, found in next chunk</span></span>
 <span id="cb109-9"><a href="exercises.html#cb109-9" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x =</span> <span class="st">&quot;topright&quot;</span>,<span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;fit&quot;</span>,<span class="st">&quot;cut&quot;</span>),<span class="at">lty =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;red&quot;</span>))</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-79-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-81-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>Notice that we merely specified the amount of df that we wanted. The function merely specified them automatically. We can interpret these, by using <code>dim()</code> and <code>attr()</code>.</p>
 <div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="exercises.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">dim</span>(<span class="fu">bs</span>(df<span class="sc">$</span>dis,<span class="at">df =</span> <span class="dv">4</span>)))</span></code></pre></div>
 <pre><code>## [1] 506   4</code></pre>
@@ -944,7 +955,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb114-15"><a href="exercises.html#cb114-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">v =</span> cut,<span class="at">col =</span> <span class="st">&quot;red&quot;</span>,<span class="at">lty =</span> <span class="dv">2</span>) <span class="co">#This is the cut, found in next chunk</span></span>
 <span id="cb114-16"><a href="exercises.html#cb114-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="at">x =</span> <span class="st">&quot;topright&quot;</span>,<span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;fit&quot;</span>,<span class="st">&quot;cut&quot;</span>),<span class="at">lty =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;red&quot;</span>))</span>
 <span id="cb114-17"><a href="exercises.html#cb114-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-81-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-83-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>We start at four degrees of freedom as a model with only three degrees of freedom, hence cubic regression (three orders of polynomials) = three degrees of freedom <strong>(this has to be fact checked)</strong>.</p>
 <p>As we add complexity with knots we also adds degrees of freedom, where we add one degree of freedom for each cut, hence for the cubic spline with 7 degrees of freedom, four cuts and three polynomials <strong>(this has to be fact checked)</strong>.</p>
 </div>
@@ -972,13 +983,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb115-20"><a href="exercises.html#cb115-20" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
 <span id="cb115-21"><a href="exercises.html#cb115-21" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">min</span>(CV.RSS),<span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,<span class="at">lty =</span> <span class="dv">2</span>)</span>
 <span id="cb115-22"><a href="exercises.html#cb115-22" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;CV K = 10 prediction error&quot;</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-82-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-84-1.png" width="720" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="exercises.html#cb116-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb116-2"><a href="exercises.html#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotting simulations</span></span>
 <span id="cb116-3"><a href="exercises.html#cb116-3" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(CV.RSS.sim),<span class="at">xlab =</span> <span class="st">&quot;Degree of d&quot;</span>,<span class="at">ylab =</span> <span class="st">&quot;Frequency&quot;</span>)</span>
 <span id="cb116-4"><a href="exercises.html#cb116-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>)</span>
 <span id="cb116-5"><a href="exercises.html#cb116-5" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;CV K = 10, Iterations = 20&quot;</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-82-2.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-84-2.png" width="720" style="display: block; margin: auto;" /></p>
 <p>First we see the last iteration and the prediction error hereof. Overall we see that it tend to be the rather complex models tend to be</p>
 </div>
 </div>
@@ -1297,14 +1308,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb122-4"><a href="exercises.html#cb122-4" aria-hidden="true" tabindex="-1"></a>fit.gam <span class="ot">&lt;-</span>gam<span class="sc">::</span><span class="fu">gam</span>(<span class="at">formula =</span> best.formula,<span class="at">data =</span> train.df) <span class="co">#Notice that it is linear</span></span>
 <span id="cb122-5"><a href="exercises.html#cb122-5" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="at">object =</span> fit.gam,<span class="at">newdata =</span> test.df)</span>
 <span id="cb122-6"><a href="exercises.html#cb122-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> preds,<span class="at">y =</span> preds<span class="sc">-</span>test.df<span class="sc">$</span>Outstate,<span class="at">ylab =</span> <span class="st">&quot;Residuals&quot;</span>,<span class="at">xlab =</span> <span class="st">&quot;Predicted values&quot;</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-85-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-87-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>From the plot we see that in general we have a resdiausl around 0 withinn +/- 5000. Also the residuals do look rather normal. Although one could argue that the variance is a but smaller in the lower region of the predicted value, and it does in fact appear as if we are under estimating these result.</p>
 <p>We can interprete how Outstate responds in the following:</p>
 <div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="exercises.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>))</span>
 <span id="cb123-2"><a href="exercises.html#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit.gam <span class="co">#Note, automatically identifies the GAM object, hence plots for each variable</span></span>
 <span id="cb123-3"><a href="exercises.html#cb123-3" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">se =</span> <span class="cn">TRUE</span></span>
 <span id="cb123-4"><a href="exercises.html#cb123-4" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">col =</span><span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-86-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-88-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>Interpreting the plot: Recall that the plots assumes that we hold the other variables fixed, hence we see the following:</p>
 <ul>
 <li>e.g., Expend: We see that holding the other variables fixed, the outstate tends to increase over the expenditure.</li>
@@ -1329,7 +1340,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb126-5"><a href="exercises.html#cb126-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grid</span>()</span>
 <span id="cb126-6"><a href="exercises.html#cb126-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(df)[i] <span class="sc">%&gt;%</span> <span class="fu">title</span>()</span>
 <span id="cb126-7"><a href="exercises.html#cb126-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-88-1.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-88-2.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-90-1.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-90-2.png" width="720" style="display: block; margin: auto;" /></p>
 <p>It appears as if expend has som non linear relationship with Outstate. Perhaps enroll, F.Undergrad, and P.Undergrad also have a non linear trend.</p>
 <p>To further decide if there is evidence for a non linear relationship, one could make, e.g., a smoothing model to assess the performance hereof.</p>
 <div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="exercises.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1337</span>)</span>
@@ -1369,9 +1380,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb129-4"><a href="exercises.html#cb129-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gam.mgcv, <span class="at">se =</span> T, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span>
 <span id="cb129-5"><a href="exercises.html#cb129-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Check residuals diagnostics</span></span>
 <span id="cb129-6"><a href="exercises.html#cb129-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-89-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-91-1.png" width="720" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="exercises.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gam.check</span>(gam.mgcv)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-89-2.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-91-2.png" width="720" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ## Method: REML   Optimizer: outer newton
 ## full convergence after 5 iterations.

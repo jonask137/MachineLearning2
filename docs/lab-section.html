@@ -268,6 +268,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.3" data-path="application-in-r.html"><a href="application-in-r.html#random-forests-1"><i class="fa fa-check"></i><b>3.3.3</b> Random Forests</a></li>
 <li class="chapter" data-level="3.3.4" data-path="application-in-r.html"><a href="application-in-r.html#boosting"><i class="fa fa-check"></i><b>3.3.4</b> Boosting</a></li>
 </ul></li>
+<li class="chapter" data-level="3.4" data-path="lab-section-1.html"><a href="lab-section-1.html"><i class="fa fa-check"></i><b>3.4</b> Lab section</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="lab-section-1.html"><a href="lab-section-1.html#LabClassification"><i class="fa fa-check"></i><b>3.4.1</b> Fitting Classification Trees</a></li>
+<li class="chapter" data-level="3.4.2" data-path="lab-section-1.html"><a href="lab-section-1.html#fitting-regression-trees"><i class="fa fa-check"></i><b>3.4.2</b> Fitting Regression Trees</a></li>
+<li class="chapter" data-level="3.4.3" data-path="lab-section-1.html"><a href="lab-section-1.html#bagging-and-random-forests"><i class="fa fa-check"></i><b>3.4.3</b> Bagging and Random Forests</a>
+<ul>
+<li class="chapter" data-level="3.4.3.1" data-path="lab-section-1.html"><a href="lab-section-1.html#bagging-1"><i class="fa fa-check"></i><b>3.4.3.1</b> Bagging</a></li>
+<li class="chapter" data-level="3.4.3.2" data-path="lab-section-1.html"><a href="lab-section-1.html#random-forest"><i class="fa fa-check"></i><b>3.4.3.2</b> Random Forest</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4.4" data-path="lab-section-1.html"><a href="lab-section-1.html#boosting-1"><i class="fa fa-check"></i><b>3.4.4</b> Boosting</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="subject-1.html"><a href="subject-1.html"><i class="fa fa-check"></i><b>4</b> Subject 1</a></li>
 <li class="chapter" data-level="5" data-path="subject-1-1.html"><a href="subject-1-1.html"><i class="fa fa-check"></i><b>5</b> Subject 1</a></li>
@@ -393,7 +404,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb15-6"><a href="lab-section.html#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">x =</span> age.grid,<span class="at">y =</span> preds<span class="sc">$</span>fit</span>
 <span id="cb15-7"><a href="lab-section.html#cb15-7" aria-hidden="true" tabindex="-1"></a>      ,<span class="at">lwd =</span> <span class="dv">2</span></span>
 <span id="cb15-8"><a href="lab-section.html#cb15-8" aria-hidden="true" tabindex="-1"></a>      ,<span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-15-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-17-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p><strong><em>Comparison between raw polynomials and orthogonal polynomials</em></strong></p>
 <p>With the following we see that the difference of the fitted values are practically 0.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="lab-section.html#cb16-1" aria-hidden="true" tabindex="-1"></a>preds2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="at">object =</span> fit2</span>
@@ -642,7 +653,7 @@ log(\frac{Pr(Y=1|X)}{1-Pr(Y=1|X)})=X\beta
 <span id="cb29-37"><a href="lab-section.html#cb29-37" aria-hidden="true" tabindex="-1"></a>         ,<span class="at">lwd =</span> <span class="dv">1</span></span>
 <span id="cb29-38"><a href="lab-section.html#cb29-38" aria-hidden="true" tabindex="-1"></a>         ,<span class="at">col =</span> <span class="st">&quot;blue&quot;</span></span>
 <span id="cb29-39"><a href="lab-section.html#cb29-39" aria-hidden="true" tabindex="-1"></a>         ,<span class="at">lty =</span> <span class="dv">3</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-25-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-27-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>We see on the right hand panel that the all the observations that have a wage above 250 is in the top and all those below hare in the bottom of the visualization. Although at the tail, we aren’t able to conclude much, as confidence interval is really high, hence it can both be high and low earners.</p>
 <p><code>jitter()</code> is merely an approach to avoid observations to overlap each other.</p>
 </div>
@@ -712,7 +723,7 @@ log(\frac{Pr(Y=1|X)}{1-Pr(Y=1|X)})=X\beta
 <span id="cb34-21"><a href="lab-section.html#cb34-21" aria-hidden="true" tabindex="-1"></a>      ,<span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>)</span>
 <span id="cb34-22"><a href="lab-section.html#cb34-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-23"><a href="lab-section.html#cb34-23" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;Splines - Basis Functions&quot;</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-29-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-31-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>We see that the splines have been fitted to the data and notice that the tails have wider confidence intervals.</p>
 <p>We can get the amount of degrees of freedom by calling the <code>dim()</code>function.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="lab-section.html#cb35-1" aria-hidden="true" tabindex="-1"></a>{</span>
@@ -770,7 +781,7 @@ log(\frac{Pr(Y=1|X)}{1-Pr(Y=1|X)})=X\beta
 <span id="cb39-32"><a href="lab-section.html#cb39-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-33"><a href="lab-section.html#cb39-33" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;Splines - Basis Functions + Natural Splines&quot;</span>)</span>
 <span id="cb39-34"><a href="lab-section.html#cb39-34" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>,<span class="fu">c</span>(<span class="st">&quot;Basis&quot;</span>,<span class="st">&quot;Natural&quot;</span>),<span class="at">lty =</span> <span class="dv">1</span>,<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;Black&quot;</span>,<span class="st">&quot;Red&quot;</span>),<span class="at">cex =</span> <span class="fl">0.6</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-32-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-34-1.png" width="720" style="display: block; margin: auto;" /></p>
 </div>
 <div id="smooth-splines" class="section level4" number="2.3.2.3">
 <h4><span class="header-section-number">2.3.2.3</span> Smooth Splines</h4>
@@ -803,7 +814,7 @@ log(\frac{Pr(Y=1|X)}{1-Pr(Y=1|X)})=X\beta
 <span id="cb44-12"><a href="lab-section.html#cb44-12" aria-hidden="true" tabindex="-1"></a>       ,<span class="at">lty =</span> <span class="dv">1</span></span>
 <span id="cb44-13"><a href="lab-section.html#cb44-13" aria-hidden="true" tabindex="-1"></a>       ,<span class="at">lwd =</span> <span class="dv">2</span></span>
 <span id="cb44-14"><a href="lab-section.html#cb44-14" aria-hidden="true" tabindex="-1"></a>       ,<span class="at">cex =</span> .<span class="dv">8</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-35-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-37-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>As expected, we see that the more complex model (highest amount of df) is the more flexible model.</p>
 <p>Note: tuning parameter = <span class="math inline">\(\lambda\)</span>, where the CV seeks to choose the parameter that leads to the lowest error and return the df that leads to this level.</p>
 </div>
@@ -840,7 +851,7 @@ log(\frac{Pr(Y=1|X)}{1-Pr(Y=1|X)})=X\beta
 <span id="cb45-26"><a href="lab-section.html#cb45-26" aria-hidden="true" tabindex="-1"></a>       ,<span class="at">lty =</span> <span class="dv">1</span></span>
 <span id="cb45-27"><a href="lab-section.html#cb45-27" aria-hidden="true" tabindex="-1"></a>       ,<span class="at">lwd =</span> <span class="dv">2</span></span>
 <span id="cb45-28"><a href="lab-section.html#cb45-28" aria-hidden="true" tabindex="-1"></a>       ,<span class="at">cex =</span> .<span class="dv">8</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-36-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-38-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>From the plot we also see that the model with the largest span has the smoothest fit.</p>
 </div>
 </div>
@@ -916,8 +927,8 @@ log(\frac{Pr(Y=1|X)}{1-Pr(Y=1|X)})=X\beta
 <span id="cb51-2"><a href="lab-section.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.Gam</span>(gam.m1</span>
 <span id="cb51-3"><a href="lab-section.html#cb51-3" aria-hidden="true" tabindex="-1"></a>         ,<span class="at">se =</span> <span class="cn">TRUE</span></span>
 <span id="cb51-4"><a href="lab-section.html#cb51-4" aria-hidden="true" tabindex="-1"></a>         ,<span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-40"></span>
-<img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-40-1.png" alt="GAM of natural splines" width="720" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-42"></span>
+<img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-42-1.png" alt="GAM of natural splines" width="720" />
 <p class="caption">
 Figure 2.3: GAM of natural splines
 </p>
@@ -1038,7 +1049,7 @@ Figure 2.3: GAM of natural splines
 <span id="cb57-3"><a href="lab-section.html#cb57-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb57-4"><a href="lab-section.html#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(akima) </span>
 <span id="cb57-5"><a href="lab-section.html#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gam.lo.i)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-45-1.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-45-2.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-47-1.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-47-2.png" width="720" style="display: block; margin: auto;" /></p>
 </div>
 <div id="logistic-regression" class="section level4" number="2.3.3.5">
 <h4><span class="header-section-number">2.3.3.5</span> Logistic Regression</h4>
@@ -1049,11 +1060,11 @@ Figure 2.3: GAM of natural splines
 <span id="cb58-4"><a href="lab-section.html#cb58-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb58-5"><a href="lab-section.html#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
 <span id="cb58-6"><a href="lab-section.html#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gam.lr,<span class="at">se=</span>T,<span class="at">col =</span><span class="st">&quot; green &quot;</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-46-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-48-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>One could interprete the plot and assess each window to see how the variable influence the decision wether the observation is above or below. Remember that the outcome can be seen as probabilities, these can also be plotted to be shown the spread:</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="lab-section.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
 <span id="cb59-2"><a href="lab-section.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gam.lr<span class="sc">$</span>fitted.values)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-47-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-49-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>From th plot, we see that there is a tendency that the lower the education the lower the wage, the following table show how the high earners are distributed.</p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="lab-section.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(education,<span class="fu">I</span>(wage <span class="sc">&gt;</span> <span class="dv">250</span>))</span></code></pre></div>
 <pre><code>##                     
@@ -1073,7 +1084,7 @@ Figure 2.3: GAM of natural splines
 <span id="cb62-6"><a href="lab-section.html#cb62-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gam.lr.s</span>
 <span id="cb62-7"><a href="lab-section.html#cb62-7" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">se =</span> <span class="cn">TRUE</span> <span class="co">#Standard errors</span></span>
 <span id="cb62-8"><a href="lab-section.html#cb62-8" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">col =</span><span class="st">&quot; green &quot;</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-49-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-51-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>Do we need a nonlinear term for year?
 Use anova for comparing the previous model with a model that includes a smooth spline of year with df=4</p>
 <p>We can do an ANOVA, but please notice, we use Chi Square now.</p>

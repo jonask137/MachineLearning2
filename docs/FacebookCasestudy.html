@@ -268,6 +268,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.3" data-path="application-in-r.html"><a href="application-in-r.html#random-forests-1"><i class="fa fa-check"></i><b>3.3.3</b> Random Forests</a></li>
 <li class="chapter" data-level="3.3.4" data-path="application-in-r.html"><a href="application-in-r.html#boosting"><i class="fa fa-check"></i><b>3.3.4</b> Boosting</a></li>
 </ul></li>
+<li class="chapter" data-level="3.4" data-path="lab-section-1.html"><a href="lab-section-1.html"><i class="fa fa-check"></i><b>3.4</b> Lab section</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="lab-section-1.html"><a href="lab-section-1.html#LabClassification"><i class="fa fa-check"></i><b>3.4.1</b> Fitting Classification Trees</a></li>
+<li class="chapter" data-level="3.4.2" data-path="lab-section-1.html"><a href="lab-section-1.html#fitting-regression-trees"><i class="fa fa-check"></i><b>3.4.2</b> Fitting Regression Trees</a></li>
+<li class="chapter" data-level="3.4.3" data-path="lab-section-1.html"><a href="lab-section-1.html#bagging-and-random-forests"><i class="fa fa-check"></i><b>3.4.3</b> Bagging and Random Forests</a>
+<ul>
+<li class="chapter" data-level="3.4.3.1" data-path="lab-section-1.html"><a href="lab-section-1.html#bagging-1"><i class="fa fa-check"></i><b>3.4.3.1</b> Bagging</a></li>
+<li class="chapter" data-level="3.4.3.2" data-path="lab-section-1.html"><a href="lab-section-1.html#random-forest"><i class="fa fa-check"></i><b>3.4.3.2</b> Random Forest</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4.4" data-path="lab-section-1.html"><a href="lab-section-1.html#boosting-1"><i class="fa fa-check"></i><b>3.4.4</b> Boosting</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="subject-1.html"><a href="subject-1.html"><i class="fa fa-check"></i><b>4</b> Subject 1</a></li>
 <li class="chapter" data-level="5" data-path="subject-1-1.html"><a href="subject-1-1.html"><i class="fa fa-check"></i><b>5</b> Subject 1</a></li>
@@ -446,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##                   NA&#39;s   :3        NA&#39;s   :3</code></pre>
 <div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="FacebookCasestudy.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DataExplorer) </span>
 <span id="cb142-2"><a href="FacebookCasestudy.html#cb142-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(dataTf)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-96-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-98-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p><strong>Genereal rule of thumb, if we have less than 5%, we can exclude them, if more than 5%, then we should impute values, so we preserve the dataset. One must make aware of this</strong></p>
 <p>We just choose to ommit despite missing 18% in CPC</p>
 <div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="FacebookCasestudy.html#cb143-1" aria-hidden="true" tabindex="-1"></a>dataTfo <span class="ot">=</span> <span class="fu">na.omit</span>(dataTf) <span class="co">#Df with the NA&#39;s omitted</span></span>
@@ -496,20 +507,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb147-2"><a href="FacebookCasestudy.html#cb147-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DataExplorer) </span>
 <span id="cb147-3"><a href="FacebookCasestudy.html#cb147-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width=</span><span class="dv">4</span>, <span class="at">repr.plot.height=</span><span class="dv">4</span>)</span>
 <span id="cb147-4"><a href="FacebookCasestudy.html#cb147-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_bar</span>(dataTfo) <span class="co">#This is a really good tool to plot all bars</span></span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-99-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-101-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>We can also check all of the distributions.</p>
 <div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="FacebookCasestudy.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_histogram</span>(dataTfo)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-100-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-102-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>Now we can treat outliers.</p>
 <div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="FacebookCasestudy.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Treat outliers</span></span>
 <span id="cb149-2"><a href="FacebookCasestudy.html#cb149-2" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(dataTfo)</span>
 <span id="cb149-3"><a href="FacebookCasestudy.html#cb149-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># e.g. for ROAS</span></span>
 <span id="cb149-4"><a href="FacebookCasestudy.html#cb149-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">boxplot</span>(ROAS)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-101-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-103-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>We want to see the boxplot being like a plot.</p>
 <p>We observe that some of the observations are outside of the whiskers, these appear to be outliers. We can identify these with the $out command, see the following.</p>
 <div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="FacebookCasestudy.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(ROAS)<span class="sc">$</span>out</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-102-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-104-1.png" width="720" style="display: block; margin: auto;" /></p>
 <pre><code>##   [1]  76.92  81.40  82.68  23.76  34.31  35.23  62.13  12.40  68.63  65.22
 ##  [11]  37.50  97.35  18.32  18.65  19.23  71.92  36.97  77.78  68.63  15.52
 ##  [21]  75.54  66.88  81.40  74.47  31.44  20.15  20.83  66.46  36.21 122.09
@@ -533,7 +544,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb152-5"><a href="FacebookCasestudy.html#cb152-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># remove the rows containing the outliers</span></span>
 <span id="cb152-6"><a href="FacebookCasestudy.html#cb152-6" aria-hidden="true" tabindex="-1"></a>  dataTfo1 <span class="ot">&lt;-</span> dataTfo[<span class="sc">-</span><span class="fu">which</span>(ROAS <span class="sc">%in%</span> outliers),] </span>
 <span id="cb152-7"><a href="FacebookCasestudy.html#cb152-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">boxplot</span>(dataTfo1<span class="sc">$</span>ROAS)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-103-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-105-1.png" width="720" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="FacebookCasestudy.html#cb153-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Alterative ways to treat outliers exist </span></span></code></pre></div>
 <p>Naturally there are other ways of identifying outliers, this is just one approach.</p>
 <p>Looking at the new boxplot, we see that most observations are within the whiskers (the lines).</p>
@@ -542,23 +553,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb154-2"><a href="FacebookCasestudy.html#cb154-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pairs(data) # only numeric</span></span>
 <span id="cb154-3"><a href="FacebookCasestudy.html#cb154-3" aria-hidden="true" tabindex="-1"></a><span class="co"># or one by one</span></span>
 <span id="cb154-4"><a href="FacebookCasestudy.html#cb154-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dataTfo1, <span class="fu">aes</span>(<span class="at">x=</span>xyzCampId, <span class="at">y=</span>ROAS)) <span class="sc">+</span> <span class="fu">stat_summary</span>(<span class="at">fun.y=</span><span class="st">&quot;mean&quot;</span>, <span class="at">geom=</span><span class="st">&quot;bar&quot;</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-104-1.png" width="720" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="FacebookCasestudy.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dataTfo1, <span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>ROAS)) <span class="sc">+</span> <span class="fu">stat_summary</span>(<span class="at">fun.y=</span><span class="st">&quot;mean&quot;</span>, <span class="at">geom=</span><span class="st">&quot;bar&quot;</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-105-1.png" width="720" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="FacebookCasestudy.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dataTfo1, <span class="fu">aes</span>(<span class="at">x=</span>gender, <span class="at">y=</span>ROAS)) <span class="sc">+</span> <span class="fu">stat_summary</span>(<span class="at">fun.y=</span><span class="st">&quot;mean&quot;</span>, <span class="at">geom=</span><span class="st">&quot;bar&quot;</span>)</span></code></pre></div>
 <p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-106-1.png" width="720" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="FacebookCasestudy.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dataTfo1, <span class="fu">aes</span>(<span class="at">x=</span>interest, <span class="at">y=</span>ROAS)) <span class="sc">+</span> <span class="fu">stat_summary</span>(<span class="at">fun.y=</span><span class="st">&quot;mean&quot;</span>, <span class="at">geom=</span><span class="st">&quot;bar&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="FacebookCasestudy.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dataTfo1, <span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>ROAS)) <span class="sc">+</span> <span class="fu">stat_summary</span>(<span class="at">fun.y=</span><span class="st">&quot;mean&quot;</span>, <span class="at">geom=</span><span class="st">&quot;bar&quot;</span>)</span></code></pre></div>
 <p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-107-1.png" width="720" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="FacebookCasestudy.html#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dataTfo1, <span class="fu">aes</span>(Spent, ROAS)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Amount spent on campaign&quot;</span>, <span class="at">y =</span> <span class="st">&quot;ROAS&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="FacebookCasestudy.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dataTfo1, <span class="fu">aes</span>(<span class="at">x=</span>gender, <span class="at">y=</span>ROAS)) <span class="sc">+</span> <span class="fu">stat_summary</span>(<span class="at">fun.y=</span><span class="st">&quot;mean&quot;</span>, <span class="at">geom=</span><span class="st">&quot;bar&quot;</span>)</span></code></pre></div>
 <p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-108-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="FacebookCasestudy.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dataTfo1, <span class="fu">aes</span>(<span class="at">x=</span>interest, <span class="at">y=</span>ROAS)) <span class="sc">+</span> <span class="fu">stat_summary</span>(<span class="at">fun.y=</span><span class="st">&quot;mean&quot;</span>, <span class="at">geom=</span><span class="st">&quot;bar&quot;</span>)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-109-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="FacebookCasestudy.html#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dataTfo1, <span class="fu">aes</span>(Spent, ROAS)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Amount spent on campaign&quot;</span>, <span class="at">y =</span> <span class="st">&quot;ROAS&quot;</span>)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-110-1.png" width="720" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="FacebookCasestudy.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width=</span><span class="dv">6</span>, <span class="at">repr.plot.height=</span><span class="dv">3</span>)</span>
 <span id="cb159-2"><a href="FacebookCasestudy.html#cb159-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dataTfo1, <span class="fu">aes</span>(Spent, totConv)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Amount spent on campaign&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Total Conversions&quot;</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-109-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-111-1.png" width="720" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="FacebookCasestudy.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Measure of associations </span></span>
 <span id="cb160-2"><a href="FacebookCasestudy.html#cb160-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
 <span id="cb160-3"><a href="FacebookCasestudy.html#cb160-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
 <span id="cb160-4"><a href="FacebookCasestudy.html#cb160-4" aria-hidden="true" tabindex="-1"></a>cormatrix <span class="ot">=</span> <span class="fu">corrplot</span>(<span class="fu">cor</span>(dataTfo1 [, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)]))</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-110-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-112-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>We seee that some variables appear to have a strong correlation with other variables, e.g. CTR and CPM.</p>
 <p>We want to see how they interact with ROAS as well, to get an idea of wether they are positive and negative relationship.</p>
 <p><strong><em>NOTICE, this is based on a linear relationship between the variables. Since we are now in non linear models, we cannot use it the same way as when working in the linear scenarios. But we must be aware of variables that appear to have a really high correlation with one and other, hence we may exclude these.</em></strong></p>
@@ -861,7 +872,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb170-4"><a href="FacebookCasestudy.html#cb170-4" aria-hidden="true" tabindex="-1"></a>std.adjr2 <span class="ot">=</span> <span class="fu">sd</span>(reg.summary<span class="sc">$</span>adjr2)</span>
 <span id="cb170-5"><a href="FacebookCasestudy.html#cb170-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> max.adjr2 <span class="sc">+</span> <span class="fl">0.2</span> <span class="sc">*</span> std.adjr2, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
 <span id="cb170-6"><a href="FacebookCasestudy.html#cb170-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> max.adjr2 <span class="sc">-</span> <span class="fl">0.2</span> <span class="sc">*</span> std.adjr2, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-116-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-118-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>The plot shows the size 10-11 is the minimum size for the subset for which the scores are within 0.2 standard deviations of optimum.</p>
 <p>That is because the <span class="math inline">\(R^2\)</span> does not significantly change. Therefore, we can just limit ourselves with a more simple model.</p>
 <p><strong>We can see how the selection changes if we use the full model</strong></p>
@@ -1145,12 +1156,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The model diagnostics</p>
 <div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="FacebookCasestudy.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
 <span id="cb179-2"><a href="FacebookCasestudy.html#cb179-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model1)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-121-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-123-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>Notice, that the top right is the theoretical distribution (or quantiles) of a normal distribution. We see that the is a wave in the residuals, implying that there may be some non linearity.</p>
 <p>Further inspecting the residuals</p>
 <div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="FacebookCasestudy.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
 <span id="cb180-2"><a href="FacebookCasestudy.html#cb180-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(model1<span class="sc">$</span>residuals)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-122-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-124-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>The residuals look quite well</p>
 </div>
 <div id="linked-to-the-topic-of-this-lecture-run-a-non-liner-model-such-as-the-generalized-additive-model-gam-with-smoothing-splines." class="section level7" number="2.5.4.3.1.1.2">
@@ -1427,16 +1438,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>One should always check the residuals</strong></p>
 <div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="FacebookCasestudy.html#cb188-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
 <span id="cb188-2"><a href="FacebookCasestudy.html#cb188-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gam.mgcv<span class="sc">$</span>residuals)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-127-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-129-1.png" width="720" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="FacebookCasestudy.html#cb189-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(gam.mgcv<span class="sc">$</span>residuals)</span>
 <span id="cb189-2"><a href="FacebookCasestudy.html#cb189-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(gam.mgcv<span class="sc">$</span>residuals)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-127-2.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-129-2.png" width="720" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="FacebookCasestudy.html#cb190-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>((gam.mgcv<span class="sc">$</span>residuals))</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-127-3.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-129-3.png" width="720" style="display: block; margin: auto;" /></p>
 <p>interpreting the partial effects of the smooth terms visually using plot(gam_model) (see p. 284 ISL).</p>
 <div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="FacebookCasestudy.html#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
 <span id="cb191-2"><a href="FacebookCasestudy.html#cb191-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gam.mgcv, <span class="at">se =</span> T, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">scheme=</span><span class="dv">1</span>,<span class="at">unconditional =</span> <span class="cn">TRUE</span>, <span class="at">residuals =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-128-1.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-128-2.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-130-1.png" width="720" style="display: block; margin: auto;" /><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-130-2.png" width="720" style="display: block; margin: auto;" /></p>
 <p>Holding all the other variables in the model fixed, return on advertising spent tends to decrease with increasing impr (the number of times the ad was shown). holding all the other variables in the model fixed, total people signing up to the webshop (conv) has no significant effect on ROAS. Holding all the other variables in the model fixed, total people purchasing the product (appConv) and click-through-rate (CTR) have a significant positive nonlinear effect on ROAS. However, the CI in some areas is also very large due to very few observations, thus more data is required to evaluate the results. Finally cost-per-click (CPM = Spent/Impr *1000) has a decreasing nonlinear effect on ROAS, but the effect is very uncertain given CI become very large when CPM &gt;1. Overall, the relationships found are intuitive but the effec ts are not strong.</p>
 <div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="FacebookCasestudy.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluating test MSE using using k-fold cross-validation</span></span>
 <span id="cb192-2"><a href="FacebookCasestudy.html#cb192-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
@@ -1606,7 +1617,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="FacebookCasestudy.html#cb205-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
 <span id="cb205-2"><a href="FacebookCasestudy.html#cb205-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gam.step, <span class="at">se =</span> T, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-135-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-137-1.png" width="720" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="FacebookCasestudy.html#cb206-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(gam.step)</span></code></pre></div>
 <pre><code>## [1] 2261.843</code></pre>
 <p>Compare AIC values for all fitted models</p>
