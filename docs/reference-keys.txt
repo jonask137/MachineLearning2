@@ -102,6 +102,7 @@ bagging-random-forests-boosting
 bagging-bootstrap-aggregation
 random-forests
 boosting-i.e.-gradient-boosting
+xgboost
 application-in-r
 decision-trees
 bagging
@@ -114,6 +115,14 @@ bagging-and-random-forests
 bagging-1
 random-forest
 boosting-1
+exercies
+exercise-7-1
+exercise-8-1
+exercise-9-1
+exercise-10-1
+exercise-11
+exercise-12
 subject-1
 subject-1-1
+using-caret-to-optimize-the-model
 references

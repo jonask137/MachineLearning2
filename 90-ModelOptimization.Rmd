@@ -1,0 +1,6 @@
+
+# Using CARET to optimize the model
+
+We can train the model using Caret package which is an interface that supports many models.
+
+See the XGBoost file.

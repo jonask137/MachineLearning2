@@ -291,7 +291,7 @@ Illustrate the scenario of a clear ranking in the importance of the predictor va
 
 With random forests we force the model only to select a subset of the predictors to avoid constructing trees that are very much alike, due to the independent selection. Thus, each time the algorithm considers a split, it is only able to choose among a random sample of m predictors among all of the p predictors. Notice, that we are still bagging the data.
 
-The __rule of thumb__ is $p/3$ that is a part of the variables that are randomly considered.
+The __rule of thumb__ is $p/3$ that is a part of the variables that are randomly considered and $\sqrt{p}$ for classification.
 
 By doings so, we are able to construct more different trees, that yields a far more stable model and also preserves the same prediction power through the bagging and hence averaging the consensus of each tree.
 
@@ -308,6 +308,11 @@ The whole idea, is that we can construct one model and based on the residuals he
 See the procedure on @hastie2013, p. 323.
 
 __Notice, boosting in classification is a bit different and more complex, the details hereof are omitted in the book__
+
+
+## XGBoost
+
+See the XGBoost file.
 
 
 ## Application in R
@@ -368,7 +373,7 @@ This can also be Plotted
 
 ### Random Forests
 
-1. Un library `randomFores``
+1. Un library `randomForest``
     + Use `randomForest(DV~IV,mtry = p,ntree = ...,importance = TRUE)
     + For RF of regression tree default _mtry = p/3_
     + FOr RF of classification tree fedault _mtry = $\sqrt{p}$_
@@ -794,3 +799,222 @@ We see that the MSE is 17.22, with lambda = standard value of 0.001, hence it is
 
 
 
+## Exercies
+
+### Exercise 7
+
+```{r,results = 'hide'}
+library(randomForest)
+
+set.seed(1337)
+
+library(MASS)
+df <- Boston
+index <- sample(x = nrow(df),size = nrow(df)/2)
+df.train <- df[index,]
+df.test <- df[-index,]
+
+
+# Iterating number of trees
+
+MSE.in <- rep(0,500)
+MSE.out <- rep(0,500)
+for (B in 1:500) {
+  print(B)
+  
+  rf.boston <- randomForest(medv ~ .,data = df.train,ntree = B,mtry = 6,importance = TRUE)
+  rf.pred <- predict(object = rf.boston,newdata = df.test)
+  
+  MSE.in[B] <- mean((rf.boston$predicted-df.train$medv)^2) #MSE
+  MSE.out[B] <- mean((rf.pred-df.test$medv)^2) #MSE
+}
+
+plot(MSE.out,type = "l",col = 'darkred',xlab = "Number of trees",ylab = "MSE")
+lines(rf.boston$mse,type = "l",col = 'limegreen')
+grid()
+legend("topright",legend = c("Out","In"),lty = c(1,1),col = c('darkred',"limegreen"))
+```
+
+```{r,results = 'hide'}
+library(doParallel)
+CoreCount  <- makePSOCKcluster(detectCores()-1)
+registerDoParallel(CoreCount)
+
+# Iterating number of trees and parameters under evaluation
+
+MSE.1 <- rep(0,500)
+MSE.2 <- rep(0,500)
+MSE.3 <- rep(0,500)
+p <- length(df)-1
+p2 <- p/2
+sqrtp <- sqrt(p) #Notice that randomForest will automatically round
+for (B in 1:500) {
+  print(B)
+  
+  rf.boston <- randomForest(medv ~ .,data = df.train,ntree = B,mtry = p,importance = TRUE)
+  rf.pred <- predict(object = rf.boston,newdata = df.test)
+  
+  MSE.1[B] <- mean((rf.pred-df.test$medv)^2) #MSE
+  
+  rf.boston <- randomForest(medv ~ .,data = df.train,ntree = B,mtry = p2,importance = TRUE)
+  rf.pred <- predict(object = rf.boston,newdata = df.test)
+  
+  MSE.2[B] <- mean((rf.pred-df.test$medv)^2) #MSE
+  
+  rf.boston <- randomForest(medv ~ .,data = df.train,ntree = B,mtry = sqrtp,importance = TRUE)
+  rf.pred <- predict(object = rf.boston,newdata = df.test)
+  
+  MSE.3[B] <- mean((rf.pred-df.test$medv)^2) #MSE
+  
+}
+stopCluster(CoreCount)
+registerDoSEQ()
+```
+
+
+```{r}
+plot(MSE.1,type = "l",col = 'darkred',ylim = c(8,12))
+lines(MSE.2,type = "l",col = 'limegreen')
+lines(MSE.3,type = "l",col = 'coral')
+grid()
+legend("topright",legend = c("m = p","m = p/2","m = sqrt(p)"),lty = c(1,1,1),col = c('darkred',"limegreen","coral"))
+```
+
+
+```{r}
+rm(list = ls())
+```
+
+### Exercise 8
+
+__(a) splitting the data__
+
+```{r}
+df <- Carseats
+set.seed(123)
+index <- sample(1:nrow(df),size = nrow(df)*0.75)
+df.train <- df[index,]
+df.test <- df[-index,]
+rm(index)
+```
+
+__(b) fitting a regression tree and plotting__
+
+```{r}
+library(tree)
+fit.tree <- tree(Sales ~ .,data = df.train)
+plot(fit.tree) ; text(fit.tree,pretty = 0)
+```
+
+We see the fitted values above. The values a each terminal node represent the mean value of y given the different splits.
+
+```{r}
+library(dplyr)
+mse.test.t0 <- mean((predict(object = fit.tree,newdata = df.test) - df.test$Sales)^2)
+mse.test.t0
+```
+
+We see that the mean squared error = 4.06
+
+__(c) Pruning the tree__
+
+We must do the following:
+
+1. Assess how big the tree should be. Done through cross validation
+1. Fit the pruned tree.
+1. Predict and calculate MSE
+
+```{r}
+set.seed(123)
+fit.cv.tree <- cv.tree(object = fit.tree)
+plot(x = fit.cv.tree$size,y = fit.cv.tree$dev,type = "l",col = "darkblue",xlab = "Tree size",ylab = "Deviance",main = "CV Tree")
+abline(h = min(fit.cv.tree$dev),col = "darkred",lty = 2)
+grid()
+```
+
+```{r}
+fit.cv.tree$size[which.min(fit.cv.tree$dev)]
+```
+
+With a seed of 123, we see that the best tree size appear to be best 8.
+
+```{r}
+fit.tree.prune <- prune.tree(tree = fit.tree
+                             ,best = fit.cv.tree$size[which.min(fit.cv.tree$dev)])
+
+mse.test.t1 <- mean((predict(object = fit.tree.prune,newdata = df.test) - df.test$Sales)^2)
+mse.test.t1
+```
+
+So we see that the MSE appear to be worse after pruning.
+
+
+__(d) Using bagging__
+
+```{r}
+library(randomForest)
+set.seed(123)
+fit.bag <- randomForest(Sales ~ .
+                        ,data = df.train
+                        ,mtry = length(df.train)-1 #Merely identifies the amount of predictors
+                        ,importance = TRUE
+                        ,ntree = 500 #This is also the default value
+                        )
+mse.test.bag <- mean((predict(object = fit.bag,newdata = df.test) - df.test$Sales)^2)
+mse.test.bag
+```
+
+We see that the MSE is now 2.25. Which is much better than previously.
+
+```{r}
+importance(fit.bag)
+varImpPlot(fit.bag)
+```
+
+We see that the most important variables are ShelveLocation and Price, that was also what we saw in the trees earlier, where it started with the shelve location.
+
+We notice that the Population is actually inverse, hence by removing it, it appears that the MSE will improve slightly.
+
+
+__(e) Random Forest__
+
+```{r}
+library(randomForest)
+set.seed(123)
+fit.rf <- randomForest(Sales ~ .
+                       ,data = df.train
+                       ,mtry = length(df.train)/3 #Merely identifies the amount of predictors / 3
+                       ,importance = TRUE
+                       ,ntree = 500 #This is the default value
+                       )
+mse.test.rf <- mean((predict(object = fit.rf,newdata = df.test) - df.test$Sales)^2)
+mse.test.rf
+```
+
+We see that the test MSE is in fact higher than the bagging model.
+
+```{r}
+importance(fit.rf)
+varImpPlot(fit.rf)
+```
+
+Again we see that the shelve location and price are the mosts important variables just as when we were doing bagging.
+
+__Summary__
+
+```{r}
+rbind(mse.test.t0
+      ,mse.test.t1
+      ,mse.test.bag
+      ,mse.test.rf
+      )
+```
+
+
+### Exercise 9
+
+### Exercise 10
+
+### Exercise 11
+
+### Exercise 12
