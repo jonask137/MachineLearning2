@@ -1,6 +1,116 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 
-# Using CARET to optimize the model
+# Using CARET for training and assessing models
 
 We can train the model using Caret package which is an interface that supports many models.
 
 See the XGBoost file.
+
+```{r}
+library(recipes)
+library(caret)
+library(ISLR)
+library(doParallel)
+
+#Initiating parellels
+CoreCount  <- makePSOCKcluster(detectCores()-1)
+registerDoParallel(CoreCount)
+
+#Loading Data
+  set.seed(1337)
+  df <- ISLR::OJ
+  index <- sample(x = nrow(df),size = 800)
+  df.train <- df[index, ]
+  df.test <- df[-index, ]  
+  
+  #Blueprinting - transforming data
+    {#Run here
+    # blueprint <- {recipe(formula = Purchase ~ . #Defining Y and X's
+    #                    ,data = df)} #Selecting the data
+    #   #Notice, one could apply steps in the braces 
+    #  
+    # #blueprint #Could be run to see the operations
+    # 
+    # 
+    # 
+    # #Prepping
+    # prep.df <- prep(x = blueprint,training = df)
+    # #prep.df #Could be run to see the operations
+    # 
+    # #Baking
+    # baked.df <- bake(prep.df, new_data = df)
+    # baked.df.train <- bake(prep.df, new_data = df.train) #Used if Blueprint is run on train data
+    # baked.df.test <- bake(prep.df, new_data = df.test) #Used if Blueprint is run on train data
+    }
+  
+#Selecting the parameters
+train.param <- trainControl(method = "cv" #The resampling method
+                            ,number = 5 #Relevant for when the models are trained
+                            ,classProbs = TRUE
+                            ,summaryFunction = twoClassSummary #Returns sens, spec, ROC
+                            ,allowParallel = TRUE
+                            )
+
+
+#Training different models
+
+  #(1) Conditional Inference Tree
+  model.tree <- train(Purchase ~ .
+                      ,data = df.train
+                      ,method = "ctree2" #See list http://topepo.github.io/caret/train-models-by-tag.html
+                      ,trControl = train.param
+                      ,metric = "ROC")
+  
+  #(2) Random Forest
+  model.rf.1 <- train(Purchase ~ .
+                      ,data = df.train
+                      ,method = "rf"
+                      ,ntree = 10 #Number of trees to grow
+                      ,trControl = train.param
+                      ,metric = "ROC")
+  
+  #(3) Random Forest 2
+  model.rf.2 <- train(Purchase ~ .
+                      ,data = df.train
+                      ,method = "rf"
+                      ,ntree = 150 #Number of trees to grow
+                      ,trControl = train.param
+                      ,metric = "ROC")
+
+  #(4) XGBoosting
+  model.xgboost <- train(Purchase ~ .
+                         ,data = df.train
+                         ,method = "xgbTree"
+                         ,trControl = train.param
+                         ,metric = "ROC"
+                         ,tuneGrid = data.frame(.nrounds = 300 #Defining a table of tuning params
+                                                ,.max_depth = 3
+                                                ,.eta = 0.03
+                                                ,.gamma = 0
+                                                ,.subsample = 0.5
+                                                ,.colsample_bytree = 0.1
+                                                ,.min_child_weight = 1))
+  
+#Terminating the parallels
+stopCluster(CoreCount)
+registerDoSEQ()
+
+#Summarizing the results
+results <- resamples(list(tree = model.tree,
+                          rf.1  = model.rf.1,
+                          rf.2  = model.rf.2,
+                          xgboost = model.xgboost)
+                     )
+results
+```
+
+```{r}
+summary(results)
+bwplot(results)
+dotplot(results)
+```
+

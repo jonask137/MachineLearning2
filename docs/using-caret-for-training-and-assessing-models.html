@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4 Subject 1 | Machine Learning for Business Intelligence 2</title>
-  <meta name="description" content="4 Subject 1 | Machine Learning for Business Intelligence 2" />
+  <title>6 Using CARET for training and assessing models | Machine Learning for Business Intelligence 2</title>
+  <meta name="description" content="6 Using CARET for training and assessing models | Machine Learning for Business Intelligence 2" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4 Subject 1 | Machine Learning for Business Intelligence 2" />
+  <meta property="og:title" content="6 Using CARET for training and assessing models | Machine Learning for Business Intelligence 2" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4 Subject 1 | Machine Learning for Business Intelligence 2" />
+  <meta name="twitter:title" content="6 Using CARET for training and assessing models | Machine Learning for Business Intelligence 2" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="tree-based-methods.html"/>
-<link rel="next" href="subject-1-1.html"/>
+<link rel="prev" href="subject-1-1.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -312,8 +312,147 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="subject-1" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> Subject 1</h1>
+<div id="using-caret-for-training-and-assessing-models" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Using CARET for training and assessing models</h1>
+<p>We can train the model using Caret package which is an interface that supports many models.</p>
+<p>See the XGBoost file.</p>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="using-caret-for-training-and-assessing-models.html#cb311-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
+<span id="cb311-2"><a href="using-caret-for-training-and-assessing-models.html#cb311-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb311-3"><a href="using-caret-for-training-and-assessing-models.html#cb311-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR)</span>
+<span id="cb311-4"><a href="using-caret-for-training-and-assessing-models.html#cb311-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(doParallel)</span>
+<span id="cb311-5"><a href="using-caret-for-training-and-assessing-models.html#cb311-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb311-6"><a href="using-caret-for-training-and-assessing-models.html#cb311-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Initiating parellels</span></span>
+<span id="cb311-7"><a href="using-caret-for-training-and-assessing-models.html#cb311-7" aria-hidden="true" tabindex="-1"></a>CoreCount  <span class="ot">&lt;-</span> <span class="fu">makePSOCKcluster</span>(<span class="fu">detectCores</span>()<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb311-8"><a href="using-caret-for-training-and-assessing-models.html#cb311-8" aria-hidden="true" tabindex="-1"></a><span class="fu">registerDoParallel</span>(CoreCount)</span>
+<span id="cb311-9"><a href="using-caret-for-training-and-assessing-models.html#cb311-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb311-10"><a href="using-caret-for-training-and-assessing-models.html#cb311-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Loading Data</span></span>
+<span id="cb311-11"><a href="using-caret-for-training-and-assessing-models.html#cb311-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">1337</span>)</span>
+<span id="cb311-12"><a href="using-caret-for-training-and-assessing-models.html#cb311-12" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> ISLR<span class="sc">::</span>OJ</span>
+<span id="cb311-13"><a href="using-caret-for-training-and-assessing-models.html#cb311-13" aria-hidden="true" tabindex="-1"></a>  index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="fu">nrow</span>(df),<span class="at">size =</span> <span class="dv">800</span>)</span>
+<span id="cb311-14"><a href="using-caret-for-training-and-assessing-models.html#cb311-14" aria-hidden="true" tabindex="-1"></a>  df.train <span class="ot">&lt;-</span> df[index, ]</span>
+<span id="cb311-15"><a href="using-caret-for-training-and-assessing-models.html#cb311-15" aria-hidden="true" tabindex="-1"></a>  df.test <span class="ot">&lt;-</span> df[<span class="sc">-</span>index, ]  </span>
+<span id="cb311-16"><a href="using-caret-for-training-and-assessing-models.html#cb311-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb311-17"><a href="using-caret-for-training-and-assessing-models.html#cb311-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Blueprinting - transforming data</span></span>
+<span id="cb311-18"><a href="using-caret-for-training-and-assessing-models.html#cb311-18" aria-hidden="true" tabindex="-1"></a>    {<span class="co">#Run here</span></span>
+<span id="cb311-19"><a href="using-caret-for-training-and-assessing-models.html#cb311-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># blueprint &lt;- {recipe(formula = Purchase ~ . #Defining Y and X&#39;s</span></span>
+<span id="cb311-20"><a href="using-caret-for-training-and-assessing-models.html#cb311-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">#                    ,data = df)} #Selecting the data</span></span>
+<span id="cb311-21"><a href="using-caret-for-training-and-assessing-models.html#cb311-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">#   #Notice, one could apply steps in the braces </span></span>
+<span id="cb311-22"><a href="using-caret-for-training-and-assessing-models.html#cb311-22" aria-hidden="true" tabindex="-1"></a>    <span class="co">#  </span></span>
+<span id="cb311-23"><a href="using-caret-for-training-and-assessing-models.html#cb311-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># #blueprint #Could be run to see the operations</span></span>
+<span id="cb311-24"><a href="using-caret-for-training-and-assessing-models.html#cb311-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># </span></span>
+<span id="cb311-25"><a href="using-caret-for-training-and-assessing-models.html#cb311-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># </span></span>
+<span id="cb311-26"><a href="using-caret-for-training-and-assessing-models.html#cb311-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># </span></span>
+<span id="cb311-27"><a href="using-caret-for-training-and-assessing-models.html#cb311-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># #Prepping</span></span>
+<span id="cb311-28"><a href="using-caret-for-training-and-assessing-models.html#cb311-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># prep.df &lt;- prep(x = blueprint,training = df)</span></span>
+<span id="cb311-29"><a href="using-caret-for-training-and-assessing-models.html#cb311-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># #prep.df #Could be run to see the operations</span></span>
+<span id="cb311-30"><a href="using-caret-for-training-and-assessing-models.html#cb311-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># </span></span>
+<span id="cb311-31"><a href="using-caret-for-training-and-assessing-models.html#cb311-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># #Baking</span></span>
+<span id="cb311-32"><a href="using-caret-for-training-and-assessing-models.html#cb311-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># baked.df &lt;- bake(prep.df, new_data = df)</span></span>
+<span id="cb311-33"><a href="using-caret-for-training-and-assessing-models.html#cb311-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># baked.df.train &lt;- bake(prep.df, new_data = df.train) #Used if Blueprint is run on train data</span></span>
+<span id="cb311-34"><a href="using-caret-for-training-and-assessing-models.html#cb311-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># baked.df.test &lt;- bake(prep.df, new_data = df.test) #Used if Blueprint is run on train data</span></span>
+<span id="cb311-35"><a href="using-caret-for-training-and-assessing-models.html#cb311-35" aria-hidden="true" tabindex="-1"></a>    }</span></code></pre></div>
+<pre><code>## NULL</code></pre>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="using-caret-for-training-and-assessing-models.html#cb313-1" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb313-2"><a href="using-caret-for-training-and-assessing-models.html#cb313-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Selecting the parameters</span></span>
+<span id="cb313-3"><a href="using-caret-for-training-and-assessing-models.html#cb313-3" aria-hidden="true" tabindex="-1"></a>train.param <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">&quot;cv&quot;</span> <span class="co">#The resampling method</span></span>
+<span id="cb313-4"><a href="using-caret-for-training-and-assessing-models.html#cb313-4" aria-hidden="true" tabindex="-1"></a>                            ,<span class="at">number =</span> <span class="dv">5</span> <span class="co">#Relevant for when the models are trained</span></span>
+<span id="cb313-5"><a href="using-caret-for-training-and-assessing-models.html#cb313-5" aria-hidden="true" tabindex="-1"></a>                            ,<span class="at">classProbs =</span> <span class="cn">TRUE</span></span>
+<span id="cb313-6"><a href="using-caret-for-training-and-assessing-models.html#cb313-6" aria-hidden="true" tabindex="-1"></a>                            ,<span class="at">summaryFunction =</span> twoClassSummary <span class="co">#Returns sens, spec, ROC</span></span>
+<span id="cb313-7"><a href="using-caret-for-training-and-assessing-models.html#cb313-7" aria-hidden="true" tabindex="-1"></a>                            ,<span class="at">allowParallel =</span> <span class="cn">TRUE</span></span>
+<span id="cb313-8"><a href="using-caret-for-training-and-assessing-models.html#cb313-8" aria-hidden="true" tabindex="-1"></a>                            )</span>
+<span id="cb313-9"><a href="using-caret-for-training-and-assessing-models.html#cb313-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb313-10"><a href="using-caret-for-training-and-assessing-models.html#cb313-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb313-11"><a href="using-caret-for-training-and-assessing-models.html#cb313-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Training different models</span></span>
+<span id="cb313-12"><a href="using-caret-for-training-and-assessing-models.html#cb313-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb313-13"><a href="using-caret-for-training-and-assessing-models.html#cb313-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#(1) Conditional Inference Tree</span></span>
+<span id="cb313-14"><a href="using-caret-for-training-and-assessing-models.html#cb313-14" aria-hidden="true" tabindex="-1"></a>  model.tree <span class="ot">&lt;-</span> <span class="fu">train</span>(Purchase <span class="sc">~</span> .</span>
+<span id="cb313-15"><a href="using-caret-for-training-and-assessing-models.html#cb313-15" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">data =</span> df.train</span>
+<span id="cb313-16"><a href="using-caret-for-training-and-assessing-models.html#cb313-16" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">method =</span> <span class="st">&quot;ctree2&quot;</span> <span class="co">#See list http://topepo.github.io/caret/train-models-by-tag.html</span></span>
+<span id="cb313-17"><a href="using-caret-for-training-and-assessing-models.html#cb313-17" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">trControl =</span> train.param</span>
+<span id="cb313-18"><a href="using-caret-for-training-and-assessing-models.html#cb313-18" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">metric =</span> <span class="st">&quot;ROC&quot;</span>)</span>
+<span id="cb313-19"><a href="using-caret-for-training-and-assessing-models.html#cb313-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb313-20"><a href="using-caret-for-training-and-assessing-models.html#cb313-20" aria-hidden="true" tabindex="-1"></a>  <span class="co">#(2) Random Forest</span></span>
+<span id="cb313-21"><a href="using-caret-for-training-and-assessing-models.html#cb313-21" aria-hidden="true" tabindex="-1"></a>  model.rf<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">train</span>(Purchase <span class="sc">~</span> .</span>
+<span id="cb313-22"><a href="using-caret-for-training-and-assessing-models.html#cb313-22" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">data =</span> df.train</span>
+<span id="cb313-23"><a href="using-caret-for-training-and-assessing-models.html#cb313-23" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">method =</span> <span class="st">&quot;rf&quot;</span></span>
+<span id="cb313-24"><a href="using-caret-for-training-and-assessing-models.html#cb313-24" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">ntree =</span> <span class="dv">10</span> <span class="co">#Number of trees to grow</span></span>
+<span id="cb313-25"><a href="using-caret-for-training-and-assessing-models.html#cb313-25" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">trControl =</span> train.param</span>
+<span id="cb313-26"><a href="using-caret-for-training-and-assessing-models.html#cb313-26" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">metric =</span> <span class="st">&quot;ROC&quot;</span>)</span>
+<span id="cb313-27"><a href="using-caret-for-training-and-assessing-models.html#cb313-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb313-28"><a href="using-caret-for-training-and-assessing-models.html#cb313-28" aria-hidden="true" tabindex="-1"></a>  <span class="co">#(3) Random Forest 2</span></span>
+<span id="cb313-29"><a href="using-caret-for-training-and-assessing-models.html#cb313-29" aria-hidden="true" tabindex="-1"></a>  model.rf<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">train</span>(Purchase <span class="sc">~</span> .</span>
+<span id="cb313-30"><a href="using-caret-for-training-and-assessing-models.html#cb313-30" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">data =</span> df.train</span>
+<span id="cb313-31"><a href="using-caret-for-training-and-assessing-models.html#cb313-31" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">method =</span> <span class="st">&quot;rf&quot;</span></span>
+<span id="cb313-32"><a href="using-caret-for-training-and-assessing-models.html#cb313-32" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">ntree =</span> <span class="dv">150</span> <span class="co">#Number of trees to grow</span></span>
+<span id="cb313-33"><a href="using-caret-for-training-and-assessing-models.html#cb313-33" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">trControl =</span> train.param</span>
+<span id="cb313-34"><a href="using-caret-for-training-and-assessing-models.html#cb313-34" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">metric =</span> <span class="st">&quot;ROC&quot;</span>)</span>
+<span id="cb313-35"><a href="using-caret-for-training-and-assessing-models.html#cb313-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb313-36"><a href="using-caret-for-training-and-assessing-models.html#cb313-36" aria-hidden="true" tabindex="-1"></a>  <span class="co">#(4) XGBoosting</span></span>
+<span id="cb313-37"><a href="using-caret-for-training-and-assessing-models.html#cb313-37" aria-hidden="true" tabindex="-1"></a>  model.xgboost <span class="ot">&lt;-</span> <span class="fu">train</span>(Purchase <span class="sc">~</span> .</span>
+<span id="cb313-38"><a href="using-caret-for-training-and-assessing-models.html#cb313-38" aria-hidden="true" tabindex="-1"></a>                         ,<span class="at">data =</span> df.train</span>
+<span id="cb313-39"><a href="using-caret-for-training-and-assessing-models.html#cb313-39" aria-hidden="true" tabindex="-1"></a>                         ,<span class="at">method =</span> <span class="st">&quot;xgbTree&quot;</span></span>
+<span id="cb313-40"><a href="using-caret-for-training-and-assessing-models.html#cb313-40" aria-hidden="true" tabindex="-1"></a>                         ,<span class="at">trControl =</span> train.param</span>
+<span id="cb313-41"><a href="using-caret-for-training-and-assessing-models.html#cb313-41" aria-hidden="true" tabindex="-1"></a>                         ,<span class="at">metric =</span> <span class="st">&quot;ROC&quot;</span></span>
+<span id="cb313-42"><a href="using-caret-for-training-and-assessing-models.html#cb313-42" aria-hidden="true" tabindex="-1"></a>                         ,<span class="at">tuneGrid =</span> <span class="fu">data.frame</span>(<span class="at">.nrounds =</span> <span class="dv">300</span> <span class="co">#Defining a table of tuning params</span></span>
+<span id="cb313-43"><a href="using-caret-for-training-and-assessing-models.html#cb313-43" aria-hidden="true" tabindex="-1"></a>                                                ,<span class="at">.max_depth =</span> <span class="dv">3</span></span>
+<span id="cb313-44"><a href="using-caret-for-training-and-assessing-models.html#cb313-44" aria-hidden="true" tabindex="-1"></a>                                                ,<span class="at">.eta =</span> <span class="fl">0.03</span></span>
+<span id="cb313-45"><a href="using-caret-for-training-and-assessing-models.html#cb313-45" aria-hidden="true" tabindex="-1"></a>                                                ,<span class="at">.gamma =</span> <span class="dv">0</span></span>
+<span id="cb313-46"><a href="using-caret-for-training-and-assessing-models.html#cb313-46" aria-hidden="true" tabindex="-1"></a>                                                ,<span class="at">.subsample =</span> <span class="fl">0.5</span></span>
+<span id="cb313-47"><a href="using-caret-for-training-and-assessing-models.html#cb313-47" aria-hidden="true" tabindex="-1"></a>                                                ,<span class="at">.colsample_bytree =</span> <span class="fl">0.1</span></span>
+<span id="cb313-48"><a href="using-caret-for-training-and-assessing-models.html#cb313-48" aria-hidden="true" tabindex="-1"></a>                                                ,<span class="at">.min_child_weight =</span> <span class="dv">1</span>))</span>
+<span id="cb313-49"><a href="using-caret-for-training-and-assessing-models.html#cb313-49" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb313-50"><a href="using-caret-for-training-and-assessing-models.html#cb313-50" aria-hidden="true" tabindex="-1"></a><span class="co">#Terminating the parallels</span></span>
+<span id="cb313-51"><a href="using-caret-for-training-and-assessing-models.html#cb313-51" aria-hidden="true" tabindex="-1"></a><span class="fu">stopCluster</span>(CoreCount)</span>
+<span id="cb313-52"><a href="using-caret-for-training-and-assessing-models.html#cb313-52" aria-hidden="true" tabindex="-1"></a><span class="fu">registerDoSEQ</span>()</span>
+<span id="cb313-53"><a href="using-caret-for-training-and-assessing-models.html#cb313-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb313-54"><a href="using-caret-for-training-and-assessing-models.html#cb313-54" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarizing the results</span></span>
+<span id="cb313-55"><a href="using-caret-for-training-and-assessing-models.html#cb313-55" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">resamples</span>(<span class="fu">list</span>(<span class="at">tree =</span> model.tree,</span>
+<span id="cb313-56"><a href="using-caret-for-training-and-assessing-models.html#cb313-56" aria-hidden="true" tabindex="-1"></a>                          <span class="at">rf.1  =</span> model.rf<span class="fl">.1</span>,</span>
+<span id="cb313-57"><a href="using-caret-for-training-and-assessing-models.html#cb313-57" aria-hidden="true" tabindex="-1"></a>                          <span class="at">rf.2  =</span> model.rf<span class="fl">.2</span>,</span>
+<span id="cb313-58"><a href="using-caret-for-training-and-assessing-models.html#cb313-58" aria-hidden="true" tabindex="-1"></a>                          <span class="at">xgboost =</span> model.xgboost)</span>
+<span id="cb313-59"><a href="using-caret-for-training-and-assessing-models.html#cb313-59" aria-hidden="true" tabindex="-1"></a>                     )</span>
+<span id="cb313-60"><a href="using-caret-for-training-and-assessing-models.html#cb313-60" aria-hidden="true" tabindex="-1"></a>results</span></code></pre></div>
+<pre><code>## 
+## Call:
+## resamples.default(x = list(tree = model.tree, rf.1 = model.rf.1, rf.2
+##  = model.rf.2, xgboost = model.xgboost))
+## 
+## Models: tree, rf.1, rf.2, xgboost 
+## Number of resamples: 5 
+## Performance metrics: ROC, Sens, Spec 
+## Time estimates for: everything, final model fit</code></pre>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="using-caret-for-training-and-assessing-models.html#cb315-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(results)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## summary.resamples(object = results)
+## 
+## Models: tree, rf.1, rf.2, xgboost 
+## Number of resamples: 5 
+## 
+## ROC 
+##              Min.   1st Qu.    Median      Mean   3rd Qu.      Max. NA&#39;s
+## tree    0.8381607 0.8602520 0.8619702 0.8757814 0.8795614 0.9389625    0
+## rf.1    0.8340697 0.8456881 0.8474063 0.8644739 0.8769432 0.9182622    0
+## rf.2    0.8390607 0.8616429 0.8712977 0.8737195 0.8877434 0.9088529    0
+## xgboost 0.8115693 0.8293242 0.8551792 0.8519064 0.8689249 0.8945344    0
+## 
+## Sens 
+##              Min.   1st Qu.    Median      Mean   3rd Qu.      Max. NA&#39;s
+## tree    0.8350515 0.8865979 0.8969072 0.8927835 0.9072165 0.9381443    0
+## rf.1    0.7628866 0.8041237 0.8247423 0.8494845 0.9175258 0.9381443    0
+## rf.2    0.8144330 0.8556701 0.8762887 0.8680412 0.8762887 0.9175258    0
+## xgboost 0.8247423 0.8762887 0.8865979 0.8865979 0.8969072 0.9484536    0
+## 
+## Spec 
+##              Min.   1st Qu.    Median      Mean   3rd Qu.      Max. NA&#39;s
+## tree    0.6190476 0.6666667 0.6825397 0.6888889 0.7142857 0.7619048    0
+## rf.1    0.6349206 0.6984127 0.7301587 0.7174603 0.7460317 0.7777778    0
+## rf.2    0.6349206 0.6984127 0.6984127 0.7142857 0.7460317 0.7936508    0
+## xgboost 0.6190476 0.6349206 0.6666667 0.6793651 0.7142857 0.7619048    0</code></pre>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="using-caret-for-training-and-assessing-models.html#cb317-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bwplot</span>(results)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-212-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="using-caret-for-training-and-assessing-models.html#cb318-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dotplot</span>(results)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-212-2.png" width="720" style="display: block; margin: auto;" /></p>
 
 </div>
             </section>
@@ -321,8 +460,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="tree-based-methods.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="subject-1-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="subject-1-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

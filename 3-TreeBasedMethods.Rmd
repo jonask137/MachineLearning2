@@ -312,7 +312,33 @@ __Notice, boosting in classification is a bit different and more complex, the de
 
 ## XGBoost
 
-See the XGBoost file.
+This is very similar to boosting as in the previous section. It has the following properties:
+
++ More efficient than normal boosting
++ Inspired by Adaboosting and normal gradient boosting
++ Handels both continious and qualitative variables
++ Avoids overfitting through regularization
+
+The idea and the evolution of xgboost shortly explained:
+
++ Boosting (sequentially building new classifiers using weights basing on outcomes of the previous ones)
++ Adaboost (ARCing, improving a predictor using iterative reweighting of incorrectly classified cases) -->
++ Boosted trees (each model in a chain of predictor corrects mistakes of the previous one) -->
++ Gradient Boosting (+ greedy optimization with gradient descent) -->
++ eXtreme Gradient Boosting (+ regularization to prevent overfitting + an efficient implementation)
+
+
+The tuning parameters are:
+  
++ Number of Boosting Iterations (nrounds, numeric) - length of chain
++ Max Tree Depth (max_depth, numeric) - depth of a tree (default: 6, typical: 3-10)
++ Shrinkage (eta, numeric) - reducing contribution of subsequent models by shrinking the weights (default: 0.3, typical: 0.01-0.2)
++ Minimum Loss Reduction (gamma, numeric) - spliting nodes only when the split gives positive reduction in the loss function (default: 0)
++ Subsample Ratio of Columns (colsample_bytree, numeric) - fraction of columns to be sampled randomly for each of the trees (default: 1, typical: 0.5-1)
++ Minimum Sum of Instance Weight (min_child_weight, numeric) - minimum sum of weight for a child node; protects overfit (default: 1)
++ Subsample Percentage (subsample, numeric) - fraction of observations to be sampled randomly for each of the trees (default: 1, typical: 0.5-1)
+
+
 
 
 ## Application in R
@@ -413,6 +439,9 @@ we have to define:
 + If classification, then type = "response". Thus, one get probabilities.
   + If type is not = "response", then we get the odds. We are interested in the probability, hence we must use type = "response"
 
+### XGBoost
+
+See the XGBoost file.
 
 
 ## Lab section
@@ -817,9 +846,9 @@ df.test <- df[-index,]
 
 # Iterating number of trees
 
-MSE.in <- rep(0,500)
-MSE.out <- rep(0,500)
-for (B in 1:500) {
+MSE.in <- rep(0,length(seq(from = 5,to = 500,by = 5)))
+MSE.out <- rep(0,length(seq(from = 5,to = 500,by = 5)))
+for (B in seq(from = 5,to = 500,by = 5)) {
   print(B)
   
   rf.boston <- randomForest(medv ~ .,data = df.train,ntree = B,mtry = 6,importance = TRUE)
@@ -842,13 +871,13 @@ registerDoParallel(CoreCount)
 
 # Iterating number of trees and parameters under evaluation
 
-MSE.1 <- rep(0,500)
-MSE.2 <- rep(0,500)
-MSE.3 <- rep(0,500)
+MSE.1 <- rep(0,length(seq(from = 5,to = 500,by = 5)))
+MSE.2 <- rep(0,length(seq(from = 5,to = 500,by = 5)))
+MSE.3 <- rep(0,length(seq(from = 5,to = 500,by = 5)))
 p <- length(df)-1
 p2 <- p/2
 sqrtp <- sqrt(p) #Notice that randomForest will automatically round
-for (B in 1:500) {
+for (B in seq(from = 5,to = 500,by = 5)) {
   print(B)
   
   rf.boston <- randomForest(medv ~ .,data = df.train,ntree = B,mtry = p,importance = TRUE)
@@ -1012,6 +1041,187 @@ rbind(mse.test.t0
 
 
 ### Exercise 9
+
+__(a) loading the data__
+
+```{r}
+library(ISLR)
+df <- OJ
+set.seed(123)
+index <- sample(1:nrow(df),size = 800)
+df.train <- df[index,]
+df.test <- df[-index,]
+rm(index)
+```
+
+__(b) fitting a tree to the train data__
+
+```{r}
+library(tree)
+
+set.seed(1337)
+fit.tree <- tree(Purchase ~ .,data = df.train)
+summary(fit.tree)
+```
+
+We see that the size of the tree is 8 terminal nodes. Where the error rate is 16.5% hence an accuracy is 83.5%.
+
+```{r}
+contrasts(df.train$Purchase)
+```
+
+We see that MM is the positive result. Hence we can check the null rate of the data.
+
+```{r}
+table(df.train$Purchase)[2]/sum(table(df.train$Purchase))
+```
+
+We see that if we predicted all purchases to be MM, then we would roughly have an accuracy of 40%. Hence the tree is far superior to the null model.
+
+__(c) Interpreting results for a node__
+
+```{r}
+fit.tree[1]
+```
+
+We see the 8 leafs (terminal nodes) and their probabilities for CH and MM. E.g., leaf no. 15 is almost always CH (95%), as out of the 293 observations that meet the conditions. Hence the purity of the leaf is rather high.
+
+We have more indecisive nodes, such as leaf no. 11, where 57% are CH and 43% are MM.
+
+
+__(d) Creating a plot of the tree__
+
+We create the plot with the `rpart` package in stead, which can produce a nicer plot.
+
+```{r}
+library(rattle)
+set.seed(1337)
+fit.tree <- rpart::rpart(Purchase ~ .,data = df.train)
+fancyRpartPlot(model = fit.tree)
+```
+
+We see that the tone of the color reflects the purity of the leads, where e.g., we have a node with 100% CH and 0% MM, although it only contain 1% of the overall data. But it is certainly pure. But perhaps it is overfitted?
+
+__(e) Predicting the test data__
+
+```{r}
+preds.tree <- predict(object = fit.tree,newdata = df.test,type = "class")
+
+library(caret)
+caret::confusionMatrix(data = preds.tree,df.test$Purchase)
+```
+
+We see a sensitivity of 85% and specificity of 77%. The overall error rate = 18,15%, which is higher (as expected) than the in sample error.
+
+__(d) Apply the cv.tree() to select optimal tree size__
+
+```{r}
+set.seed(1337)
+fit.tree <- tree(Purchase ~ .,data = df.train)
+fit.cv.tree <- cv.tree(object = fit.tree,K = 10)
+```
+
+The following plots both the deviance and the cost complexity in the same plot with double y axis'
+
+```{r,fig.cap="CV Tree atttributes"}
+par(mar = c(5, 4, 4, 4) + 0.3)  #Additional space for second y-axis
+
+#Plotting first series
+plot(x = fit.cv.tree$size,y = fit.cv.tree$dev
+     ,type = "l"
+     ,col = "darkblue"
+     ,ylab = ""
+     ,xlab = "Size"
+     ,main = "CV Tree Comparisons"
+     ,sub = "A doubled axis interpretation"
+     )
+
+#Adding y axis 1 name with colours
+mtext("Deviance",side = 2,line = 3,col = "darkblue")
+
+#Other details
+abline(h = fit.cv.tree$dev[which.min(fit.cv.tree$dev)],col = "red",lty = 4)
+
+#Adding a new plot on-top of the first
+par(new = TRUE)
+
+#Adding the second series accompanied by a new axis
+plot(x = fit.cv.tree$size,y = fit.cv.tree$k,col = "darkred"
+     ,type = "l"
+     ,axes = FALSE,xlab = "",ylab = "" #We want to avoid creating axis' and names on-top of what we already have
+     ,lty = 2
+     )
+
+#Adding y axis 2 ticks and labels
+axis(side = 4 #This is right, counting clockwise from the bottom
+     ,at = pretty(range(fit.cv.tree$k[2:length(fit.cv.tree$k)])) #I remove the first obs, as it is -Inf, that is not workgin
+     )
+
+#And axis name
+mtext("Cost Complexity",side = 4,line = 3,col = "darkred")
+
+#Other details
+grid()
+legend(x = "topright",legend = c("Deviance","TuningParam"),lty = 1:2,col = c("darkblue","darkred"),cex = 0.8)
+```
+
+We see that the optimal model appear to be of size 6. We could now train a pruned tree with 6 leaves. It is not done in this exercise.
+
+__(g) Plotting Misclassification rate (on train) against treesize__
+
+```{r}
+set.seed(1337)
+mcr <- as.vector(0) #misclassification rate
+idx <- 0
+for (T in sort(fit.cv.tree$size,decreasing = FALSE)[-1]) { #The first is removed as apparantly we need at least two leaves
+  idx <- idx + 1
+  fit.tree.prune <- prune.misclass(tree = fit.tree,best = T)
+  preds.tree <- predict(object = fit.tree.prune,newdata = df.train,type = "class")
+  mcr[idx] <- (1-mean(preds.tree==df.train$Purchase))
+}
+
+plot(x = sort(fit.cv.tree$size,decreasing = FALSE)[-1]
+     ,y = mcr,type = "l"
+     ,xlab = "Size"
+     ,ylab = "Misclassification rate"
+     ,main = "Misclassification rate at different sizes"
+     )
+grid()
+```
+
+
+__(h) Interpreting the plot above__
+
+We see that the model actually does not improve after a size of 4. Indicating that we should prune even more than previously discovered. That is a bit odd.
+
+__(i) Producing pruned tree__
+
+```{r}
+fit.tree.t4 <- prune.misclass(tree = fit.tree,best = 4)
+preds.tree <- predict(object = fit.tree.t4,newdata = df.train,type = "class")
+(1-mean(preds.tree==df.train$Purchase))
+```
+
+We see a misclassification rate of 16.5% for the pruned tree, where $T_0$ had a misclassification rate of 18.15%, which is higher than the pruned tree. Hence, we improved the model.
+
+__(j) comparing the results__
+
+We see that the pruned tree is performing better than the unpruned tree.
+
+__(k) Comparing test partition performance__
+
+```{r}
+{
+  preds.test.tree.t0 <- predict(object = fit.tree,newdata = df.test,type = "class")
+  preds.test.tree.t4 <- predict(object = fit.tree.t4,newdata = df.test,type = "class")
+  (1-mean(preds.test.tree.t0==df.test$Purchase)) %>% print() 
+  (1-mean(preds.test.tree.t4==df.test$Purchase)) %>% print()
+}
+```
+
+The models appear to perform equally good on the test partition. Hence we would prefer the pruned tree, as it is simpler, hence less flexibility.
+
+
 
 ### Exercise 10
 

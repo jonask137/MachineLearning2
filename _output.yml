@@ -6,7 +6,7 @@ documentclass: book
 description: "This is the book description"
 bookdown::gitbook:
   css: style.css
-  split_by: section
+  split_by: chapter
   download: ["pdf", "epub"]
   df_print: kable
   toc_depth: 6
