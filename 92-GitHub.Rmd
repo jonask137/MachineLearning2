@@ -1,0 +1,71 @@
+
+# Managing GitHub
+
+__Change to ML2__
+
++ `git remote -v`
++ `git remote rm origin`
++ `git remote add origin https://github.com/jonask137/MachineLearning2`
+
+__Change to CustomerAnalytics__
+
++ `git remote -v`
++ `git remote rm origin`
++ `git remote add origin https://github.com/jonask137/CustomerAnalytics`
+
+
+__Adding content__
+
++ `git commit -m "first commit"`
++ `git branch -M main`
++ `git remote add origin https://github.com/jonask137/DataScienceProject.git`
++ `git push -u origin main`
+
+
+__Viewing branches__
+
++ `git branch`
+
+__Creating a branch__
++ `git branch <name>`
+	e.g., `git branch feature1`
+	
+	+ Note:  This is a complete copy of the main branch
+	+ Note: If you write git branch again, you will see that the active branch is marked with green
+
+__Apply the new branch to where you are going to push the data__
++ `git checkout <BranchName>`
+	  + e.g., `git checkout feature1`
+	
+	+ Now you can make changes to the branch, that will not yet change the main branch.
+	+ If there will be an error, use the code that git suggests. Something about no upstream
+	+ Now git status, git add , and git commit, works as usually.
+	
+	+ Note: if you have several persons working on the same peaces, it may yield an error.
+	
+After you have pushed the data that you need to the branch you want to merge the branch back into the main.
+
+__Merging branch and main branch__
+
+_this could in practice also be between branches_
+
+Open github, make a pull request. Github will suggest that you look at the branches. Then when you have created a merge request, then someboy can finalize the merge then you can pull the code into the main branch. That is done by:
+
++ `git checkout main`. _Assuming that the main branch is called main, could also be master or something else_
++ `git pull`, this will pull the branch into the main branch.
+
+One could also delete the branch now. That is done from github
+
+\
+
+__The workflow summarized__
+
+https://www.youtube.com/watch?v=oFYyTZwMyAg this is a link to a nice video explaining the changes.
+
+1. Get a change/update request
+1. Create a branch
+1. Select that branch
+1. Commit changes to that branch and push the repo to then branch.
+1. Make a merge request and accept/reject.
+1. Pull the changes into master.
+    a. Perhaps delete the branch
