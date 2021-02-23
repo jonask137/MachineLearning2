@@ -4,7 +4,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Using CARET for training and assessing models
+# Structuring data transformation and model assessments
 
 We can train the model using Caret package which is an interface that supports many models.
 

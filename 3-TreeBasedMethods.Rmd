@@ -437,7 +437,7 @@ we have to define:
 + The test data
 + The amount of trees, that is with n.trees
 + If classification, then type = "response". Thus, one get probabilities.
-  + If type is not = "response", then we get the odds. We are interested in the probability, hence we must use type = "response"
+  + If type is not = "class", then we get the odds. We are interested in the probability, hence we must use type = "response"
 
 ### XGBoost
 
@@ -830,7 +830,7 @@ We see that the MSE is 17.22, with lambda = standard value of 0.001, hence it is
 
 ## Exercies
 
-### Exercise 7
+### Exercise 7 - Decision Tree Assessment
 
 ```{r,results = 'hide'}
 library(randomForest)
@@ -914,7 +914,7 @@ legend("topright",legend = c("m = p","m = p/2","m = sqrt(p)"),lty = c(1,1,1),col
 rm(list = ls())
 ```
 
-### Exercise 8
+### Exercise 8 - DT/RF/Boosting
 
 __(a) splitting the data__
 
@@ -1040,7 +1040,7 @@ rbind(mse.test.t0
 ```
 
 
-### Exercise 9
+### Exercise 9 - Decision Tree / Pruning
 
 __(a) loading the data__
 
@@ -1221,10 +1221,281 @@ __(k) Comparing test partition performance__
 
 The models appear to perform equally good on the test partition. Hence we would prefer the pruned tree, as it is simpler, hence less flexibility.
 
+```{r,include=FALSE}
+rm(list = ls())
+```
 
 
-### Exercise 10
+### Exercise 10 - Boosting/GAM/LinearReg/Bagging - Comparison
 
-### Exercise 11
+__(a) Loading the data__
+
+```{r}
+library(ISLR)
+df <- Hitters
+sum(is.na(Hitters$Salary))
+```
+
+We see that there are 59 observations without salary data. That we want to remove.
+
+```{r}
+index <- is.na(Hitters$Salary)
+df <- Hitters[!index,]
+df$Salary <- log(df$Salary) #Log of the salaries
+```
+
+__(b) Creating a train data set__
+
+```{r}
+df.train <- df[1:200,]
+df.test <- df[-1:-200,]
+```
+
+__(c) Performing boosting__
+
+```{r}
+library(gbm)
+B <- 1000
+lambda <- seq(from = 0.001,to = 0.1,by = 0.00099)
+idx <- 0
+mse <- rep(0,length(lambda))
+
+for (l in lambda) {
+  idx <- idx + 1
+  fit.boost <- gbm(Salary ~ .
+                 ,data = df.train
+                 ,n.trees = B
+                 ,distribution = "gaussian"
+                 ,shrinkage = l
+                 )
+  mse[idx] <- mean((fit.boost$fit - df.train$Salary)^2)
+}
+```
+
+In the loop above we have tested the model with different lambda values. This hyper parameter adjusts how quick the model learns. We can now plot the MSE against the tuning parameter.
+
+```{r}
+plot(x = lambda,y = mse,type = "l",main = "Shrinkage")
+grid()
+```
+
+We see as lambda increases, the MSE lowers. This makes sense, as the higher lambda, the quicker the model learns and the more it fits to the residuals of the previous model. It can often be seen as, the lower we have lambda the more models are required. As the model is fitted on the train data, it is also expected to perform better, as we gradually allow it to learn faster.
+
+_Notice, that the model is actually able to perfectly fit the train data_
+
+__(d) Testing the model__
+
+```{r}
+B <- 1000
+lambda <- seq(from = 0.001,to = 0.1,by = 0.00099)
+idx <- 0
+mse <- rep(0,length(lambda))
+
+for (l in lambda) {
+  idx <- idx + 1
+  fit.boost <- gbm(Salary ~ .
+                 ,data = df.train
+                 ,n.trees = B
+                 ,distribution = "gaussian"
+                 ,shrinkage = l
+                 )
+  preds.boost <- predict(object = fit.boost,newdata = df.test,n.trees = B)
+  mse[idx] <- mean((preds.boost - df.test$Salary)^2)
+}
+```
+
+Now we can plot this.
+
+```{r}
+plot(x = lambda,y = mse,type = "l",main = "Shrinkage")
+grid()
+```
+
+Here we see that we have a minimum around a tuning parameter of 0.04, hence somewhere in the middle.
+
+```{r}
+fit.boost <- gbm(Salary ~ .
+                 ,data = df.train
+                 ,n.trees = B
+                 ,distribution = "gaussian"
+                 ,shrinkage = lambda[which.min(mse)]
+                 )
+preds.boost <- predict(object = fit.boost,newdata = df.test,n.trees = B)
+mse.boost <- mean((preds.boost - df.test$Salary)^2)
+```
+
+
+__(e) Comparing to regression__
+
+Linear regression
+
+```{r}
+fit.lin <- lm(Salary ~ .,data = df.train)
+preds.lin <- predict(object = fit.lin,newdata = df.test)
+mse.lin <- mean((preds.lin - df.test$Salary)^2)
+```
+
+We also choose a smoothing smoothing spline with the three most correlating variables, hence we construct a gam.
+
+```{r}
+#Assessing correlation
+correl <- cor(y = df.train$Salary,x = df.train[,-c(14,15,19,20)])
+
+gam.df <- 2 #Tested different levels, and 2 appear to be the best
+
+library(gam)
+fit.gam <- gam(Salary ~ s(CRBI,gam.df) + s(CRuns,gam.df) + s(CHits,gam.df)
+               ,data = df.train)
+preds.gam <- predict(object = fit.gam,newdata = df.test)
+mse.gam <- mean((preds.gam - df.test$Salary)^2)
+```
+
+Comparison
+
+```{r}
+setNames(as.data.frame(rbind(mse.boost,mse.lin,mse.gam)),nm = "MSE")
+```
+
+We see that boosting is the better model, then gam and lastly the linear model.
+
+__(f) Variable importance boosting model__
+
+```{r}
+summary(fit.boost)
+```
+
+We see that CAtBat is far more important than the other variables. That is interesting, as that was merely the variable with the fourth most correlation with y. We do infact see that this model yields an importance that is rather different from assessing correalation, as we normally would.
+
+We can add that variable to the gam model, and see how it performs:
+
+```{r}
+gam.df <- 2 #Tested different levels, and 2 appear to be the best
+
+library(gam)
+fit.gam <- gam(Salary ~ s(CRBI,gam.df) + s(CRuns,gam.df) + s(CHits,gam.df) + s(CAtBat,gam.df)
+               ,data = df.train)
+preds.gam <- predict(object = fit.gam,newdata = df.test)
+mse.gam2 <- mean((preds.gam - df.test$Salary)^2)
+```
+
+Now we see, that the model does improve, and gam is actually performing better than Boosting.
+
+__(g) Applying bagging__
+
+```{r}
+library(randomForest)
+fit.bag <- randomForest(Salary ~ .,data = df.train
+                        ,mtry = length(df.train)-1) #No. of predictors
+
+preds.bag <- predict(fit.bag,newdata = df.test)
+mse.bag <- mean((preds.bag - df.test$Salary)^2)
+```
+
+
+__Comparison__
+
+```{r}
+setNames(as.data.frame(rbind(mse.boost
+                             ,mse.lin
+                             ,mse.gam
+                             ,mse.gam2
+                             ,mse.bag)),nm = "MSE")
+
+```
+
+We see that the bagging model is actually superior to all models.
+
+```{r,include=F}
+rm(list = ls())
+```
+
+
+### Exercise 11 - Boosting
+
+__(a) Loading and partitioning__
+
+```{r}
+df <- Caravan
+df$Purchase <- ifelse(df$Purchase == "Yes",yes = 1,no = 0)
+df.train <- df[1:1000,]
+df.test <- df[-1:-1000,]
+```
+
+__(b) Boosting__
+
+```{r}
+plot(df$Purchase)
+```
+
+We see that the response vector is a binary vector. It is also listed as a factor.
+
+```{r}
+fit.boost <- gbm(Purchase ~ .
+                 ,data = df.train
+                 ,n.trees = 1000
+                 ,shrinkage = 0.01
+                 ,distribution = "bernoulli" #Because we have binary outcome
+                 )
+summary(fit.boost)
+```
+
+We see that PPERSAUT, MKOOPLKA and MOPLHOOG are specifically important wher the rest gradually decreases. We also see a lot of variables that are of no importance.
+
+__(d) Predicting posterior probabilities__
+
+```{r}
+probs.boost <- predict(object = fit.boost,newdata = df.test
+                       ,type = "response" #Response yields posterior probabilities
+                       ,n.trees = 1000)
+preds.boost <- ifelse(probs.boost > 0.2,1,0)
+confusionMatrix(data = as.factor(preds.boost)
+                ,reference = as.factor(df.test$Purchase)
+                ,positive = "1")
+```
+
+We see that we have a high accuracy, but the sensitivity (true positive) is really low. We can check the null rate.
+
+```{r}
+table(df.test$Purchase)[1]/sum(table(df.test$Purchase))
+```
+
+We see that the prior probability for 0 (no purchase) is 94%, hence if we predicted everyone to not buy, then the overall accuracy would be better, although the sensitivity would be 0.
+
+We see that $258+31 = 289$ and we predicted 31 to make a purchase. Hence we cought $31/289*100=10.7%$, i.e., the sensitivity (true positive rate).
+
+We can now try to use KNN to see how that performs.
+
+```{r}
+#KNN
+library(class)
+
+#Constructing Model Matrix to remove y
+mm.train <- model.matrix(Purchase ~ .,data = df.train)[,-1] #Removing intercept
+mm.test <- model.matrix(Purchase ~ .,data = df.test)[,-1] #Removing intercept
+
+#Making the predictions
+knn.pred <- knn(train = mm.train
+                ,test = mm.test
+                ,cl = df.train$Purchase
+                ,k = 2) #Tested a few, 2 appear to be best
+
+#Confusion matrix
+confusionMatrix(data = as.factor(knn.pred)
+                ,reference = as.factor(df.test$Purchase)
+                ,positive = "1")
+```
+
+We see that the sensitivity is higher for the KNN model.
+
+```{r,include=F}
+rm(list = ls())
+```
+
 
 ### Exercise 12
+
+__Description__
+
+Apply boosting, bagging, and random forests to a data set of your choice. Be sure to fit the models on a training set and to evaluate their performance on a test set. How accurate are the results compared to simple methods like linear or logistic regression? Which of these approaches yields the best performance?
+
+__Not done__
