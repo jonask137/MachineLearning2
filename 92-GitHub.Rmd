@@ -1,6 +1,12 @@
 
 # Managing GitHub
 
+Good examples if something goes sideways https://ohshitgit.com
+
+__Notes when setting up__
+
+If you select the HTTPS instead of  the SSH, then you will be asked a password before being able to push the data. This can be avoided by using the SSH key instead.
+
 __Change to ML2__
 
 + `git remote -v`
@@ -69,3 +75,15 @@ https://www.youtube.com/watch?v=oFYyTZwMyAg this is a link to a nice video expla
 1. Make a merge request and accept/reject.
 1. Pull the changes into master.
     a. Perhaps delete the branch
+    
+__Commands__
+
++ git status: watch the status of the branch
++ git branch: see a list of branches and the active branch
+    + git branch <name>: creating a new branch
++ git checkout <branch name>: making the specified branch the active branch
++ git add --all: Prepares all files for commitment
++ git commit -m"Message": Commits the added contents
++ git push: pushes the data to the repo
+    + You may need to specify where it should be pushed, git will tell you that
++ git pull: merging two branches when the changes are accepted on github.

@@ -19,7 +19,7 @@ fig:TreePruningHitters
 eq:BaggingTrees
 eq:deviance
 eq:ResidualMeanDeviance
-fig:unnamed-chunk-201
+fig:unnamed-chunk-202
 introduction
 moving-beyond-linearity
 models-beyond-linearity
@@ -124,7 +124,9 @@ exercise-9---decision-tree-pruning
 exercise-10---boostinggamlinearregbagging---comparison
 exercise-11---boosting
 exercise-12
+casestudy
 support-vector-machines
 deep-learning-fundamentals
 structuring-data-transformation-and-model-assessments
+managing-github
 references

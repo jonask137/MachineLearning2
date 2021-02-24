@@ -12,3 +12,8 @@ pre {
 pre code {
   white-space: inherit;
 }
+
+.greenbox {border:2px solid powderblue;
+           font-family: courier;
+           background-color: green
+}
