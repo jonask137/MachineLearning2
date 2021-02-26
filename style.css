@@ -12,3 +12,16 @@ pre {
 pre code {
   white-space: inherit;
 }
+
+.lightbluebox{
+          background-color: lightblue;
+          border-style: solid;
+          border-width: 1px;
+          border-color: lightblue;
+          text-align: center;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          border-radius: 0 20px 10px 0;
+          margin-left: 30px;
+          margin-right: 30px;
+}

@@ -1702,7 +1702,7 @@ gam.check(gam.mgcv)
 
 
 
-## Predicting the Return on Advertising Spent {#FacebookCasestudy}
+## Casestudy - Predicting the Return on Advertising Spent {#FacebookCasestudy}
 
 ```{r,echo=FALSE}
 detach("package:mgcv", unload=TRUE)

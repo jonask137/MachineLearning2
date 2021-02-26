@@ -1,3 +1,265 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 
 
 # Support Vector Machines
+
+This deals with classification and it is also extended to be able to deal with multiple classes.
+
+The Support Vector Machine is a generalization of a simple and intuitive classifer called the *maximal margin classifier*, which is elaborated further in the following section. Although it only works is the classes that are clearly seperateable, which is rarely the case. Therefore the Support Vector Machine is created. The sections firstly describes the Maximal Vector Machine and then extends with the Support Vector Machines. It should be clearly noted, that *Maximal Margin Classifier ≈ Support Vector Machine*. Even though people tend to not distinguish, there is a clear difference between the capabilities and charactaristics of the two appraoches.
+
+## Maximal Vector Machines
+
+This is a method where we apply optimal separating hyperplane. Before continuing, we first define what a hyperplane is.
+
+### What is a hyperplane?
+
+It is a $(p-1)$ dimensional flat substance. It is visualizable when $p =< 3$, as it is a flat two-dimensional subspace. But when p gets larger than 3, then it is difficult to visualize.
+
+In a two dimensional space the function is the following:
+
+\begin{equation}
+\beta_0+\beta_1X_1+\beta_2X_2 = 0
+(\#eq:Hyperplane2d)
+\end{equation}
+
+Notice that this is merely a line, since a two dimensional space is a line. This means that for any $X=(X_1,X_2)^T$ is a point on the hypeplane.
+
+We can extend the equation above tow more dimensions by:
+
+\begin{equation}
+\beta_0+\beta_1X_1+\beta_2X_2 ... \beta_pX_p = 0
+(\#eq:Hyperplanepd)
+\end{equation}
+
+Hence the same analogy applies, if a point $X = (X_1,X_2,...,X_p)^T$ satisfies the equation above, then it is on the hyperplane, and well if not, then it is not on the hyperplane, meaning on one or the other side of the hyperplane. This can be written with:
+
+\begin{equation}
+\beta_0+\beta_1X_1+\beta_2X_2 ... \beta_pX_p > 0
+(\#eq:HyperplanepdGreaterthan)
+\end{equation}
+
+\begin{equation}
+\beta_0+\beta_1X_1+\beta_2X_2 ... \beta_pX_p < 0
+(\#eq:HyperplanepdSmallerthan)
+\end{equation}
+
+Thus, what the hyperplane does, it that it divides the whole space into two separate regions, hence classifying the observations.
+
+A two dimensional hyperplane can be shown with:
+
+```{r 2dhyperplane,echo=FALSE,fig.cap="2D Hyperplane"}
+knitr::include_graphics(rep("Images/2DHyperplane.png"))
+```
+
+We see that all the blue dots refer to a sceneario explained in equation \@ref(eq:HyperplanepdGreaterthan) and the red dots to a scenario \@ref(eq:HyperplanepdSmallerthan), but merely with X0, X1, and X2.
+
+\
+
+### Classification Using a Separating Hyperplane
+
+Suppose that we have a $n x p$ data paxtrix __X__ that consists of _n_ training observations in a p-dimnesional space.
+
+\begin{equation}
+x_{1} = 
+ \begin{pmatrix}
+  x_{11} \\
+  \vdots  \\
+  x_{1p} 
+ \end{pmatrix},...,x_n=
+ \begin{pmatrix}
+  x_{n1} \\
+  \vdots  \\
+  x_{np} 
+ \end{pmatrix}
+(\#eq:nxpDataMatrix)
+\end{equation}
+
+Where the observations response belongs to one of two classes, that can be written as $y_1,...,y_n\in\text{{-1,1}}$. Then the goal is to correctly classify test observations $x^*=(x^*_1...x^*_p)$.
+
+We have previously seen such methods, such as logistic regression and LDA, where this separation is done based on a hypeplane approach, where instead of classifying based on probabilities and a cut-off value, our hyperplane is the cut-off, that decides whether an observation is class 0 or 1, based on where it lies relative to the hyperplane, see the equations \@ref(eq:Hyperplanepd). Such examples can we seen with the following:
+
+```{r hyperplane,echo=FALSE,fig.cap="Hyperplane"}
+knitr::include_graphics(rep("Images/fig9.2Hyperplane.png"))
+```
+
+Where we see that the line (2 dimensional hyperplane) separates the space into two subspaces. The intuition is now the same as represented in figure \@ref(fig:2dhyperplane).
+
+
+### The Maximal Margin Classifier
+
+When looking at \@ref(fig:hyperplane) we see that the observations can be clearly split, and there are in fact an infinite amount of hyperplanes that can be drawn. So now comes the question ***what hyperplane to choose then?***
+
+This is where we introduce the *Maximal Margin Classifier* which fits a line that maximize the distance from the observation to the hyperplane, hence it is not necesarily the observations closed to the class of observations, but the observations under evaluation will always be those 'at the border' og the observations in the specific group of observations for the class. When these observations are identified, we are able to draw the hyperplane with the maximized margin, see the following:
+
+```{r MaximumMarginClassifier,echo=FALSE,fig.cap="Maximum Margin Classifer"}
+knitr::include_graphics(rep("Images/fig9.3MaximumMarginClassifier.png"))
+```
+
+Now we see that hyperplane is only dependent on three observations, meaning by changing all other observations, the hyperplane and hence the classification will not change, unless they get closer to the hyperplane, than the support vectors (i.e., within the margins). In other words, by moving one of the *support vectors*, the whole hyperplane will change as well. ***Thus, this is something an analyst using maximal margin classfier, must be aware of.***
+
+We see the margins, which are the space between the support vectors and the hyperplane and the arrows reflect the distance between the support vectors and the hyperplane. 
+
+*But what can we deduct from the distance from any observation to the hyperplane?*
+
+The further an observation is from the hyperplane, the more certain is it, that it is correctly classified, and thus the closer it is to the hyperplane, the more certainty for misclassification.
+
+
+<div class="lightbluebox">
+
+Thefore the support vectors = the observations closest and with equal length to the hyperplane
+
+</div>
+
+
+We often see, that the maximal margin classifer is successfull, but when p is large, **there is a risk of overfitting**.
+
+
+\
+
+### Construction of the Maximal Margin Classifer {#ConstructMMC}
+
+Let us say that we have a *maximal margin hyperplane*, that is based on a data set of the following:
+
++ $x_1,...,x_n \in \mathbb{R}^p$ meaning that we have countable (real number) of parameters *(i think that is what it means)*
++ Which has the following class labels associated $y_1,...,y_n\in \text{{-1,1}}$.
+
+The optimization of the hyperplane is the done on two constraints:
+
+1. Maxmize the margins, which is given by.
+
+\begin{equation}
+\text{maximize M} \\ \beta_0,\beta_1,...,\beta_p,M
+(\#eq:MaximizeMargins)
+\end{equation}
+
+|   Where M = the margin. Which we want to maximize.
+
+2. Guarantee that each observations will be on the correct side of the hyperplane, provided that M is positive. This consists of two parts.
+
+\begin{equation}
+\text{subject to} \sum_{j=1}^p\beta^2_j = 1
+(\#eq:Constraint21)
+\end{equation}
+
+\begin{equation}
+y_i(\beta_0 + \beta_1x_1 + \beta_2x_2+...+\beta_px_{ip})\leq\text{M }\forall i = 1,...,n
+(\#eq:Constraint22)
+\end{equation}
+
+|   Where the *i'th* observation distance to the hyperplane is given by $y_i(\beta_0 + \beta_1x_1 + \beta_2x_2+...+\beta_px_{ip})$ and that distance is greater than or equal to the maximized margin for all n observations.
+
+
+\
+
+### The Non-separable Case
+
+So far it is covered where the classes can be separated, but often that is not the case. It will with the following show examples where the observations are not clearly seperateable. Hence one cannot contruct the a hyperplane according to the maximal margin classifier, sence one simply cannot make the margins.
+
+Therefore, *soft margins* are introduced, where one is intentionally misclassifying observations, and thus the maximal margin classifier is generalized. This scenario is called the ***Support Vector Classifier***, which is elaborated in the following.
+
+
+## Support Vector Classifiers
+
+### Overview of the Support Vector Classifier
+
+***Recap of what we already know***
+
++ The hyperplane used for classification has been optimized for maximial margins to to the observations. By adjusting one of the support vectors (those that are used to estimate the hyperplane) the whole hyperplane will be reevaluated. This is strong **disadvantage**, as for classification of the test data, we are likely to see a great change in the classifications, see an example in figure \@ref(fig:MMCVolatility)
++ It is assumed, that one is able to clearly distinguish between the two classes. That is rarely the case. See an example in figure \@ref(fig:InseperatableClasses).
++ Support Vectors are only observations that are on the margins of the hyperplane.
+
+**The new concept**
+
+We allow the model to intentionally misclassify observations, hence we fit a hyperplane that does *not* perfectly separate the two classes. Therefore training observations may lie in the margins of the correct side, but also go beyond the hyperplane, see an example of this, where observations are in the margins and on the wrong side, in figure \@ref(SoftMargins).
+
+We get the following **advantages**
+
+1. Greater robustness to individual observations. Hence the model will not change as dramastically as with maximum margin classifer. Thus we introduce more model bias, recall the bias-variance tradeoff.
+2. Better classification of most of the training data.
+
+
+```{r InseperatableClasses,echo=FALSE,fig.cap="Inseperatable classes"}
+knitr::include_graphics(rep("Images/fig9.4.png"))
+```
+
+```{r MMCVolatility,echo=FALSE,fig.cap="Volatility in MMC"}
+knitr::include_graphics(rep("Images/fig9.5.png"))
+```
+
+```{r SoftMargins,echo=FALSE,fig.cap="Applying soft margins"}
+knitr::include_graphics(rep("Images/fig9.6.png"))
+```
+
+
+### Details of the Support Vector Classifer
+
+So now we can't follow the optimization procedure as specified in section \@ref(ConstructMMC), as the we cannot satisfy the constraint, that all observations must either be on the margin or furher away from the margin. Thus we have a changed optimization procedure, where the ***slack variable*** is introduced.
+
+**The optimization process is now as following:**
+
+1. First we maximize the margins given the coefficients and slacks, hence:
+
+\begin{equation}
+\text{maximize M} \\ \beta_0,\beta_1,...,\beta_p,e_1,...,e_n,M
+(\#eq:MaximizeMarginsSVC)
+\end{equation}
+
+2. Where the sum of the betas squared are still = 1, but we introduce the slack variable.
+
+  a. Sum of betas
+
+\begin{equation}
+\text{subject to} \sum_{j=1}^p\beta^2_j = 1
+(\#eq:Constraint21SVC)
+\end{equation}
+
+  b. The slack variable, explained after.
+  
+\begin{equation}
+e_i \geq 0,\text{ }\sum_{i=1}^n\leq C
+(\#eq:Constraint22SVC)
+\end{equation}
+
+  c. And hence we get
+  
+\begin{equation}
+y_i(\beta_0 + \beta_1x_1 + \beta_2x_2+...+\beta_px_{ip})\leq\text{M }(1-e_i)
+(\#eq:Constraint23SVC)
+\end{equation}
+
+
+__The slack variable $(e)$:__ The observations can fall into one of three categories of slack:
+
+1. When $e_i=0$, meaning when $e$ of the $i'th$ observation is on the correct side of the margins.
+2. When $e_i>0$, meaning when $e$ of the $i'th$ observation is on the wrong side of the margins.
+3. When $e_i>1$, meaning when $e$ of the $i'th$ observation is on the wrong side of the hyperplane.
+
+Notice that we need to specify C in equation \@ref(eq:Constraint22SVC), as the sum of all slacks must be below or equal to a given level. Thus we are effectively able to manipulate the level of slack we introduce to the model, thus **C = tuning parameter** for the Support Vector Classifier. This is generally chosen via cross-validation.
+
+*Notice when C = 0, then we are merely having the Maximid Margin Classifer scenario.*
+
+Since we impose slack in the optimization process, we also add more observations to the set of support vectors, meaning that the support vectors are now both the observations on the margin and observations violating the margins (i.e., on the wrong side of the margin).
+
+<div class="lightbluebox">
+
+The support vectors are now both the observations on the margin and observations violating the margins.
+
+</div>
+
+There as we increase the allowance for slack we also widen the margins. The following figure, show examples where the slack is gradually decreased.
+
+```{r SVCDiffC,echo=FALSE,fig.cap="Support Vector Classifiers with different C"}
+knitr::include_graphics(rep("Images/fig9.7SVCDiffC.png"))
+```
+
+We see with the highst value of the tuning parameter, all observations are support vectors, thus a large change in on observation will not change to a big change in the hyperplaned. Looking at the top left, we have not imposed as much slack and the non-support vectors are (not influential of the hyperplane) are encircled with green.
+
+## SVMs with More than Two Classes
+
+## Relationship to logistic regression
+
+## Lab

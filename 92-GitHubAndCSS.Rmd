@@ -1,0 +1,124 @@
+
+# Github and CSS styling
+
+## Managing GitHub
+
+Good examples if something goes sideways https://ohshitgit.com
+
+__Notes when setting up__
+
+If you select the HTTPS instead of  the SSH, then you will be asked a password before being able to push the data. This can be avoided by using the SSH key instead.
+
+__Change to ML2__
+
++ `git remote -v`
++ `git remote rm origin`
++ `git remote add origin https://github.com/jonask137/MachineLearning2`
+
+__Change to CustomerAnalytics__
+
++ `git remote -v`
++ `git remote rm origin`
++ `git remote add origin https://github.com/jonask137/CustomerAnalytics`
+
+
+__Adding content__
+
++ `git commit -m "first commit"`
++ `git branch -M main`
++ `git remote add origin https://github.com/jonask137/DataScienceProject.git`
++ `git push -u origin main`
+
+
+__Viewing branches__
+
++ `git branch`
+
+__Creating a branch__
++ `git branch <name>`
+	e.g., `git branch feature1`
+	
+	+ Note:  This is a complete copy of the main branch
+	+ Note: If you write git branch again, you will see that the active branch is marked with green
+
+__Apply the new branch to where you are going to push the data__
++ `git checkout <BranchName>`
+	  + e.g., `git checkout feature1`
+	
+	+ Now you can make changes to the branch, that will not yet change the main branch.
+	+ If there will be an error, use the code that git suggests. Something about no upstream
+	+ Now git status, git add , and git commit, works as usually.
+	
+	+ Note: if you have several persons working on the same peaces, it may yield an error.
+	
+After you have pushed the data that you need to the branch you want to merge the branch back into the main.
+
+__Merging branch and main branch__
+
+_this could in practice also be between branches_
+
+Open github, make a pull request. Github will suggest that you look at the branches. Then when you have created a merge request, then someboy can finalize the merge then you can pull the code into the main branch. That is done by:
+
++ `git checkout main`. _Assuming that the main branch is called main, could also be master or something else_
++ `git pull`, this will pull the branch into the main branch.
+
+One could also delete the branch now. That is done from github
+
+\
+
+__The workflow summarized__
+
+https://www.youtube.com/watch?v=oFYyTZwMyAg this is a link to a nice video explaining the changes.
+
+1. Get a change/update request
+1. Create a branch
+1. Select that branch
+1. Commit changes to that branch and push the repo to then branch.
+1. Make a merge request and accept/reject.
+1. Pull the changes into master.
+    a. Perhaps delete the branch
+    
+__Commands__
+
++ git status: watch the status of the branch
++ git branch: see a list of branches and the active branch
+    + git branch <name>: creating a new branch
++ git checkout <branch name>: making the specified branch the active branch
++ git add --all: Prepares all files for commitment
++ git commit -m"Message": Commits the added contents
++ git push: pushes the data to the repo
+    + You may need to specify where it should be pushed, git will tell you that
++ git pull: merging two branches when the changes are accepted on github.
+
+
+
+## CSS Styling
+
+We can do two things:
+
+1. Make inline styling
+1. Define classes, that are callable in the text editor.
+
+__Inline modification__
+
+For example we are able to change the <span style="color: red;">color</span> of the text by using inline css. For this we use: <span styel="TheArgumentsHere"> ... text ... </span>. Notice that we cannot wrap around bullets etc. this should be kept to one line in the editor.
+
+__Classes__
+
+We are able to modify the style of the text by creating classes in the that we are able to call. This is done by creating the style in the css file. See the example below.
+
+.lightbluebox{
+          background-color: lightblue;
+          border-style: solid;
+          border-width: 1px;
+          border-color: lightblue;
+}
+
+
+<div class="lightbluebox">
+
+We see that the name `lightbluebox` is what is callable in the text. That can be done with a <div class="lightbluexo">... text ...</div>. Hence, <div class="nameofclass"> and then do the text and end it with </div>
+
+Note that with this we are able to wrap around a chunk of text and not just inline text.
+
+</div>

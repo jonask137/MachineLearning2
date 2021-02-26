@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Github and CSS styling | Machine Learning for Business Intelligence 2</title>
+  <meta name="description" content="7 Github and CSS styling | Machine Learning for Business Intelligence 2" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7 Github and CSS styling | Machine Learning for Business Intelligence 2" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 Github and CSS styling | Machine Learning for Business Intelligence 2" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="structuring-data-transformation-and-model-assessments.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>setup</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html"><i class="fa fa-check"></i><b>2</b> Moving Beyond Linearity</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#models-beyond-linearity"><i class="fa fa-check"></i><b>2.1</b> Models Beyond Linearity</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#polynomial-regression"><i class="fa fa-check"></i><b>2.1.1</b> Polynomial Regression</a>
+<ul>
+<li class="chapter" data-level="2.1.1.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#beta-coefficients-and-variance"><i class="fa fa-check"></i><b>2.1.1.1</b> Beta coefficients and variance</a></li>
+<li class="chapter" data-level="2.1.1.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#application-procedure"><i class="fa fa-check"></i><b>2.1.1.2</b> Application procedure</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#step-functions"><i class="fa fa-check"></i><b>2.1.2</b> Step Functions</a></li>
+<li class="chapter" data-level="2.1.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#regression-splines"><i class="fa fa-check"></i><b>2.1.3</b> Regression Splines</a>
+<ul>
+<li class="chapter" data-level="2.1.3.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#piecewise-polynomials"><i class="fa fa-check"></i><b>2.1.3.1</b> Piecewise Polynomials</a></li>
+<li class="chapter" data-level="2.1.3.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#constraints-and-splines"><i class="fa fa-check"></i><b>2.1.3.2</b> Constraints and Splines</a></li>
+<li class="chapter" data-level="2.1.3.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#choosing-the-number-and-location-of-the-knots"><i class="fa fa-check"></i><b>2.1.3.3</b> Choosing the number and location of the Knots</a></li>
+<li class="chapter" data-level="2.1.3.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#degrees-of-freedom"><i class="fa fa-check"></i><b>2.1.3.4</b> Degrees of freedom</a></li>
+<li class="chapter" data-level="2.1.3.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#comparison-with-polynomial-regression"><i class="fa fa-check"></i><b>2.1.3.5</b> Comparison with Polynomial Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#smoothing-splines"><i class="fa fa-check"></i><b>2.1.4</b> Smoothing Splines</a>
+<ul>
+<li class="chapter" data-level="2.1.4.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#choosing-optimal-tuning-parameter"><i class="fa fa-check"></i><b>2.1.4.1</b> Choosing optimal tuning parameter</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#local-regression"><i class="fa fa-check"></i><b>2.1.5</b> Local Regression</a></li>
+<li class="chapter" data-level="2.1.6" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#generalized-additive-models"><i class="fa fa-check"></i><b>2.1.6</b> Generalized Additive Models</a>
+<ul>
+<li class="chapter" data-level="2.1.6.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#feature-selection"><i class="fa fa-check"></i><b>2.1.6.1</b> Feature Selection</a></li>
+<li class="chapter" data-level="2.1.6.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#gam-for-regression-problems"><i class="fa fa-check"></i><b>2.1.6.2</b> GAM for regression problems</a>
+<ul>
+<li class="chapter" data-level="2.1.6.2.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#interpretation-of-output"><i class="fa fa-check"></i><b>2.1.6.2.1</b> Interpretation of output</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1.6.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#gam-for-classification-problems"><i class="fa fa-check"></i><b>2.1.6.3</b> GAM for classification problems</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1.7" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#model-assessment"><i class="fa fa-check"></i><b>2.1.7</b> Model assessment</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#lecture-notes"><i class="fa fa-check"></i><b>2.2</b> Lecture notes</a></li>
+<li class="chapter" data-level="2.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#lab-section"><i class="fa fa-check"></i><b>2.3</b> Lab section</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#polynomial-regression-and-step-functions"><i class="fa fa-check"></i><b>2.3.1</b> Polynomial Regression and Step Functions</a>
+<ul>
+<li class="chapter" data-level="2.3.1.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#continous-model"><i class="fa fa-check"></i><b>2.3.1.1</b> Continous model</a></li>
+<li class="chapter" data-level="2.3.1.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#logarithmic-model"><i class="fa fa-check"></i><b>2.3.1.2</b> Logarithmic model</a></li>
+<li class="chapter" data-level="2.3.1.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#step-function"><i class="fa fa-check"></i><b>2.3.1.3</b> Step function</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#splines"><i class="fa fa-check"></i><b>2.3.2</b> Splines</a>
+<ul>
+<li class="chapter" data-level="2.3.2.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#basis-function-splines"><i class="fa fa-check"></i><b>2.3.2.1</b> Basis Function Splines</a></li>
+<li class="chapter" data-level="2.3.2.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#natural-splines"><i class="fa fa-check"></i><b>2.3.2.2</b> Natural Splines</a></li>
+<li class="chapter" data-level="2.3.2.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#smooth-splines"><i class="fa fa-check"></i><b>2.3.2.3</b> Smooth Splines</a></li>
+<li class="chapter" data-level="2.3.2.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#local-regression-1"><i class="fa fa-check"></i><b>2.3.2.4</b> Local Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#gams"><i class="fa fa-check"></i><b>2.3.3</b> GAMs</a>
+<ul>
+<li class="chapter" data-level="2.3.3.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#with-only-natural-splines"><i class="fa fa-check"></i><b>2.3.3.1</b> With only natural splines</a></li>
+<li class="chapter" data-level="2.3.3.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#with-different-splines"><i class="fa fa-check"></i><b>2.3.3.2</b> With different splines</a></li>
+<li class="chapter" data-level="2.3.3.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#but-what-variables-to-include"><i class="fa fa-check"></i><b>2.3.3.3</b> But what variables to include?</a></li>
+<li class="chapter" data-level="2.3.3.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#gam-with-local-regression"><i class="fa fa-check"></i><b>2.3.3.4</b> GAM with local regression</a></li>
+<li class="chapter" data-level="2.3.3.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#logistic-regression"><i class="fa fa-check"></i><b>2.3.3.5</b> Logistic Regression</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#exercises"><i class="fa fa-check"></i><b>2.4</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#exercise-6"><i class="fa fa-check"></i><b>2.4.1</b> Exercise 6</a>
+<ul>
+<li class="chapter" data-level="2.4.1.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#a-polynomial-regression"><i class="fa fa-check"></i><b>2.4.1.1</b> 6.a Polynomial Regression</a></li>
+<li class="chapter" data-level="2.4.1.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#b-step-function"><i class="fa fa-check"></i><b>2.4.1.2</b> 6.b Step function</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#exercise-7"><i class="fa fa-check"></i><b>2.4.2</b> Exercise 7</a></li>
+<li class="chapter" data-level="2.4.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#exercise-8"><i class="fa fa-check"></i><b>2.4.3</b> Exercise 8</a></li>
+<li class="chapter" data-level="2.4.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#exercise-9"><i class="fa fa-check"></i><b>2.4.4</b> Exercise 9</a>
+<ul>
+<li class="chapter" data-level="2.4.4.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#a-using-poly-function-to-fit-cubic-polynomial-regression"><i class="fa fa-check"></i><b>2.4.4.1</b> (a) using poly function to fit cubic polynomial regression</a></li>
+<li class="chapter" data-level="2.4.4.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#b-plotting-polynomial-fits-for-a-range-of-polynomials"><i class="fa fa-check"></i><b>2.4.4.2</b> (b) Plotting polynomial fits for a range of polynomials</a></li>
+<li class="chapter" data-level="2.4.4.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#c-using-cv-to-select-best-degree-of-d"><i class="fa fa-check"></i><b>2.4.4.3</b> (c) Using CV to select best degree of d</a></li>
+<li class="chapter" data-level="2.4.4.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#d-use-bs-to-fit-a-regression-spline"><i class="fa fa-check"></i><b>2.4.4.4</b> (d) Use <code>bs()</code> to fit a regression spline</a></li>
+<li class="chapter" data-level="2.4.4.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#e-now-fit-a-regression-spline"><i class="fa fa-check"></i><b>2.4.4.5</b> (e) Now fit a regression spline</a></li>
+<li class="chapter" data-level="2.4.4.6" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#f-perform-cross-validation-to-select-degrees"><i class="fa fa-check"></i><b>2.4.4.6</b> (f) Perform cross-validation, to select degrees</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#exercise-10"><i class="fa fa-check"></i><b>2.4.5</b> Exercise 10</a>
+<ul>
+<li class="chapter" data-level="2.4.5.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#a-partitioning-the-data"><i class="fa fa-check"></i><b>2.4.5.1</b> (a) Partitioning the data</a></li>
+<li class="chapter" data-level="2.4.5.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#b-fitting-a-gam"><i class="fa fa-check"></i><b>2.4.5.2</b> (b) Fitting a GAM</a></li>
+<li class="chapter" data-level="2.4.5.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#c-evaluating-on-the-test-set"><i class="fa fa-check"></i><b>2.4.5.3</b> (c) Evaluating on the test set</a></li>
+<li class="chapter" data-level="2.4.5.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#d-which-variables-appear-to-have-a-non-linear-relationship"><i class="fa fa-check"></i><b>2.4.5.4</b> (d) Which variables appear to have a non linear relationship?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#FacebookCasestudy"><i class="fa fa-check"></i><b>2.5</b> Casestudy - Predicting the Return on Advertising Spent</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#background"><i class="fa fa-check"></i><b>2.5.1</b> 1. Background</a></li>
+<li class="chapter" data-level="2.5.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#case-study-business-understanding-phase"><i class="fa fa-check"></i><b>2.5.2</b> 2. Case study (Business Understanding Phase)</a></li>
+<li class="chapter" data-level="2.5.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#the-data-data-understanding-phase"><i class="fa fa-check"></i><b>2.5.3</b> 3. The data (Data Understanding Phase)</a></li>
+<li class="chapter" data-level="2.5.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#specific-requirements"><i class="fa fa-check"></i><b>2.5.4</b> 4. Specific requirements:</a>
+<ul>
+<li class="chapter" data-level="2.5.4.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#task-1---import-and-overview"><i class="fa fa-check"></i><b>2.5.4.1</b> 4.1 Task 1 - Import and overview</a></li>
+<li class="chapter" data-level="2.5.4.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#task-2---data-inspection"><i class="fa fa-check"></i><b>2.5.4.2</b> 4.2 Task 2 - Data inspection</a></li>
+<li class="chapter" data-level="2.5.4.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#task-3---building-different-models"><i class="fa fa-check"></i><b>2.5.4.3</b> 4.3 Task 3 - Building different models</a>
+<ul>
+<li class="chapter" data-level="2.5.4.3.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#a-generalized-additive-model-gam-to-predict-roas"><i class="fa fa-check"></i><b>2.5.4.3.1</b> A Generalized Additive Model (GAM) to predict ROAS</a>
+<ul>
+<li class="chapter" data-level="2.5.4.3.1.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#c1-feature-selection-using-regsubsets"><i class="fa fa-check"></i><b>2.5.4.3.1.1</b> c1) Feature selection using regsubsets()</a></li>
+<li class="chapter" data-level="2.5.4.3.1.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#c2-feature-selection-using-step.gam"><i class="fa fa-check"></i><b>2.5.4.3.1.2</b> c2) Feature selection using step.GAM</a></li>
+<li class="chapter" data-level="2.5.4.3.1.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#c3-fetaure-selection-using-random-forest"><i class="fa fa-check"></i><b>2.5.4.3.1.3</b> c3) Fetaure selection using random forest</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tree-based-methods.html"><a href="tree-based-methods.html"><i class="fa fa-check"></i><b>3</b> Tree Based Methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#the-basics-of-decision-trees"><i class="fa fa-check"></i><b>3.1</b> The Basics of Decision Trees</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#regression-trees"><i class="fa fa-check"></i><b>3.1.1</b> Regression Trees</a>
+<ul>
+<li class="chapter" data-level="3.1.1.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#how-to-make-the-decision-trees"><i class="fa fa-check"></i><b>3.1.1.1</b> How to make the decision trees</a>
+<ul>
+<li class="chapter" data-level="3.1.1.1.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#the-goal-of-regression"><i class="fa fa-check"></i><b>3.1.1.1.1</b> The goal of regression</a></li>
+<li class="chapter" data-level="3.1.1.1.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#tree-pruning-algoritm"><i class="fa fa-check"></i><b>3.1.1.1.2</b> Tree Pruning &amp; Algoritm</a></li>
+<li class="chapter" data-level="3.1.1.1.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#setting-contrains-of-the-tree-sise"><i class="fa fa-check"></i><b>3.1.1.1.3</b> Setting contrains of the tree sise</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3.1.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#classification-trees"><i class="fa fa-check"></i><b>3.1.2</b> Classification Trees</a></li>
+<li class="chapter" data-level="3.1.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#tree-vs.-lienar-models"><i class="fa fa-check"></i><b>3.1.3</b> Tree vs. Lienar Models</a></li>
+<li class="chapter" data-level="3.1.4" data-path="tree-based-methods.html"><a href="tree-based-methods.html#advantages-and-disadvantages-of-trees"><i class="fa fa-check"></i><b>3.1.4</b> Advantages and Disadvantages of Trees</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#bagging-random-forests-boosting"><i class="fa fa-check"></i><b>3.2</b> Bagging, Random Forests, Boosting</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#bagging-bootstrap-aggregation"><i class="fa fa-check"></i><b>3.2.1</b> Bagging (Bootstrap Aggregation)</a></li>
+<li class="chapter" data-level="3.2.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#random-forests"><i class="fa fa-check"></i><b>3.2.2</b> Random Forests</a></li>
+<li class="chapter" data-level="3.2.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#boosting-i.e.-gradient-boosting"><i class="fa fa-check"></i><b>3.2.3</b> Boosting (i.e. Gradient Boosting)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#xgboost"><i class="fa fa-check"></i><b>3.3</b> XGBoost</a></li>
+<li class="chapter" data-level="3.4" data-path="tree-based-methods.html"><a href="tree-based-methods.html#application-in-r"><i class="fa fa-check"></i><b>3.4</b> Application in R</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#decision-trees"><i class="fa fa-check"></i><b>3.4.1</b> Decision trees</a></li>
+<li class="chapter" data-level="3.4.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#bagging"><i class="fa fa-check"></i><b>3.4.2</b> Bagging</a></li>
+<li class="chapter" data-level="3.4.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#random-forests-1"><i class="fa fa-check"></i><b>3.4.3</b> Random Forests</a></li>
+<li class="chapter" data-level="3.4.4" data-path="tree-based-methods.html"><a href="tree-based-methods.html#boosting"><i class="fa fa-check"></i><b>3.4.4</b> Boosting</a></li>
+<li class="chapter" data-level="3.4.5" data-path="tree-based-methods.html"><a href="tree-based-methods.html#xgboost-1"><i class="fa fa-check"></i><b>3.4.5</b> XGBoost</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="tree-based-methods.html"><a href="tree-based-methods.html#lab-section-1"><i class="fa fa-check"></i><b>3.5</b> Lab section</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#LabClassification"><i class="fa fa-check"></i><b>3.5.1</b> Fitting Classification Trees</a></li>
+<li class="chapter" data-level="3.5.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#fitting-regression-trees"><i class="fa fa-check"></i><b>3.5.2</b> Fitting Regression Trees</a></li>
+<li class="chapter" data-level="3.5.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#bagging-and-random-forests"><i class="fa fa-check"></i><b>3.5.3</b> Bagging and Random Forests</a>
+<ul>
+<li class="chapter" data-level="3.5.3.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#bagging-1"><i class="fa fa-check"></i><b>3.5.3.1</b> Bagging</a></li>
+<li class="chapter" data-level="3.5.3.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#random-forest"><i class="fa fa-check"></i><b>3.5.3.2</b> Random Forest</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5.4" data-path="tree-based-methods.html"><a href="tree-based-methods.html#boosting-1"><i class="fa fa-check"></i><b>3.5.4</b> Boosting</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="tree-based-methods.html"><a href="tree-based-methods.html#exercies"><i class="fa fa-check"></i><b>3.6</b> Exercies</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#exercise-7---decision-tree-assessment"><i class="fa fa-check"></i><b>3.6.1</b> Exercise 7 - Decision Tree Assessment</a></li>
+<li class="chapter" data-level="3.6.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#but-what-does-it-really-show-ntrees-are-fixed-at-500"><i class="fa fa-check"></i><b>3.6.2</b> But what does it really show?, ntrees are fixed at 500</a></li>
+<li class="chapter" data-level="3.6.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#exercise-8---dtrfboosting"><i class="fa fa-check"></i><b>3.6.3</b> Exercise 8 - DT/RF/Boosting</a></li>
+<li class="chapter" data-level="3.6.4" data-path="tree-based-methods.html"><a href="tree-based-methods.html#exercise-9---decision-tree-pruning"><i class="fa fa-check"></i><b>3.6.4</b> Exercise 9 - Decision Tree / Pruning</a></li>
+<li class="chapter" data-level="3.6.5" data-path="tree-based-methods.html"><a href="tree-based-methods.html#exercise-10---boostinggamlinearregbagging---comparison"><i class="fa fa-check"></i><b>3.6.5</b> Exercise 10 - Boosting/GAM/LinearReg/Bagging - Comparison</a></li>
+<li class="chapter" data-level="3.6.6" data-path="tree-based-methods.html"><a href="tree-based-methods.html#exercise-11---boosting"><i class="fa fa-check"></i><b>3.6.6</b> Exercise 11 - Boosting</a></li>
+<li class="chapter" data-level="3.6.7" data-path="tree-based-methods.html"><a href="tree-based-methods.html#exercise-12"><i class="fa fa-check"></i><b>3.6.7</b> Exercise 12</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="tree-based-methods.html"><a href="tree-based-methods.html#casestudy---predicting-algae-blooms"><i class="fa fa-check"></i><b>3.7</b> Casestudy - Predicting Algae Blooms</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#background-1"><i class="fa fa-check"></i><b>3.7.1</b> 1. Background</a></li>
+<li class="chapter" data-level="3.7.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#case-study-business-understanding-phase-1"><i class="fa fa-check"></i><b>3.7.2</b> 2. Case study (Business Understanding Phase)</a></li>
+<li class="chapter" data-level="3.7.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#the-data-data-understanding-phase-1"><i class="fa fa-check"></i><b>3.7.3</b> 3. The data (Data Understanding Phase)</a></li>
+<li class="chapter" data-level="3.7.4" data-path="tree-based-methods.html"><a href="tree-based-methods.html#requirements"><i class="fa fa-check"></i><b>3.7.4</b> 4. Requirements:</a>
+<ul>
+<li class="chapter" data-level="3.7.4.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#task-1-understand-and-import-data-properly"><i class="fa fa-check"></i><b>3.7.4.1</b> 4.1 Task 1: Understand and import data properly</a></li>
+<li class="chapter" data-level="3.7.4.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#task-2-inspect-your-data-and-do-the-required-variable-adaptations-and-transformations"><i class="fa fa-check"></i><b>3.7.4.2</b> 4.2 Task 2: Inspect your data and do the required variable adaptations and transformations</a></li>
+<li class="chapter" data-level="3.7.4.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#task-3-build-one-or-several-predictive-models-and-evaluate-their-performance."><i class="fa fa-check"></i><b>3.7.4.3</b> 4.3 Task 3: Build one or several predictive models and evaluate their performance.</a>
+<ul>
+<li class="chapter" data-level="3.7.4.3.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#growing-a-regression-tree"><i class="fa fa-check"></i><b>3.7.4.3.1</b> 4.3.1. Growing a regression tree</a></li>
+<li class="chapter" data-level="3.7.4.3.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#pruning-the-tree"><i class="fa fa-check"></i><b>3.7.4.3.2</b> 4.3.2 Pruning the tree</a></li>
+<li class="chapter" data-level="3.7.4.3.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#model-evaluation-and-selection"><i class="fa fa-check"></i><b>3.7.4.3.3</b> 4.3.3.Model evaluation and selection</a></li>
+<li class="chapter" data-level="3.7.4.3.4" data-path="tree-based-methods.html"><a href="tree-based-methods.html#ensemble-methods-random-forests"><i class="fa fa-check"></i><b>3.7.4.3.4</b> 4.3.4. Ensemble methods: Random Forests</a></li>
+<li class="chapter" data-level="3.7.4.3.5" data-path="tree-based-methods.html"><a href="tree-based-methods.html#predicting-in-the-test-sample"><i class="fa fa-check"></i><b>3.7.4.3.5</b> 4.3.5. Predicting in the test sample</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="support-vector-machines.html"><a href="support-vector-machines.html"><i class="fa fa-check"></i><b>4</b> Support Vector Machines</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#maximal-vector-machines"><i class="fa fa-check"></i><b>4.1</b> Maximal Vector Machines</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#what-is-a-hyperplane"><i class="fa fa-check"></i><b>4.1.1</b> What is a hyperplane?</a></li>
+<li class="chapter" data-level="4.1.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#classification-using-a-separating-hyperplane"><i class="fa fa-check"></i><b>4.1.2</b> Classification Using a Separating Hyperplane</a></li>
+<li class="chapter" data-level="4.1.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#the-maximal-margin-classifier"><i class="fa fa-check"></i><b>4.1.3</b> The Maximal Margin Classifier</a></li>
+<li class="chapter" data-level="4.1.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#ConstructMMC"><i class="fa fa-check"></i><b>4.1.4</b> Construction of the Maximal Margin Classifer</a></li>
+<li class="chapter" data-level="4.1.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#the-non-separable-case"><i class="fa fa-check"></i><b>4.1.5</b> The Non-separable Case</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#support-vector-classifiers"><i class="fa fa-check"></i><b>4.2</b> Support Vector Classifiers</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#overview-of-the-support-vector-classifier"><i class="fa fa-check"></i><b>4.2.1</b> Overview of the Support Vector Classifier</a></li>
+<li class="chapter" data-level="4.2.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#details-of-the-support-vector-classifer"><i class="fa fa-check"></i><b>4.2.2</b> Details of the Support Vector Classifer</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#svms-with-more-than-two-classes"><i class="fa fa-check"></i><b>4.3</b> SVMs with More than Two Classes</a></li>
+<li class="chapter" data-level="4.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#relationship-to-logistic-regression"><i class="fa fa-check"></i><b>4.4</b> Relationship to logistic regression</a></li>
+<li class="chapter" data-level="4.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#lab"><i class="fa fa-check"></i><b>4.5</b> Lab</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html"><i class="fa fa-check"></i><b>5</b> Deep Learning Fundamentals</a></li>
+<li class="chapter" data-level="6" data-path="structuring-data-transformation-and-model-assessments.html"><a href="structuring-data-transformation-and-model-assessments.html"><i class="fa fa-check"></i><b>6</b> Structuring data transformation and model assessments</a></li>
+<li class="chapter" data-level="7" data-path="github-and-css-styling.html"><a href="github-and-css-styling.html"><i class="fa fa-check"></i><b>7</b> Github and CSS styling</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="github-and-css-styling.html"><a href="github-and-css-styling.html#managing-github"><i class="fa fa-check"></i><b>7.1</b> Managing GitHub</a></li>
+<li class="chapter" data-level="7.2" data-path="github-and-css-styling.html"><a href="github-and-css-styling.html#css-styling"><i class="fa fa-check"></i><b>7.2</b> CSS Styling</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>8</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Machine Learning for Business Intelligence 2</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="github-and-css-styling" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Github and CSS styling</h1>
+<div id="managing-github" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> Managing GitHub</h2>
+<p>Good examples if something goes sideways <a href="https://ohshitgit.com" class="uri">https://ohshitgit.com</a></p>
+<p><strong>Notes when setting up</strong></p>
+<p>If you select the HTTPS instead of the SSH, then you will be asked a password before being able to push the data. This can be avoided by using the SSH key instead.</p>
+<p><strong>Change to ML2</strong></p>
+<ul>
+<li><code>git remote -v</code></li>
+<li><code>git remote rm origin</code></li>
+<li><code>git remote add origin https://github.com/jonask137/MachineLearning2</code></li>
+</ul>
+<p><strong>Change to CustomerAnalytics</strong></p>
+<ul>
+<li><code>git remote -v</code></li>
+<li><code>git remote rm origin</code></li>
+<li><code>git remote add origin https://github.com/jonask137/CustomerAnalytics</code></li>
+</ul>
+<p><strong>Adding content</strong></p>
+<ul>
+<li><code>git commit -m "first commit"</code></li>
+<li><code>git branch -M main</code></li>
+<li><code>git remote add origin https://github.com/jonask137/DataScienceProject.git</code></li>
+<li><code>git push -u origin main</code></li>
+</ul>
+<p><strong>Viewing branches</strong></p>
+<ul>
+<li><code>git branch</code></li>
+</ul>
+<p><strong>Creating a branch</strong>
++ <code>git branch &lt;name&gt;</code>
+e.g., <code>git branch feature1</code></p>
+<pre><code>+ Note:  This is a complete copy of the main branch
++ Note: If you write git branch again, you will see that the active branch is marked with green</code></pre>
+<p><strong>Apply the new branch to where you are going to push the data</strong>
++ <code>git checkout &lt;BranchName&gt;</code>
++ e.g., <code>git checkout feature1</code></p>
+<pre><code>+ Now you can make changes to the branch, that will not yet change the main branch.
++ If there will be an error, use the code that git suggests. Something about no upstream
++ Now git status, git add , and git commit, works as usually.
+
++ Note: if you have several persons working on the same peaces, it may yield an error.</code></pre>
+<p>After you have pushed the data that you need to the branch you want to merge the branch back into the main.</p>
+<p><strong>Merging branch and main branch</strong></p>
+<p><em>this could in practice also be between branches</em></p>
+<p>Open github, make a pull request. Github will suggest that you look at the branches. Then when you have created a merge request, then someboy can finalize the merge then you can pull the code into the main branch. That is done by:</p>
+<ul>
+<li><code>git checkout main</code>. <em>Assuming that the main branch is called main, could also be master or something else</em></li>
+<li><code>git pull</code>, this will pull the branch into the main branch.</li>
+</ul>
+<p>One could also delete the branch now. That is done from github</p>
+<p><br />
+</p>
+<p><strong>The workflow summarized</strong></p>
+<p><a href="https://www.youtube.com/watch?v=oFYyTZwMyAg" class="uri">https://www.youtube.com/watch?v=oFYyTZwMyAg</a> this is a link to a nice video explaining the changes.</p>
+<ol style="list-style-type: decimal">
+<li>Get a change/update request</li>
+<li>Create a branch</li>
+<li>Select that branch</li>
+<li>Commit changes to that branch and push the repo to then branch.</li>
+<li>Make a merge request and accept/reject.</li>
+<li>Pull the changes into master.
+<ol style="list-style-type: lower-alpha">
+<li>Perhaps delete the branch</li>
+</ol></li>
+</ol>
+<p><strong>Commands</strong></p>
+<ul>
+<li>git status: watch the status of the branch</li>
+<li>git branch: see a list of branches and the active branch
+<ul>
+<li>git branch <name>: creating a new branch</li>
+</ul></li>
+<li>git checkout <branch name>: making the specified branch the active branch</li>
+<li>git add –all: Prepares all files for commitment</li>
+<li>git commit -m“Message”: Commits the added contents</li>
+<li>git push: pushes the data to the repo
+<ul>
+<li>You may need to specify where it should be pushed, git will tell you that</li>
+</ul></li>
+<li>git pull: merging two branches when the changes are accepted on github.</li>
+</ul>
+</div>
+<div id="css-styling" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> CSS Styling</h2>
+<p>We can do two things:</p>
+<ol style="list-style-type: decimal">
+<li>Make inline styling</li>
+<li>Define classes, that are callable in the text editor.</li>
+</ol>
+<p><strong>Inline modification</strong></p>
+<p>For example we are able to change the <span style="color: red;">color</span> of the text by using inline css. For this we use: <span styel="TheArgumentsHere"> … text … </span>. Notice that we cannot wrap around bullets etc. this should be kept to one line in the editor.</p>
+<p><strong>Classes</strong></p>
+<p>We are able to modify the style of the text by creating classes in the that we are able to call. This is done by creating the style in the css file. See the example below.</p>
+<p>.lightbluebox{
+background-color: lightblue;
+border-style: solid;
+border-width: 1px;
+border-color: lightblue;
+}</p>
+<div class="lightbluebox">
+We see that the name <code>lightbluebox</code> is what is callable in the text. That can be done with a
+<div class="lightbluexo">
+… text …
+</div>
+. Hence,
+<div class="nameofclass">
+and then do the text and end it with
+</div>
+<p>Note that with this we are able to wrap around a chunk of text and not just inline text.</p>
+</div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="structuring-data-transformation-and-model-assessments.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
