@@ -127,7 +127,7 @@ Let us say that we have a *maximal margin hyperplane*, that is based on a data s
 + $x_1,...,x_n \in \mathbb{R}^p$ meaning that we have countable (real number) of parameters *(i think that is what it means)*
 + Which has the following class labels associated $y_1,...,y_n\in \text{{-1,1}}$.
 
-The optimization of the hyperplane is the done on two constraints:
+The optimization of the hyperplane is through optimization of M subject to the 2. bullet:
 
 1. Maxmize the margins, which is given by.
 
@@ -136,7 +136,11 @@ The optimization of the hyperplane is the done on two constraints:
 (\#eq:MaximizeMargins)
 \end{equation}
 
-|   Where M = the margin. Which we want to maximize.
+|   Where M = the margin. Which we want to maximize. This can also be written by:
+
+$$M = \frac{2}{||B||}$$,
+
+Which we want to maximize M.
 
 2. Guarantee that each observations will be on the correct side of the hyperplane, provided that M is positive. This consists of two parts.
 
@@ -258,8 +262,580 @@ knitr::include_graphics(rep("Images/fig9.7SVCDiffC.png"))
 
 We see with the highst value of the tuning parameter, all observations are support vectors, thus a large change in on observation will not change to a big change in the hyperplaned. Looking at the top left, we have not imposed as much slack and the non-support vectors are (not influential of the hyperplane) are encircled with green.
 
-## SVMs with More than Two Classes
+We see that the supper vector classifier creates a sparsity in the model, although this time it is not on the features but on the observations. Recall that e.g., with lasso we gradually changed the effect of some features, where some features could in fact have an effect of 0. This does quite the same, but just with the points. As we see that all the points that are in the correct side of the margins, can be changed any time within the correct space, without changing the mode. Hence we have ___sparsity in the data, not the features.___ Although it is important to notice, that you need the non support vectors to decide which obersvations that are important for the model, and once you have found the support vectors, you can in practice exclude all the non-support-vectors from the model.
 
-## Relationship to logistic regression
+__Critique of support vector classifiers__
+
+Despite the Support Vector Classifiers with soft margins performs better and is more stable than maximum margin optimization, it is not capable of dealing with all situations, as it is simply attempting to split the area into two regions, the following figure, show and example of support vector classifier not being sufficient.
+
+```{r ,echo=FALSE,fig.cap="Support Vector Classifier critiqe"}
+knitr::include_graphics(rep("Images/fig9.8.png"))
+```
+
+We see that the model is not able to effective split the space into effective classifiers. The reason for this, is that we are effectively working with a linear model with the slack element introduced for the fitting.
+
+The following section will attempt to deal with this.
+
+## Support Vector Machines
+
+We see that the Support Vector Machine is based on the Support Vector Classifer, which is an extension to Maxmized Margin Classifier. Therefore, the same analogy applies, but the overall fitting procedure is altered, to better deal with certain situations.
+
+```{r ,echo=FALSE}
+knitr::include_graphics(rep("Images/FlowOfInvention.png"))
+```
+
+The *Support Vector Machine* is invented to be able to deal with classification settings, where the observations can't be separated with a linear setting.
+
+### Classification with non linear decision boundary
+
+We can extend the variables, so we dont work with $X_1,X_2,...,"_p$, but instead work with $X_1,X_1^2,X_2,X_2^2,...,X_p,X_p^2$. This will again alter the optimization procedure that we have previously seen. *Note, in principle one could also introduce interactions, of the form $X_jX_{j'}\text{ for } X_j ≠ X_{j'}$*. One must merely be careful and not enlarge the space feature space too much, making it computationally too difficult.
+
+Thus to be able to separate the observations, when they are taken to a higher dimension, hence we go from $(X_1,X_1)$ to $(X_1,X_1^2)$. Basically what one does, is find the x value of the given variable and plots it against the $x^2$ value.
+
+__Optimization procedure__
+
+```{r ,echo=FALSE}
+knitr::include_graphics(rep("Images/eq9.16.png"))
+```
+
+So we see that the overall process is similar to equations (\@ref(eq:MaximizeMarginsSVC) and \@ref(eq:Constraint23SVC)). But we merely introduced the polynomial terms, but the principle is the same, e.g., we are having a slack parameter, and the slack ($e$) can only summarize to the constraint, but not more.
+
+The huge **drawback** on this, is that it quickly gets computationally heavy, this is what the support vector machine is dealing with, which is explained next.
+
+### The Support Vector Machine
+
+This gets a bit more technical. The support vector machine has the following elements:
+
+1. **Inner products:** Relies on the inner products instead of the actual observations. The **inner product** is defined by $\langle a,b \rangle=\sum_{i=1}^{r}a_ib_i$, thus the inner product of two observations $x_i,x_{i'}$ is given by
+
+\begin{equation}
+$$\langle a,b \rangle=\sum_{j=1}^{p}\alpha_i \langle x_{ij}x_{i'j} \rangle$$
+(\#eq:innerproduct)
+\end{equation}
+
+It is found that  $\alpha_i$ is nonzero for the support vectors in the solution (thus non-support vectors' $\alpha$ = 0). And all we need are the pairs, $\pmatrix{n\\2}$, inner products $x_i,x_{i'}$.
+
+_Notice that $\pmatrix{n\\2} = n(n-1)/2$_
+
+The process above is generalized with kernels. Thus the kernel is practically a function that identifies similarities between any two observations.
+
+2. **Kernels:** a quantification of similarities between two points. For Support Vector Machines we work with polynomial kernels:
+
+\begin{equation}
+K*x_i,x_j)=(1+\sum_{n=1}^px_{ij}x_{i'j})^d
+(\#eq:PolynomialKernel)
+\end{equation}
+
++ If d = 1, then it is linear (SVC), when we add degrees (d), we make the support vector classifier more flexible, and that is what we know as the support vector machine (SVM).
++ So notice, the linear kernel is the the support vector classifier/
+
+3. **Gamma $(\gamma)$:** Is a positive constant, and can be seen as a tuning parameter, the higher gamma, the more flexibility and thus less model bias.
+
+We see in the following plot how the Support Vector Machine acts and how it is able to deal with non-linear situations.
+
+```{r SVM,echo=FALSE,fig.cap="Support Vector Machine"}
+knitr::include_graphics(rep("Images/fig9.9.png"))
+```
+
+**Notes on this could be elaborated further**
+
+### SVMs with More than Two Classes {#MoreThanTwoClasses}
+
+There are many proposals of dealing with more than two classes, the most common are:
+
+1. One-Versus-One Classification.
+2. One-Versus-All Classification.
+
+### Relationship to logistic regression
+
+The book has a comparison between the two, and it shows that logistic regression and SVM classifiers tend to produce very similar results. Although:
+
++ Logistic Regression tend to perform better, when the classes are overlapping.
++ SVM tend to perform better when the classes are well separated.
+
+## Process of kernels methods
+
+1. Prepare the data: Split into training and testing
+1. Select the kernel function, e.g., linear, polynomial or radial.
+1. Select the parameter of kernel function (e.g., degree for polynomial kernel, $\gamma$ for radial kerned) and the valjue of C.
+1. Train the model
+1. Test the model.
+
+__Application in R__
+
+1. Use library `e1071`, using `svm(DV~IV,kernel = ...,cost = ...)
+1. Use `summary()` to see the details
+1. Use `perdict()` to evaluate the test error.
+
 
 ## Lab
+
+### Support Vector Classifier
+
+*Notice, that the kernel is linear*
+
+First we create some data, that we are going to classify.
+
+```{r}
+set.seed(1)
+x <- matrix(rnorm(20*2)
+            ,ncol = 2)
+y <- c(rep(-1,10),rep(1,10)) #Assigning classes
+x[y==1,] <- x[y==1,] + 1 #We add 1 for each observation where y = 1
+plot(x
+     ,col = (3-y)) #dynamic appraoch for coloring, that is pretty clever
+```
+
+```{r}
+dat <- data.frame(x = x,y = as.factor(y))
+library(e1071)
+svm.fit <- svm(y ~ .
+               ,data = dat
+               ,kernel = "linear" #The type of kernel
+               ,cost = 10 #The tuning parameter C
+               ,scale = FALSE) #We dont want to scale the data, it is not necessary with what we have prodece
+```
+
+*Scaling = if TRUE all features will be set to a mean of zero (subtracting the mean for each observation) or standard deviation of one, depending on the application.*
+
+__Plotting the classifier__
+
+```{r}
+plot(svm.fit,dat)
+```
+
+now we see the 2d hyperplane. We preserve colors of the class labels and all observations that are on the wrong side of the margins are marked with an x.
+
+Notice that the axis' are the two features, if we had three features, then it would be three dimensional, if we had four then it really starts getting difficult.
+
+We can now access the support vectors:
+
+```{r}
+t(t(svm.fit$index))
+```
+
+We see that there are 6 support vectors.
+
+Now we can access the `summary()`.
+
+```{r}
+summary(svm.fit)
+```
+
++ We see the input data and characteristics that we specified.
++ We see that there are 6 support vectors
++ We see that three support vectors are for class 0 and three for class 1.
++ We see that number of classes
++ We see that levels in the data
+
+__Testing other values of C__
+
+```{r}
+svm.fit <- svm(y~.
+               ,data = dat
+               ,kernel = "linear"
+               ,cost = 0.1
+               ,scale = FALSE)
+plot(svm.fit,dat)
+svm.fit$index
+```
+
+We see that the model did widen the margins.
+
+<div class="lightbluebox">
+
+**Notice that cost and C is not the same. Cost = the cost that a violation has. The greater the cost, the less allowance for support vectors as fewer observations will be allowed to the wrong side of the margins.**
+
+</div>
+
+__Applying `tune()` to tune C__
+
+```{r}
+set.seed(1)
+tune.out <- tune(method = svm
+                 ,y~.
+                 ,data = dat
+                 ,kernel = "linear"
+                 ,ranges = list(cost = c(0.001,0.01,0.1,1.5,10,100)) #Hard coding different tuning params.
+                 )
+summary(tune.out)
+```
+
+We see that the error appears to be lowest with a tuning param of 1.5 and 10.
+
+We can access the best model from the object.
+
+```{r}
+bestmod <- tune.out$best.model
+summary(bestmod)
+```
+
+We see the best model above. For assessment of the elements I refer to a previous assessment.
+
+__Predicting the class label___
+
+```{r}
+xtest <- matrix(rnorm(2*20),ncol = 2)
+ytest <- sample(c(-1,1),20,rep = TRUE)
+xtest[ytest==1,] =  xtest[ytest==1,] + 1
+testdat <- data.frame(x = xtest, y=as.factor(ytest))
+```
+
+```{r}
+ypred <- predict(bestmod,testdat) #Notice that we call the bestmod
+table(predict = ypred,tryth = testdat$y)
+```
+
+We see that 12 of the observations are correctly classified.
+
+We can do the same but with another C.
+
+__Altering C__
+
+```{r}
+#
+svm.fit <- svm(y ~.
+               ,data = dat
+               ,kernel = "linear"
+               ,cost = 0.01
+               ,scale = FALSE)
+
+#Predictions
+ypred <- predict(svm.fit,testdat)
+table(predict = ypred,tryth = testdat$y)
+```
+
+This does in in fact appear to improve the model. Even though we tested that in previously. I guess maybe the this fits better to the test data than the best in sample model.
+
+Recall that with introducing slack we are intentionally misclassifying training observations to contruct a more robust model, that is perhaps what we see above, as in this setting, the lower the cost the greater the allowance for slack.
+
+__New example__
+
+Consider a situation in which the two classes are linearly separable. Then we can 
+
+```{r}
+x <- matrix(rnorm(20*2)
+            ,ncol = 2)
+y <- c(rep(-1,10),rep(1,10)) #Assigning classes
+
+#Run it a couple of times
+x[y==1,] = x[y==1,] + 0.5
+plot(x,col = (y+5)/2,pch = 19)
+
+x[y==1,] = x[y==1,] + 0.5
+plot(x,col = (y+5)/2,pch = 19)
+
+x[y==1,] = x[y==1,] + 0.5
+plot(x,col = (y+5)/2,pch = 19)
+
+x[y==1,] = x[y==1,] + 0.5
+plot(x,col = (y+5)/2,pch = 19)
+```
+
+We see that they get further separated.
+
+```{r}
+dat <- data.frame(x = x,y = as.factor(y))
+svm.fit <- svm(y~.
+               ,data = dat
+               ,kernel = "linear"
+               ,cost = 100000)
+summary(svm.fit)
+```
+
+We can also asses the training error.
+
+```{r}
+table(svm.fit$fitted,dat$y)
+```
+
+We see that no training observations was falsely classified.
+
+### Support Vector Machine
+
+Now we are going to fit and SVM using a non-linear kernel.
+
+```{r}
+set.seed (1)
+x <- matrix (rnorm(200*2),ncol = 2)
+x[1:100,]=x[1:100 ,] + 2
+x[101:150,]= x[101:150,] - 2
+y <- c(rep(1,150),rep(2,50) )
+dat <- data.frame(x = x,y = as.factor(y))
+plot(x,col = y,pch = 19)
+```
+
+We see that the data is clearly not separable.
+
+Now we can train the SVM and after plot
+
+```{r}
+set.seed(1)
+train <-sample(200,100)
+svm.fit <- svm(y ~ .
+             ,data = dat[train,]
+             ,kernel = "radial"
+             ,gamma = 1 #We define gamma, as it is a radial kernel, as gamma increase so does flexibility
+             ,cost = 1)
+plot(svm.fit,dat[train,])
+```
+
+We see that it is clearly non linear. We can call the summary.
+
+```{r}
+summary(svm.fit)
+```
+
+We see that the summary produces exactly the same as what we have seen in the previous section.
+
+__Now we try with another value of Cost__
+
+```{r}
+set.seed(1)
+train <-sample(200,100)
+svm.fit <- svm(y ~ .
+             ,data = dat[train,]
+             ,kernel = "radial"
+             ,gamma = 1 #We define gamma, as it is a radial kernel, as gamma increase so does flexibility
+             ,cost = 100000)
+summary(svm.fit)
+```
+
+Now we see that we increase the cost of violations and thus fewer observations will be on the wrong side of the margins.
+
+__Using `tune()` to find best gamma and cost using CV__
+
+```{r}
+set.seed(1)
+tune.out <- tune(method = svm
+                 ,y ~.
+                 ,data = dat[train,]
+                 ,kernel = "radial"
+                 ,ranges = list(cost = c(0.1,1,10,100,1000)
+                                ,gamma = c(0.5,1,2,3,4))
+                 )
+summary(tune.out)
+```
+
+We see that the lowest error is around model 2, with an CV error of 0.12. Thus we select cost of 1 and gamma of 0.5. We can also call the best model as seen previously.
+
+```{r}
+bestmod <- tune.out$best.model
+summary(bestmod)
+```
+
+Now we can assess the test partition performance.
+
+```{r}
+table(true = dat[-train,"y"]
+      ,pred = predict(tune.out$best.model
+                      ,newdata = dat[-train,])
+      )
+```
+
+We see that 8 observations are misclassified out of 100, hence an error rate of 8%.
+
+### ROC Curves
+
+```{r}
+#Simulating data
+set.seed (1)
+x <- matrix (rnorm(200*2),ncol = 2)
+x[1:100,]=x[1:100 ,] + 2
+x[101:150,]= x[101:150,] - 2
+y <- c(rep(1,150),rep(2,50))
+dat <- data.frame(x = x,y = as.factor(y))
+
+#Train index
+set.seed(1)
+train <-sample(200,100)
+```
+
+
+One can also produce ROC curves as we have previously done with classification.
+
+In this example we will create a function to plot the ROC Curve.
+
+```{r}
+library(ROCR)
+rocplot <- function(pred,truth,...){
+  predob <- prediction(predictions = pred
+                       ,labels = truth
+                       ,label.ordering = c(2 #The positive value
+                                           ,1) #This may be specified to make sure that the correct order is set.
+                       )
+  perf <- performance(prediction.obj = predob,"tpr","fpr") #For true and false positive rate
+  plot(perf,...)
+}
+```
+
+Notice that the predictions for an observations is given by $X = (X_1,X_2,...,X_p)^T$ which takes the form $\hat{\beta}_0+\hat{\beta}_1X_1+\hat{\beta}_2X_2+...+\hat{\beta}_pX_p$. The support vector machine will then calculate whether it is above or below the hyperplane.
+
+Thus we only really have to know whether it is above or below 0, to see what class the algorithm assigns the value to. To get these fitted values we must define `decision.values=TRUE` when fitting the `svm()`, Then the the `predict()` function will output the fitted values.
+
+```{r}
+library(e1071)
+svm.fit.opt <- svm(y~.
+                   ,data = dat[train,]
+                   ,kernel = "radial"
+                   ,gamma = 2
+                   ,cost = 1
+                   ,decision.values = TRUE)
+fitted <- attributes(predict(svm.fit.opt
+                             ,dat[train,]
+                             ,decision.values = TRUE
+                             )
+                     )$decision.values
+```
+
+Now we can make the ROC plot
+
+```{r}
+par(mfrow = c(1,2))
+rocplot(pred = fitted
+        ,truth = dat[train,"y"]
+        ,main = "Training Data"
+        ,sub = "Gamma = 1")
+```
+
+This looks rather strange. But it should be correct according to the data
+
+Now we increase gamma and see what that results with.
+
+```{r}
+svm.fit.flex <- svm(y~.
+                    ,data = dat[train,]
+                    ,kernel = "radial"
+                    ,gamma = 50
+                    ,cost = 1
+                    ,decision.values = TRUE)
+fitted <- attributes(predict(svm.fit.flex
+                             ,dat[train,]
+                             ,decision.values = TRUE
+                             )
+                     )$decision.values
+rocplot(pred = fitted
+        ,truth = dat[train,"y"]
+        ,main = "Training Data"
+        ,sub = "Gamma = 50")
+```
+
+This looks kinda broken. Let's see what Ana suggests.
+
+__Fitting to test data__
+
+Now we can fit it to test data and see what that suggests.
+
+```{r}
+#Gamma = 1
+fitted <- attributes(predict(svm.fit.opt
+                             ,dat[-train,]
+                             ,decision.values = TRUE
+                             )
+                     )$decision.values
+rocplot(pred = fitted
+        ,truth = dat[train,"y"]
+        ,main = "Test Data"
+        ,sub = "Gamma = 1")
+abline(coef = c(0,1),col = "red",lty = 2)
+
+#Gamma = 50
+fitted <- attributes(predict(svm.fit.flex
+                             ,dat[-train,]
+                             ,decision.values = TRUE
+                             )
+                     )$decision.values
+rocplot(pred = fitted
+        ,truth = dat[train,"y"]
+        ,main = "Test Data"
+        ,sub = "Gamma = 50")
+abline(coef = c(0,1),col = "red",lty = 2)
+```
+
+According to this the performance is just about randomly guessing.
+
+
+### SVM with Multiple Classes
+
+If we have more than two levels, then the `svm()` will perform multi-class classification. It will use the ***one-versus-one approach*** see this in section \@ref(MoreThanTwoClasses).
+
+```{r}
+#Generating data
+set.seed(1)
+x <- rbind(x,matrix(rnorm(50*2),ncol = 2))
+y <- c(y,rep(0,50))
+x[y==0,2] <- x[y==0,2] + 2
+dat <- data.frame(x = x,y = as.factor(y))
+
+#Plotting the data
+par(mfrow = c(1,1))
+plot(x,col = (y+1))
+```
+
+We see that there are three classes and they are clearly not linearly separable.
+
+```{r}
+svm.fit <- svm(y~.
+               ,data = dat
+               ,kernel = "radial"
+               ,cost = 10
+               ,gamma = 1)
+plot(svm.fit,dat)
+```
+
+We see that the space is separable into different regions, that are then classifiers of the observations. We see that some observations are intentionally misclassifier.
+
+One could for instance set the cost of margin violation to be higher, to force the algorithm to create even more regions to meet the constraint on C.
+
+### Application to Gene Expression Data
+
+```{r}
+library(ISLR)
+names(Khan)
+dim(Khan$xtrain)
+dim(Khan$xtest)
+length(Khan$ytrain)
+length(Khan$ytest)
+table(Khan$ytrain)
+table(Khan$ytest)
+```
+
+We see some data frame characteristics above. Also there are a very large number of features relative to the number of observations (high dimensional setting). This indicates that we should use a linear kernel. That is because we don't need to introduce even more flexibility by using polynomial or radial kernels.
+
+Although one could estimate the models and make a comparison.
+
+```{r}
+#defining the data
+dat <- data.frame(x = Khan$xtrain,y = as.factor(Khan$ytrain))
+out <- svm(y~.
+           ,data = dat
+           ,kernel = "linear"
+           ,cost = 10)
+summary(out)
+```
+
+We see more or less the same output, despite this time, we have four different categories, and hence we have support vectors for all of these.
+
+Now we can assess the training performance.
+
+```{r}
+table(out$fitted,dat$y)
+```
+
+We see that there are in fact no training observations that are missclassifies.
+
+Although that is very much to be expected, as we are in a high dimensional setting and thus we often see that the observations are easy to separate, although we are also at risk of overfitting the model to the training data.
+
+Thus to make an assessment of the optimism, we test the model on the test partition.
+
+```{r}
+dat.te <- data.frame(x = Khan$xtest,y = as.factor(Khan$ytest))
+pred.te <- predict(out,newdata = dat.te)
+table(pred.te,dat.te$y)
+```
+
+We see that the model, given a cost of 10, misclassify two observations in the test data.
+
+## Exercises
+
+For this, I refer to the exercises document in the folder for the lecture.
