@@ -326,9 +326,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#overview-of-the-support-vector-classifier"><i class="fa fa-check"></i><b>4.2.1</b> Overview of the Support Vector Classifier</a></li>
 <li class="chapter" data-level="4.2.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#details-of-the-support-vector-classifer"><i class="fa fa-check"></i><b>4.2.2</b> Details of the Support Vector Classifer</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#svms-with-more-than-two-classes"><i class="fa fa-check"></i><b>4.3</b> SVMs with More than Two Classes</a></li>
-<li class="chapter" data-level="4.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#relationship-to-logistic-regression"><i class="fa fa-check"></i><b>4.4</b> Relationship to logistic regression</a></li>
-<li class="chapter" data-level="4.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#lab"><i class="fa fa-check"></i><b>4.5</b> Lab</a></li>
+<li class="chapter" data-level="4.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#support-vector-machines-1"><i class="fa fa-check"></i><b>4.3</b> Support Vector Machines</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#classification-with-non-linear-decision-boundary"><i class="fa fa-check"></i><b>4.3.1</b> Classification with non linear decision boundary</a></li>
+<li class="chapter" data-level="4.3.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#the-support-vector-machine"><i class="fa fa-check"></i><b>4.3.2</b> The Support Vector Machine</a></li>
+<li class="chapter" data-level="4.3.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#MoreThanTwoClasses"><i class="fa fa-check"></i><b>4.3.3</b> SVMs with More than Two Classes</a></li>
+<li class="chapter" data-level="4.3.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#relationship-to-logistic-regression"><i class="fa fa-check"></i><b>4.3.4</b> Relationship to logistic regression</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#process-of-kernels-methods"><i class="fa fa-check"></i><b>4.4</b> Process of kernels methods</a></li>
+<li class="chapter" data-level="4.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#lab"><i class="fa fa-check"></i><b>4.5</b> Lab</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#support-vector-classifier"><i class="fa fa-check"></i><b>4.5.1</b> Support Vector Classifier</a></li>
+<li class="chapter" data-level="4.5.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#support-vector-machine"><i class="fa fa-check"></i><b>4.5.2</b> Support Vector Machine</a></li>
+<li class="chapter" data-level="4.5.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#roc-curves"><i class="fa fa-check"></i><b>4.5.3</b> ROC Curves</a></li>
+<li class="chapter" data-level="4.5.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#svm-with-multiple-classes"><i class="fa fa-check"></i><b>4.5.4</b> SVM with Multiple Classes</a></li>
+<li class="chapter" data-level="4.5.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#application-to-gene-expression-data"><i class="fa fa-check"></i><b>4.5.5</b> Application to Gene Expression Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="support-vector-machines.html"><a href="support-vector-machines.html#exercises-1"><i class="fa fa-check"></i><b>4.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html"><i class="fa fa-check"></i><b>5</b> Deep Learning Fundamentals</a></li>
 <li class="chapter" data-level="6" data-path="structuring-data-transformation-and-model-assessments.html"><a href="structuring-data-transformation-and-model-assessments.html"><i class="fa fa-check"></i><b>6</b> Structuring data transformation and model assessments</a></li>
@@ -359,102 +373,102 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">6</span> Structuring data transformation and model assessments</h1>
 <p>We can train the model using Caret package which is an interface that supports many models.</p>
 <p>See the XGBoost file.</p>
-<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="structuring-data-transformation-and-model-assessments.html#cb382-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
-<span id="cb382-2"><a href="structuring-data-transformation-and-model-assessments.html#cb382-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb382-3"><a href="structuring-data-transformation-and-model-assessments.html#cb382-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR)</span>
-<span id="cb382-4"><a href="structuring-data-transformation-and-model-assessments.html#cb382-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(doParallel)</span>
-<span id="cb382-5"><a href="structuring-data-transformation-and-model-assessments.html#cb382-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb382-6"><a href="structuring-data-transformation-and-model-assessments.html#cb382-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Initiating parellels</span></span>
-<span id="cb382-7"><a href="structuring-data-transformation-and-model-assessments.html#cb382-7" aria-hidden="true" tabindex="-1"></a>CoreCount  <span class="ot">&lt;-</span> <span class="fu">makePSOCKcluster</span>(<span class="fu">detectCores</span>()<span class="sc">-</span><span class="dv">1</span>)</span>
-<span id="cb382-8"><a href="structuring-data-transformation-and-model-assessments.html#cb382-8" aria-hidden="true" tabindex="-1"></a><span class="fu">registerDoParallel</span>(CoreCount)</span>
-<span id="cb382-9"><a href="structuring-data-transformation-and-model-assessments.html#cb382-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb382-10"><a href="structuring-data-transformation-and-model-assessments.html#cb382-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Loading Data</span></span>
-<span id="cb382-11"><a href="structuring-data-transformation-and-model-assessments.html#cb382-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">1337</span>)</span>
-<span id="cb382-12"><a href="structuring-data-transformation-and-model-assessments.html#cb382-12" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> ISLR<span class="sc">::</span>OJ</span>
-<span id="cb382-13"><a href="structuring-data-transformation-and-model-assessments.html#cb382-13" aria-hidden="true" tabindex="-1"></a>  index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="fu">nrow</span>(df),<span class="at">size =</span> <span class="dv">800</span>)</span>
-<span id="cb382-14"><a href="structuring-data-transformation-and-model-assessments.html#cb382-14" aria-hidden="true" tabindex="-1"></a>  df.train <span class="ot">&lt;-</span> df[index, ]</span>
-<span id="cb382-15"><a href="structuring-data-transformation-and-model-assessments.html#cb382-15" aria-hidden="true" tabindex="-1"></a>  df.test <span class="ot">&lt;-</span> df[<span class="sc">-</span>index, ]  </span>
-<span id="cb382-16"><a href="structuring-data-transformation-and-model-assessments.html#cb382-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb382-17"><a href="structuring-data-transformation-and-model-assessments.html#cb382-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Blueprinting - transforming data</span></span>
-<span id="cb382-18"><a href="structuring-data-transformation-and-model-assessments.html#cb382-18" aria-hidden="true" tabindex="-1"></a>    {<span class="co">#Run here</span></span>
-<span id="cb382-19"><a href="structuring-data-transformation-and-model-assessments.html#cb382-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># blueprint &lt;- {recipe(formula = Purchase ~ . #Defining Y and X&#39;s</span></span>
-<span id="cb382-20"><a href="structuring-data-transformation-and-model-assessments.html#cb382-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">#                    ,data = df)} #Selecting the data</span></span>
-<span id="cb382-21"><a href="structuring-data-transformation-and-model-assessments.html#cb382-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">#   #Notice, one could apply steps in the braces </span></span>
-<span id="cb382-22"><a href="structuring-data-transformation-and-model-assessments.html#cb382-22" aria-hidden="true" tabindex="-1"></a>    <span class="co">#  </span></span>
-<span id="cb382-23"><a href="structuring-data-transformation-and-model-assessments.html#cb382-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># #blueprint #Could be run to see the operations</span></span>
-<span id="cb382-24"><a href="structuring-data-transformation-and-model-assessments.html#cb382-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># </span></span>
-<span id="cb382-25"><a href="structuring-data-transformation-and-model-assessments.html#cb382-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># </span></span>
-<span id="cb382-26"><a href="structuring-data-transformation-and-model-assessments.html#cb382-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># </span></span>
-<span id="cb382-27"><a href="structuring-data-transformation-and-model-assessments.html#cb382-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># #Prepping</span></span>
-<span id="cb382-28"><a href="structuring-data-transformation-and-model-assessments.html#cb382-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># prep.df &lt;- prep(x = blueprint,training = df)</span></span>
-<span id="cb382-29"><a href="structuring-data-transformation-and-model-assessments.html#cb382-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># #prep.df #Could be run to see the operations</span></span>
-<span id="cb382-30"><a href="structuring-data-transformation-and-model-assessments.html#cb382-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># </span></span>
-<span id="cb382-31"><a href="structuring-data-transformation-and-model-assessments.html#cb382-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># #Baking</span></span>
-<span id="cb382-32"><a href="structuring-data-transformation-and-model-assessments.html#cb382-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># baked.df &lt;- bake(prep.df, new_data = df)</span></span>
-<span id="cb382-33"><a href="structuring-data-transformation-and-model-assessments.html#cb382-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># baked.df.train &lt;- bake(prep.df, new_data = df.train) #Used if Blueprint is run on train data</span></span>
-<span id="cb382-34"><a href="structuring-data-transformation-and-model-assessments.html#cb382-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># baked.df.test &lt;- bake(prep.df, new_data = df.test) #Used if Blueprint is run on train data</span></span>
-<span id="cb382-35"><a href="structuring-data-transformation-and-model-assessments.html#cb382-35" aria-hidden="true" tabindex="-1"></a>    }</span></code></pre></div>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="structuring-data-transformation-and-model-assessments.html#cb450-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
+<span id="cb450-2"><a href="structuring-data-transformation-and-model-assessments.html#cb450-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb450-3"><a href="structuring-data-transformation-and-model-assessments.html#cb450-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR)</span>
+<span id="cb450-4"><a href="structuring-data-transformation-and-model-assessments.html#cb450-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(doParallel)</span>
+<span id="cb450-5"><a href="structuring-data-transformation-and-model-assessments.html#cb450-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb450-6"><a href="structuring-data-transformation-and-model-assessments.html#cb450-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Initiating parellels</span></span>
+<span id="cb450-7"><a href="structuring-data-transformation-and-model-assessments.html#cb450-7" aria-hidden="true" tabindex="-1"></a>CoreCount  <span class="ot">&lt;-</span> <span class="fu">makePSOCKcluster</span>(<span class="fu">detectCores</span>()<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb450-8"><a href="structuring-data-transformation-and-model-assessments.html#cb450-8" aria-hidden="true" tabindex="-1"></a><span class="fu">registerDoParallel</span>(CoreCount)</span>
+<span id="cb450-9"><a href="structuring-data-transformation-and-model-assessments.html#cb450-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb450-10"><a href="structuring-data-transformation-and-model-assessments.html#cb450-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Loading Data</span></span>
+<span id="cb450-11"><a href="structuring-data-transformation-and-model-assessments.html#cb450-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">1337</span>)</span>
+<span id="cb450-12"><a href="structuring-data-transformation-and-model-assessments.html#cb450-12" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> ISLR<span class="sc">::</span>OJ</span>
+<span id="cb450-13"><a href="structuring-data-transformation-and-model-assessments.html#cb450-13" aria-hidden="true" tabindex="-1"></a>  index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="fu">nrow</span>(df),<span class="at">size =</span> <span class="dv">800</span>)</span>
+<span id="cb450-14"><a href="structuring-data-transformation-and-model-assessments.html#cb450-14" aria-hidden="true" tabindex="-1"></a>  df.train <span class="ot">&lt;-</span> df[index, ]</span>
+<span id="cb450-15"><a href="structuring-data-transformation-and-model-assessments.html#cb450-15" aria-hidden="true" tabindex="-1"></a>  df.test <span class="ot">&lt;-</span> df[<span class="sc">-</span>index, ]  </span>
+<span id="cb450-16"><a href="structuring-data-transformation-and-model-assessments.html#cb450-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb450-17"><a href="structuring-data-transformation-and-model-assessments.html#cb450-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Blueprinting - transforming data</span></span>
+<span id="cb450-18"><a href="structuring-data-transformation-and-model-assessments.html#cb450-18" aria-hidden="true" tabindex="-1"></a>    {<span class="co">#Run here</span></span>
+<span id="cb450-19"><a href="structuring-data-transformation-and-model-assessments.html#cb450-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># blueprint &lt;- {recipe(formula = Purchase ~ . #Defining Y and X&#39;s</span></span>
+<span id="cb450-20"><a href="structuring-data-transformation-and-model-assessments.html#cb450-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">#                    ,data = df)} #Selecting the data</span></span>
+<span id="cb450-21"><a href="structuring-data-transformation-and-model-assessments.html#cb450-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">#   #Notice, one could apply steps in the braces </span></span>
+<span id="cb450-22"><a href="structuring-data-transformation-and-model-assessments.html#cb450-22" aria-hidden="true" tabindex="-1"></a>    <span class="co">#  </span></span>
+<span id="cb450-23"><a href="structuring-data-transformation-and-model-assessments.html#cb450-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># #blueprint #Could be run to see the operations</span></span>
+<span id="cb450-24"><a href="structuring-data-transformation-and-model-assessments.html#cb450-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># </span></span>
+<span id="cb450-25"><a href="structuring-data-transformation-and-model-assessments.html#cb450-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># </span></span>
+<span id="cb450-26"><a href="structuring-data-transformation-and-model-assessments.html#cb450-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># </span></span>
+<span id="cb450-27"><a href="structuring-data-transformation-and-model-assessments.html#cb450-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># #Prepping</span></span>
+<span id="cb450-28"><a href="structuring-data-transformation-and-model-assessments.html#cb450-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># prep.df &lt;- prep(x = blueprint,training = df)</span></span>
+<span id="cb450-29"><a href="structuring-data-transformation-and-model-assessments.html#cb450-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># #prep.df #Could be run to see the operations</span></span>
+<span id="cb450-30"><a href="structuring-data-transformation-and-model-assessments.html#cb450-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># </span></span>
+<span id="cb450-31"><a href="structuring-data-transformation-and-model-assessments.html#cb450-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># #Baking</span></span>
+<span id="cb450-32"><a href="structuring-data-transformation-and-model-assessments.html#cb450-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># baked.df &lt;- bake(prep.df, new_data = df)</span></span>
+<span id="cb450-33"><a href="structuring-data-transformation-and-model-assessments.html#cb450-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># baked.df.train &lt;- bake(prep.df, new_data = df.train) #Used if Blueprint is run on train data</span></span>
+<span id="cb450-34"><a href="structuring-data-transformation-and-model-assessments.html#cb450-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># baked.df.test &lt;- bake(prep.df, new_data = df.test) #Used if Blueprint is run on train data</span></span>
+<span id="cb450-35"><a href="structuring-data-transformation-and-model-assessments.html#cb450-35" aria-hidden="true" tabindex="-1"></a>    }</span></code></pre></div>
 <pre><code>## NULL</code></pre>
-<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="structuring-data-transformation-and-model-assessments.html#cb384-1" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb384-2"><a href="structuring-data-transformation-and-model-assessments.html#cb384-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Selecting the parameters</span></span>
-<span id="cb384-3"><a href="structuring-data-transformation-and-model-assessments.html#cb384-3" aria-hidden="true" tabindex="-1"></a>train.param <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">&quot;cv&quot;</span> <span class="co">#The resampling method</span></span>
-<span id="cb384-4"><a href="structuring-data-transformation-and-model-assessments.html#cb384-4" aria-hidden="true" tabindex="-1"></a>                            ,<span class="at">number =</span> <span class="dv">5</span> <span class="co">#Relevant for when the models are trained</span></span>
-<span id="cb384-5"><a href="structuring-data-transformation-and-model-assessments.html#cb384-5" aria-hidden="true" tabindex="-1"></a>                            ,<span class="at">classProbs =</span> <span class="cn">TRUE</span></span>
-<span id="cb384-6"><a href="structuring-data-transformation-and-model-assessments.html#cb384-6" aria-hidden="true" tabindex="-1"></a>                            ,<span class="at">summaryFunction =</span> twoClassSummary <span class="co">#Returns sens, spec, ROC</span></span>
-<span id="cb384-7"><a href="structuring-data-transformation-and-model-assessments.html#cb384-7" aria-hidden="true" tabindex="-1"></a>                            ,<span class="at">allowParallel =</span> <span class="cn">TRUE</span></span>
-<span id="cb384-8"><a href="structuring-data-transformation-and-model-assessments.html#cb384-8" aria-hidden="true" tabindex="-1"></a>                            )</span>
-<span id="cb384-9"><a href="structuring-data-transformation-and-model-assessments.html#cb384-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb384-10"><a href="structuring-data-transformation-and-model-assessments.html#cb384-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb384-11"><a href="structuring-data-transformation-and-model-assessments.html#cb384-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Training different models</span></span>
-<span id="cb384-12"><a href="structuring-data-transformation-and-model-assessments.html#cb384-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb384-13"><a href="structuring-data-transformation-and-model-assessments.html#cb384-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#(1) Conditional Inference Tree</span></span>
-<span id="cb384-14"><a href="structuring-data-transformation-and-model-assessments.html#cb384-14" aria-hidden="true" tabindex="-1"></a>  model.tree <span class="ot">&lt;-</span> <span class="fu">train</span>(Purchase <span class="sc">~</span> .</span>
-<span id="cb384-15"><a href="structuring-data-transformation-and-model-assessments.html#cb384-15" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">data =</span> df.train</span>
-<span id="cb384-16"><a href="structuring-data-transformation-and-model-assessments.html#cb384-16" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">method =</span> <span class="st">&quot;ctree2&quot;</span> <span class="co">#See list http://topepo.github.io/caret/train-models-by-tag.html</span></span>
-<span id="cb384-17"><a href="structuring-data-transformation-and-model-assessments.html#cb384-17" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">trControl =</span> train.param</span>
-<span id="cb384-18"><a href="structuring-data-transformation-and-model-assessments.html#cb384-18" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">metric =</span> <span class="st">&quot;ROC&quot;</span>)</span>
-<span id="cb384-19"><a href="structuring-data-transformation-and-model-assessments.html#cb384-19" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb384-20"><a href="structuring-data-transformation-and-model-assessments.html#cb384-20" aria-hidden="true" tabindex="-1"></a>  <span class="co">#(2) Random Forest</span></span>
-<span id="cb384-21"><a href="structuring-data-transformation-and-model-assessments.html#cb384-21" aria-hidden="true" tabindex="-1"></a>  model.rf<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">train</span>(Purchase <span class="sc">~</span> .</span>
-<span id="cb384-22"><a href="structuring-data-transformation-and-model-assessments.html#cb384-22" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">data =</span> df.train</span>
-<span id="cb384-23"><a href="structuring-data-transformation-and-model-assessments.html#cb384-23" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">method =</span> <span class="st">&quot;rf&quot;</span></span>
-<span id="cb384-24"><a href="structuring-data-transformation-and-model-assessments.html#cb384-24" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">ntree =</span> <span class="dv">10</span> <span class="co">#Number of trees to grow</span></span>
-<span id="cb384-25"><a href="structuring-data-transformation-and-model-assessments.html#cb384-25" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">trControl =</span> train.param</span>
-<span id="cb384-26"><a href="structuring-data-transformation-and-model-assessments.html#cb384-26" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">metric =</span> <span class="st">&quot;ROC&quot;</span>)</span>
-<span id="cb384-27"><a href="structuring-data-transformation-and-model-assessments.html#cb384-27" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb384-28"><a href="structuring-data-transformation-and-model-assessments.html#cb384-28" aria-hidden="true" tabindex="-1"></a>  <span class="co">#(3) Random Forest 2</span></span>
-<span id="cb384-29"><a href="structuring-data-transformation-and-model-assessments.html#cb384-29" aria-hidden="true" tabindex="-1"></a>  model.rf<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">train</span>(Purchase <span class="sc">~</span> .</span>
-<span id="cb384-30"><a href="structuring-data-transformation-and-model-assessments.html#cb384-30" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">data =</span> df.train</span>
-<span id="cb384-31"><a href="structuring-data-transformation-and-model-assessments.html#cb384-31" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">method =</span> <span class="st">&quot;rf&quot;</span></span>
-<span id="cb384-32"><a href="structuring-data-transformation-and-model-assessments.html#cb384-32" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">ntree =</span> <span class="dv">150</span> <span class="co">#Number of trees to grow</span></span>
-<span id="cb384-33"><a href="structuring-data-transformation-and-model-assessments.html#cb384-33" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">trControl =</span> train.param</span>
-<span id="cb384-34"><a href="structuring-data-transformation-and-model-assessments.html#cb384-34" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">metric =</span> <span class="st">&quot;ROC&quot;</span>)</span>
-<span id="cb384-35"><a href="structuring-data-transformation-and-model-assessments.html#cb384-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb384-36"><a href="structuring-data-transformation-and-model-assessments.html#cb384-36" aria-hidden="true" tabindex="-1"></a>  <span class="co">#(4) XGBoosting</span></span>
-<span id="cb384-37"><a href="structuring-data-transformation-and-model-assessments.html#cb384-37" aria-hidden="true" tabindex="-1"></a>  model.xgboost <span class="ot">&lt;-</span> <span class="fu">train</span>(Purchase <span class="sc">~</span> .</span>
-<span id="cb384-38"><a href="structuring-data-transformation-and-model-assessments.html#cb384-38" aria-hidden="true" tabindex="-1"></a>                         ,<span class="at">data =</span> df.train</span>
-<span id="cb384-39"><a href="structuring-data-transformation-and-model-assessments.html#cb384-39" aria-hidden="true" tabindex="-1"></a>                         ,<span class="at">method =</span> <span class="st">&quot;xgbTree&quot;</span></span>
-<span id="cb384-40"><a href="structuring-data-transformation-and-model-assessments.html#cb384-40" aria-hidden="true" tabindex="-1"></a>                         ,<span class="at">trControl =</span> train.param</span>
-<span id="cb384-41"><a href="structuring-data-transformation-and-model-assessments.html#cb384-41" aria-hidden="true" tabindex="-1"></a>                         ,<span class="at">metric =</span> <span class="st">&quot;ROC&quot;</span></span>
-<span id="cb384-42"><a href="structuring-data-transformation-and-model-assessments.html#cb384-42" aria-hidden="true" tabindex="-1"></a>                         ,<span class="at">tuneGrid =</span> <span class="fu">data.frame</span>(<span class="at">.nrounds =</span> <span class="dv">300</span> <span class="co">#Defining a table of tuning params</span></span>
-<span id="cb384-43"><a href="structuring-data-transformation-and-model-assessments.html#cb384-43" aria-hidden="true" tabindex="-1"></a>                                                ,<span class="at">.max_depth =</span> <span class="dv">3</span></span>
-<span id="cb384-44"><a href="structuring-data-transformation-and-model-assessments.html#cb384-44" aria-hidden="true" tabindex="-1"></a>                                                ,<span class="at">.eta =</span> <span class="fl">0.03</span></span>
-<span id="cb384-45"><a href="structuring-data-transformation-and-model-assessments.html#cb384-45" aria-hidden="true" tabindex="-1"></a>                                                ,<span class="at">.gamma =</span> <span class="dv">0</span></span>
-<span id="cb384-46"><a href="structuring-data-transformation-and-model-assessments.html#cb384-46" aria-hidden="true" tabindex="-1"></a>                                                ,<span class="at">.subsample =</span> <span class="fl">0.5</span></span>
-<span id="cb384-47"><a href="structuring-data-transformation-and-model-assessments.html#cb384-47" aria-hidden="true" tabindex="-1"></a>                                                ,<span class="at">.colsample_bytree =</span> <span class="fl">0.1</span></span>
-<span id="cb384-48"><a href="structuring-data-transformation-and-model-assessments.html#cb384-48" aria-hidden="true" tabindex="-1"></a>                                                ,<span class="at">.min_child_weight =</span> <span class="dv">1</span>))</span>
-<span id="cb384-49"><a href="structuring-data-transformation-and-model-assessments.html#cb384-49" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb384-50"><a href="structuring-data-transformation-and-model-assessments.html#cb384-50" aria-hidden="true" tabindex="-1"></a><span class="co">#Terminating the parallels</span></span>
-<span id="cb384-51"><a href="structuring-data-transformation-and-model-assessments.html#cb384-51" aria-hidden="true" tabindex="-1"></a><span class="fu">stopCluster</span>(CoreCount)</span>
-<span id="cb384-52"><a href="structuring-data-transformation-and-model-assessments.html#cb384-52" aria-hidden="true" tabindex="-1"></a><span class="fu">registerDoSEQ</span>()</span>
-<span id="cb384-53"><a href="structuring-data-transformation-and-model-assessments.html#cb384-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb384-54"><a href="structuring-data-transformation-and-model-assessments.html#cb384-54" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarizing the results</span></span>
-<span id="cb384-55"><a href="structuring-data-transformation-and-model-assessments.html#cb384-55" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">resamples</span>(<span class="fu">list</span>(<span class="at">tree =</span> model.tree,</span>
-<span id="cb384-56"><a href="structuring-data-transformation-and-model-assessments.html#cb384-56" aria-hidden="true" tabindex="-1"></a>                          <span class="at">rf.1  =</span> model.rf<span class="fl">.1</span>,</span>
-<span id="cb384-57"><a href="structuring-data-transformation-and-model-assessments.html#cb384-57" aria-hidden="true" tabindex="-1"></a>                          <span class="at">rf.2  =</span> model.rf<span class="fl">.2</span>,</span>
-<span id="cb384-58"><a href="structuring-data-transformation-and-model-assessments.html#cb384-58" aria-hidden="true" tabindex="-1"></a>                          <span class="at">xgboost =</span> model.xgboost)</span>
-<span id="cb384-59"><a href="structuring-data-transformation-and-model-assessments.html#cb384-59" aria-hidden="true" tabindex="-1"></a>                     )</span>
-<span id="cb384-60"><a href="structuring-data-transformation-and-model-assessments.html#cb384-60" aria-hidden="true" tabindex="-1"></a>results</span></code></pre></div>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="structuring-data-transformation-and-model-assessments.html#cb452-1" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb452-2"><a href="structuring-data-transformation-and-model-assessments.html#cb452-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Selecting the parameters</span></span>
+<span id="cb452-3"><a href="structuring-data-transformation-and-model-assessments.html#cb452-3" aria-hidden="true" tabindex="-1"></a>train.param <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">&quot;cv&quot;</span> <span class="co">#The resampling method</span></span>
+<span id="cb452-4"><a href="structuring-data-transformation-and-model-assessments.html#cb452-4" aria-hidden="true" tabindex="-1"></a>                            ,<span class="at">number =</span> <span class="dv">5</span> <span class="co">#Relevant for when the models are trained</span></span>
+<span id="cb452-5"><a href="structuring-data-transformation-and-model-assessments.html#cb452-5" aria-hidden="true" tabindex="-1"></a>                            ,<span class="at">classProbs =</span> <span class="cn">TRUE</span></span>
+<span id="cb452-6"><a href="structuring-data-transformation-and-model-assessments.html#cb452-6" aria-hidden="true" tabindex="-1"></a>                            ,<span class="at">summaryFunction =</span> twoClassSummary <span class="co">#Returns sens, spec, ROC</span></span>
+<span id="cb452-7"><a href="structuring-data-transformation-and-model-assessments.html#cb452-7" aria-hidden="true" tabindex="-1"></a>                            ,<span class="at">allowParallel =</span> <span class="cn">TRUE</span></span>
+<span id="cb452-8"><a href="structuring-data-transformation-and-model-assessments.html#cb452-8" aria-hidden="true" tabindex="-1"></a>                            )</span>
+<span id="cb452-9"><a href="structuring-data-transformation-and-model-assessments.html#cb452-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb452-10"><a href="structuring-data-transformation-and-model-assessments.html#cb452-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb452-11"><a href="structuring-data-transformation-and-model-assessments.html#cb452-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Training different models</span></span>
+<span id="cb452-12"><a href="structuring-data-transformation-and-model-assessments.html#cb452-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb452-13"><a href="structuring-data-transformation-and-model-assessments.html#cb452-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#(1) Conditional Inference Tree</span></span>
+<span id="cb452-14"><a href="structuring-data-transformation-and-model-assessments.html#cb452-14" aria-hidden="true" tabindex="-1"></a>  model.tree <span class="ot">&lt;-</span> <span class="fu">train</span>(Purchase <span class="sc">~</span> .</span>
+<span id="cb452-15"><a href="structuring-data-transformation-and-model-assessments.html#cb452-15" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">data =</span> df.train</span>
+<span id="cb452-16"><a href="structuring-data-transformation-and-model-assessments.html#cb452-16" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">method =</span> <span class="st">&quot;ctree2&quot;</span> <span class="co">#See list http://topepo.github.io/caret/train-models-by-tag.html</span></span>
+<span id="cb452-17"><a href="structuring-data-transformation-and-model-assessments.html#cb452-17" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">trControl =</span> train.param</span>
+<span id="cb452-18"><a href="structuring-data-transformation-and-model-assessments.html#cb452-18" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">metric =</span> <span class="st">&quot;ROC&quot;</span>)</span>
+<span id="cb452-19"><a href="structuring-data-transformation-and-model-assessments.html#cb452-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb452-20"><a href="structuring-data-transformation-and-model-assessments.html#cb452-20" aria-hidden="true" tabindex="-1"></a>  <span class="co">#(2) Random Forest</span></span>
+<span id="cb452-21"><a href="structuring-data-transformation-and-model-assessments.html#cb452-21" aria-hidden="true" tabindex="-1"></a>  model.rf<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">train</span>(Purchase <span class="sc">~</span> .</span>
+<span id="cb452-22"><a href="structuring-data-transformation-and-model-assessments.html#cb452-22" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">data =</span> df.train</span>
+<span id="cb452-23"><a href="structuring-data-transformation-and-model-assessments.html#cb452-23" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">method =</span> <span class="st">&quot;rf&quot;</span></span>
+<span id="cb452-24"><a href="structuring-data-transformation-and-model-assessments.html#cb452-24" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">ntree =</span> <span class="dv">10</span> <span class="co">#Number of trees to grow</span></span>
+<span id="cb452-25"><a href="structuring-data-transformation-and-model-assessments.html#cb452-25" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">trControl =</span> train.param</span>
+<span id="cb452-26"><a href="structuring-data-transformation-and-model-assessments.html#cb452-26" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">metric =</span> <span class="st">&quot;ROC&quot;</span>)</span>
+<span id="cb452-27"><a href="structuring-data-transformation-and-model-assessments.html#cb452-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb452-28"><a href="structuring-data-transformation-and-model-assessments.html#cb452-28" aria-hidden="true" tabindex="-1"></a>  <span class="co">#(3) Random Forest 2</span></span>
+<span id="cb452-29"><a href="structuring-data-transformation-and-model-assessments.html#cb452-29" aria-hidden="true" tabindex="-1"></a>  model.rf<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">train</span>(Purchase <span class="sc">~</span> .</span>
+<span id="cb452-30"><a href="structuring-data-transformation-and-model-assessments.html#cb452-30" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">data =</span> df.train</span>
+<span id="cb452-31"><a href="structuring-data-transformation-and-model-assessments.html#cb452-31" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">method =</span> <span class="st">&quot;rf&quot;</span></span>
+<span id="cb452-32"><a href="structuring-data-transformation-and-model-assessments.html#cb452-32" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">ntree =</span> <span class="dv">150</span> <span class="co">#Number of trees to grow</span></span>
+<span id="cb452-33"><a href="structuring-data-transformation-and-model-assessments.html#cb452-33" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">trControl =</span> train.param</span>
+<span id="cb452-34"><a href="structuring-data-transformation-and-model-assessments.html#cb452-34" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">metric =</span> <span class="st">&quot;ROC&quot;</span>)</span>
+<span id="cb452-35"><a href="structuring-data-transformation-and-model-assessments.html#cb452-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb452-36"><a href="structuring-data-transformation-and-model-assessments.html#cb452-36" aria-hidden="true" tabindex="-1"></a>  <span class="co">#(4) XGBoosting</span></span>
+<span id="cb452-37"><a href="structuring-data-transformation-and-model-assessments.html#cb452-37" aria-hidden="true" tabindex="-1"></a>  model.xgboost <span class="ot">&lt;-</span> <span class="fu">train</span>(Purchase <span class="sc">~</span> .</span>
+<span id="cb452-38"><a href="structuring-data-transformation-and-model-assessments.html#cb452-38" aria-hidden="true" tabindex="-1"></a>                         ,<span class="at">data =</span> df.train</span>
+<span id="cb452-39"><a href="structuring-data-transformation-and-model-assessments.html#cb452-39" aria-hidden="true" tabindex="-1"></a>                         ,<span class="at">method =</span> <span class="st">&quot;xgbTree&quot;</span></span>
+<span id="cb452-40"><a href="structuring-data-transformation-and-model-assessments.html#cb452-40" aria-hidden="true" tabindex="-1"></a>                         ,<span class="at">trControl =</span> train.param</span>
+<span id="cb452-41"><a href="structuring-data-transformation-and-model-assessments.html#cb452-41" aria-hidden="true" tabindex="-1"></a>                         ,<span class="at">metric =</span> <span class="st">&quot;ROC&quot;</span></span>
+<span id="cb452-42"><a href="structuring-data-transformation-and-model-assessments.html#cb452-42" aria-hidden="true" tabindex="-1"></a>                         ,<span class="at">tuneGrid =</span> <span class="fu">data.frame</span>(<span class="at">.nrounds =</span> <span class="dv">300</span> <span class="co">#Defining a table of tuning params</span></span>
+<span id="cb452-43"><a href="structuring-data-transformation-and-model-assessments.html#cb452-43" aria-hidden="true" tabindex="-1"></a>                                                ,<span class="at">.max_depth =</span> <span class="dv">3</span></span>
+<span id="cb452-44"><a href="structuring-data-transformation-and-model-assessments.html#cb452-44" aria-hidden="true" tabindex="-1"></a>                                                ,<span class="at">.eta =</span> <span class="fl">0.03</span></span>
+<span id="cb452-45"><a href="structuring-data-transformation-and-model-assessments.html#cb452-45" aria-hidden="true" tabindex="-1"></a>                                                ,<span class="at">.gamma =</span> <span class="dv">0</span></span>
+<span id="cb452-46"><a href="structuring-data-transformation-and-model-assessments.html#cb452-46" aria-hidden="true" tabindex="-1"></a>                                                ,<span class="at">.subsample =</span> <span class="fl">0.5</span></span>
+<span id="cb452-47"><a href="structuring-data-transformation-and-model-assessments.html#cb452-47" aria-hidden="true" tabindex="-1"></a>                                                ,<span class="at">.colsample_bytree =</span> <span class="fl">0.1</span></span>
+<span id="cb452-48"><a href="structuring-data-transformation-and-model-assessments.html#cb452-48" aria-hidden="true" tabindex="-1"></a>                                                ,<span class="at">.min_child_weight =</span> <span class="dv">1</span>))</span>
+<span id="cb452-49"><a href="structuring-data-transformation-and-model-assessments.html#cb452-49" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb452-50"><a href="structuring-data-transformation-and-model-assessments.html#cb452-50" aria-hidden="true" tabindex="-1"></a><span class="co">#Terminating the parallels</span></span>
+<span id="cb452-51"><a href="structuring-data-transformation-and-model-assessments.html#cb452-51" aria-hidden="true" tabindex="-1"></a><span class="fu">stopCluster</span>(CoreCount)</span>
+<span id="cb452-52"><a href="structuring-data-transformation-and-model-assessments.html#cb452-52" aria-hidden="true" tabindex="-1"></a><span class="fu">registerDoSEQ</span>()</span>
+<span id="cb452-53"><a href="structuring-data-transformation-and-model-assessments.html#cb452-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb452-54"><a href="structuring-data-transformation-and-model-assessments.html#cb452-54" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarizing the results</span></span>
+<span id="cb452-55"><a href="structuring-data-transformation-and-model-assessments.html#cb452-55" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">resamples</span>(<span class="fu">list</span>(<span class="at">tree =</span> model.tree,</span>
+<span id="cb452-56"><a href="structuring-data-transformation-and-model-assessments.html#cb452-56" aria-hidden="true" tabindex="-1"></a>                          <span class="at">rf.1  =</span> model.rf<span class="fl">.1</span>,</span>
+<span id="cb452-57"><a href="structuring-data-transformation-and-model-assessments.html#cb452-57" aria-hidden="true" tabindex="-1"></a>                          <span class="at">rf.2  =</span> model.rf<span class="fl">.2</span>,</span>
+<span id="cb452-58"><a href="structuring-data-transformation-and-model-assessments.html#cb452-58" aria-hidden="true" tabindex="-1"></a>                          <span class="at">xgboost =</span> model.xgboost)</span>
+<span id="cb452-59"><a href="structuring-data-transformation-and-model-assessments.html#cb452-59" aria-hidden="true" tabindex="-1"></a>                     )</span>
+<span id="cb452-60"><a href="structuring-data-transformation-and-model-assessments.html#cb452-60" aria-hidden="true" tabindex="-1"></a>results</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## resamples.default(x = list(tree = model.tree, rf.1 = model.rf.1, rf.2
@@ -464,7 +478,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Number of resamples: 5 
 ## Performance metrics: ROC, Sens, Spec 
 ## Time estimates for: everything, final model fit</code></pre>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="structuring-data-transformation-and-model-assessments.html#cb386-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(results)</span></code></pre></div>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="structuring-data-transformation-and-model-assessments.html#cb454-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(results)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## summary.resamples(object = results)
@@ -492,10 +506,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## rf.1    0.6349206 0.6984127 0.7301587 0.7174603 0.7460317 0.7777778    0
 ## rf.2    0.6349206 0.6984127 0.6984127 0.7142857 0.7460317 0.7936508    0
 ## xgboost 0.6190476 0.6349206 0.6666667 0.6793651 0.7142857 0.7619048    0</code></pre>
-<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="structuring-data-transformation-and-model-assessments.html#cb388-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bwplot</span>(results)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-281-1.png" width="720" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="structuring-data-transformation-and-model-assessments.html#cb389-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dotplot</span>(results)</span></code></pre></div>
-<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-281-2.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="structuring-data-transformation-and-model-assessments.html#cb456-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bwplot</span>(results)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-317-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="structuring-data-transformation-and-model-assessments.html#cb457-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dotplot</span>(results)</span></code></pre></div>
+<p><img src="Machine-Learning-Notes_files/figure-html/unnamed-chunk-317-2.png" width="720" style="display: block; margin: auto;" /></p>
 
 </div>
             </section>
