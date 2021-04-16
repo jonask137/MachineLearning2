@@ -1,0 +1,520 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# Chapter 3 - Getting Started With Neural Networks
+
+The follwoing sections shows three different examples, one in three different scenarios.
+
+## Positive / Negative IMDB reviews
+
+### Extracting the data
+
+```{r}
+#Loading the data
+  library(keras)
+  imdb <- dataset_imdb(num_words = 10000) #We restrict outselves to the top 10.000 words.
+  c(c(train_data, train_labels), c(test_data, test_labels)) %<-% imdb #Unpacks the elements
+```
+
+The words are all indexed and ranked, hence the reviews consist of numbers, we will later revert this.
+
+Before we start building the model, we can explore the data a bit. One must notice, that the data that is in the package is already prepared to b
+
+```{r,results='hold'}
+str(train_data[[1]]) #We see that each word is changed into a number. NOTE this is a just a snip of the full review
+train_labels[[1]] #We see that 1 = positive, 0 = negative
+
+#Reverting to english words
+  # word_index is a dictionary mapping words to an integer index
+  word_index <- dataset_imdb_word_index()
+  # We reverse it, mapping integer indices to words
+  reverse_word_index <- names(word_index)
+  names(reverse_word_index) <- word_index
+  # We decode the review; note that our indices were offset by 3
+  # because 0, 1 and 2 are reserved indices for "padding", "start of sequence", and "unknown".
+  decoded_review <- sapply(train_data[[1]], function(index) {
+    word <- if (index >= 3) reverse_word_index[[as.character(index - 3)]]
+    if (!is.null(word)) word else "?"
+  })
+  
+  #Printing one review
+  cat(decoded_review)
+
+```
+
+### Preparing the data
+
+```{r}
+#Preparing the data
+  vectorize_sequences <- function(sequences, dimension = 10000) {
+    # Create an all-zero matrix of shape (len(sequences), dimension)
+    results <- matrix(0, nrow = length(sequences), ncol = dimension)
+    for (i in 1:length(sequences))
+      # Sets specific indices of results[i] to 1s
+      results[i, sequences[[i]]] <- 1
+    results
+  }
+  
+  # Our vectorized training data
+  x_train <- vectorize_sequences(train_data)
+  # Our vectorized test data
+  x_test <- vectorize_sequences(test_data)
+  
+  # Our vectorized labels
+  y_train <- as.numeric(train_labels)
+  y_test <- as.numeric(test_labels)
+```
+
+### Building the model
+
+```{r, echo=TRUE, results='hide'}
+#Building the network
+  library(keras)
+
+  model <- keras_model_sequential() %>% 
+    layer_dense(units = 16, activation = "relu", input_shape = c(10000)) %>% 
+    layer_dense(units = 16, activation = "relu") %>% 
+    layer_dense(units = 1, activation = "sigmoid")
+ 
+   
+#Defining Optimizer, loss and metrics
+  model %>% compile(
+    optimizer = "rmsprop", #Build-in, one can create functions and call external functions also
+    loss = "binary_crossentropy", #Build-in, one can create functions and call external functions also
+    metrics = c("accuracy") #Build-in, one can create functions and call external functions also
+    )
+
+
+#Validating the model
+  val_indices <- 1:10000 #We want the first 10.000 observations
+  
+  x_val <- x_train[val_indices,]
+  partial_x_train <- x_train[-val_indices,]
+  
+  y_val <- y_train[val_indices]
+  partial_y_train <- y_train[-val_indices]
+```
+
+Now where we have created the learner, `keras` stores the loss and defined metrics, so we are able to see how the model performed throughout the iterations.
+
+### Assessing model performance
+
+*Notice, that if we run the following code consecutively, the model appear to remember the previous runs. Hence one should run the model above.*
+
+```{r, echo=TRUE, results='hide',fig.cap="Assessment of model performance"}
+epochs <- 20
+batch_size <- 512
+
+#Retrieving history
+  history <- model %>% fit( #We fit the model
+    partial_x_train,
+    partial_y_train,
+    epochs = epochs, #How many iterations?
+    batch_size = batch_size, #How many observations in each batch?
+    validation_data = list(x_val, y_val)
+    )
+
+  #The numbers behind the plot
+  library(tidyverse)
+  as_tibble(cbind(c(1:epochs)
+                    ,history$metrics$loss
+                    ,history$metrics$val_loss
+                    ,history$metrics$accuracy
+                    ,history$metrics$val_accuracy)) %>% 
+    setNames(nm = c("Iteration",names(history$metrics)))
+```
+
+As with any other learners, we see that we are able to overtrain, i.e. overfit, the model to the train data and the model is in fact just memorizing the train results. Hence running too many iterations does not appear to yield an appropriate model.
+
+Recall that we are optimizing the loss and not the accuracy. Hence wee see that the loss starts to increase at some point, but it is difficult to deduct from the accuracy line. ***Notice, that it is not given that the lowest Loss = the highest accuracy.***
+
+```{r,include=FALSE}
+rm(list = ls())
+```
+
+## Multiclass classification - Classifying newswires
+
+In this section we classify Reuters newswires into 46 mutually exclusive topics. Thus we have more than two classes to predict. That also means that the last layer in the network will have 46 units, hence one for each of the classes, see [@chollet2018, p. 70]. The data is already loaded into the package.
+
+### Loading the data
+
+```{r}
+library(keras)
+reuters <- dataset_reuters(num_words = 10000) #Restricting to top 10.000 words.
+c(c(train_data, train_labels), c(test_data, test_labels)) %<-% reuters
+```
+
+We could do the same exploration of the data as with IMDB if we'd like to. For this example it is skipped.
+
+### Preparing the data
+
+```{r}
+vectorize_sequences <- function(sequences, dimension = 10000) {
+results <- matrix(0, nrow = length(sequences), ncol = dimension)
+for (i in 1:length(sequences))
+results[i, sequences[[i]]] <- 1
+results
+}
+x_train <- vectorize_sequences(train_data)
+x_test <- vectorize_sequences(test_data)
+```
+
+Recall that we have more than 2 outcomes. To deal with this, we have two possibilities:
+
+1.  Call the label an integer tensor
+2.  Use "one-hot" encoding. This is the same as one making dummies after the one-hot principle.
+
+We will use the one-hot encoding, creating vectors of 0's and 1 in the place of the the specific category.
+
+```{r}
+to_one_hot <- function(labels, dimension = 46) {
+  results <- matrix(0, nrow = length(labels), ncol = dimension)
+  for (i in 1:length(labels))
+    results[i, labels[[i]] + 1] <- 1
+  results
+}
+
+one_hot_train_labels <- to_one_hot(train_labels)
+one_hot_test_labels <- to_one_hot(test_labels)
+
+#Alternative using Keras built in function:
+  # one_hot_train_labels <- to_categorical(train_labels)
+  # one_hot_test_labels <- to_categorical(test_labels)
+
+```
+
+```{r,results='hold'}
+one_hot_train_labels %>% dim()
+one_hot_test_labels %>% dim()
+```
+
+We see that there is a row for each sample and then a coloumn for each of the categories.
+
+If one where to print each sample and identifying whether each word appears, one can visualize this with:
+
+![](images/paste-0B7B7C34.png){width="220"}
+
+Where we see that a white pixel = the specific word appears. We see that we have a lot of sparsity, meaning that very much black space (0's).
+
+### Building the model
+
+We are going to build a dequencial model, hence each layer can only process what is given from the previous layers. In this example we have even more categories and the model must be able to distinguish between more scenarios, hence 16 units in each layer as seen in section \@ref(chapter-3---positive-negative-imdb-reviews). That is because what one layer leaves out, the following layers can use, hence we will apply more layers, in this example we use 64.
+
+```{r}
+model <- keras_model_sequential() %>% 
+  layer_dense(units = 64, activation = "relu", input_shape = c(10000)) %>% 
+  layer_dense(units = 64, activation = "relu") %>% 
+  layer_dense(units = 46, activation = "softmax") #Softmax for probability distribution
+```
+
+Botice that the input_shape for the first layer is 10.000, that is corresponding to the train partition of the data. As we see in the picture above, we have a lot of sparsity, we use 64 units.
+
+::: {.lightbluebox}
+**What shape do we want?** We want to have a funnel shape or a tunnel shape, not a shape we we decrease amount of neurons and then later expand amount of neurons.
+:::
+
+Notice that the last layer has units = no. of classes and the we use activation "softmax". This layer will produce a probability distribution, where all entries sum to 1.
+
+Now we must define optimizer, loss and metrics, we go for:
+
+-   Optimizer = rmsprop
+
+-   Loss = Categorical crossentropy. This appear to be good in a multiclass setting
+
+-   Metrics = We want to see accuracy on a running basis
+
+```{r}
+model %>% compile(
+  optimizer = "rmsprop",
+  loss = "categorical_crossentropy",
+  metrics = c("accuracy")
+)
+```
+
+Now we can validate the model using the data partitions.
+
+### Validating the model + model assessment
+
+```{r,echo=TRUE, results='hide'}
+#Validating the model
+val_indices <- 1:1000
+
+x_val <- x_train[val_indices,]
+partial_x_train <- x_train[-val_indices,]
+
+y_val <- one_hot_train_labels[val_indices,]
+partial_y_train = one_hot_train_labels[-val_indices,]
+
+#Retriving history
+history <- model %>% fit(
+  partial_x_train,
+  partial_y_train,
+  epochs = 20,
+  batch_size = 512,
+  validation_data = list(x_val, y_val)
+)
+```
+
+Let us now see the performance over the iterations (epochs)
+
+```{r}
+plot(history)
+```
+
+We see that the in-sample performance keep increasing while the out-of-sample performance decays over time.
+
+```{r}
+#Accuracy
+plot(history$metrics$val_accuracy,ylim = c(0.5,1),type =  "l",col = "darkblue")
+lines(history$metrics$accuracy,type = "l",col = "darkgreen")
+abline(v = which.max(history$metrics$val_accuracy),lty = 2,col = "purple",lwd = 0.7)
+grid()
+
+#Standard errors
+min.point = max(history$metrics$val_accuracy)
+sd.points = sd(history$metrics$val_accuracy)
+abline(h=min.point + 0.2 * sd.points, col="red", lty="dashed") #0.2 is just a rule of thumb, could be anything
+abline(h=min.point - 0.2 * sd.points, col="red", lty="dashed")
+legend("topright", "0.2-standard deviation lines", lty="dashed", col="red",cex = 0.6)
+```
+
+We see that the maximum is at 10 epochs, while the book suggests selecting 9. Thus we go for 9. 0.2 standard errors
+
+### Training model with optimal epochs
+
+```{r}
+epochs <- 9
+
+model <- keras_model_sequential() %>% 
+  layer_dense(units = 64, activation = "relu", input_shape = c(10000)) %>% 
+  layer_dense(units = 64, activation = "relu") %>% 
+  layer_dense(units = 46, activation = "softmax")
+  
+model %>% compile(
+  optimizer = "rmsprop",
+  loss = "categorical_crossentropy",
+  metrics = c("accuracy")
+)
+
+history <- model %>% fit(
+  partial_x_train,
+  partial_y_train,
+  epochs = epochs,
+  batch_size = 512,
+  validation_data = list(x_val, y_val)
+)
+
+results <- model %>% evaluate(x_test, one_hot_test_labels)
+```
+
+Now we can print the results
+
+```{r}
+results
+```
+
+We see in-sample that the model has an accuracy of 77.3%. This we would like to compare with predictions on new data.
+
+### Predictions on new data
+
+```{r}
+predictions <- model %>% predict(x_test)
+```
+
+Recall that we set the last layer to `activation = 'softmax'` which are the probabilities distributed, hence they should all sum to 1.
+
+```{r,results='hold'}
+head(predictions)
+sum(predictions[1,])
+```
+
+We see that each row is a sample and each coloumn is a unit in the last layer.
+
+```{r,fig.cap="Probabilities for classes for one observation"}
+barplot(predictions[1,],main = "Probabilities of class n",xlab = "Probabilities")
+```
+
+We see that the model is confident that the sample is either 4 or 5, where there is a greater probability for class 4.
+
+```{r,include=FALSE}
+rm(list = ls())
+```
+
+## Continous prediction / a regression example - Predicting houseprices
+
+We are going to predict housing prices, hence we want to predict a continous variable and thus the last layer will end up with one unit.
+
+### Loading the data
+
+```{r}
+library(keras)
+
+dataset <- dataset_boston_housing()
+c(c(train_data, train_targets), c(test_data, test_targets)) %<-% dataset
+```
+
+### Preparing the data
+
+Notice that we scale the variables to make them comparable.
+
+```{r}
+mean <- apply(train_data, 2, mean)
+std <- apply(train_data, 2, sd)
+train_data <- scale(train_data, center = mean, scale = std)
+test_data <- scale(test_data, center = mean, scale = std)
+```
+
+We see that we did the following:
+
+1.  Subtract the mean, to demean the observations.
+2.  Divide by the standard deviation.
+
+It is a good idea (mostly a must) as it will make it easier for the network to learn. As if we did not scale them, then the model must first learn the spread in the each variable.
+
+### Building the model
+
+```{r}
+# Because we will need to instantiate the same model multiple times,
+# we use a function to construct it.
+build_model <- function() {
+  model <- keras_model_sequential() %>% 
+    layer_dense(units = 64, activation = "relu", 
+                input_shape = dim(train_data)[[2]]) %>% 
+    layer_dense(units = 64, activation = "relu") %>% 
+    layer_dense(units = 1) 
+    
+  model %>% compile(
+    optimizer = "rmsprop", 
+    loss = "mse", #MSE is good, if we want to punish the outliers.
+    metrics = c("mae") #This is nice, because absolute values will still be on the dollar scale
+  )
+}
+```
+
+Note that we are not using any activation rule for the last layer, as we want it to be able to predict any value.
+
+#### Validating the approach using K-fold validation
+
+Notice that in this example we use 4 folds and then iterate through the folds.
+
+```{r, echo=TRUE, results='hide'}
+k <- 4
+indices <- sample(1:nrow(train_data))
+folds <- cut(indices, breaks = k, labels = FALSE)
+
+num_epochs <- 100
+all_scores <- c()
+for (i in 1:k) {
+  cat("processing fold #", i, "\n")
+  # Prepare the validation data: data from partition # k
+  val_indices <- which(folds == i, arr.ind = TRUE) 
+  val_data <- train_data[val_indices,]
+  val_targets <- train_targets[val_indices]
+  
+  # Prepare the training data: data from all other partitions
+  partial_train_data <- train_data[-val_indices,]
+  partial_train_targets <- train_targets[-val_indices]
+  
+  # Build the Keras model (already compiled)
+  model <- build_model()
+  
+  # Train the model (in silent mode, verbose=0)
+  model %>% fit(partial_train_data, partial_train_targets,
+                epochs = num_epochs, batch_size = 1, verbose = 0)
+                
+  # Evaluate the model on the validation data
+  results <- model %>% evaluate(val_data, val_targets, verbose = 0)
+  all_scores <- c(all_scores,results[2]) #[2] for mean absolute error
+}
+```
+
+```{r}
+all_scores
+```
+
+```{r}
+mean(all_scores)
+```
+
+We see that on average we are off by 2,379 (notice that the variable is in 1000's).
+
+```{r}
+# Some memory clean-up
+k_clear_session()
+```
+
+#### Validation with more iterations
+
+```{r, echo=TRUE, results='hide'}
+num_epochs <- 500
+all_mae_histories <- NULL
+for (i in 1:k) {
+  cat("processing fold #", i, "\n")
+  
+  # Prepare the validation data: data from partition # k
+  val_indices <- which(folds == i, arr.ind = TRUE)
+  val_data <- train_data[val_indices,]
+  val_targets <- train_targets[val_indices]
+  
+  # Prepare the training data: data from all other partitions
+  partial_train_data <- train_data[-val_indices,]
+  partial_train_targets <- train_targets[-val_indices]
+  
+  # Build the Keras model (already compiled)
+  model <- build_model()
+  
+  # Train the model (in silent mode, verbose=0)
+  history <- model %>% fit(
+    partial_train_data, partial_train_targets,
+    validation_data = list(val_data, val_targets),
+    epochs = num_epochs, batch_size = 1, verbose = 0
+  )
+  mae_history <- history$metrics$val_mean_absolute_error
+  all_mae_histories <- rbind(all_mae_histories, mae_history)
+}
+```
+
+We can then compute the average of the per-epoch MAE scores for all folds:
+
+```{r}
+# average_mae_history <- data.frame(
+#   epoch = seq(1:ncol(all_mae_histories)),
+#   validation_mae = apply(all_mae_histories, 2, mean)
+# )
+```
+
+Let's plot this:
+
+```{r}
+# library(ggplot2)
+# ggplot(average_mae_history, aes(x = epoch, y = validation_mae)) + geom_line()
+```
+
+We can use `geom_smooth` to see smooth it out a bit.
+
+It may be a bit hard to see the plot due to scaling issues and relatively high variance. Let's use `geom_smooth()` to try to get a clearer picture:
+
+```{r}
+# ggplot(average_mae_history, aes(x = epoch, y = validation_mae)) + geom_smooth()
+```
+
+#### Tuning amount fo hidden layers
+
+```{r, echo=FALSE, results='hide'}
+# # Get a fresh, compiled model.
+# model <- build_model()
+# 
+# # Train it on the entirety of the data.
+# model %>% fit(train_data, train_targets,
+#           epochs = 80, batch_size = 16, verbose = 0)
+# 
+# result <- model %>% evaluate(test_data, test_targets)
+```
+
+```{r}
+# result
+```
+
