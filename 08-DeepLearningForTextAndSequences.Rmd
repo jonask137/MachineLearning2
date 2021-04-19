@@ -1219,7 +1219,7 @@ val_steps <- (300000 - 200001 - lookback) / batch_size
 test_steps <- (nrow(data) - 300001 - lookback) / batch_size
 ```
 
-
+Notice that the following is not run, because the Macbook is not able to.
 
 ```{r}
 model <- keras_model_sequential() %>%
@@ -1241,13 +1241,50 @@ model %>% compile(
 history <- model %>% fit_generator(
   train_gen,
   steps_per_epoch = 500,
-  epochs = 1,
+  epochs = 40,
   validation_data = val_gen,
   validation_steps = val_steps
 )
 ```
 
+We are supposed to see that it does not improve and does much worse than the simple baseline.
 
+One must remember that GRU will rule out information from previous steps quicker than for instance LSTM. Meaning that when we run GRU with data in antichronological order, then it will first see the newest information and work its way towards the beginning. Thus the newest information will start vanishing. Hence it intuitively makes sense that the model is underperforming, as we will base predictions primarily on older weather data.
+
+__An example that works well__
+
+We can look at an example where we will see that the antichronoligical order of the data will perform just as well.
+
+```{r}
+library(keras)
+max_features <- 10000 #We want 10.000 words
+maxlen <- 500 #Cutting off text at 500 words.
+imdb <- dataset_imdb(num_words = max_features)
+c(c(x_train, y_train), c(x_test, y_test)) %<-% imdb
+x_train <- lapply(x_train,FUN =  rev) #Rev puts it in reverse order
+x_test <- lapply(x_test,FUN =  rev) #Rev puts it in reverse order
+x_train <- pad_sequences(x_train, maxlen = maxlen) #We apply padding again to have equal lengths
+x_test <- pad_sequences(x_test, maxlen = maxlen) #We apply padding again to have equal lengths
+model <- keras_model_sequential() %>%
+  layer_embedding(input_dim = max_features, output_dim = 128) %>%
+  layer_lstm(units = 32) %>%
+  layer_dense(units = 1, activation = "sigmoid")
+model %>% compile(
+  optimizer = "rmsprop",
+  loss = "binary_crossentropy",
+  metrics = c("acc")
+)
+history <- model %>% fit(
+  x_train, y_train,
+  epochs = 10,
+  batch_size = 128,
+  validation_split = 0.2
+)
+```
+
+For the model it does not matter with text what order we present it. In fact this improves the model as we are able to present the same data, but merely with a new angle.
+
+Then what we want to do with this, is to create an ensemble, so we both use chronological and antichornological order.
 
 ### Going even further
 
