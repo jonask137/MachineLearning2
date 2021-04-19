@@ -1288,5 +1288,18 @@ Then what we want to do with this, is to create an ensemble, so we both use chro
 
 ### Going even further
 
+What could we have done to improve the model even further? These are some suggestions from the book:
+
++ Play around with with the amount of units in the stacked layers. These are just a bit random.
++ Adjusting the learning rate with RMSprop optimizer
++ Adding more densely connected layers or even making them bigger
+
+### Wrap up
+
+Notice that the different approaches presented in the previous sections are different approaches and they are not equally good for all situations, f.eks. bidirectional RNNs are not good if more recent data is important in contrast to older data. But when older information, f.eks. the first words of a sentence or a paragraph then the LSTM or GRU is typically better than the bidirectional approach.
+
+Then it comes to GRU vs. LSTM, often it appears that LSTM is the best performing model, but it is also the most complicated to run.
+
 
 ## Sequence processing with convnets
+
