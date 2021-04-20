@@ -485,7 +485,22 @@ To deal with this, we introduce recurrent neural networks. These enable the mode
 
 ------------------------------------------------------------------------
 
-*For example with IMDB reviews, each review is an input and all the tokens from each review are conveyed in their right order. Hence tokens are sequentially analyzed, while taking in account past words. When the review is over, the loop will reset.* \_\_\_
+*For example with IMDB reviews, each review is an input and all the tokens from each review are conveyed in their right order. Hence tokens are sequentially analyzed, while taking in account past words. When the review is over, the loop will reset.*
+
+------------------------------------------------------------------------
+
+We notice that it is not possible to calculate Gradients for the layers, as we are in a recurrent scenario.
+
+**ReLU**: We see that the activation function is slightly iterated, where we add the state, hence something for the past memory, hence doing an activation based on that. ***This is the essence of the RNN, as that is what will decide whether the neurons will light up or not.*** This can be shown in the following way:
+
+![](C:/Users/402137/AppData/Local/RStudio/tmp/paste-2C32204C.png)
+
+We also tend to use the `tanh` function: this is the hyperbolic tangent function. It puts on numbers in the scale -1 and 1, so similar to sigmoid, where the function can take on values between 0 and 1.
+
+Why tanh and not ReLU:
+
++ ReLU = exploding gradient issue. This can leave you with bad number approximation, heavy use of memory and similar. That is because the result can become very large very quick.
++ Tanh will help keep the outcome stable.
 
 **A toy example**
 
@@ -611,7 +626,7 @@ Also `layer_simple_rnn` is not the best approach for dealing with long sequences
 
 ### Understanding the LSTM and GRU layers
 
-Now we are going to introduce two new concepts. The reason is that the `layer_simple_rnn` is too simple to deal with actual sequences, as knowledge from previous steps vanish with the loops that it is iterating through, hence earlier data will overwritten/ruled out too quick. This is called ***the vanishing gradient problem***.
+Now we are going to introduce two new concepts. The reason is that the `layer_simple_rnn` is too simple to deal with actual sequences, as knowledge from previous steps vanish with the loops that it is iterating through, hence earlier data will overwritten/ruled out too quick. This is called ***the vanishing gradient problem***, also called ***the long term dependency problem***.
 
 **LSTM = Long Short-Term Memory**, is an approach that saves information for later, hence preventing that older signals gets ruled out. In the book [@chollet2018, pg. 186 - 188] they describe it more into details, but the key take-away is that ***LSTM allows past information to be reinjected at a liter time, to fight the vanishing gradient problem***.
 
@@ -774,11 +789,11 @@ Now we will make the data generator:
 
 In its essence we want to shuffle the train data, while we want to preserve the chronoligical order for the validation and test data. The following code is able to handle different scenarios in respect of the predefined information. I have put some information in the code chunk.
 
-***
+------------------------------------------------------------------------
 
-_Notice that the if's does not have curly brackets, that is because they are only followed by a single expression. It can be tested with just running the if statement and the hereafter the console is ready to run another line. The following is an example just to show this._
+*Notice that the if's does not have curly brackets, that is because they are only followed by a single expression. It can be tested with just running the if statement and the hereafter the console is ready to run another line. The following is an example just to show this.*
 
-_An example with the If statements_
+*An example with the If statements*
 
 ```{r}
 l <- 1
@@ -796,9 +811,9 @@ rm(l)
 rm(o)
 ```
 
-_We see that the statement is only printed in the first scenario, as that is a TRUE statement_
+*We see that the statement is only printed in the first scenario, as that is a TRUE statement*
 
-***
+------------------------------------------------------------------------
 
 ```{r}
 #Listing 6.33. Generator yielding timeseries samples and their targets
@@ -913,7 +928,6 @@ test_steps <- (nrow(data) - 300001 - lookback) / batch_size
 
 Notice that we subtract the lookback, as that is foundation for first predictions, and thus they
 
-
 ### A common-sense, non-machine-learning baseline
 
 We want to get a simple baseline we can compare the model with. That is done in the following.
@@ -945,7 +959,6 @@ celsius_mae
 ```
 
 We see that the mean absolute value = 2.46. That is now our reference.
-
 
 ### A basic machine-learning approach
 
@@ -986,13 +999,11 @@ The explanation from the book is that the intuition is that complex models searc
 
 Hence it proves the rule of thumb that one must start simple and then hereafter move on to more complex models.
 
-
-
 ### A first recurrent baseline
 
 Now we will try to extend the example above to see if we can make a model that is more competitive with the baseline, and hopefully outperform it.
 
-We are now going to introduce the GRU. It stands for ___Gated recurrent unit___. The overall principle is the same, while GRU is not as cumbersome to compute, although we may not get the same data representations as we do with LSTM.
+We are now going to introduce the GRU. It stands for ***Gated recurrent unit***. The overall principle is the same, while GRU is not as cumbersome to compute, although we may not get the same data representations as we do with LSTM.
 
 ```{r}
 #Listing 6.39. Training and evaluating a model with layer_gru
@@ -1022,14 +1033,14 @@ We see that already after a couple of epochs, we get a model that is more compet
 
 So what is natural to do?
 
-__We add dropout!__
+**We add dropout!**
 
 ### using recurrent dropout to fight overfitting
 
 In this instance with RNN, we have two types of dropouts to add.
 
-1. dropout, as we normally now, where activations are randomly set to 0
-2. recurrent_dropout, same principle, just with the recurrent units. Hence we intentionally make it forget previous seen data.
+1.  dropout, as we normally now, where activations are randomly set to 0
+2.  recurrent_dropout, same principle, just with the recurrent units. Hence we intentionally make it forget previous seen data.
 
 ```{r}
 #Listing 6.40. Training and evaluating a dropout-regularized GRU-based model
@@ -1058,18 +1069,17 @@ plot(history)
 
 We see that the model has improved and now we are not overfitting any more!
 
-
 ### Stacking recurrent layers
 
 So since we are no more overfitting, we are also at a place where the model has learned what it can, given the prerequisities we gave it.
 
 To enable it to learn more, we introduce more recurrent layers.
 
-___
+------------------------------------------------------------------------
 
 Fun fact, google is driving google translate on a model that has 7 recurrent layers stacked on-top of each other. That is pretty huge.
 
-___
+------------------------------------------------------------------------
 
 Notice, as when we stacked the simple_rnn's, we wanted it to output the 3D tensor, the same analogy applies here.
 
@@ -1106,14 +1116,13 @@ plot(history)
 
 We see that the model does in fact not get better than what we have previously seen. Although they suggest in the book, that one may add more layers, as overfitting is not yet tooooo big of a problem.
 
-
 ### Using bidirectional RNNs
 
 In this example we want to see if we can improve the model by assessing newest information first, hence going in antichronoligical order. To do this, we merely have to iterate the datagenerator, that we have previously made.
 
 After this we will run the same GRU-model to see how it performs.
 
-__Creating the antichronoligical order data generator__
+**Creating the antichronoligical order data generator**
 
 ```{r}
 #Based on listings 6.33
@@ -1178,7 +1187,7 @@ generator <-
 }
 ```
 
-__Generating the data__
+**Generating the data**
 
 ```{r}
 library(keras)
@@ -1251,7 +1260,7 @@ We are supposed to see that it does not improve and does much worse than the sim
 
 One must remember that GRU will rule out information from previous steps quicker than for instance LSTM. Meaning that when we run GRU with data in antichronological order, then it will first see the newest information and work its way towards the beginning. Thus the newest information will start vanishing. Hence it intuitively makes sense that the model is underperforming, as we will base predictions primarily on older weather data.
 
-__An example that works well__
+**An example that works well**
 
 We can look at an example where we will see that the antichronoligical order of the data will perform just as well.
 
@@ -1290,9 +1299,9 @@ Then what we want to do with this, is to create an ensemble, so we both use chro
 
 What could we have done to improve the model even further? These are some suggestions from the book:
 
-+ Play around with with the amount of units in the stacked layers. These are just a bit random.
-+ Adjusting the learning rate with RMSprop optimizer
-+ Adding more densely connected layers or even making them bigger
+-   Play around with with the amount of units in the stacked layers. These are just a bit random.
+-   Adjusting the learning rate with RMSprop optimizer
+-   Adding more densely connected layers or even making them bigger
 
 ### Wrap up
 
@@ -1304,7 +1313,6 @@ Then it comes to GRU vs. LSTM, often it appears that LSTM is the best performing
 rm(list = ls())
 ```
 
-
 ## Sequence processing with convnets
 
 Recall that with convoluted networks we took only snippets of the input and attempted to extract patterns from these snippets. Thus you are now making these snippets independent of the overall.
@@ -1315,7 +1323,7 @@ Also we see that the same max and averaging pooling applies here to downsample t
 
 ### Implementing a 1D convnet
 
-We want to use `layer_conv_1d`, it takes 3D input, hence _(samples, time, features)_.
+We want to use `layer_conv_1d`, it takes 3D input, hence *(samples, time, features)*.
 
 In the following we buiæd a simple model.
 
@@ -1372,21 +1380,19 @@ history <- model %>% fit(
 plot(history,method = "base")
 ```
 
-
-We see that we are not overftting and accuracy for validation and train data pretty much follow each other. We see that we are hitting 
+We see that we are not overftting and accuracy for validation and train data pretty much follow each other. We see that we are hitting
 
 Hence we see that we have built what could be a competitive model.
-
 
 ### Combining CNNs and RNNs to process long sequences
 
 This section is split into several subsections:
 
-1. Loading the data
-2. Testing conv layers on the temperature sequence data
-3. Testing using GRU and conv layers
+1.  Loading the data
+2.  Testing conv layers on the temperature sequence data
+3.  Testing using GRU and conv layers
 
-_Summary: We observe that using only conv layers does not work well, as it is important with the time of the observation is in the right order, for instance a night temperature might look the same as the daily temperature during colder months. This it will not now how to_
+*Summary: We observe that using only conv layers does not work well, as it is important with the time of the observation is in the right order, for instance a night temperature might look the same as the daily temperature during colder months. This it will not now how to*
 
 First we must load the jena data again
 
@@ -1514,15 +1520,14 @@ history <- model %>% fit_generator(
 plot(history)
 ```
 
-
 we see that the model starts overfitting immediately and is not even close to being competitive with the base line.
 
 The reasoning is that now the patterns are more independent of each other. As with temperature it is very important what time the temperature is measured as when only looking at snippets we may not be able to distinguish between low degrees during night or during cold months.
 
 In the next we are goint to combine ann RNN with a CNN. Notice that we are making the following changes:
 
-+ Making `step = 3` instead of `step = 6`, meaning that data is sampled at one observation pr. 30 minutes instead of 1 observation pr. 60 minutes (One step = 10 minutes).
-+ Halving lookback
+-   Making `step = 3` instead of `step = 6`, meaning that data is sampled at one observation pr. 30 minutes instead of 1 observation pr. 60 minutes (One step = 10 minutes).
+-   Halving lookback
 
 ```{r}
 #Listing 6.48. Preparing higher-resolution data generators for the Jena dataset 
@@ -1558,7 +1563,7 @@ val_steps <- (300000 - 200001 - lookback) / batch_size
 test_steps <- (nrow(data) - 300001 - lookback) / batch_size
 ```
 
-For some reason the following cannot run. __NEEDS REVISIT__.
+For some reason the following cannot run. **NEEDS REVISIT**.
 
 ```{r}
 #Listing 6.49. Model combining a 1D convolutional base and a GRU layer 
@@ -1584,4 +1589,3 @@ history <- model %>% fit(
 ```
 
 We see that the regularized GRU was perfoming better than this hybrid and the model is just at best as good as the baseline, but does not appear to outperform it.
-
