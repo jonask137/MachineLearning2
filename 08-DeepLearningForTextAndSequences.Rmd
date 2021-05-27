@@ -630,6 +630,23 @@ Now we are going to introduce two new concepts. The reason is that the `layer_si
 
 **LSTM = Long Short-Term Memory**, is an approach that saves information for later, hence preventing that older signals gets ruled out. In the book [@chollet2018, pg. 186 - 188] they describe it more into details, but the key take-away is that ***LSTM allows past information to be reinjected at a liter time, to fight the vanishing gradient problem***.
 
+#### Units inside GRU and LSTM
+
+Recall from simple RNNs that the hidden state is the informaton that is handed over between to iterations, so kind alike memory.
+
+We see that in GRU we have the following:
+
+**GRU**
+
++ Update gate: This is similar to the input and forget gate from LSTM. Basically it decides whether to keep or throw away information.
++ Reset gate: Decides how much past information to forget.
+
+**LSTM**
+
++ Input gate: Decides whether the gate statuses should be updated. It evaluates the new information, both the new data and also the hidden state. Then it decides whether to update the state or not.
++ Forget gate: LSTM is able to decide to forget information. It applies a sigmoid function (somewhere between 0 and 1), to decide whether the information should be passed on or not. If the sigmoid activation = 0, then no information is passed on. His example is `information * activation = output`. if sigmoid activation between 0 and 1, then some informatino gets through and if = 1, then all information is let through. Notice that this stage is evaluating both the input and the hidden state input.
++ Output gate: Fist the two previous gates are passed, now we know what to keep and what to leave out. This gate merely updates the cell status. Notice, that we do not have this specific gate in the GRU.
+
 ### A concrete LSTM example in Keras
 
 ```{r}
@@ -1045,7 +1062,9 @@ In this instance with RNN, we have two types of dropouts to add.
 ```{r}
 #Listing 6.40. Training and evaluating a dropout-regularized GRU-based model
 model <- keras_model_sequential() %>%
-  layer_gru(units = 32, dropout = 0.2, recurrent_dropout = 0.2,
+  layer_gru(units = 32
+            ,dropout = 0.2 #We see that 0.2 is used
+            ,recurrent_dropout = 0.2, #This does not have to be the saem
             input_shape = list(NULL, dim(data)[[-1]])) %>%
   layer_dense(units = 1)
 model %>% compile(
@@ -1055,13 +1074,17 @@ model %>% compile(
 history <- model %>% fit_generator(
   train_gen,
   steps_per_epoch = 500,
-  epochs = 40,
+  epochs = 40, #more epochs as we learn more slowly
   validation_data = val_gen,
   validation_steps = val_steps
 )
 ```
 
-What do we expect to see? we expect to see that the model is converging much more slowly, as we are making it more difficult for it to learn.
+_We see that the dropout and recurrent dropout appears to be the same. It does not have to be the same. Also, there is no general rule, one must overfit and then try to get rid of it._
+
+In general, we see that the dropout is aften put after the layer and we see that recurrent dropout is already inside the RNN cell.
+
+What do we expect to see? we expect to see that the model is converging much more slowly, as we are making it more difficult for it to learn. Therefore we also need more epochs.
 
 ```{r}
 plot(history)
@@ -1110,15 +1133,22 @@ history <- model %>% fit_generator(
 )
 ```
 
+We see that we increase the amount of layers from the first to the second GRU layer. The analogy is the same as in conv, as we start extracting bigger patterns and then in further layers we will start looking more in the hidden patterns, hence it could be a good idea to increase the amount of units.
+
 ```{r}
 plot(history)
 ```
 
-We see that the model does in fact not get better than what we have previously seen. Although they suggest in the book, that one may add more layers, as overfitting is not yet tooooo big of a problem.
+We see that the model does in fact not get better than what we have previously seen. Although they suggest in the book, that one may add more layers, as overfitting is not yet tooooo big of a problem, but it is still there though.
 
 ### Using bidirectional RNNs
 
-In this example we want to see if we can improve the model by assessing newest information first, hence going in antichronoligical order. To do this, we merely have to iterate the datagenerator, that we have previously made.
+In general, we see that this makes sence, when you have the whole sentences and e.g., whole speaches, as we need the information in the end that is related to the beginning, if you for instance just take half of a movie review, we may see that bidirectional does not work too well, as it may get difficult for the algorithm to connect the begining and (the artificially created) end of the review, while it is actually not the true end of the review.
+
+_Another example, we see that in german for instance, that important words comes in the end or in a bisentence, hence it is importance that you have the whole scenario for analysis._
+
+
+In the following (we will see that it does not improve the temperature prediction) example we want to see if we can improve the model by assessing newest information first, hence going in antichronoligical order. To do this, we merely have to iterate the datagenerator, that we have previously made.
 
 After this we will run the same GRU-model to see how it performs.
 
@@ -1323,7 +1353,9 @@ Also we see that the same max and averaging pooling applies here to downsample t
 
 ### Implementing a 1D convnet
 
-We want to use `layer_conv_1d`, it takes 3D input, hence *(samples, time, features)*.
+We want to use `layer_conv_1d`, it takes 3D input, hence *(samples, time, features)*. We see that this is able to learn patterns in local regions, hence if it learn one pattern in on position, then this can be applied in another part of sentences.
+
+We also see that convoluted evaluations with a max pooling operation is good at extracting the key words of a sentence and helps do the data preparation. The output is in this example feature vectors and not feature maps, as we are in a lower dimension.
 
 In the following we buiæd a simple model.
 
@@ -1355,19 +1387,23 @@ Now where the data is loaded we can construct the model.
 #Listing 6.46. Training and evaluating a simple 1D convnet on the IMDB data 
 
 model <- keras_model_sequential() %>%
+  
+  #Load word embeddings to be interpreted by the convolutions
   layer_embedding(input_dim = max_features, output_dim = 128,
-                  input_length = max_len) %>%
+                  input_length = max_len) %>% 
   layer_conv_1d(filters = 32, kernel_size = 7, activation = "relu") %>%
-  layer_max_pooling_1d(pool_size = 5) %>%
+  layer_max_pooling_1d(pool_size = 5) %>% #Extract key words
   layer_conv_1d(filters = 32, kernel_size = 7, activation = "relu") %>%
-  layer_global_max_pooling_1d() %>%
+  layer_global_max_pooling_1d() %>% #One could also use layer_flatten()
   layer_dense(units = 1)
 summary(model)
+
 model %>% compile(
   optimizer = optimizer_rmsprop(lr = 1e-4),
   loss = "binary_crossentropy",
   metrics = c("acc")
 )
+
 history <- model %>% fit(
   x_train, y_train,
   epochs = 10,
@@ -1383,6 +1419,8 @@ plot(history,method = "base")
 We see that we are not overftting and accuracy for validation and train data pretty much follow each other. We see that we are hitting
 
 Hence we see that we have built what could be a competitive model.
+
+
 
 ### Combining CNNs and RNNs to process long sequences
 
