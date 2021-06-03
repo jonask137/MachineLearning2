@@ -149,7 +149,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.3.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#constraints-and-splines"><i class="fa fa-check"></i><b>2.1.3.2</b> Constraints and Splines</a></li>
 <li class="chapter" data-level="2.1.3.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#choosing-the-number-and-location-of-the-knots"><i class="fa fa-check"></i><b>2.1.3.3</b> Choosing the number and location of the Knots</a></li>
 <li class="chapter" data-level="2.1.3.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#degrees-of-freedom"><i class="fa fa-check"></i><b>2.1.3.4</b> Degrees of freedom</a></li>
-<li class="chapter" data-level="2.1.3.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#comparison-with-polynomial-regression"><i class="fa fa-check"></i><b>2.1.3.5</b> Comparison with Polynomial Regression</a></li>
+<li class="chapter" data-level="2.1.3.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#basis-splines-vs.-natural-splines"><i class="fa fa-check"></i><b>2.1.3.5</b> Basis splines vs. natural splines</a></li>
+<li class="chapter" data-level="2.1.3.6" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#comparison-with-polynomial-regression"><i class="fa fa-check"></i><b>2.1.3.6</b> Comparison with Polynomial Regression</a></li>
 </ul></li>
 <li class="chapter" data-level="2.1.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#smoothing-splines"><i class="fa fa-check"></i><b>2.1.4</b> Smoothing Splines</a>
 <ul>
@@ -364,64 +365,179 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1.6.3" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#dropout"><i class="fa fa-check"></i><b>5.1.6.3</b> Dropout</a></li>
 <li class="chapter" data-level="5.1.6.4" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#then-how-do-we-control-for-a-good-fit"><i class="fa fa-check"></i><b>5.1.6.4</b> Then how do we control for a good fit?</a></li>
 </ul></li>
+<li class="chapter" data-level="5.1.7" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#dealing-with-missing-data"><i class="fa fa-check"></i><b>5.1.7</b> Dealing with missing data</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#the-workflow-for-building-the-neural-network"><i class="fa fa-check"></i><b>5.2</b> The workflow for building the neural network</a></li>
-<li class="chapter" data-level="5.3" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#examples"><i class="fa fa-check"></i><b>5.3</b> Examples</a>
+<li class="chapter" data-level="5.2" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#the-workflow-for-building-the-neural-network"><i class="fa fa-check"></i><b>5.2</b> The workflow for building the neural network</a>
 <ul>
-<li class="chapter" data-level="5.3.1" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#chapter-3---positive-negative-imdb-reviews"><i class="fa fa-check"></i><b>5.3.1</b> Chapter 3 - Positive / Negative IMDB reviews</a>
+<li class="chapter" data-level="5.2.1" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#being-aware-of-the-process"><i class="fa fa-check"></i><b>5.2.1</b> Being aware of the process</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#when-neural-networks-will-fail"><i class="fa fa-check"></i><b>5.3</b> When Neural Networks will fail</a>
 <ul>
-<li class="chapter" data-level="5.3.1.1" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#extracting-the-data"><i class="fa fa-check"></i><b>5.3.1.1</b> Extracting the data</a></li>
-<li class="chapter" data-level="5.3.1.2" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#preparing-the-data"><i class="fa fa-check"></i><b>5.3.1.2</b> Preparing the data</a></li>
-<li class="chapter" data-level="5.3.1.3" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#building-the-model"><i class="fa fa-check"></i><b>5.3.1.3</b> Building the model</a></li>
-<li class="chapter" data-level="5.3.1.4" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#assessing-model-performance"><i class="fa fa-check"></i><b>5.3.1.4</b> Assessing model performance</a></li>
+<li class="chapter" data-level="5.3.1" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#hyper-parameter-tuning"><i class="fa fa-check"></i><b>5.3.1</b> Hyper parameter tuning</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3.2" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#chapter-3---multiclass-classification---classifying-newswires"><i class="fa fa-check"></i><b>5.3.2</b> Chapter 3 - Multiclass classification - Classifying newswires</a>
+</ul></li>
+<li class="chapter" data-level="6" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html"><i class="fa fa-check"></i><b>6</b> Chapter 3 - Getting Started With Neural Networks</a>
 <ul>
-<li class="chapter" data-level="5.3.2.1" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#loading-the-data"><i class="fa fa-check"></i><b>5.3.2.1</b> Loading the data</a></li>
-<li class="chapter" data-level="5.3.2.2" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#preparing-the-data-1"><i class="fa fa-check"></i><b>5.3.2.2</b> Preparing the data</a></li>
-<li class="chapter" data-level="5.3.2.3" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#building-the-model-1"><i class="fa fa-check"></i><b>5.3.2.3</b> Building the model</a></li>
-<li class="chapter" data-level="5.3.2.4" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#validating-the-model-model-assessment"><i class="fa fa-check"></i><b>5.3.2.4</b> Validating the model + model assessment</a></li>
-<li class="chapter" data-level="5.3.2.5" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#training-model-with-optimal-epochs"><i class="fa fa-check"></i><b>5.3.2.5</b> Training model with optimal epochs</a></li>
-<li class="chapter" data-level="5.3.2.6" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#predictions-on-new-data"><i class="fa fa-check"></i><b>5.3.2.6</b> Predictions on new data</a></li>
-</ul></li>
-<li class="chapter" data-level="5.3.3" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#chapter-3---continous-prediction-a-regression-example---predicting-houseprices"><i class="fa fa-check"></i><b>5.3.3</b> Chapter 3 - Continous prediction / a regression example - Predicting houseprices</a>
+<li class="chapter" data-level="6.1" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#positive-negative-imdb-reviews"><i class="fa fa-check"></i><b>6.1</b> Positive / Negative IMDB reviews</a>
 <ul>
-<li class="chapter" data-level="5.3.3.1" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#loading-the-data-1"><i class="fa fa-check"></i><b>5.3.3.1</b> Loading the data</a></li>
-<li class="chapter" data-level="5.3.3.2" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#preparing-the-data-2"><i class="fa fa-check"></i><b>5.3.3.2</b> Preparing the data</a></li>
-<li class="chapter" data-level="5.3.3.3" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#building-the-model-2"><i class="fa fa-check"></i><b>5.3.3.3</b> Building the model</a></li>
-<li class="chapter" data-level="5.3.3.4" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#validating-the-approach-using-k-fold-validation"><i class="fa fa-check"></i><b>5.3.3.4</b> Validating the approach using K-fold validation</a>
+<li class="chapter" data-level="6.1.1" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#extracting-the-data"><i class="fa fa-check"></i><b>6.1.1</b> Extracting the data</a></li>
+<li class="chapter" data-level="6.1.2" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#preparing-the-data"><i class="fa fa-check"></i><b>6.1.2</b> Preparing the data</a></li>
+<li class="chapter" data-level="6.1.3" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#building-the-model"><i class="fa fa-check"></i><b>6.1.3</b> Building the model</a></li>
+<li class="chapter" data-level="6.1.4" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#assessing-model-performance"><i class="fa fa-check"></i><b>6.1.4</b> Assessing model performance</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#multiclass-classification---classifying-newswires"><i class="fa fa-check"></i><b>6.2</b> Multiclass classification - Classifying newswires</a>
 <ul>
-<li class="chapter" data-level="5.3.3.4.1" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#validation-with-more-iterations"><i class="fa fa-check"></i><b>5.3.3.4.1</b> Validation with more iterations</a></li>
-<li class="chapter" data-level="5.3.3.4.2" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#tuning-amount-fo-hidden-layers"><i class="fa fa-check"></i><b>5.3.3.4.2</b> Tuning amount fo hidden layers</a></li>
+<li class="chapter" data-level="6.2.1" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#loading-the-data"><i class="fa fa-check"></i><b>6.2.1</b> Loading the data</a></li>
+<li class="chapter" data-level="6.2.2" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#preparing-the-data-1"><i class="fa fa-check"></i><b>6.2.2</b> Preparing the data</a></li>
+<li class="chapter" data-level="6.2.3" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#building-the-model-1"><i class="fa fa-check"></i><b>6.2.3</b> Building the model</a></li>
+<li class="chapter" data-level="6.2.4" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#validating-the-model-model-assessment"><i class="fa fa-check"></i><b>6.2.4</b> Validating the model + model assessment</a></li>
+<li class="chapter" data-level="6.2.5" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#training-model-with-optimal-epochs"><i class="fa fa-check"></i><b>6.2.5</b> Training model with optimal epochs</a></li>
+<li class="chapter" data-level="6.2.6" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#predictions-on-new-data"><i class="fa fa-check"></i><b>6.2.6</b> Predictions on new data</a></li>
 </ul></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="5.4" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#chapter-5---deep-learning-for-computer-vision"><i class="fa fa-check"></i><b>5.4</b> Chapter 5 - Deep learning for computer vision</a>
+<li class="chapter" data-level="6.3" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#continous-prediction-a-regression-example---predicting-houseprices"><i class="fa fa-check"></i><b>6.3</b> Continous prediction / a regression example - Predicting houseprices</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#definition-of-convoluted-network"><i class="fa fa-check"></i><b>5.4.1</b> Definition of convoluted network</a>
+<li class="chapter" data-level="6.3.1" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#loading-the-data-1"><i class="fa fa-check"></i><b>6.3.1</b> Loading the data</a></li>
+<li class="chapter" data-level="6.3.2" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#preparing-the-data-2"><i class="fa fa-check"></i><b>6.3.2</b> Preparing the data</a></li>
+<li class="chapter" data-level="6.3.3" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#building-the-model-2"><i class="fa fa-check"></i><b>6.3.3</b> Building the model</a>
 <ul>
-<li class="chapter" data-level="5.4.1.1" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#tuning-parameters"><i class="fa fa-check"></i><b>5.4.1.1</b> Tuning parameters</a></li>
-<li class="chapter" data-level="5.4.1.2" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#data-modeling-techniques"><i class="fa fa-check"></i><b>5.4.1.2</b> Data modeling techniques</a>
+<li class="chapter" data-level="6.3.3.1" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#validating-the-approach-using-k-fold-validation"><i class="fa fa-check"></i><b>6.3.3.1</b> Validating the approach using K-fold validation</a></li>
+<li class="chapter" data-level="6.3.3.2" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#validation-with-more-iterations"><i class="fa fa-check"></i><b>6.3.3.2</b> Validation with more iterations</a></li>
+<li class="chapter" data-level="6.3.3.3" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#tuning-amount-fo-hidden-layers"><i class="fa fa-check"></i><b>6.3.3.3</b> Tuning amount fo hidden layers</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html"><i class="fa fa-check"></i><b>7</b> Chapter 5 - Deep learning for computer vision</a>
 <ul>
-<li class="chapter" data-level="5.4.1.2.1" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#padding"><i class="fa fa-check"></i><b>5.4.1.2.1</b> Padding</a></li>
-<li class="chapter" data-level="5.4.1.2.2" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#strides"><i class="fa fa-check"></i><b>5.4.1.2.2</b> Strides</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="5.4.2" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#the-max-pooling-operation"><i class="fa fa-check"></i><b>5.4.2</b> The max-pooling operation</a></li>
-</ul></li>
-<li class="chapter" data-level="5.5" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#lecture-notes-1"><i class="fa fa-check"></i><b>5.5</b> Lecture notes</a>
+<li class="chapter" data-level="7.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#definition-of-convoluted-network"><i class="fa fa-check"></i><b>7.1</b> Definition of convoluted network</a></li>
+<li class="chapter" data-level="7.2" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#spetial-heirarchical"><i class="fa fa-check"></i><b>7.2</b> Spetial heirarchical</a>
 <ul>
-<li class="chapter" data-level="5.5.1" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#lecture-1"><i class="fa fa-check"></i><b>5.5.1</b> Lecture 1</a></li>
-<li class="chapter" data-level="5.5.2" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#lecture-2"><i class="fa fa-check"></i><b>5.5.2</b> Lecture 2</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="structuring-data-transformation-and-model-assessments.html"><a href="structuring-data-transformation-and-model-assessments.html"><i class="fa fa-check"></i><b>6</b> Structuring data transformation and model assessments</a></li>
-<li class="chapter" data-level="7" data-path="github-and-css-styling.html"><a href="github-and-css-styling.html"><i class="fa fa-check"></i><b>7</b> Github and CSS styling</a>
+<li class="chapter" data-level="7.2.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#tuning-parameters"><i class="fa fa-check"></i><b>7.2.1</b> Tuning parameters</a></li>
+<li class="chapter" data-level="7.2.2" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#data-modeling-techniques"><i class="fa fa-check"></i><b>7.2.2</b> Data modeling techniques</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="github-and-css-styling.html"><a href="github-and-css-styling.html#managing-github"><i class="fa fa-check"></i><b>7.1</b> Managing GitHub</a></li>
-<li class="chapter" data-level="7.2" data-path="github-and-css-styling.html"><a href="github-and-css-styling.html#css-styling"><i class="fa fa-check"></i><b>7.2</b> CSS Styling</a></li>
+<li class="chapter" data-level="7.2.2.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#padding"><i class="fa fa-check"></i><b>7.2.2.1</b> Padding</a></li>
+<li class="chapter" data-level="7.2.2.2" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#strides"><i class="fa fa-check"></i><b>7.2.2.2</b> Strides</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>8</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#the-max-pooling-operation"><i class="fa fa-check"></i><b>7.3</b> The max-pooling operation</a></li>
+<li class="chapter" data-level="7.4" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#examples"><i class="fa fa-check"></i><b>7.4</b> Examples</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#training-a-cats-and-dogs-classifier-from-scratch."><i class="fa fa-check"></i><b>7.4.1</b> Training a cats and dogs classifier from scratch.</a>
+<ul>
+<li class="chapter" data-level="7.4.1.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#loading-data"><i class="fa fa-check"></i><b>7.4.1.1</b> Loading data</a></li>
+<li class="chapter" data-level="7.4.1.2" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#building-the-model-3"><i class="fa fa-check"></i><b>7.4.1.2</b> Building the model</a></li>
+<li class="chapter" data-level="7.4.1.3" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#data-preprocessing"><i class="fa fa-check"></i><b>7.4.1.3</b> Data preprocessing</a></li>
+<li class="chapter" data-level="7.4.1.4" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#fitting-the-model"><i class="fa fa-check"></i><b>7.4.1.4</b> Fitting the model</a></li>
+<li class="chapter" data-level="7.4.1.5" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#dealing-with-overfitting"><i class="fa fa-check"></i><b>7.4.1.5</b> Dealing with overfitting</a>
+<ul>
+<li class="chapter" data-level="7.4.1.5.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#randomized-transformations-data-augmentation"><i class="fa fa-check"></i><b>7.4.1.5.1</b> Randomized transformations / Data augmentation</a></li>
+<li class="chapter" data-level="7.4.1.5.2" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#adding-dropout"><i class="fa fa-check"></i><b>7.4.1.5.2</b> Adding dropout</a></li>
+<li class="chapter" data-level="7.4.1.5.3" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#max-pooling"><i class="fa fa-check"></i><b>7.4.1.5.3</b> Max pooling</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4.1.6" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#training-with-dropout-and-random-image-transformations"><i class="fa fa-check"></i><b>7.4.1.6</b> Training with dropout and random image transformations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#using-a-pretrained-convnet"><i class="fa fa-check"></i><b>7.5</b> Using a pretrained convnet</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#feature-extraction"><i class="fa fa-check"></i><b>7.5.1</b> Feature extraction</a>
+<ul>
+<li class="chapter" data-level="7.5.1.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#feature-extraction-without-data-augmentation"><i class="fa fa-check"></i><b>7.5.1.1</b> Feature extraction without data augmentation</a></li>
+<li class="chapter" data-level="7.5.1.2" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#feature-extraction-with-data-augmentation"><i class="fa fa-check"></i><b>7.5.1.2</b> Feature extraction with data augmentation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5.2" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#fine-tuning"><i class="fa fa-check"></i><b>7.5.2</b> Fine-tuning</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#visualizing-what-convnets-learn"><i class="fa fa-check"></i><b>7.6</b> Visualizing what convnets learn</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html"><i class="fa fa-check"></i><b>8</b> Deep Learning for Text and Sequences</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#working-with-text-data"><i class="fa fa-check"></i><b>8.1</b> Working with Text Data</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#one-hot-encoding-of-words-and-characters"><i class="fa fa-check"></i><b>8.1.1</b> One-hot encoding of words and characters</a></li>
+<li class="chapter" data-level="8.1.2" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#using-word-embeddings"><i class="fa fa-check"></i><b>8.1.2</b> Using word embeddings</a>
+<ul>
+<li class="chapter" data-level="8.1.2.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#the-first-approach"><i class="fa fa-check"></i><b>8.1.2.1</b> The first approach</a></li>
+<li class="chapter" data-level="8.1.2.2" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#the-second-approach---using-pretrained-word-embeddings"><i class="fa fa-check"></i><b>8.1.2.2</b> The second approach - using pretrained word embeddings</a></li>
+</ul></li>
+<li class="chapter" data-level="8.1.3" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#putting-it-all-together-from-raw-text-to-word-embeddings"><i class="fa fa-check"></i><b>8.1.3</b> Putting it all together: from raw text to word embeddings</a>
+<ul>
+<li class="chapter" data-level="8.1.3.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#preprocessing-the-embeddings"><i class="fa fa-check"></i><b>8.1.3.1</b> Preprocessing the embeddings</a></li>
+<li class="chapter" data-level="8.1.3.2" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#defining-a-model"><i class="fa fa-check"></i><b>8.1.3.2</b> Defining a model</a></li>
+<li class="chapter" data-level="8.1.3.3" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#loading-glove-embeddings-in-the-model"><i class="fa fa-check"></i><b>8.1.3.3</b> Loading GloVe embeddings in the model</a></li>
+<li class="chapter" data-level="8.1.3.4" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#training-and-evaluating-the-model"><i class="fa fa-check"></i><b>8.1.3.4</b> Training and evaluating the model</a></li>
+<li class="chapter" data-level="8.1.3.5" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#training-and-evaluating-without-glove"><i class="fa fa-check"></i><b>8.1.3.5</b> Training and evaluating without GloVe</a></li>
+<li class="chapter" data-level="8.1.3.6" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#using-test-data"><i class="fa fa-check"></i><b>8.1.3.6</b> Using test data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#understanding-recurrent-neural-networks-rnn"><i class="fa fa-check"></i><b>8.2</b> Understanding Recurrent Neural Networks (RNN)</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#a-recurrent-layer-in-keras"><i class="fa fa-check"></i><b>8.2.1</b> A recurrent layer in Keras</a></li>
+<li class="chapter" data-level="8.2.2" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#understanding-the-lstm-and-gru-layers"><i class="fa fa-check"></i><b>8.2.2</b> Understanding the LSTM and GRU layers</a>
+<ul>
+<li class="chapter" data-level="8.2.2.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#units-inside-gru-and-lstm"><i class="fa fa-check"></i><b>8.2.2.1</b> Units inside GRU and LSTM</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2.3" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#a-concrete-lstm-example-in-keras"><i class="fa fa-check"></i><b>8.2.3</b> A concrete LSTM example in Keras</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#advanced-use-of-recurrent-neural-networks"><i class="fa fa-check"></i><b>8.3</b> Advanced use of Recurrent neural networks</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#a-temperature-forecasting-problem"><i class="fa fa-check"></i><b>8.3.1</b> A temperature-forecasting problem</a></li>
+<li class="chapter" data-level="8.3.2" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#preparing-the-data-3"><i class="fa fa-check"></i><b>8.3.2</b> Preparing the data</a></li>
+<li class="chapter" data-level="8.3.3" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#a-common-sense-non-machine-learning-baseline"><i class="fa fa-check"></i><b>8.3.3</b> A common-sense, non-machine-learning baseline</a></li>
+<li class="chapter" data-level="8.3.4" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#a-basic-machine-learning-approach"><i class="fa fa-check"></i><b>8.3.4</b> A basic machine-learning approach</a></li>
+<li class="chapter" data-level="8.3.5" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#a-first-recurrent-baseline"><i class="fa fa-check"></i><b>8.3.5</b> A first recurrent baseline</a></li>
+<li class="chapter" data-level="8.3.6" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#using-recurrent-dropout-to-fight-overfitting"><i class="fa fa-check"></i><b>8.3.6</b> using recurrent dropout to fight overfitting</a></li>
+<li class="chapter" data-level="8.3.7" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#stacking-recurrent-layers"><i class="fa fa-check"></i><b>8.3.7</b> Stacking recurrent layers</a></li>
+<li class="chapter" data-level="8.3.8" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#using-bidirectional-rnns"><i class="fa fa-check"></i><b>8.3.8</b> Using bidirectional RNNs</a></li>
+<li class="chapter" data-level="8.3.9" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#going-even-further"><i class="fa fa-check"></i><b>8.3.9</b> Going even further</a></li>
+<li class="chapter" data-level="8.3.10" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#wrap-up"><i class="fa fa-check"></i><b>8.3.10</b> Wrap up</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#sequence-processing-with-convnets"><i class="fa fa-check"></i><b>8.4</b> Sequence processing with convnets</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#implementing-a-1d-convnet"><i class="fa fa-check"></i><b>8.4.1</b> Implementing a 1D convnet</a></li>
+<li class="chapter" data-level="8.4.2" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#combining-cnns-and-rnns-to-process-long-sequences"><i class="fa fa-check"></i><b>8.4.2</b> Combining CNNs and RNNs to process long sequences</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html"><i class="fa fa-check"></i><b>9</b> Advanced Deep-Learning Best Practices</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#going-beyond-the-sequential-model-the-keras-functino-api"><i class="fa fa-check"></i><b>9.1</b> Going beyond the sequential model: the Keras functino API</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#introduction-to-the-functional-api"><i class="fa fa-check"></i><b>9.1.1</b> Introduction to the functional API</a></li>
+<li class="chapter" data-level="9.1.2" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#multi-input-models"><i class="fa fa-check"></i><b>9.1.2</b> Multi-input models</a></li>
+<li class="chapter" data-level="9.1.3" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#multi-output"><i class="fa fa-check"></i><b>9.1.3</b> Multi-output</a></li>
+<li class="chapter" data-level="9.1.4" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#directed-acyclic-graphs-of-layers-dag"><i class="fa fa-check"></i><b>9.1.4</b> Directed acyclic graphs of layers (DAG)</a>
+<ul>
+<li class="chapter" data-level="9.1.4.1" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#inception-modules"><i class="fa fa-check"></i><b>9.1.4.1</b> Inception modules</a></li>
+<li class="chapter" data-level="9.1.4.2" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#residual-connection"><i class="fa fa-check"></i><b>9.1.4.2</b> Residual Connection</a></li>
+</ul></li>
+<li class="chapter" data-level="9.1.5" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#layer-weight-sharing"><i class="fa fa-check"></i><b>9.1.5</b> Layer weight sharing</a></li>
+<li class="chapter" data-level="9.1.6" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#models-as-layers"><i class="fa fa-check"></i><b>9.1.6</b> Models as layers</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#inspecting-and-monitoring-deep-learning-models-using-keras-callba--acks-and-tensorboard"><i class="fa fa-check"></i><b>9.2</b> Inspecting and monitoring deep-learning models using Keras callba- acks and TensorBoard</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#using-callbacks-to-act-on-a-model-during-training"><i class="fa fa-check"></i><b>9.2.1</b> Using callbacks to act on a model during training</a>
+<ul>
+<li class="chapter" data-level="9.2.1.1" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#the-model-checkpoint-and-early-stopping-callbacks"><i class="fa fa-check"></i><b>9.2.1.1</b> The model-checkpoint and early-stopping callbacks</a></li>
+<li class="chapter" data-level="9.2.1.2" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#the-reduce-learning-rate-on-plateau-callback"><i class="fa fa-check"></i><b>9.2.1.2</b> The reduce-learning-rate-on-plateau callback</a></li>
+<li class="chapter" data-level="9.2.1.3" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#writing-your-own-callback-functions"><i class="fa fa-check"></i><b>9.2.1.3</b> Writing your own callback functions</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2.2" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#introduction-to-tensorboard-the-tensorflow-visualization-framework"><i class="fa fa-check"></i><b>9.2.2</b> Introduction to tensorBoard: the TensorFlow visualization framework</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#getting-the-most-of-your-models"><i class="fa fa-check"></i><b>9.3</b> Getting the most of your models</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#advanced-architecture-patterns"><i class="fa fa-check"></i><b>9.3.1</b> Advanced architecture patterns</a>
+<ul>
+<li class="chapter" data-level="9.3.1.1" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#batch-normalization"><i class="fa fa-check"></i><b>9.3.1.1</b> Batch normalization</a></li>
+<li class="chapter" data-level="9.3.1.2" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#depthwise-separable-convolution"><i class="fa fa-check"></i><b>9.3.1.2</b> Depthwise separable convolution</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3.2" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#hyperparameter-optimization"><i class="fa fa-check"></i><b>9.3.2</b> Hyperparameter optimization</a></li>
+<li class="chapter" data-level="9.3.3" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#model-ensembling"><i class="fa fa-check"></i><b>9.3.3</b> Model ensembling</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="structuring-data-transformation-and-model-assessments.html"><a href="structuring-data-transformation-and-model-assessments.html"><i class="fa fa-check"></i><b>10</b> Structuring data transformation and model assessments</a></li>
+<li class="chapter" data-level="11" data-path="github-and-css-styling.html"><a href="github-and-css-styling.html"><i class="fa fa-check"></i><b>11</b> Github and CSS styling</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="github-and-css-styling.html"><a href="github-and-css-styling.html#managing-github"><i class="fa fa-check"></i><b>11.1</b> Managing GitHub</a></li>
+<li class="chapter" data-level="11.2" data-path="github-and-css-styling.html"><a href="github-and-css-styling.html#css-styling"><i class="fa fa-check"></i><b>11.2</b> CSS Styling</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>12</b> References</a></li>
 </ul>
 
       </nav>
@@ -555,11 +671,17 @@ Figure 2.1: Piecewise Polynomials
 <div id="degrees-of-freedom" class="section level4" number="2.1.3.4">
 <h4><span class="header-section-number">2.1.3.4</span> Degrees of freedom</h4>
 <p>You count the amount of coefficients in the piecewise polynomial. Then you deduct df as you impose restrictions.</p>
-<p>e.g. with one knot, you impose conituity, then you deduct one 1 df. for each derivative that we impose we can subtract one df.</p>
+<p>e.g. with one knot, you impose continuity, then you deduct one 1 df. for each derivative that we impose we can subtract one df.</p>
 <p>Therefore the example above: 8 df in the beginning less 1 for the cut and two for the two derivatives. Hence, we end up with 5 df.</p>
 </div>
-<div id="comparison-with-polynomial-regression" class="section level4" number="2.1.3.5">
-<h4><span class="header-section-number">2.1.3.5</span> Comparison with Polynomial Regression</h4>
+<div id="basis-splines-vs.-natural-splines" class="section level4" number="2.1.3.5">
+<h4><span class="header-section-number">2.1.3.5</span> Basis splines vs. natural splines</h4>
+<p>We see that in polynomial regression and splines we are able to apply the finction <code>bs()</code> and <code>ns()</code>, this stands for <em>basis splines</em> and <em>natural splines</em>. In principle they are very similar, although the natural spline just have an additional constraint in the regions below and above the first and last knot, where it is linear.</p>
+<p><em>Notice, that a polynomial and step functions are basically basis functions</em></p>
+<p>Natiral splies are often beneficiary as you often don’t have much information in these regions, hence a normal polynomial (basis functions) will become very wiggly, hence we seek for linearity here.</p>
+</div>
+<div id="comparison-with-polynomial-regression" class="section level4" number="2.1.3.6">
+<h4><span class="header-section-number">2.1.3.6</span> Comparison with Polynomial Regression</h4>
 <p>With regression splines we are able to introduce knots that account for variance as it slightly resets the model in each section, hence we can fit the model to the data without having to impose as much complexity as we would in normal polynomial regression.</p>
 <p>Hence one often observes that regression splines have more stability than polynomial regression.</p>
 </div>
@@ -2704,17 +2826,17 @@ Use anova for comparing the previous model with a model that includes a smooth s
 <span id="cb133-3"><a href="moving-beyond-linearity.html#cb133-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(KAG_conversion_data) <span class="co">#Just a quick inspection</span></span></code></pre></div>
 <pre><code>## Rows: 1,143
 ## Columns: 11
-## $ ad_id               &lt;int&gt; 708746, 708749, 708771, 708815, 708818, 708820, 7…
-## $ xyz_campaign_id     &lt;int&gt; 916, 916, 916, 916, 916, 916, 916, 916, 916, 916,…
-## $ fb_campaign_id      &lt;int&gt; 103916, 103917, 103920, 103928, 103928, 103929, 1…
-## $ age                 &lt;chr&gt; &quot;30-34&quot;, &quot;30-34&quot;, &quot;30-34&quot;, &quot;30-34&quot;, &quot;30-34&quot;, &quot;30-…
-## $ gender              &lt;chr&gt; &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;,…
-## $ interest            &lt;int&gt; 15, 16, 20, 28, 28, 29, 15, 16, 27, 28, 31, 7, 16…
-## $ Impressions         &lt;int&gt; 7350, 17861, 693, 4259, 4133, 1915, 15615, 10951,…
-## $ Clicks              &lt;int&gt; 1, 2, 0, 1, 1, 0, 3, 1, 1, 3, 0, 0, 0, 0, 7, 0, 1…
-## $ Spent               &lt;dbl&gt; 1.43, 1.82, 0.00, 1.25, 1.29, 0.00, 4.77, 1.27, 1…
-## $ Total_Conversion    &lt;int&gt; 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
-## $ Approved_Conversion &lt;int&gt; 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0…</code></pre>
+## $ ad_id               &lt;int&gt; 708746, 708749, 708771, 708815, 708818, 708820, 70…
+## $ xyz_campaign_id     &lt;int&gt; 916, 916, 916, 916, 916, 916, 916, 916, 916, 916, …
+## $ fb_campaign_id      &lt;int&gt; 103916, 103917, 103920, 103928, 103928, 103929, 10…
+## $ age                 &lt;chr&gt; &quot;30-34&quot;, &quot;30-34&quot;, &quot;30-34&quot;, &quot;30-34&quot;, &quot;30-34&quot;, &quot;30-3…
+## $ gender              &lt;chr&gt; &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, …
+## $ interest            &lt;int&gt; 15, 16, 20, 28, 28, 29, 15, 16, 27, 28, 31, 7, 16,…
+## $ Impressions         &lt;int&gt; 7350, 17861, 693, 4259, 4133, 1915, 15615, 10951, …
+## $ Clicks              &lt;int&gt; 1, 2, 0, 1, 1, 0, 3, 1, 1, 3, 0, 0, 0, 0, 7, 0, 1,…
+## $ Spent               &lt;dbl&gt; 1.43, 1.82, 0.00, 1.25, 1.29, 0.00, 4.77, 1.27, 1.…
+## $ Total_Conversion    &lt;int&gt; 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+## $ Approved_Conversion &lt;int&gt; 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0,…</code></pre>
 <p>Renaming variables</p>
 <p><em>In general it is a good idea not to have special charactors in the variable name.</em></p>
 <div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="moving-beyond-linearity.html#cb135-1" aria-hidden="true" tabindex="-1"></a>dataTf <span class="ot">&lt;-</span> dataTf <span class="sc">%&gt;%</span> </span>

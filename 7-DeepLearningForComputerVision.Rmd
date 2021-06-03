@@ -59,7 +59,7 @@ We want to first be able to specify regions and then extract what we can get fro
 1.  Size of the patches, typically 3 x 3 or 5 x 5.
 2.  Depth of the output feature map, see the picture below.
 
-```{r convnet,echo=FALSE,fig.cap="How convnet works"}
+```{r convnet1,echo=FALSE,eval=TRUE,fig.cap="How convnet works"}
 knitr::include_graphics(rep("Images/paste-334AE970.png"))
 ```
 
@@ -85,13 +85,13 @@ To deal with this use `layer_conv_2d` where one can set `padding` to either `val
 
 This is referring to how much we move the patches around, the default is 1, but sometimes one will also use higher strides, for example 2, see the figure below. Where we see that we only are able to find 4 patches.
 
-```{r Strides,fig.cap="Example with strides, where stride = 2 x 2"}
+```{r Strides,eval=TRUE,echo=FALSE,fig.cap="Example with strides, where stride = 2 x 2"}
 knitr::include_graphics(rep("Images/paste-72D86A41.png"))
 ```
 
 This is in contrast to the normal scenario where we see that we are moving the patches around.
 
-```{r Strides2,fig.cap="Example with strides, where stride = 1 x 1"}
+```{r Strides2,eval=TRUE,echo=FALSE,fig.cap="Example with strides, where stride = 1 x 1"}
 knitr::include_graphics(rep("Images/paste-DEF6C490.png"))
 ```
 
@@ -119,7 +119,7 @@ These selected areas are also called windows.
 
 ***Example***
 
-```{r MaxPooling,fig.cap="Max Polling example, source [@deeplizar2018]"}
+```{r MaxPooling,eval=TRUE,echo=FALSE,fig.cap="Max Polling example, source [@deeplizar2018]"}
 knitr::include_graphics(rep("Images/paste-429DD86E.png"))
 ```
 
@@ -760,17 +760,19 @@ for (i in 1:8) {
 
 These are examples from three different layers.
 
-```{r convnet,echo=FALSE,fig.cap="Layer 1"}
+```{r convnet2,eval=TRUE,echo=FALSE,fig.cap="Layer 1"}
 knitr::include_graphics(rep("Images/Cats and dogs/cat_activations_1_conv2d_7.png"))
 ```
 
-```{r convnet,echo=FALSE,fig.cap="Layer 5"}
-knitr::include_graphics(rep("Images/Cats and dogs/cat_activations_5_conv2d_7.png"))
+```{r convnet3,eval=TRUE,echo=FALSE,fig.cap="Layer 5"}
+#knitr::include_graphics(rep("Images/Cats and dogs/cat_activations_5_conv2d_7.png"))
 ```
 
-```{r convnet,echo=FALSE,fig.cap="Layer 8"}
-knitr::include_graphics(rep("Images/Cats and dogs/cat_activations_8_conv2d_7.png"))
+```{r convnet4,eval=TRUE,echo=FALSE,fig.cap="Layer 8"}
+#knitr::include_graphics(rep("Images/Cats and dogs/cat_activations_8_conv2d_7.png"))
 ```
+
+***Notice, two pictures are missing cat_activations_8_conv2d_7.png and cat_activations_5_conv2d_7***
 
 So summing up all of these variations are filters applied to the pictures.
 

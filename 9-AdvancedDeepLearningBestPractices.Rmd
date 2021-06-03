@@ -88,7 +88,7 @@ model %>% evaluate(x_train, y_train) #Evaluate the model
 
 Now imagine that we want to run several inputs, for instance wit text sequences, then we can actually run the text sequences and then on a later point concatenate them before our densely connected layers. Such a network would look like this:
 
-```{r fig76,echo=FALSE,fig.cap="A model with several inputs"}
+```{r fig76,eval=TRUE,echo=FALSE,fig.cap="A model with several inputs"}
 knitr::include_graphics(rep("Images/paste-C1A175BE.png"))
 ```
 
@@ -176,7 +176,7 @@ For some reason this is not working
 
 Instead of having multiple inputs we can also have multiple outputs. That would look like this:
 
-```{r ,echo=FALSE,fig.cap="A model with several outputs"}
+```{r ,eval=TRUE,echo=FALSE,fig.cap="A model with several outputs"}
 knitr::include_graphics(rep("Images/paste-A0861C52.png"))
 ```
 
@@ -293,7 +293,7 @@ Now we have looked at multiple inputs and multiple outputs. We see that the hidd
 
 Here they apply different convolutions and then concatenates it before pushing the information into the densely connected layers. It could look like the following:
 
-```{r,echo=FALSE,fig.cap="A model with several inputs"}
+```{r,eval=TRUE,echo=FALSE,fig.cap="A model with several inputs"}
 knitr::include_graphics(rep("Images/paste-9CAACE66.png"))
 ```
 
@@ -527,7 +527,7 @@ The example is shown with the following code where we use the IMDB case again, i
 
 **Creating the model**
 
-```{r,results=hold''}
+```{r,results='hold'}
 #Listing 7.7. Text-classification model to use with TensorBoard
 library(keras)
 max_features <- 2000 #We only want to look at 2.000 words

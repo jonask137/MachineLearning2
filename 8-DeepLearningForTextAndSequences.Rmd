@@ -145,7 +145,7 @@ The goal of the word embeddings is that one will map out similarity/connectednes
 
 It is hypothesized, that there is a true word embeddings map, although that is yet to me discovered. For example one can arrance wolf, tiger, dog and cat on two vectors, 1) wild to pet animal, and 2) canine to feline.
 
-```{r,echo=FALSE,fig.cap="Figure 6.3. A toy example of a wordembedding space"}
+```{r,eval=TRUE,echo=FALSE,fig.cap="Figure 6.3. A toy example of a wordembedding space"}
 knitr::include_graphics(rep("images/paste-795B4BE1.png"))
 ```
 
@@ -153,7 +153,7 @@ Naturally, this could be on many different scales. Thus, we see that we have vec
 
 Compared to one-hot encoding, we see the following:
 
-```{r,echo=FALSE,fig.cap="One-hot encoding vs. word embedding"}
+```{r,eval=TRUE,echo=FALSE,fig.cap="One-hot encoding vs. word embedding"}
 knitr::include_graphics(rep("images/paste-AA3D9DB3.png"))
 ```
 
@@ -244,13 +244,13 @@ Examples of the word embeddings is:
 
 We see that a word embedding vectorize the words on n dimensions, the following example is King, Man and Woman on 50 dimension, where we see that particularly two dimensions light up respectively blue and red.
 
-```{r,echo=FALSE,fig.cap="Word embeddings example"}
+```{r,eval=TRUE,echo=FALSE,fig.cap="Word embeddings example"}
 knitr::include_graphics(rep("images/paste-3D12324A.png"))
 ```
 
 and another example with more words
 
-```{r,echo=FALSE,fig.cap="Word embeddings example 2"}
+```{r,eval=TRUE,echo=FALSE,fig.cap="Word embeddings example 2"}
 knitr::include_graphics(rep("images/paste-46C140C0.png"))
 ```
 
@@ -258,7 +258,7 @@ It is worth mentioning that algorithm has found scores based on no labels, one m
 
 The GloVe intuition can be represented in the following, where we see that `king - man + woman = queen` , where we see that you should be able to go from one word to other words.
 
-```{r,echo=FALSE,fig.cap="GloVe intuition"}
+```{r,eval=TRUE,echo=FALSE,fig.cap="GloVe intuition"}
 knitr::include_graphics(rep("images/paste-5D6C3CBF.png"))
 ```
 

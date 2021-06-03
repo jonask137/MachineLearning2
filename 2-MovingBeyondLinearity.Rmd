@@ -150,18 +150,23 @@ This can be followed by visualizing the MSE for the different simulations with d
 
 You count the amount of coefficients in the piecewise polynomial. Then you deduct df as you impose restrictions.
 
-e.g. with one knot, you impose conituity, then you deduct one 1 df. for each derivative that we impose we can subtract one df.
+e.g. with one knot, you impose continuity, then you deduct one 1 df. for each derivative that we impose we can subtract one df.
 
 Therefore the example above: 8 df in the beginning less 1 for the cut and two for the two derivatives. Hence, we end up with 5 df.
 
+#### Basis splines vs. natural splines
+
+We see that in polynomial regression and splines we are able to apply the finction `bs()` and `ns()`, this stands for _basis splines_ and _natural splines_. In principle they are very similar, although the natural spline just have an additional constraint in the regions below and above the first and last knot, where it is linear.
+
+_Notice, that a polynomial and step functions are basically basis functions_
+
+Natiral splies are often beneficiary as you often don't have much information in these regions, hence a normal polynomial (basis functions) will become very wiggly, hence we seek for linearity here.
 
 #### Comparison with Polynomial Regression
 
 With regression splines we are able to introduce knots that account for variance as it slightly resets the model in each section, hence we can fit the model to the data without having to impose as much complexity as we would in normal polynomial regression.
 
 Hence one often observes that regression splines have more stability than polynomial regression.
-
-
 
 ### Smoothing Splines
 

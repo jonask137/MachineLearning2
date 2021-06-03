@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Chapter 5 - Deep learning for computer vision | Machine Learning for Business Intelligence 2</title>
+  <meta name="description" content="7 Chapter 5 - Deep learning for computer vision | Machine Learning for Business Intelligence 2" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7 Chapter 5 - Deep learning for computer vision | Machine Learning for Business Intelligence 2" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 Chapter 5 - Deep learning for computer vision | Machine Learning for Business Intelligence 2" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="chapter-3-getting-started-with-neural-networks.html"/>
+<link rel="next" href="deep-learning-for-text-and-sequences.html"/>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>setup</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html"><i class="fa fa-check"></i><b>2</b> Moving Beyond Linearity</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#models-beyond-linearity"><i class="fa fa-check"></i><b>2.1</b> Models Beyond Linearity</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#polynomial-regression"><i class="fa fa-check"></i><b>2.1.1</b> Polynomial Regression</a>
+<ul>
+<li class="chapter" data-level="2.1.1.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#beta-coefficients-and-variance"><i class="fa fa-check"></i><b>2.1.1.1</b> Beta coefficients and variance</a></li>
+<li class="chapter" data-level="2.1.1.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#application-procedure"><i class="fa fa-check"></i><b>2.1.1.2</b> Application procedure</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#step-functions"><i class="fa fa-check"></i><b>2.1.2</b> Step Functions</a></li>
+<li class="chapter" data-level="2.1.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#regression-splines"><i class="fa fa-check"></i><b>2.1.3</b> Regression Splines</a>
+<ul>
+<li class="chapter" data-level="2.1.3.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#piecewise-polynomials"><i class="fa fa-check"></i><b>2.1.3.1</b> Piecewise Polynomials</a></li>
+<li class="chapter" data-level="2.1.3.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#constraints-and-splines"><i class="fa fa-check"></i><b>2.1.3.2</b> Constraints and Splines</a></li>
+<li class="chapter" data-level="2.1.3.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#choosing-the-number-and-location-of-the-knots"><i class="fa fa-check"></i><b>2.1.3.3</b> Choosing the number and location of the Knots</a></li>
+<li class="chapter" data-level="2.1.3.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#degrees-of-freedom"><i class="fa fa-check"></i><b>2.1.3.4</b> Degrees of freedom</a></li>
+<li class="chapter" data-level="2.1.3.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#basis-splines-vs.-natural-splines"><i class="fa fa-check"></i><b>2.1.3.5</b> Basis splines vs. natural splines</a></li>
+<li class="chapter" data-level="2.1.3.6" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#comparison-with-polynomial-regression"><i class="fa fa-check"></i><b>2.1.3.6</b> Comparison with Polynomial Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#smoothing-splines"><i class="fa fa-check"></i><b>2.1.4</b> Smoothing Splines</a>
+<ul>
+<li class="chapter" data-level="2.1.4.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#choosing-optimal-tuning-parameter"><i class="fa fa-check"></i><b>2.1.4.1</b> Choosing optimal tuning parameter</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#local-regression"><i class="fa fa-check"></i><b>2.1.5</b> Local Regression</a></li>
+<li class="chapter" data-level="2.1.6" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#generalized-additive-models"><i class="fa fa-check"></i><b>2.1.6</b> Generalized Additive Models</a>
+<ul>
+<li class="chapter" data-level="2.1.6.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#feature-selection"><i class="fa fa-check"></i><b>2.1.6.1</b> Feature Selection</a></li>
+<li class="chapter" data-level="2.1.6.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#gam-for-regression-problems"><i class="fa fa-check"></i><b>2.1.6.2</b> GAM for regression problems</a>
+<ul>
+<li class="chapter" data-level="2.1.6.2.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#interpretation-of-output"><i class="fa fa-check"></i><b>2.1.6.2.1</b> Interpretation of output</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1.6.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#gam-for-classification-problems"><i class="fa fa-check"></i><b>2.1.6.3</b> GAM for classification problems</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1.7" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#model-assessment"><i class="fa fa-check"></i><b>2.1.7</b> Model assessment</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#lecture-notes"><i class="fa fa-check"></i><b>2.2</b> Lecture notes</a></li>
+<li class="chapter" data-level="2.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#lab-section"><i class="fa fa-check"></i><b>2.3</b> Lab section</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#polynomial-regression-and-step-functions"><i class="fa fa-check"></i><b>2.3.1</b> Polynomial Regression and Step Functions</a>
+<ul>
+<li class="chapter" data-level="2.3.1.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#continous-model"><i class="fa fa-check"></i><b>2.3.1.1</b> Continous model</a></li>
+<li class="chapter" data-level="2.3.1.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#logarithmic-model"><i class="fa fa-check"></i><b>2.3.1.2</b> Logarithmic model</a></li>
+<li class="chapter" data-level="2.3.1.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#step-function"><i class="fa fa-check"></i><b>2.3.1.3</b> Step function</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#splines"><i class="fa fa-check"></i><b>2.3.2</b> Splines</a>
+<ul>
+<li class="chapter" data-level="2.3.2.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#basis-function-splines"><i class="fa fa-check"></i><b>2.3.2.1</b> Basis Function Splines</a></li>
+<li class="chapter" data-level="2.3.2.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#natural-splines"><i class="fa fa-check"></i><b>2.3.2.2</b> Natural Splines</a></li>
+<li class="chapter" data-level="2.3.2.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#smooth-splines"><i class="fa fa-check"></i><b>2.3.2.3</b> Smooth Splines</a></li>
+<li class="chapter" data-level="2.3.2.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#local-regression-1"><i class="fa fa-check"></i><b>2.3.2.4</b> Local Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#gams"><i class="fa fa-check"></i><b>2.3.3</b> GAMs</a>
+<ul>
+<li class="chapter" data-level="2.3.3.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#with-only-natural-splines"><i class="fa fa-check"></i><b>2.3.3.1</b> With only natural splines</a></li>
+<li class="chapter" data-level="2.3.3.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#with-different-splines"><i class="fa fa-check"></i><b>2.3.3.2</b> With different splines</a></li>
+<li class="chapter" data-level="2.3.3.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#but-what-variables-to-include"><i class="fa fa-check"></i><b>2.3.3.3</b> But what variables to include?</a></li>
+<li class="chapter" data-level="2.3.3.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#gam-with-local-regression"><i class="fa fa-check"></i><b>2.3.3.4</b> GAM with local regression</a></li>
+<li class="chapter" data-level="2.3.3.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#logistic-regression"><i class="fa fa-check"></i><b>2.3.3.5</b> Logistic Regression</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#exercises"><i class="fa fa-check"></i><b>2.4</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#exercise-6"><i class="fa fa-check"></i><b>2.4.1</b> Exercise 6</a>
+<ul>
+<li class="chapter" data-level="2.4.1.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#a-polynomial-regression"><i class="fa fa-check"></i><b>2.4.1.1</b> 6.a Polynomial Regression</a></li>
+<li class="chapter" data-level="2.4.1.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#b-step-function"><i class="fa fa-check"></i><b>2.4.1.2</b> 6.b Step function</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#exercise-7"><i class="fa fa-check"></i><b>2.4.2</b> Exercise 7</a></li>
+<li class="chapter" data-level="2.4.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#exercise-8"><i class="fa fa-check"></i><b>2.4.3</b> Exercise 8</a></li>
+<li class="chapter" data-level="2.4.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#exercise-9"><i class="fa fa-check"></i><b>2.4.4</b> Exercise 9</a>
+<ul>
+<li class="chapter" data-level="2.4.4.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#a-using-poly-function-to-fit-cubic-polynomial-regression"><i class="fa fa-check"></i><b>2.4.4.1</b> (a) using poly function to fit cubic polynomial regression</a></li>
+<li class="chapter" data-level="2.4.4.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#b-plotting-polynomial-fits-for-a-range-of-polynomials"><i class="fa fa-check"></i><b>2.4.4.2</b> (b) Plotting polynomial fits for a range of polynomials</a></li>
+<li class="chapter" data-level="2.4.4.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#c-using-cv-to-select-best-degree-of-d"><i class="fa fa-check"></i><b>2.4.4.3</b> (c) Using CV to select best degree of d</a></li>
+<li class="chapter" data-level="2.4.4.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#d-use-bs-to-fit-a-regression-spline"><i class="fa fa-check"></i><b>2.4.4.4</b> (d) Use <code>bs()</code> to fit a regression spline</a></li>
+<li class="chapter" data-level="2.4.4.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#e-now-fit-a-regression-spline"><i class="fa fa-check"></i><b>2.4.4.5</b> (e) Now fit a regression spline</a></li>
+<li class="chapter" data-level="2.4.4.6" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#f-perform-cross-validation-to-select-degrees"><i class="fa fa-check"></i><b>2.4.4.6</b> (f) Perform cross-validation, to select degrees</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#exercise-10"><i class="fa fa-check"></i><b>2.4.5</b> Exercise 10</a>
+<ul>
+<li class="chapter" data-level="2.4.5.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#a-partitioning-the-data"><i class="fa fa-check"></i><b>2.4.5.1</b> (a) Partitioning the data</a></li>
+<li class="chapter" data-level="2.4.5.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#b-fitting-a-gam"><i class="fa fa-check"></i><b>2.4.5.2</b> (b) Fitting a GAM</a></li>
+<li class="chapter" data-level="2.4.5.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#c-evaluating-on-the-test-set"><i class="fa fa-check"></i><b>2.4.5.3</b> (c) Evaluating on the test set</a></li>
+<li class="chapter" data-level="2.4.5.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#d-which-variables-appear-to-have-a-non-linear-relationship"><i class="fa fa-check"></i><b>2.4.5.4</b> (d) Which variables appear to have a non linear relationship?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#FacebookCasestudy"><i class="fa fa-check"></i><b>2.5</b> Casestudy - Predicting the Return on Advertising Spent</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#background"><i class="fa fa-check"></i><b>2.5.1</b> 1. Background</a></li>
+<li class="chapter" data-level="2.5.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#case-study-business-understanding-phase"><i class="fa fa-check"></i><b>2.5.2</b> 2. Case study (Business Understanding Phase)</a></li>
+<li class="chapter" data-level="2.5.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#the-data-data-understanding-phase"><i class="fa fa-check"></i><b>2.5.3</b> 3. The data (Data Understanding Phase)</a></li>
+<li class="chapter" data-level="2.5.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#specific-requirements"><i class="fa fa-check"></i><b>2.5.4</b> 4. Specific requirements:</a>
+<ul>
+<li class="chapter" data-level="2.5.4.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#task-1---import-and-overview"><i class="fa fa-check"></i><b>2.5.4.1</b> 4.1 Task 1 - Import and overview</a></li>
+<li class="chapter" data-level="2.5.4.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#task-2---data-inspection"><i class="fa fa-check"></i><b>2.5.4.2</b> 4.2 Task 2 - Data inspection</a></li>
+<li class="chapter" data-level="2.5.4.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#task-3---building-different-models"><i class="fa fa-check"></i><b>2.5.4.3</b> 4.3 Task 3 - Building different models</a>
+<ul>
+<li class="chapter" data-level="2.5.4.3.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#a-generalized-additive-model-gam-to-predict-roas"><i class="fa fa-check"></i><b>2.5.4.3.1</b> A Generalized Additive Model (GAM) to predict ROAS</a>
+<ul>
+<li class="chapter" data-level="2.5.4.3.1.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#c1-feature-selection-using-regsubsets"><i class="fa fa-check"></i><b>2.5.4.3.1.1</b> c1) Feature selection using regsubsets()</a></li>
+<li class="chapter" data-level="2.5.4.3.1.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#c2-feature-selection-using-step.gam"><i class="fa fa-check"></i><b>2.5.4.3.1.2</b> c2) Feature selection using step.GAM</a></li>
+<li class="chapter" data-level="2.5.4.3.1.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#c3-fetaure-selection-using-random-forest"><i class="fa fa-check"></i><b>2.5.4.3.1.3</b> c3) Fetaure selection using random forest</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tree-based-methods.html"><a href="tree-based-methods.html"><i class="fa fa-check"></i><b>3</b> Tree Based Methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#the-basics-of-decision-trees"><i class="fa fa-check"></i><b>3.1</b> The Basics of Decision Trees</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#regression-trees"><i class="fa fa-check"></i><b>3.1.1</b> Regression Trees</a>
+<ul>
+<li class="chapter" data-level="3.1.1.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#how-to-make-the-decision-trees"><i class="fa fa-check"></i><b>3.1.1.1</b> How to make the decision trees</a>
+<ul>
+<li class="chapter" data-level="3.1.1.1.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#the-goal-of-regression"><i class="fa fa-check"></i><b>3.1.1.1.1</b> The goal of regression</a></li>
+<li class="chapter" data-level="3.1.1.1.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#tree-pruning-algoritm"><i class="fa fa-check"></i><b>3.1.1.1.2</b> Tree Pruning &amp; Algoritm</a></li>
+<li class="chapter" data-level="3.1.1.1.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#setting-contrains-of-the-tree-sise"><i class="fa fa-check"></i><b>3.1.1.1.3</b> Setting contrains of the tree sise</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3.1.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#classification-trees"><i class="fa fa-check"></i><b>3.1.2</b> Classification Trees</a></li>
+<li class="chapter" data-level="3.1.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#tree-vs.-lienar-models"><i class="fa fa-check"></i><b>3.1.3</b> Tree vs. Lienar Models</a></li>
+<li class="chapter" data-level="3.1.4" data-path="tree-based-methods.html"><a href="tree-based-methods.html#advantages-and-disadvantages-of-trees"><i class="fa fa-check"></i><b>3.1.4</b> Advantages and Disadvantages of Trees</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#bagging-random-forests-boosting"><i class="fa fa-check"></i><b>3.2</b> Bagging, Random Forests, Boosting</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#bagging-bootstrap-aggregation"><i class="fa fa-check"></i><b>3.2.1</b> Bagging (Bootstrap Aggregation)</a></li>
+<li class="chapter" data-level="3.2.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#random-forests"><i class="fa fa-check"></i><b>3.2.2</b> Random Forests</a></li>
+<li class="chapter" data-level="3.2.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#boosting-i.e.-gradient-boosting"><i class="fa fa-check"></i><b>3.2.3</b> Boosting (i.e. Gradient Boosting)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#xgboost"><i class="fa fa-check"></i><b>3.3</b> XGBoost</a></li>
+<li class="chapter" data-level="3.4" data-path="tree-based-methods.html"><a href="tree-based-methods.html#application-in-r"><i class="fa fa-check"></i><b>3.4</b> Application in R</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#decision-trees"><i class="fa fa-check"></i><b>3.4.1</b> Decision trees</a></li>
+<li class="chapter" data-level="3.4.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#bagging"><i class="fa fa-check"></i><b>3.4.2</b> Bagging</a></li>
+<li class="chapter" data-level="3.4.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#random-forests-1"><i class="fa fa-check"></i><b>3.4.3</b> Random Forests</a></li>
+<li class="chapter" data-level="3.4.4" data-path="tree-based-methods.html"><a href="tree-based-methods.html#boosting"><i class="fa fa-check"></i><b>3.4.4</b> Boosting</a></li>
+<li class="chapter" data-level="3.4.5" data-path="tree-based-methods.html"><a href="tree-based-methods.html#xgboost-1"><i class="fa fa-check"></i><b>3.4.5</b> XGBoost</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="tree-based-methods.html"><a href="tree-based-methods.html#lab-section-1"><i class="fa fa-check"></i><b>3.5</b> Lab section</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#LabClassification"><i class="fa fa-check"></i><b>3.5.1</b> Fitting Classification Trees</a></li>
+<li class="chapter" data-level="3.5.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#fitting-regression-trees"><i class="fa fa-check"></i><b>3.5.2</b> Fitting Regression Trees</a></li>
+<li class="chapter" data-level="3.5.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#bagging-and-random-forests"><i class="fa fa-check"></i><b>3.5.3</b> Bagging and Random Forests</a>
+<ul>
+<li class="chapter" data-level="3.5.3.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#bagging-1"><i class="fa fa-check"></i><b>3.5.3.1</b> Bagging</a></li>
+<li class="chapter" data-level="3.5.3.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#random-forest"><i class="fa fa-check"></i><b>3.5.3.2</b> Random Forest</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5.4" data-path="tree-based-methods.html"><a href="tree-based-methods.html#boosting-1"><i class="fa fa-check"></i><b>3.5.4</b> Boosting</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="tree-based-methods.html"><a href="tree-based-methods.html#exercies"><i class="fa fa-check"></i><b>3.6</b> Exercies</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#exercise-7---decision-tree-assessment"><i class="fa fa-check"></i><b>3.6.1</b> Exercise 7 - Decision Tree Assessment</a></li>
+<li class="chapter" data-level="3.6.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#but-what-does-it-really-show-ntrees-are-fixed-at-500"><i class="fa fa-check"></i><b>3.6.2</b> But what does it really show?, ntrees are fixed at 500</a></li>
+<li class="chapter" data-level="3.6.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#exercise-8---dtrfboosting"><i class="fa fa-check"></i><b>3.6.3</b> Exercise 8 - DT/RF/Boosting</a></li>
+<li class="chapter" data-level="3.6.4" data-path="tree-based-methods.html"><a href="tree-based-methods.html#exercise-9---decision-tree-pruning"><i class="fa fa-check"></i><b>3.6.4</b> Exercise 9 - Decision Tree / Pruning</a></li>
+<li class="chapter" data-level="3.6.5" data-path="tree-based-methods.html"><a href="tree-based-methods.html#exercise-10---boostinggamlinearregbagging---comparison"><i class="fa fa-check"></i><b>3.6.5</b> Exercise 10 - Boosting/GAM/LinearReg/Bagging - Comparison</a></li>
+<li class="chapter" data-level="3.6.6" data-path="tree-based-methods.html"><a href="tree-based-methods.html#exercise-11---boosting"><i class="fa fa-check"></i><b>3.6.6</b> Exercise 11 - Boosting</a></li>
+<li class="chapter" data-level="3.6.7" data-path="tree-based-methods.html"><a href="tree-based-methods.html#exercise-12"><i class="fa fa-check"></i><b>3.6.7</b> Exercise 12</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="tree-based-methods.html"><a href="tree-based-methods.html#casestudy---predicting-algae-blooms"><i class="fa fa-check"></i><b>3.7</b> Casestudy - Predicting Algae Blooms</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#background-1"><i class="fa fa-check"></i><b>3.7.1</b> 1. Background</a></li>
+<li class="chapter" data-level="3.7.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#case-study-business-understanding-phase-1"><i class="fa fa-check"></i><b>3.7.2</b> 2. Case study (Business Understanding Phase)</a></li>
+<li class="chapter" data-level="3.7.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#the-data-data-understanding-phase-1"><i class="fa fa-check"></i><b>3.7.3</b> 3. The data (Data Understanding Phase)</a></li>
+<li class="chapter" data-level="3.7.4" data-path="tree-based-methods.html"><a href="tree-based-methods.html#requirements"><i class="fa fa-check"></i><b>3.7.4</b> 4. Requirements:</a>
+<ul>
+<li class="chapter" data-level="3.7.4.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#task-1-understand-and-import-data-properly"><i class="fa fa-check"></i><b>3.7.4.1</b> 4.1 Task 1: Understand and import data properly</a></li>
+<li class="chapter" data-level="3.7.4.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#task-2-inspect-your-data-and-do-the-required-variable-adaptations-and-transformations"><i class="fa fa-check"></i><b>3.7.4.2</b> 4.2 Task 2: Inspect your data and do the required variable adaptations and transformations</a></li>
+<li class="chapter" data-level="3.7.4.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#task-3-build-one-or-several-predictive-models-and-evaluate-their-performance."><i class="fa fa-check"></i><b>3.7.4.3</b> 4.3 Task 3: Build one or several predictive models and evaluate their performance.</a>
+<ul>
+<li class="chapter" data-level="3.7.4.3.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#growing-a-regression-tree"><i class="fa fa-check"></i><b>3.7.4.3.1</b> 4.3.1. Growing a regression tree</a></li>
+<li class="chapter" data-level="3.7.4.3.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#pruning-the-tree"><i class="fa fa-check"></i><b>3.7.4.3.2</b> 4.3.2 Pruning the tree</a></li>
+<li class="chapter" data-level="3.7.4.3.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#model-evaluation-and-selection"><i class="fa fa-check"></i><b>3.7.4.3.3</b> 4.3.3.Model evaluation and selection</a></li>
+<li class="chapter" data-level="3.7.4.3.4" data-path="tree-based-methods.html"><a href="tree-based-methods.html#ensemble-methods-random-forests"><i class="fa fa-check"></i><b>3.7.4.3.4</b> 4.3.4. Ensemble methods: Random Forests</a></li>
+<li class="chapter" data-level="3.7.4.3.5" data-path="tree-based-methods.html"><a href="tree-based-methods.html#predicting-in-the-test-sample"><i class="fa fa-check"></i><b>3.7.4.3.5</b> 4.3.5. Predicting in the test sample</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="support-vector-machines.html"><a href="support-vector-machines.html"><i class="fa fa-check"></i><b>4</b> Support Vector Machines</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#maximal-vector-machines"><i class="fa fa-check"></i><b>4.1</b> Maximal Vector Machines</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#what-is-a-hyperplane"><i class="fa fa-check"></i><b>4.1.1</b> What is a hyperplane?</a></li>
+<li class="chapter" data-level="4.1.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#classification-using-a-separating-hyperplane"><i class="fa fa-check"></i><b>4.1.2</b> Classification Using a Separating Hyperplane</a></li>
+<li class="chapter" data-level="4.1.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#the-maximal-margin-classifier"><i class="fa fa-check"></i><b>4.1.3</b> The Maximal Margin Classifier</a></li>
+<li class="chapter" data-level="4.1.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#ConstructMMC"><i class="fa fa-check"></i><b>4.1.4</b> Construction of the Maximal Margin Classifer</a></li>
+<li class="chapter" data-level="4.1.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#the-non-separable-case"><i class="fa fa-check"></i><b>4.1.5</b> The Non-separable Case</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#support-vector-classifiers"><i class="fa fa-check"></i><b>4.2</b> Support Vector Classifiers</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#overview-of-the-support-vector-classifier"><i class="fa fa-check"></i><b>4.2.1</b> Overview of the Support Vector Classifier</a></li>
+<li class="chapter" data-level="4.2.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#details-of-the-support-vector-classifer"><i class="fa fa-check"></i><b>4.2.2</b> Details of the Support Vector Classifer</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#support-vector-machines-1"><i class="fa fa-check"></i><b>4.3</b> Support Vector Machines</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#classification-with-non-linear-decision-boundary"><i class="fa fa-check"></i><b>4.3.1</b> Classification with non linear decision boundary</a></li>
+<li class="chapter" data-level="4.3.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#the-support-vector-machine"><i class="fa fa-check"></i><b>4.3.2</b> The Support Vector Machine</a></li>
+<li class="chapter" data-level="4.3.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#MoreThanTwoClasses"><i class="fa fa-check"></i><b>4.3.3</b> SVMs with More than Two Classes</a></li>
+<li class="chapter" data-level="4.3.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#relationship-to-logistic-regression"><i class="fa fa-check"></i><b>4.3.4</b> Relationship to logistic regression</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#process-of-kernels-methods"><i class="fa fa-check"></i><b>4.4</b> Process of kernels methods</a></li>
+<li class="chapter" data-level="4.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#lab"><i class="fa fa-check"></i><b>4.5</b> Lab</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#support-vector-classifier"><i class="fa fa-check"></i><b>4.5.1</b> Support Vector Classifier</a></li>
+<li class="chapter" data-level="4.5.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#support-vector-machine"><i class="fa fa-check"></i><b>4.5.2</b> Support Vector Machine</a></li>
+<li class="chapter" data-level="4.5.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#roc-curves"><i class="fa fa-check"></i><b>4.5.3</b> ROC Curves</a></li>
+<li class="chapter" data-level="4.5.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#svm-with-multiple-classes"><i class="fa fa-check"></i><b>4.5.4</b> SVM with Multiple Classes</a></li>
+<li class="chapter" data-level="4.5.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#application-to-gene-expression-data"><i class="fa fa-check"></i><b>4.5.5</b> Application to Gene Expression Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="support-vector-machines.html"><a href="support-vector-machines.html#exercises-1"><i class="fa fa-check"></i><b>4.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html"><i class="fa fa-check"></i><b>5</b> Deep Learning Fundamentals</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#basic-deep-learning"><i class="fa fa-check"></i><b>5.1</b> Basic Deep Learning</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#terms"><i class="fa fa-check"></i><b>5.1.1</b> Terms</a></li>
+<li class="chapter" data-level="5.1.2" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#optimizers-loss-metrics-and-activation-rules"><i class="fa fa-check"></i><b>5.1.2</b> Optimizers, Loss, Metrics and Activation rules</a>
+<ul>
+<li class="chapter" data-level="5.1.2.1" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#gradient-descents"><i class="fa fa-check"></i><b>5.1.2.1</b> Gradient Descents</a></li>
+</ul></li>
+<li class="chapter" data-level="5.1.3" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#example-with-image-recognizion"><i class="fa fa-check"></i><b>5.1.3</b> Example with image recognizion</a></li>
+<li class="chapter" data-level="5.1.4" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#model-building"><i class="fa fa-check"></i><b>5.1.4</b> Model building</a></li>
+<li class="chapter" data-level="5.1.5" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#validating-the-model"><i class="fa fa-check"></i><b>5.1.5</b> Validating the model</a></li>
+<li class="chapter" data-level="5.1.6" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#overfitting-underfitting"><i class="fa fa-check"></i><b>5.1.6</b> Overfitting / Underfitting</a>
+<ul>
+<li class="chapter" data-level="5.1.6.1" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#hyperparameters"><i class="fa fa-check"></i><b>5.1.6.1</b> Hyperparameters:</a></li>
+<li class="chapter" data-level="5.1.6.2" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#regularization"><i class="fa fa-check"></i><b>5.1.6.2</b> Regularization:</a></li>
+<li class="chapter" data-level="5.1.6.3" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#dropout"><i class="fa fa-check"></i><b>5.1.6.3</b> Dropout</a></li>
+<li class="chapter" data-level="5.1.6.4" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#then-how-do-we-control-for-a-good-fit"><i class="fa fa-check"></i><b>5.1.6.4</b> Then how do we control for a good fit?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.1.7" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#dealing-with-missing-data"><i class="fa fa-check"></i><b>5.1.7</b> Dealing with missing data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#the-workflow-for-building-the-neural-network"><i class="fa fa-check"></i><b>5.2</b> The workflow for building the neural network</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#being-aware-of-the-process"><i class="fa fa-check"></i><b>5.2.1</b> Being aware of the process</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#when-neural-networks-will-fail"><i class="fa fa-check"></i><b>5.3</b> When Neural Networks will fail</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#hyper-parameter-tuning"><i class="fa fa-check"></i><b>5.3.1</b> Hyper parameter tuning</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html"><i class="fa fa-check"></i><b>6</b> Chapter 3 - Getting Started With Neural Networks</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#positive-negative-imdb-reviews"><i class="fa fa-check"></i><b>6.1</b> Positive / Negative IMDB reviews</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#extracting-the-data"><i class="fa fa-check"></i><b>6.1.1</b> Extracting the data</a></li>
+<li class="chapter" data-level="6.1.2" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#preparing-the-data"><i class="fa fa-check"></i><b>6.1.2</b> Preparing the data</a></li>
+<li class="chapter" data-level="6.1.3" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#building-the-model"><i class="fa fa-check"></i><b>6.1.3</b> Building the model</a></li>
+<li class="chapter" data-level="6.1.4" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#assessing-model-performance"><i class="fa fa-check"></i><b>6.1.4</b> Assessing model performance</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#multiclass-classification---classifying-newswires"><i class="fa fa-check"></i><b>6.2</b> Multiclass classification - Classifying newswires</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#loading-the-data"><i class="fa fa-check"></i><b>6.2.1</b> Loading the data</a></li>
+<li class="chapter" data-level="6.2.2" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#preparing-the-data-1"><i class="fa fa-check"></i><b>6.2.2</b> Preparing the data</a></li>
+<li class="chapter" data-level="6.2.3" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#building-the-model-1"><i class="fa fa-check"></i><b>6.2.3</b> Building the model</a></li>
+<li class="chapter" data-level="6.2.4" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#validating-the-model-model-assessment"><i class="fa fa-check"></i><b>6.2.4</b> Validating the model + model assessment</a></li>
+<li class="chapter" data-level="6.2.5" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#training-model-with-optimal-epochs"><i class="fa fa-check"></i><b>6.2.5</b> Training model with optimal epochs</a></li>
+<li class="chapter" data-level="6.2.6" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#predictions-on-new-data"><i class="fa fa-check"></i><b>6.2.6</b> Predictions on new data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#continous-prediction-a-regression-example---predicting-houseprices"><i class="fa fa-check"></i><b>6.3</b> Continous prediction / a regression example - Predicting houseprices</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#loading-the-data-1"><i class="fa fa-check"></i><b>6.3.1</b> Loading the data</a></li>
+<li class="chapter" data-level="6.3.2" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#preparing-the-data-2"><i class="fa fa-check"></i><b>6.3.2</b> Preparing the data</a></li>
+<li class="chapter" data-level="6.3.3" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#building-the-model-2"><i class="fa fa-check"></i><b>6.3.3</b> Building the model</a>
+<ul>
+<li class="chapter" data-level="6.3.3.1" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#validating-the-approach-using-k-fold-validation"><i class="fa fa-check"></i><b>6.3.3.1</b> Validating the approach using K-fold validation</a></li>
+<li class="chapter" data-level="6.3.3.2" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#validation-with-more-iterations"><i class="fa fa-check"></i><b>6.3.3.2</b> Validation with more iterations</a></li>
+<li class="chapter" data-level="6.3.3.3" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#tuning-amount-fo-hidden-layers"><i class="fa fa-check"></i><b>6.3.3.3</b> Tuning amount fo hidden layers</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html"><i class="fa fa-check"></i><b>7</b> Chapter 5 - Deep learning for computer vision</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#definition-of-convoluted-network"><i class="fa fa-check"></i><b>7.1</b> Definition of convoluted network</a></li>
+<li class="chapter" data-level="7.2" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#spetial-heirarchical"><i class="fa fa-check"></i><b>7.2</b> Spetial heirarchical</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#tuning-parameters"><i class="fa fa-check"></i><b>7.2.1</b> Tuning parameters</a></li>
+<li class="chapter" data-level="7.2.2" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#data-modeling-techniques"><i class="fa fa-check"></i><b>7.2.2</b> Data modeling techniques</a>
+<ul>
+<li class="chapter" data-level="7.2.2.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#padding"><i class="fa fa-check"></i><b>7.2.2.1</b> Padding</a></li>
+<li class="chapter" data-level="7.2.2.2" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#strides"><i class="fa fa-check"></i><b>7.2.2.2</b> Strides</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#the-max-pooling-operation"><i class="fa fa-check"></i><b>7.3</b> The max-pooling operation</a></li>
+<li class="chapter" data-level="7.4" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#examples"><i class="fa fa-check"></i><b>7.4</b> Examples</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#training-a-cats-and-dogs-classifier-from-scratch."><i class="fa fa-check"></i><b>7.4.1</b> Training a cats and dogs classifier from scratch.</a>
+<ul>
+<li class="chapter" data-level="7.4.1.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#loading-data"><i class="fa fa-check"></i><b>7.4.1.1</b> Loading data</a></li>
+<li class="chapter" data-level="7.4.1.2" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#building-the-model-3"><i class="fa fa-check"></i><b>7.4.1.2</b> Building the model</a></li>
+<li class="chapter" data-level="7.4.1.3" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#data-preprocessing"><i class="fa fa-check"></i><b>7.4.1.3</b> Data preprocessing</a></li>
+<li class="chapter" data-level="7.4.1.4" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#fitting-the-model"><i class="fa fa-check"></i><b>7.4.1.4</b> Fitting the model</a></li>
+<li class="chapter" data-level="7.4.1.5" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#dealing-with-overfitting"><i class="fa fa-check"></i><b>7.4.1.5</b> Dealing with overfitting</a>
+<ul>
+<li class="chapter" data-level="7.4.1.5.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#randomized-transformations-data-augmentation"><i class="fa fa-check"></i><b>7.4.1.5.1</b> Randomized transformations / Data augmentation</a></li>
+<li class="chapter" data-level="7.4.1.5.2" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#adding-dropout"><i class="fa fa-check"></i><b>7.4.1.5.2</b> Adding dropout</a></li>
+<li class="chapter" data-level="7.4.1.5.3" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#max-pooling"><i class="fa fa-check"></i><b>7.4.1.5.3</b> Max pooling</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4.1.6" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#training-with-dropout-and-random-image-transformations"><i class="fa fa-check"></i><b>7.4.1.6</b> Training with dropout and random image transformations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#using-a-pretrained-convnet"><i class="fa fa-check"></i><b>7.5</b> Using a pretrained convnet</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#feature-extraction"><i class="fa fa-check"></i><b>7.5.1</b> Feature extraction</a>
+<ul>
+<li class="chapter" data-level="7.5.1.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#feature-extraction-without-data-augmentation"><i class="fa fa-check"></i><b>7.5.1.1</b> Feature extraction without data augmentation</a></li>
+<li class="chapter" data-level="7.5.1.2" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#feature-extraction-with-data-augmentation"><i class="fa fa-check"></i><b>7.5.1.2</b> Feature extraction with data augmentation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5.2" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#fine-tuning"><i class="fa fa-check"></i><b>7.5.2</b> Fine-tuning</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#visualizing-what-convnets-learn"><i class="fa fa-check"></i><b>7.6</b> Visualizing what convnets learn</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html"><i class="fa fa-check"></i><b>8</b> Deep Learning for Text and Sequences</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#working-with-text-data"><i class="fa fa-check"></i><b>8.1</b> Working with Text Data</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#one-hot-encoding-of-words-and-characters"><i class="fa fa-check"></i><b>8.1.1</b> One-hot encoding of words and characters</a></li>
+<li class="chapter" data-level="8.1.2" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#using-word-embeddings"><i class="fa fa-check"></i><b>8.1.2</b> Using word embeddings</a>
+<ul>
+<li class="chapter" data-level="8.1.2.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#the-first-approach"><i class="fa fa-check"></i><b>8.1.2.1</b> The first approach</a></li>
+<li class="chapter" data-level="8.1.2.2" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#the-second-approach---using-pretrained-word-embeddings"><i class="fa fa-check"></i><b>8.1.2.2</b> The second approach - using pretrained word embeddings</a></li>
+</ul></li>
+<li class="chapter" data-level="8.1.3" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#putting-it-all-together-from-raw-text-to-word-embeddings"><i class="fa fa-check"></i><b>8.1.3</b> Putting it all together: from raw text to word embeddings</a>
+<ul>
+<li class="chapter" data-level="8.1.3.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#preprocessing-the-embeddings"><i class="fa fa-check"></i><b>8.1.3.1</b> Preprocessing the embeddings</a></li>
+<li class="chapter" data-level="8.1.3.2" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#defining-a-model"><i class="fa fa-check"></i><b>8.1.3.2</b> Defining a model</a></li>
+<li class="chapter" data-level="8.1.3.3" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#loading-glove-embeddings-in-the-model"><i class="fa fa-check"></i><b>8.1.3.3</b> Loading GloVe embeddings in the model</a></li>
+<li class="chapter" data-level="8.1.3.4" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#training-and-evaluating-the-model"><i class="fa fa-check"></i><b>8.1.3.4</b> Training and evaluating the model</a></li>
+<li class="chapter" data-level="8.1.3.5" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#training-and-evaluating-without-glove"><i class="fa fa-check"></i><b>8.1.3.5</b> Training and evaluating without GloVe</a></li>
+<li class="chapter" data-level="8.1.3.6" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#using-test-data"><i class="fa fa-check"></i><b>8.1.3.6</b> Using test data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#understanding-recurrent-neural-networks-rnn"><i class="fa fa-check"></i><b>8.2</b> Understanding Recurrent Neural Networks (RNN)</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#a-recurrent-layer-in-keras"><i class="fa fa-check"></i><b>8.2.1</b> A recurrent layer in Keras</a></li>
+<li class="chapter" data-level="8.2.2" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#understanding-the-lstm-and-gru-layers"><i class="fa fa-check"></i><b>8.2.2</b> Understanding the LSTM and GRU layers</a>
+<ul>
+<li class="chapter" data-level="8.2.2.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#units-inside-gru-and-lstm"><i class="fa fa-check"></i><b>8.2.2.1</b> Units inside GRU and LSTM</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2.3" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#a-concrete-lstm-example-in-keras"><i class="fa fa-check"></i><b>8.2.3</b> A concrete LSTM example in Keras</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#advanced-use-of-recurrent-neural-networks"><i class="fa fa-check"></i><b>8.3</b> Advanced use of Recurrent neural networks</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#a-temperature-forecasting-problem"><i class="fa fa-check"></i><b>8.3.1</b> A temperature-forecasting problem</a></li>
+<li class="chapter" data-level="8.3.2" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#preparing-the-data-3"><i class="fa fa-check"></i><b>8.3.2</b> Preparing the data</a></li>
+<li class="chapter" data-level="8.3.3" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#a-common-sense-non-machine-learning-baseline"><i class="fa fa-check"></i><b>8.3.3</b> A common-sense, non-machine-learning baseline</a></li>
+<li class="chapter" data-level="8.3.4" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#a-basic-machine-learning-approach"><i class="fa fa-check"></i><b>8.3.4</b> A basic machine-learning approach</a></li>
+<li class="chapter" data-level="8.3.5" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#a-first-recurrent-baseline"><i class="fa fa-check"></i><b>8.3.5</b> A first recurrent baseline</a></li>
+<li class="chapter" data-level="8.3.6" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#using-recurrent-dropout-to-fight-overfitting"><i class="fa fa-check"></i><b>8.3.6</b> using recurrent dropout to fight overfitting</a></li>
+<li class="chapter" data-level="8.3.7" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#stacking-recurrent-layers"><i class="fa fa-check"></i><b>8.3.7</b> Stacking recurrent layers</a></li>
+<li class="chapter" data-level="8.3.8" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#using-bidirectional-rnns"><i class="fa fa-check"></i><b>8.3.8</b> Using bidirectional RNNs</a></li>
+<li class="chapter" data-level="8.3.9" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#going-even-further"><i class="fa fa-check"></i><b>8.3.9</b> Going even further</a></li>
+<li class="chapter" data-level="8.3.10" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#wrap-up"><i class="fa fa-check"></i><b>8.3.10</b> Wrap up</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#sequence-processing-with-convnets"><i class="fa fa-check"></i><b>8.4</b> Sequence processing with convnets</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#implementing-a-1d-convnet"><i class="fa fa-check"></i><b>8.4.1</b> Implementing a 1D convnet</a></li>
+<li class="chapter" data-level="8.4.2" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#combining-cnns-and-rnns-to-process-long-sequences"><i class="fa fa-check"></i><b>8.4.2</b> Combining CNNs and RNNs to process long sequences</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html"><i class="fa fa-check"></i><b>9</b> Advanced Deep-Learning Best Practices</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#going-beyond-the-sequential-model-the-keras-functino-api"><i class="fa fa-check"></i><b>9.1</b> Going beyond the sequential model: the Keras functino API</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#introduction-to-the-functional-api"><i class="fa fa-check"></i><b>9.1.1</b> Introduction to the functional API</a></li>
+<li class="chapter" data-level="9.1.2" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#multi-input-models"><i class="fa fa-check"></i><b>9.1.2</b> Multi-input models</a></li>
+<li class="chapter" data-level="9.1.3" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#multi-output"><i class="fa fa-check"></i><b>9.1.3</b> Multi-output</a></li>
+<li class="chapter" data-level="9.1.4" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#directed-acyclic-graphs-of-layers-dag"><i class="fa fa-check"></i><b>9.1.4</b> Directed acyclic graphs of layers (DAG)</a>
+<ul>
+<li class="chapter" data-level="9.1.4.1" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#inception-modules"><i class="fa fa-check"></i><b>9.1.4.1</b> Inception modules</a></li>
+<li class="chapter" data-level="9.1.4.2" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#residual-connection"><i class="fa fa-check"></i><b>9.1.4.2</b> Residual Connection</a></li>
+</ul></li>
+<li class="chapter" data-level="9.1.5" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#layer-weight-sharing"><i class="fa fa-check"></i><b>9.1.5</b> Layer weight sharing</a></li>
+<li class="chapter" data-level="9.1.6" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#models-as-layers"><i class="fa fa-check"></i><b>9.1.6</b> Models as layers</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#inspecting-and-monitoring-deep-learning-models-using-keras-callba--acks-and-tensorboard"><i class="fa fa-check"></i><b>9.2</b> Inspecting and monitoring deep-learning models using Keras callba- acks and TensorBoard</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#using-callbacks-to-act-on-a-model-during-training"><i class="fa fa-check"></i><b>9.2.1</b> Using callbacks to act on a model during training</a>
+<ul>
+<li class="chapter" data-level="9.2.1.1" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#the-model-checkpoint-and-early-stopping-callbacks"><i class="fa fa-check"></i><b>9.2.1.1</b> The model-checkpoint and early-stopping callbacks</a></li>
+<li class="chapter" data-level="9.2.1.2" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#the-reduce-learning-rate-on-plateau-callback"><i class="fa fa-check"></i><b>9.2.1.2</b> The reduce-learning-rate-on-plateau callback</a></li>
+<li class="chapter" data-level="9.2.1.3" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#writing-your-own-callback-functions"><i class="fa fa-check"></i><b>9.2.1.3</b> Writing your own callback functions</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2.2" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#introduction-to-tensorboard-the-tensorflow-visualization-framework"><i class="fa fa-check"></i><b>9.2.2</b> Introduction to tensorBoard: the TensorFlow visualization framework</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#getting-the-most-of-your-models"><i class="fa fa-check"></i><b>9.3</b> Getting the most of your models</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#advanced-architecture-patterns"><i class="fa fa-check"></i><b>9.3.1</b> Advanced architecture patterns</a>
+<ul>
+<li class="chapter" data-level="9.3.1.1" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#batch-normalization"><i class="fa fa-check"></i><b>9.3.1.1</b> Batch normalization</a></li>
+<li class="chapter" data-level="9.3.1.2" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#depthwise-separable-convolution"><i class="fa fa-check"></i><b>9.3.1.2</b> Depthwise separable convolution</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3.2" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#hyperparameter-optimization"><i class="fa fa-check"></i><b>9.3.2</b> Hyperparameter optimization</a></li>
+<li class="chapter" data-level="9.3.3" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#model-ensembling"><i class="fa fa-check"></i><b>9.3.3</b> Model ensembling</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="structuring-data-transformation-and-model-assessments.html"><a href="structuring-data-transformation-and-model-assessments.html"><i class="fa fa-check"></i><b>10</b> Structuring data transformation and model assessments</a></li>
+<li class="chapter" data-level="11" data-path="github-and-css-styling.html"><a href="github-and-css-styling.html"><i class="fa fa-check"></i><b>11</b> Github and CSS styling</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="github-and-css-styling.html"><a href="github-and-css-styling.html#managing-github"><i class="fa fa-check"></i><b>11.1</b> Managing GitHub</a></li>
+<li class="chapter" data-level="11.2" data-path="github-and-css-styling.html"><a href="github-and-css-styling.html#css-styling"><i class="fa fa-check"></i><b>11.2</b> CSS Styling</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>12</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Machine Learning for Business Intelligence 2</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chapter-5---deep-learning-for-computer-vision" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Chapter 5 - Deep learning for computer vision</h1>
+<p>This section deals with convoluted networks, its structure and some examples.</p>
+<p>Computer vision = image recognition.</p>
+<hr />
+<p><strong>Summary</strong></p>
+<p>We have seen the following so far:</p>
+<ul>
+<li>Densely connected network, that is where each neuron in each layer is tied to all neurons in adjacent layers.</li>
+</ul>
+<p>We are now going to look into another structure.</p>
+<p><img src="Images/paste-02829348.png" /></p>
+<p>We see that the part encircled with blue is what we have covered so far. Now we extend it in the previous steps with the convoluted network.</p>
+<hr />
+<div id="definition-of-convoluted-network" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> Definition of convoluted network</h2>
+<p>We also call the convoluted network <em>convnet</em>. As we have seen earlier the whole picture was used for analysis. That has it’s downsides that the model had to learn the patterns of the whole pictures. With convoluted networks, we specify a range (a patch) (equivilant to subset) of the pictures that are individually going to evaluated. This will not work with a densely connected network, hence one will connect neurons of inherited of different subsets of the pictures.</p>
+<p>Note that each patch can be placed in any location as long as the borders are inside of the picture, but they will be overlapping, there is a solution to this in section <a href="chapter-5-deep-learning-for-computer-vision.html#padding">7.2.2.1</a>.</p>
+<p><strong>Key take-aways</strong></p>
+<ol style="list-style-type: decimal">
+<li>convnets is the best tool for image classification</li>
+<li>They work as a whole hierarchy of modular patterns</li>
+<li>Each layer can be interpret and is not a black box as neural networks easily gets to be</li>
+</ol>
+<p><strong>Terms</strong>:</p>
+<ul>
+<li><p>Input: is the input data</p></li>
+<li><p>Filter/kernel: can be seen as weights. These are tuneable. This is applied in the way, that the filter is kinda changing how we view the input, so it can help ‘illuminate’ patterns, that we did not initially see, hence we can tune this with back propagation. Example of the feature map given two different filters:</p>
+<ul>
+<li><img src="Images/paste-80CD52B5.png" width="253" /></li>
+</ul></li>
+<li><p>Feature map: Can be seen as the the output, where we extract patterns, hence this highlights important filters.</p></li>
+</ul>
+</div>
+<div id="spetial-heirarchical" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> Spetial heirarchical</h2>
+<p>We want to first be able to specify regions and then extract what we can get from each patch.</p>
+<p><img src="Images/paste-72CAD38D.png" /></p>
+<div id="tuning-parameters" class="section level3" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> Tuning parameters</h3>
+<ol style="list-style-type: decimal">
+<li>Size of the patches, typically 3 x 3 or 5 x 5.</li>
+<li>Depth of the output feature map, see the picture below.</li>
+</ol>
+<div class="figure" style="text-align: center"><span id="fig:convnet1"></span>
+<img src="Images/paste-334AE970.png" alt="How convnet works" width="386" />
+<p class="caption">
+Figure 7.1: How convnet works
+</p>
+</div>
+<p><strong>What is it we see?</strong></p>
+<ol style="list-style-type: decimal">
+<li>The input shape, in which we are going to run the transformation</li>
+<li>We see the patches</li>
+<li>We see that we compute the dot products (given the certain filters) and stores them as the output feature map. Notice that we lost the outer-most cubes. That is because we cannot go outside of the input feature map, this is solved by the padding.</li>
+</ol>
+</div>
+<div id="data-modeling-techniques" class="section level3" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Data modeling techniques</h3>
+<p>The following presents different approaches options to the layers that will model with the data / affect the output.</p>
+<div id="padding" class="section level4" number="7.2.2.1">
+<h4><span class="header-section-number">7.2.2.1</span> Padding</h4>
+<p>We see from the output feature map that we lost some of the data. This can be solved with padding, here we are adding some padding around the original feature map so we are able to have an equal amount of patches for each of the pixels in the input feature space.</p>
+<p>To explain it more visually, we see that at the borders of the pictures we will not be able to center the patches at the borders.</p>
+<p>To deal with this use <code>layer_conv_2d</code> where one can set <code>padding</code> to either <code>valid</code> or <code>same</code>, where same will get the output to be the same size as the input (hence adding padding) and valid not apply padding.</p>
+</div>
+<div id="strides" class="section level4" number="7.2.2.2">
+<h4><span class="header-section-number">7.2.2.2</span> Strides</h4>
+<p>This is referring to how much we move the patches around, the default is 1, but sometimes one will also use higher strides, for example 2, see the figure below. Where we see that we only are able to find 4 patches.</p>
+<div class="figure" style="text-align: center"><span id="fig:Strides"></span>
+<img src="Images/paste-72D86A41.png" alt="Example with strides, where stride = 2 x 2" width="468" />
+<p class="caption">
+Figure 7.2: Example with strides, where stride = 2 x 2
+</p>
+</div>
+<p>This is in contrast to the normal scenario where we see that we are moving the patches around.</p>
+<div class="figure" style="text-align: center"><span id="fig:Strides2"></span>
+<img src="Images/paste-DEF6C490.png" alt="Example with strides, where stride = 1 x 1" width="488" />
+<p class="caption">
+Figure 7.3: Example with strides, where stride = 1 x 1
+</p>
+</div>
+<p><img src="Images/paste-DEF6C490.png" /></p>
+<p><em>We say that this has no strides, but in fact the stride = 1 x 1.</em></p>
+<p><strong>Why use the max-pooling operations?</strong></p>
+<ul>
+<li><p>It is a good approach to summarize the output layers and extract actual information.</p></li>
+<li><p>Remember that the last layer will be a densely connected network</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="the-max-pooling-operation" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> The max-pooling operation</h2>
+<p>It is similar to the strides in the way that you select a given patch of the output network, (see Section <a href="#convnet"><strong>??</strong></a>), often a size of 2 x 2 is chosen.</p>
+<p>These selected areas are also called windows.</p>
+<p><strong>Process:</strong></p>
+<ol style="list-style-type: decimal">
+<li>We are then moving the window around without overlapping with other patches.</li>
+<li>We take the max value of each cell that are within the selected values</li>
+<li>Store it in an output feature map</li>
+</ol>
+<p><strong><em>Example</em></strong></p>
+<div class="figure" style="text-align: center"><span id="fig:MaxPooling"></span>
+<img src="Images/paste-429DD86E.png" alt="Max Polling example, source [@deeplizar2018]" width="1109" />
+<p class="caption">
+Figure 7.4: Max Polling example, source <span class="citation">(<a href="references.html#ref-deeplizar2018" role="doc-biblioref"><span>“Max Pooling in Convolutional Neural Networks Explained”</span> 2018</a>)</span>
+</p>
+</div>
+<p>In the example above we see that we are pooling the max values and kinda summarizing in a smaller out, hence when we apply 2 x 2 pools, and extracting the max, then we will half the size of the output shape, e.g., in the Figure <a href="chapter-5-deep-learning-for-computer-vision.html#fig:MaxPooling">7.4</a> we see that output feature map of 26 x 26 is reduced to 13 x 13.</p>
+<p><em>Notice, that the stride is 2, that is how much we are shifting the area for evaluation. Notice that the strides in a regular patching scenario, then we say that we don’t have a stride, although we do in fact have a stride = 1.</em></p>
+<p><strong>Advantages:</strong></p>
+<ol style="list-style-type: decimal">
+<li>We are able to reduce the number of parameters while preserving good performance</li>
+<li>We avoid overfitting</li>
+</ol>
+<p><strong>Comparison to average-pooling</strong></p>
+<p>We see that we can also use average pooling, where we take the average of the patch that we evaluate. This is usually not very good because it will smooth out the values and not find the patterns as the max-pooling does.</p>
+</div>
+<div id="examples" class="section level2" number="7.4">
+<h2><span class="header-section-number">7.4</span> Examples</h2>
+<div id="training-a-cats-and-dogs-classifier-from-scratch." class="section level3" number="7.4.1">
+<h3><span class="header-section-number">7.4.1</span> Training a cats and dogs classifier from scratch.</h3>
+<p>Not that the following chunks are not set to be run, as it is only required once.</p>
+<p>First one must identify the data and create a file directory for the images.</p>
+<div id="loading-data" class="section level4" number="7.4.1.1">
+<h4><span class="header-section-number">7.4.1.1</span> Loading data</h4>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Finding data set directory</span></span>
+<span id="cb487-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-2" aria-hidden="true" tabindex="-1"></a>original_dataset_dir <span class="ot">&lt;-</span> <span class="st">&quot;~/Downloads/dogs-vs-cats/train/&quot;</span> <span class="co">#Note that this has been deleted again. URL: https://www.kaggle.com/c/dogs-vs-cats/data</span></span>
+<span id="cb487-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-3" aria-hidden="true" tabindex="-1"></a>base_dir <span class="ot">&lt;-</span> <span class="st">&quot;Data/3. Deep Learning/cats_and_dogs_small/&quot;</span></span>
+<span id="cb487-4"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(base_dir)</span>
+<span id="cb487-5"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb487-6"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating directory</span></span>
+<span id="cb487-7"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-7" aria-hidden="true" tabindex="-1"></a>train_dir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(base_dir, <span class="st">&quot;train&quot;</span>) <span class="co">#Creates the train directory based on the base_dir</span></span>
+<span id="cb487-8"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(train_dir)</span>
+<span id="cb487-9"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb487-10"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-10" aria-hidden="true" tabindex="-1"></a>validation_dir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(base_dir, <span class="st">&quot;validation&quot;</span>)</span>
+<span id="cb487-11"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-11" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(validation_dir)</span>
+<span id="cb487-12"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb487-13"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-13" aria-hidden="true" tabindex="-1"></a>test_dir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(base_dir, <span class="st">&quot;test&quot;</span>)</span>
+<span id="cb487-14"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-14" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(test_dir)</span>
+<span id="cb487-15"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb487-16"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Making folders for cats and dogs in the three folders above</span></span>
+<span id="cb487-17"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-17" aria-hidden="true" tabindex="-1"></a>train_cats_dir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(train_dir, <span class="st">&quot;cats&quot;</span>)</span>
+<span id="cb487-18"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-18" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(train_cats_dir)</span>
+<span id="cb487-19"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb487-20"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-20" aria-hidden="true" tabindex="-1"></a>train_dogs_dir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(train_dir, <span class="st">&quot;dogs&quot;</span>)</span>
+<span id="cb487-21"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-21" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(train_dogs_dir)</span>
+<span id="cb487-22"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb487-23"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-23" aria-hidden="true" tabindex="-1"></a>validation_cats_dir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(validation_dir, <span class="st">&quot;cats&quot;</span>)</span>
+<span id="cb487-24"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-24" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(validation_cats_dir)</span>
+<span id="cb487-25"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb487-26"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-26" aria-hidden="true" tabindex="-1"></a>validation_dogs_dir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(validation_dir, <span class="st">&quot;dogs&quot;</span>)</span>
+<span id="cb487-27"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-27" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(validation_dogs_dir)</span>
+<span id="cb487-28"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb487-29"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-29" aria-hidden="true" tabindex="-1"></a>test_cats_dir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(test_dir, <span class="st">&quot;cats&quot;</span>)</span>
+<span id="cb487-30"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-30" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(test_cats_dir)</span>
+<span id="cb487-31"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb487-32"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-32" aria-hidden="true" tabindex="-1"></a>test_dogs_dir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(test_dir, <span class="st">&quot;dogs&quot;</span>)</span>
+<span id="cb487-33"><a href="chapter-5-deep-learning-for-computer-vision.html#cb487-33" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(test_dogs_dir)</span></code></pre></div>
+<p>Now we can copy the images and paste them in the newly created folders</p>
+<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb488-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Copying</span></span>
+<span id="cb488-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb488-2" aria-hidden="true" tabindex="-1"></a>fnames <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;cat.&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="st">&quot;.jpg&quot;</span>)</span>
+<span id="cb488-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb488-3" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="at">from =</span> <span class="fu">file.path</span>(original_dataset_dir, fnames)</span>
+<span id="cb488-4"><a href="chapter-5-deep-learning-for-computer-vision.html#cb488-4" aria-hidden="true" tabindex="-1"></a>          ,<span class="at">to =</span> <span class="fu">file.path</span>(train_cats_dir))</span>
+<span id="cb488-5"><a href="chapter-5-deep-learning-for-computer-vision.html#cb488-5" aria-hidden="true" tabindex="-1"></a>fnames <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;cat.&quot;</span>, <span class="dv">1001</span><span class="sc">:</span><span class="dv">1500</span>, <span class="st">&quot;.jpg&quot;</span>)</span>
+<span id="cb488-6"><a href="chapter-5-deep-learning-for-computer-vision.html#cb488-6" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="fu">file.path</span>(original_dataset_dir, fnames),</span>
+<span id="cb488-7"><a href="chapter-5-deep-learning-for-computer-vision.html#cb488-7" aria-hidden="true" tabindex="-1"></a>          <span class="fu">file.path</span>(validation_cats_dir))</span>
+<span id="cb488-8"><a href="chapter-5-deep-learning-for-computer-vision.html#cb488-8" aria-hidden="true" tabindex="-1"></a>fnames <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;cat.&quot;</span>, <span class="dv">1501</span><span class="sc">:</span><span class="dv">2000</span>, <span class="st">&quot;.jpg&quot;</span>)</span>
+<span id="cb488-9"><a href="chapter-5-deep-learning-for-computer-vision.html#cb488-9" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="fu">file.path</span>(original_dataset_dir, fnames),</span>
+<span id="cb488-10"><a href="chapter-5-deep-learning-for-computer-vision.html#cb488-10" aria-hidden="true" tabindex="-1"></a>          <span class="fu">file.path</span>(test_cats_dir))</span>
+<span id="cb488-11"><a href="chapter-5-deep-learning-for-computer-vision.html#cb488-11" aria-hidden="true" tabindex="-1"></a>fnames <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;dog.&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="st">&quot;.jpg&quot;</span>)</span>
+<span id="cb488-12"><a href="chapter-5-deep-learning-for-computer-vision.html#cb488-12" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="fu">file.path</span>(original_dataset_dir, fnames),</span>
+<span id="cb488-13"><a href="chapter-5-deep-learning-for-computer-vision.html#cb488-13" aria-hidden="true" tabindex="-1"></a>          <span class="fu">file.path</span>(train_dogs_dir))</span>
+<span id="cb488-14"><a href="chapter-5-deep-learning-for-computer-vision.html#cb488-14" aria-hidden="true" tabindex="-1"></a>fnames <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;dog.&quot;</span>, <span class="dv">1001</span><span class="sc">:</span><span class="dv">1500</span>, <span class="st">&quot;.jpg&quot;</span>)</span>
+<span id="cb488-15"><a href="chapter-5-deep-learning-for-computer-vision.html#cb488-15" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="fu">file.path</span>(original_dataset_dir, fnames),</span>
+<span id="cb488-16"><a href="chapter-5-deep-learning-for-computer-vision.html#cb488-16" aria-hidden="true" tabindex="-1"></a>          <span class="fu">file.path</span>(validation_dogs_dir))</span>
+<span id="cb488-17"><a href="chapter-5-deep-learning-for-computer-vision.html#cb488-17" aria-hidden="true" tabindex="-1"></a>fnames <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;dog.&quot;</span>, <span class="dv">1501</span><span class="sc">:</span><span class="dv">2000</span>, <span class="st">&quot;.jpg&quot;</span>)</span>
+<span id="cb488-18"><a href="chapter-5-deep-learning-for-computer-vision.html#cb488-18" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="fu">file.path</span>(original_dataset_dir, fnames),</span>
+<span id="cb488-19"><a href="chapter-5-deep-learning-for-computer-vision.html#cb488-19" aria-hidden="true" tabindex="-1"></a>          <span class="fu">file.path</span>(test_dogs_dir))</span></code></pre></div>
+<p>Now we want to copy some of the pictures from the original data and insert it into the newly created folders.</p>
+<p><strong>Checking if we have copied the pictures into the folders</strong></p>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb489-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;total training cat images:&quot;</span>, <span class="fu">length</span>(<span class="fu">list.files</span>(train_cats_dir)), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb489-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb489-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb489-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb489-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;total training dog images:&quot;</span>, <span class="fu">length</span>(<span class="fu">list.files</span>(train_dogs_dir)), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb489-4"><a href="chapter-5-deep-learning-for-computer-vision.html#cb489-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb489-5"><a href="chapter-5-deep-learning-for-computer-vision.html#cb489-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;total validation cat images:&quot;</span>,</span>
+<span id="cb489-6"><a href="chapter-5-deep-learning-for-computer-vision.html#cb489-6" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">list.files</span>(validation_cats_dir)), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb489-7"><a href="chapter-5-deep-learning-for-computer-vision.html#cb489-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb489-8"><a href="chapter-5-deep-learning-for-computer-vision.html#cb489-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;total validation dog images:&quot;</span>,</span>
+<span id="cb489-9"><a href="chapter-5-deep-learning-for-computer-vision.html#cb489-9" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">list.files</span>(validation_dogs_dir)), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb489-10"><a href="chapter-5-deep-learning-for-computer-vision.html#cb489-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb489-11"><a href="chapter-5-deep-learning-for-computer-vision.html#cb489-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;total test cat images:&quot;</span>, <span class="fu">length</span>(<span class="fu">list.files</span>(test_cats_dir)), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb489-12"><a href="chapter-5-deep-learning-for-computer-vision.html#cb489-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb489-13"><a href="chapter-5-deep-learning-for-computer-vision.html#cb489-13" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;total test dog images:&quot;</span>, <span class="fu">length</span>(<span class="fu">list.files</span>(test_dogs_dir)), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<p>We see that there is data in the files.</p>
+</div>
+<div id="building-the-model-3" class="section level4" number="7.4.1.2">
+<h4><span class="header-section-number">7.4.1.2</span> Building the model</h4>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
+<span id="cb490-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb490-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb490-4"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Making convoluted layer</span></span>
+<span id="cb490-5"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="at">filters =</span> <span class="dv">32</span>, <span class="at">kernel_size =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>), <span class="at">activation =</span> <span class="st">&quot;relu&quot;</span>,</span>
+<span id="cb490-6"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">150</span> <span class="co">#Hight</span></span>
+<span id="cb490-7"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-7" aria-hidden="true" tabindex="-1"></a>                                ,<span class="dv">150</span> <span class="co">#Width</span></span>
+<span id="cb490-8"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-8" aria-hidden="true" tabindex="-1"></a>                                ,<span class="dv">3</span>) <span class="co">#Color channels, we are working with RGB</span></span>
+<span id="cb490-9"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-9" aria-hidden="true" tabindex="-1"></a>                ) <span class="sc">%&gt;%</span></span>
+<span id="cb490-10"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb490-11"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Max-pool operation</span></span>
+<span id="cb490-12"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_max_pooling_2d</span>(<span class="at">pool_size =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>) <span class="co">#Stides = pool size when not set.</span></span>
+<span id="cb490-13"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-13" aria-hidden="true" tabindex="-1"></a>                       ) <span class="sc">%&gt;%</span></span>
+<span id="cb490-14"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb490-15"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">#The same layers further processing the output data</span></span>
+<span id="cb490-16"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="at">filters =</span> <span class="dv">64</span>, <span class="at">kernel_size =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>), <span class="at">activation =</span> <span class="st">&quot;relu&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb490-17"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_max_pooling_2d</span>(<span class="at">pool_size =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb490-18"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="at">filters =</span> <span class="dv">128</span>, <span class="at">kernel_size =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>), <span class="at">activation =</span> <span class="st">&quot;relu&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb490-19"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_max_pooling_2d</span>(<span class="at">pool_size =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb490-20"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="at">filters =</span> <span class="dv">128</span>, <span class="at">kernel_size =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>), <span class="at">activation =</span> <span class="st">&quot;relu&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb490-21"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_max_pooling_2d</span>(<span class="at">pool_size =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb490-22"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb490-23"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-23" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Must flatten out the feature map</span></span>
+<span id="cb490-24"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_flatten</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb490-25"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">512</span>, <span class="at">activation =</span> <span class="st">&quot;relu&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb490-26"><a href="chapter-5-deep-learning-for-computer-vision.html#cb490-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">1</span>, <span class="at">activation =</span> <span class="st">&quot;sigmoid&quot;</span>) <span class="co">#1 Unit and sigmoid as we want something similar to logarithmic</span></span></code></pre></div>
+<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb491-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
+<p>We see that the max-pooling is at its right place in this scenario. The following show the amount of parameters that we would have if we where to exclude the max-pooling operations.</p>
+<p>Total parameters if we excluded the max-pooling</p>
+<ul>
+<li>Total params: 1,321,709,761</li>
+<li>Trainable params: 1,321,709,761</li>
+<li>Non-trainable params: 0</li>
+</ul>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb492-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(</span>
+<span id="cb492-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb492-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">loss =</span> <span class="st">&quot;binary_crossentropy&quot;</span>,</span>
+<span id="cb492-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb492-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">optimizer =</span> <span class="fu">optimizer_rmsprop</span>(<span class="at">lr =</span> <span class="fl">1e-4</span>),</span>
+<span id="cb492-4"><a href="chapter-5-deep-learning-for-computer-vision.html#cb492-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">metrics =</span> <span class="fu">c</span>(<span class="st">&quot;acc&quot;</span>)</span>
+<span id="cb492-5"><a href="chapter-5-deep-learning-for-computer-vision.html#cb492-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="data-preprocessing" class="section level4" number="7.4.1.3">
+<h4><span class="header-section-number">7.4.1.3</span> Data preprocessing</h4>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Input values</span></span>
+<span id="cb493-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-2" aria-hidden="true" tabindex="-1"></a>batch_size <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb493-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb493-4"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Rescaling images</span></span>
+<span id="cb493-5"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-5" aria-hidden="true" tabindex="-1"></a>train_datagen <span class="ot">&lt;-</span> <span class="fu">image_data_generator</span>(<span class="at">rescale =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">255</span>)</span>
+<span id="cb493-6"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-6" aria-hidden="true" tabindex="-1"></a>validation_datagen <span class="ot">&lt;-</span> <span class="fu">image_data_generator</span>(<span class="at">rescale =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">255</span>)</span>
+<span id="cb493-7"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb493-8"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating a train procedure</span></span>
+<span id="cb493-9"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-9" aria-hidden="true" tabindex="-1"></a>train_generator <span class="ot">&lt;-</span> <span class="fu">flow_images_from_directory</span>(</span>
+<span id="cb493-10"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">directory =</span> train_dir <span class="co">#Target directory</span></span>
+<span id="cb493-11"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-11" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">generator =</span> train_datagen <span class="co">#The rescaled images</span></span>
+<span id="cb493-12"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-12" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">target_size =</span> <span class="fu">c</span>(<span class="dv">150</span>, <span class="dv">150</span>) <span class="co">#Resizing images</span></span>
+<span id="cb493-13"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-13" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">batch_size =</span> batch_size <span class="co">#How many pictures there is to be loaded at the same time</span></span>
+<span id="cb493-14"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-14" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">class_mode =</span> <span class="st">&quot;binary&quot;</span> <span class="co">#Our loss = cross entropy hence classes must be binary</span></span>
+<span id="cb493-15"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb493-16"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb493-17"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating a validation procedure</span></span>
+<span id="cb493-18"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-18" aria-hidden="true" tabindex="-1"></a>validation_generator <span class="ot">&lt;-</span> <span class="fu">flow_images_from_directory</span>(</span>
+<span id="cb493-19"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-19" aria-hidden="true" tabindex="-1"></a>  validation_dir <span class="co">#Target directory</span></span>
+<span id="cb493-20"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-20" aria-hidden="true" tabindex="-1"></a>  ,validation_datagen <span class="co">#The rescaled images</span></span>
+<span id="cb493-21"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-21" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">target_size =</span> <span class="fu">c</span>(<span class="dv">150</span>, <span class="dv">150</span>) <span class="co">#Resizing images</span></span>
+<span id="cb493-22"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-22" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">batch_size =</span> batch_size</span>
+<span id="cb493-23"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-23" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">class_mode =</span> <span class="st">&quot;binary&quot;</span> <span class="co">#Our loss = cross entropy hence classes must be binary</span></span>
+<span id="cb493-24"><a href="chapter-5-deep-learning-for-computer-vision.html#cb493-24" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><em>Notice that the function <code>flow_images_from_directory()</code> will load only a part of all of the pictures into the model, and then do it sequentially</em></p>
+<p>Now we can take a look at what the train generator contains</p>
+<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb494-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating a batch for inspection</span></span>
+<span id="cb494-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb494-2" aria-hidden="true" tabindex="-1"></a>batch <span class="ot">&lt;-</span> <span class="fu">generator_next</span>(train_generator)</span>
+<span id="cb494-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb494-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(batch)</span></code></pre></div>
+<p>We see that each batch contains two list elements, the first contains 4 dimensions:</p>
+<ol style="list-style-type: decimal">
+<li>20 pictures</li>
+<li>Height</li>
+<li>Width</li>
+<li>Channels, RGB</li>
+</ol>
+<p>Then the second element a binary vector of the labels.</p>
+</div>
+<div id="fitting-the-model" class="section level4" number="7.4.1.4">
+<h4><span class="header-section-number">7.4.1.4</span> Fitting the model</h4>
+<p>Now we can fit the model.</p>
+<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb495-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb495-1" aria-hidden="true" tabindex="-1"></a>history <span class="ot">&lt;-</span> model <span class="sc">%&gt;%</span> <span class="fu">fit_generator</span>(</span>
+<span id="cb495-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb495-2" aria-hidden="true" tabindex="-1"></a>  train_generator</span>
+<span id="cb495-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb495-3" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">steps_per_epoch =</span> <span class="dv">100</span> <span class="co">#Samples drawn from the generator</span></span>
+<span id="cb495-4"><a href="chapter-5-deep-learning-for-computer-vision.html#cb495-4" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">epochs =</span> <span class="dv">30</span></span>
+<span id="cb495-5"><a href="chapter-5-deep-learning-for-computer-vision.html#cb495-5" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">validation_data =</span> validation_generator</span>
+<span id="cb495-6"><a href="chapter-5-deep-learning-for-computer-vision.html#cb495-6" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">validation_steps =</span> <span class="dv">50</span></span>
+<span id="cb495-7"><a href="chapter-5-deep-learning-for-computer-vision.html#cb495-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Note steps pr. epoch is found by</p>
+<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb496-1" aria-hidden="true" tabindex="-1"></a>train_observations <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">list.files</span>(train_cats_dir)) <span class="sc">+</span> <span class="fu">length</span>(<span class="fu">list.files</span>(train_dogs_dir)) <span class="co">#The amount of train observations</span></span>
+<span id="cb496-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb496-2" aria-hidden="true" tabindex="-1"></a>train_observations<span class="sc">/</span>batch_size</span></code></pre></div>
+<p>Now we can save the model so we don’t have to run it again.</p>
+<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb497-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb497-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">save_model_hdf5</span>(<span class="st">&quot;Saved Objects/cats_and_dogs_small_1.h5&quot;</span>)</span></code></pre></div>
+<p>Now we can plot the epochs.</p>
+<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb498-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(history)</span></code></pre></div>
+<p>We see that the loss starts increasing around 10 epochs while in the same area the accuracy is flattening out.</p>
+<p><strong>What to look out for</strong></p>
+<p>We have very little data. Even though it can work, we are also at great risk of overfitting the model, so we must be careful. Dealing with overfitting I refer to Section [<a href="deep-learning-fundamentals.html#overfitting-underfitting">5.1.6</a>], examples are adding, drop out and regularization.</p>
+</div>
+<div id="dealing-with-overfitting" class="section level4" number="7.4.1.5">
+<h4><span class="header-section-number">7.4.1.5</span> Dealing with overfitting</h4>
+<div id="randomized-transformations-data-augmentation" class="section level5" number="7.4.1.5.1">
+<h5><span class="header-section-number">7.4.1.5.1</span> Randomized transformations / Data augmentation</h5>
+<p>With computer vision, we have the benefit that we are able to see what the layers actually do to the data. It is unique for computer vision and really shows what is going on. This will be explored in the following.</p>
+<p>Since our data is very little, we are at risk of overfitting, hence introducing the same picture to the model, puts our model at great risk of overfitting to certain images. We deal with this by making some random transformations of the model.</p>
+<p>Even though we are fighting overfitting, one cannet just have a handful of pictures to train the model, hence you will overfit to the certain patterns in the train data.</p>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb499-1" aria-hidden="true" tabindex="-1"></a>datagen <span class="ot">&lt;-</span> <span class="fu">image_data_generator</span>(</span>
+<span id="cb499-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb499-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">rescale =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">255</span>,</span>
+<span id="cb499-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb499-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">rotation_range =</span> <span class="dv">40</span>, <span class="co">#Rotating</span></span>
+<span id="cb499-4"><a href="chapter-5-deep-learning-for-computer-vision.html#cb499-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">width_shift_range =</span> <span class="fl">0.2</span>, <span class="co">#Moves the picture around in the space</span></span>
+<span id="cb499-5"><a href="chapter-5-deep-learning-for-computer-vision.html#cb499-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">height_shift_range =</span> <span class="fl">0.2</span>, <span class="co">#Moves the picture around in the space</span></span>
+<span id="cb499-6"><a href="chapter-5-deep-learning-for-computer-vision.html#cb499-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">shear_range =</span> <span class="fl">0.2</span>, <span class="co">#Streches the picture</span></span>
+<span id="cb499-7"><a href="chapter-5-deep-learning-for-computer-vision.html#cb499-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">zoom_range =</span> <span class="fl">0.2</span>,</span>
+<span id="cb499-8"><a href="chapter-5-deep-learning-for-computer-vision.html#cb499-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">horizontal_flip =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb499-9"><a href="chapter-5-deep-learning-for-computer-vision.html#cb499-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">fill_mode =</span> <span class="st">&quot;nearest&quot;</span> <span class="co">#When we do the transformation, we will have to fill some background</span></span>
+<span id="cb499-10"><a href="chapter-5-deep-learning-for-computer-vision.html#cb499-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Explanation of the transformations. Naturally there can be done many more transformations.</p>
+<ul>
+<li><code>rotation_range</code> is a value in degrees (0–180), a range within which to randomly rotate pictures.</li>
+<li><code>width_shift</code> and height_shift are ranges (as a fraction of total width or height) within which to randomly translate pictures vertically or horizontally.</li>
+<li><code>shear_range</code> is for randomly applying shearing transformations.</li>
+<li><code>zoom_range</code> is for randomly zooming inside pictures.</li>
+<li><code>horizontal_flip</code> is for randomly flipping half the images horizontally—relevant when there are no assumptions of horizontal asymmetry (for example, real-world pictures).</li>
+<li><code>fill_mode</code> is the strategy used for filling in newly created pixels, which can appear after a rotation or a width/height shift</li>
+</ul>
+<p><strong>Interpreting one tranformed picture</strong></p>
+<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb500-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb500-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Choose an images</span></span>
+<span id="cb500-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb500-2" aria-hidden="true" tabindex="-1"></a>fnames <span class="ot">&lt;-</span> <span class="fu">list.files</span>(train_cats_dir, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb500-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb500-3" aria-hidden="true" tabindex="-1"></a>img_path <span class="ot">&lt;-</span> fnames[[<span class="dv">3</span>]] <span class="co">#This is a directory</span></span>
+<span id="cb500-4"><a href="chapter-5-deep-learning-for-computer-vision.html#cb500-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb500-5"><a href="chapter-5-deep-learning-for-computer-vision.html#cb500-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Reading, converting and reshapring the picture</span></span>
+<span id="cb500-6"><a href="chapter-5-deep-learning-for-computer-vision.html#cb500-6" aria-hidden="true" tabindex="-1"></a>img <span class="ot">&lt;-</span> <span class="fu">image_load</span>(img_path, <span class="at">target_size =</span> <span class="fu">c</span>(<span class="dv">150</span>, <span class="dv">150</span>)) <span class="co">#Dimensions, the pictures are 150 by 150</span></span>
+<span id="cb500-7"><a href="chapter-5-deep-learning-for-computer-vision.html#cb500-7" aria-hidden="true" tabindex="-1"></a>img_array <span class="ot">&lt;-</span> <span class="fu">image_to_array</span>(img)</span>
+<span id="cb500-8"><a href="chapter-5-deep-learning-for-computer-vision.html#cb500-8" aria-hidden="true" tabindex="-1"></a>img_array <span class="ot">&lt;-</span> <span class="fu">array_reshape</span>(img_array, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">150</span>, <span class="dv">150</span>, <span class="dv">3</span>))</span>
+<span id="cb500-9"><a href="chapter-5-deep-learning-for-computer-vision.html#cb500-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb500-10"><a href="chapter-5-deep-learning-for-computer-vision.html#cb500-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Generate batches of randomly transformed images</span></span>
+<span id="cb500-11"><a href="chapter-5-deep-learning-for-computer-vision.html#cb500-11" aria-hidden="true" tabindex="-1"></a>augmentation_generator <span class="ot">&lt;-</span> <span class="fu">flow_images_from_data</span>(</span>
+<span id="cb500-12"><a href="chapter-5-deep-learning-for-computer-vision.html#cb500-12" aria-hidden="true" tabindex="-1"></a>  img_array,</span>
+<span id="cb500-13"><a href="chapter-5-deep-learning-for-computer-vision.html#cb500-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">generator =</span> datagen,</span>
+<span id="cb500-14"><a href="chapter-5-deep-learning-for-computer-vision.html#cb500-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">batch_size =</span> <span class="dv">1</span></span>
+<span id="cb500-15"><a href="chapter-5-deep-learning-for-computer-vision.html#cb500-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb500-16"><a href="chapter-5-deep-learning-for-computer-vision.html#cb500-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb500-17"><a href="chapter-5-deep-learning-for-computer-vision.html#cb500-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotting the images</span></span>
+<span id="cb500-18"><a href="chapter-5-deep-learning-for-computer-vision.html#cb500-18" aria-hidden="true" tabindex="-1"></a>op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">pty =</span> <span class="st">&quot;s&quot;</span>, <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb500-19"><a href="chapter-5-deep-learning-for-computer-vision.html#cb500-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>) {</span>
+<span id="cb500-20"><a href="chapter-5-deep-learning-for-computer-vision.html#cb500-20" aria-hidden="true" tabindex="-1"></a>  batch <span class="ot">&lt;-</span> <span class="fu">generator_next</span>(augmentation_generator)</span>
+<span id="cb500-21"><a href="chapter-5-deep-learning-for-computer-vision.html#cb500-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">as.raster</span>(batch[<span class="dv">1</span>,,,]))</span>
+<span id="cb500-22"><a href="chapter-5-deep-learning-for-computer-vision.html#cb500-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb500-23"><a href="chapter-5-deep-learning-for-computer-vision.html#cb500-23" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(op)</span></code></pre></div>
+<p>Notice that this will help fight overfitting, although it will never get rid of the chance of overfitting as the patterns ultimately are the same but come in different packages.</p>
+</div>
+<div id="adding-dropout" class="section level5" number="7.4.1.5.2">
+<h5><span class="header-section-number">7.4.1.5.2</span> Adding dropout</h5>
+<p>We train the model with drop</p>
+<p>We add the drop out, intentionally before the densely connected layers, more on these see section [<a href="deep-learning-fundamentals.html#dropout">5.1.6.3</a>]</p>
+</div>
+<div id="max-pooling" class="section level5" number="7.4.1.5.3">
+<h5><span class="header-section-number">7.4.1.5.3</span> Max pooling</h5>
+<p>Adding Max pooling, see description in a previous section.</p>
+</div>
+</div>
+<div id="training-with-dropout-and-random-image-transformations" class="section level4" number="7.4.1.6">
+<h4><span class="header-section-number">7.4.1.6</span> Training with dropout and random image transformations</h4>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb501-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb501-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb501-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb501-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb501-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Convnet + Max-pooling</span></span>
+<span id="cb501-4"><a href="chapter-5-deep-learning-for-computer-vision.html#cb501-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="at">filters =</span> <span class="dv">32</span>, <span class="at">kernel_size =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>), <span class="at">activation =</span> <span class="st">&quot;relu&quot;</span>,</span>
+<span id="cb501-5"><a href="chapter-5-deep-learning-for-computer-vision.html#cb501-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">150</span>, <span class="dv">150</span>, <span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb501-6"><a href="chapter-5-deep-learning-for-computer-vision.html#cb501-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_max_pooling_2d</span>(<span class="at">pool_size =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb501-7"><a href="chapter-5-deep-learning-for-computer-vision.html#cb501-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="at">filters =</span> <span class="dv">64</span>, <span class="at">kernel_size =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>), <span class="at">activation =</span> <span class="st">&quot;relu&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb501-8"><a href="chapter-5-deep-learning-for-computer-vision.html#cb501-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_max_pooling_2d</span>(<span class="at">pool_size =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb501-9"><a href="chapter-5-deep-learning-for-computer-vision.html#cb501-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="at">filters =</span> <span class="dv">128</span>, <span class="at">kernel_size =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>), <span class="at">activation =</span> <span class="st">&quot;relu&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb501-10"><a href="chapter-5-deep-learning-for-computer-vision.html#cb501-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_max_pooling_2d</span>(<span class="at">pool_size =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb501-11"><a href="chapter-5-deep-learning-for-computer-vision.html#cb501-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="at">filters =</span> <span class="dv">128</span>, <span class="at">kernel_size =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>), <span class="at">activation =</span> <span class="st">&quot;relu&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb501-12"><a href="chapter-5-deep-learning-for-computer-vision.html#cb501-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_max_pooling_2d</span>(<span class="at">pool_size =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb501-13"><a href="chapter-5-deep-learning-for-computer-vision.html#cb501-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_flatten</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb501-14"><a href="chapter-5-deep-learning-for-computer-vision.html#cb501-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dropout</span>(<span class="at">rate =</span> <span class="fl">0.5</span>) <span class="sc">%&gt;%</span> <span class="co"># We add dropout here</span></span>
+<span id="cb501-15"><a href="chapter-5-deep-learning-for-computer-vision.html#cb501-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">512</span>, <span class="at">activation =</span> <span class="st">&quot;relu&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb501-16"><a href="chapter-5-deep-learning-for-computer-vision.html#cb501-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">1</span>, <span class="at">activation =</span> <span class="st">&quot;sigmoid&quot;</span>)</span>
+<span id="cb501-17"><a href="chapter-5-deep-learning-for-computer-vision.html#cb501-17" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(</span>
+<span id="cb501-18"><a href="chapter-5-deep-learning-for-computer-vision.html#cb501-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">loss =</span> <span class="st">&quot;binary_crossentropy&quot;</span>,</span>
+<span id="cb501-19"><a href="chapter-5-deep-learning-for-computer-vision.html#cb501-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">optimizer =</span> <span class="fu">optimizer_rmsprop</span>(<span class="at">lr =</span> <span class="fl">1e-4</span>),</span>
+<span id="cb501-20"><a href="chapter-5-deep-learning-for-computer-vision.html#cb501-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">metrics =</span> <span class="fu">c</span>(<span class="st">&quot;acc&quot;</span>)</span>
+<span id="cb501-21"><a href="chapter-5-deep-learning-for-computer-vision.html#cb501-21" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb502-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-1" aria-hidden="true" tabindex="-1"></a>datagen <span class="ot">&lt;-</span> <span class="fu">image_data_generator</span>(</span>
+<span id="cb502-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">rescale =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">255</span>,</span>
+<span id="cb502-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">rotation_range =</span> <span class="dv">40</span>,</span>
+<span id="cb502-4"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">width_shift_range =</span> <span class="fl">0.2</span>,</span>
+<span id="cb502-5"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">height_shift_range =</span> <span class="fl">0.2</span>,</span>
+<span id="cb502-6"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">shear_range =</span> <span class="fl">0.2</span>,</span>
+<span id="cb502-7"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">zoom_range =</span> <span class="fl">0.2</span>,</span>
+<span id="cb502-8"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">horizontal_flip =</span> <span class="cn">TRUE</span></span>
+<span id="cb502-9"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb502-10"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-10" aria-hidden="true" tabindex="-1"></a>test_datagen <span class="ot">&lt;-</span> <span class="fu">image_data_generator</span>(<span class="at">rescale =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">255</span>)</span>
+<span id="cb502-11"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-11" aria-hidden="true" tabindex="-1"></a>train_generator <span class="ot">&lt;-</span> <span class="fu">flow_images_from_directory</span>(</span>
+<span id="cb502-12"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-12" aria-hidden="true" tabindex="-1"></a>  train_dir,</span>
+<span id="cb502-13"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-13" aria-hidden="true" tabindex="-1"></a>  datagen, <span class="co">#The randomizer we make in in the previous step</span></span>
+<span id="cb502-14"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">target_size =</span> <span class="fu">c</span>(<span class="dv">150</span>, <span class="dv">150</span>), <span class="co">#Resizing to the original size, so it can be validated</span></span>
+<span id="cb502-15"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">batch_size =</span> batch_size,</span>
+<span id="cb502-16"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">class_mode =</span> <span class="st">&quot;binary&quot;</span> <span class="co">#This is related tot the loss function that we are using</span></span>
+<span id="cb502-17"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb502-18"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-18" aria-hidden="true" tabindex="-1"></a>validation_generator <span class="ot">&lt;-</span> <span class="fu">flow_images_from_directory</span>(</span>
+<span id="cb502-19"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-19" aria-hidden="true" tabindex="-1"></a>  validation_dir,</span>
+<span id="cb502-20"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-20" aria-hidden="true" tabindex="-1"></a>  test_datagen, <span class="co">#NOTE, we do not use the randomized pictures here, only to train the model</span></span>
+<span id="cb502-21"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">target_size =</span> <span class="fu">c</span>(<span class="dv">150</span>, <span class="dv">150</span>),</span>
+<span id="cb502-22"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">batch_size =</span> batch_size,</span>
+<span id="cb502-23"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">class_mode =</span> <span class="st">&quot;binary&quot;</span></span>
+<span id="cb502-24"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb502-25"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-25" aria-hidden="true" tabindex="-1"></a>history <span class="ot">&lt;-</span> model <span class="sc">%&gt;%</span> <span class="fu">fit_generator</span>(</span>
+<span id="cb502-26"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-26" aria-hidden="true" tabindex="-1"></a>  train_generator,</span>
+<span id="cb502-27"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">steps_per_epoch =</span> <span class="dv">100</span>,</span>
+<span id="cb502-28"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">epochs =</span> <span class="dv">100</span>,</span>
+<span id="cb502-29"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">validation_data =</span> validation_generator,</span>
+<span id="cb502-30"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">validation_steps =</span> <span class="dv">50</span></span>
+<span id="cb502-31"><a href="chapter-5-deep-learning-for-computer-vision.html#cb502-31" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Hereafter we can plot the findings.</p>
+<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb503-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb503-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">save_model_hdf5</span>(<span class="st">&quot;Saved Objects/cats_and_dogs_small_2.h5&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb504-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb504-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(history)</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="using-a-pretrained-convnet" class="section level2" number="7.5">
+<h2><span class="header-section-number">7.5</span> Using a pretrained convnet</h2>
+<p>We want to use pretrained network to get the layers and the wheights, that has been trained on far bigger datasets that we have access to, e.g., the imagenet contains 1.4 million pictures in 1000 classes.</p>
+<p>We can take two approaches:</p>
+<ol style="list-style-type: decimal">
+<li>Running the pretrained network on the data to extract features, and then run a densely connected network on that features. This does not require a GPU.</li>
+<li>Extending the pretrained convoluted network. This allows for data augmentation. This requires a GPU. Notice that we are still freezing the pretrained convnn, so we don’t update the wheights here.</li>
+</ol>
+<p>We see the VGG16 architecture. We will cover the following:</p>
+<ol style="list-style-type: decimal">
+<li>Feature extraction</li>
+<li>Fine-tuning</li>
+</ol>
+<div id="feature-extraction" class="section level3" number="7.5.1">
+<h3><span class="header-section-number">7.5.1</span> Feature extraction</h3>
+<p>Now this section will separate into two sections:</p>
+<ol style="list-style-type: decimal">
+<li>Feature extraction without data augmentation</li>
+<li>Feature extraction with data augmentation</li>
+</ol>
+<p>Naturally loading the model is the same for both models.</p>
+<p>We are able to reuse there transformations to the data in the voncoluted steps. Although one should always make own densely connected layers oppropiate to the task, that is because the convoluted stepts tend to be more general than the densely connected layers.</p>
+<p>Also when you don’t have a GPU it is a good idea with a pretrained network, as that can be a cumbersome process.</p>
+<p><strong>Retrieving the model</strong></p>
+<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb505-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
+<span id="cb505-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb505-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb505-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb505-3" aria-hidden="true" tabindex="-1"></a>conv_base <span class="ot">&lt;-</span> <span class="fu">application_vgg16</span>(</span>
+<span id="cb505-4"><a href="chapter-5-deep-learning-for-computer-vision.html#cb505-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">weights =</span> <span class="st">&quot;imagenet&quot;</span>,</span>
+<span id="cb505-5"><a href="chapter-5-deep-learning-for-computer-vision.html#cb505-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">include_top =</span> <span class="cn">FALSE</span>, <span class="co">#Do we want the densely connected layers?</span></span>
+<span id="cb505-6"><a href="chapter-5-deep-learning-for-computer-vision.html#cb505-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">150</span>, <span class="dv">150</span>, <span class="dv">3</span>)</span>
+<span id="cb505-7"><a href="chapter-5-deep-learning-for-computer-vision.html#cb505-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>We can assess the layers:</p>
+<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb506-1" aria-hidden="true" tabindex="-1"></a>conv_base</span></code></pre></div>
+<p>We want to pay attention to the last layer, as that is what we are going to plug into the a densely connected network.</p>
+<div id="feature-extraction-without-data-augmentation" class="section level4" number="7.5.1.1">
+<h4><span class="header-section-number">7.5.1.1</span> Feature extraction without data augmentation</h4>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-1" aria-hidden="true" tabindex="-1"></a>base_dir <span class="ot">&lt;-</span> <span class="st">&quot;Data/3. Deep Learning/cats_and_dogs_small&quot;</span> <span class="co">#Where I saved the pictures</span></span>
+<span id="cb507-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-2" aria-hidden="true" tabindex="-1"></a>train_dir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(base_dir, <span class="st">&quot;train&quot;</span>)</span>
+<span id="cb507-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-3" aria-hidden="true" tabindex="-1"></a>validation_dir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(base_dir, <span class="st">&quot;validation&quot;</span>)</span>
+<span id="cb507-4"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-4" aria-hidden="true" tabindex="-1"></a>test_dir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(base_dir, <span class="st">&quot;test&quot;</span>)</span>
+<span id="cb507-5"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-5" aria-hidden="true" tabindex="-1"></a>datagen <span class="ot">&lt;-</span> <span class="fu">image_data_generator</span>(<span class="at">rescale =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">255</span>)</span>
+<span id="cb507-6"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-6" aria-hidden="true" tabindex="-1"></a>batch_size <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb507-7"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb507-8"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-8" aria-hidden="true" tabindex="-1"></a>extract_features <span class="ot">&lt;-</span> <span class="cf">function</span>(directory, sample_count) {</span>
+<span id="cb507-9"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-9" aria-hidden="true" tabindex="-1"></a>  features <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="dv">0</span>, <span class="at">dim =</span> <span class="fu">c</span>(sample_count, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">512</span>))</span>
+<span id="cb507-10"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-10" aria-hidden="true" tabindex="-1"></a>  labels <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="dv">0</span>, <span class="at">dim =</span> <span class="fu">c</span>(sample_count))</span>
+<span id="cb507-11"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-11" aria-hidden="true" tabindex="-1"></a>  generator <span class="ot">&lt;-</span> <span class="fu">flow_images_from_directory</span>(</span>
+<span id="cb507-12"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">directory =</span> directory,</span>
+<span id="cb507-13"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">generator =</span> datagen,</span>
+<span id="cb507-14"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">target_size =</span> <span class="fu">c</span>(<span class="dv">150</span>, <span class="dv">150</span>),</span>
+<span id="cb507-15"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">batch_size =</span> batch_size,</span>
+<span id="cb507-16"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">class_mode =</span> <span class="st">&quot;binary&quot;</span></span>
+<span id="cb507-17"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-17" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb507-18"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-18" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb507-19"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span>(<span class="cn">TRUE</span>) {</span>
+<span id="cb507-20"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-20" aria-hidden="true" tabindex="-1"></a>    batch <span class="ot">&lt;-</span> <span class="fu">generator_next</span>(generator)</span>
+<span id="cb507-21"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-21" aria-hidden="true" tabindex="-1"></a>    inputs_batch <span class="ot">&lt;-</span> batch[[<span class="dv">1</span>]]</span>
+<span id="cb507-22"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-22" aria-hidden="true" tabindex="-1"></a>    labels_batch <span class="ot">&lt;-</span> batch[[<span class="dv">2</span>]]</span>
+<span id="cb507-23"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-23" aria-hidden="true" tabindex="-1"></a>    features_batch <span class="ot">&lt;-</span> conv_base <span class="sc">%&gt;%</span> <span class="fu">predict</span>(inputs_batch)</span>
+<span id="cb507-24"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-24" aria-hidden="true" tabindex="-1"></a>    index_range <span class="ot">&lt;-</span> ((i <span class="sc">*</span> batch_size)<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>((i <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">*</span> batch_size)</span>
+<span id="cb507-25"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-25" aria-hidden="true" tabindex="-1"></a>    features[index_range,,,] <span class="ot">&lt;-</span> features_batch</span>
+<span id="cb507-26"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-26" aria-hidden="true" tabindex="-1"></a>    labels[index_range] <span class="ot">&lt;-</span> labels_batch</span>
+<span id="cb507-27"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-27" aria-hidden="true" tabindex="-1"></a>    i <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb507-28"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (i <span class="sc">*</span> batch_size <span class="sc">&gt;=</span> sample_count)</span>
+<span id="cb507-29"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-29" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span></span>
+<span id="cb507-30"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-30" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb507-31"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb507-32"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">features =</span> features,</span>
+<span id="cb507-33"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> labels</span>
+<span id="cb507-34"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-34" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb507-35"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-35" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb507-36"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-36" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> <span class="fu">extract_features</span>(train_dir, <span class="dv">2000</span>)</span>
+<span id="cb507-37"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-37" aria-hidden="true" tabindex="-1"></a>validation <span class="ot">&lt;-</span> <span class="fu">extract_features</span>(validation_dir, <span class="dv">1000</span>)</span>
+<span id="cb507-38"><a href="chapter-5-deep-learning-for-computer-vision.html#cb507-38" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">extract_features</span>(test_dir, <span class="dv">1000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb508-1" aria-hidden="true" tabindex="-1"></a>reshape_features <span class="ot">&lt;-</span> <span class="cf">function</span>(features) {</span>
+<span id="cb508-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb508-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">array_reshape</span>(features, <span class="at">dim =</span> <span class="fu">c</span>(<span class="fu">nrow</span>(features), <span class="dv">4</span> <span class="sc">*</span> <span class="dv">4</span> <span class="sc">*</span> <span class="dv">512</span>))</span>
+<span id="cb508-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb508-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb508-4"><a href="chapter-5-deep-learning-for-computer-vision.html#cb508-4" aria-hidden="true" tabindex="-1"></a>train<span class="sc">$</span>features <span class="ot">&lt;-</span> <span class="fu">reshape_features</span>(train<span class="sc">$</span>features)</span>
+<span id="cb508-5"><a href="chapter-5-deep-learning-for-computer-vision.html#cb508-5" aria-hidden="true" tabindex="-1"></a>validation<span class="sc">$</span>features <span class="ot">&lt;-</span> <span class="fu">reshape_features</span>(validation<span class="sc">$</span>features)</span>
+<span id="cb508-6"><a href="chapter-5-deep-learning-for-computer-vision.html#cb508-6" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>features <span class="ot">&lt;-</span> <span class="fu">reshape_features</span>(test<span class="sc">$</span>features)</span></code></pre></div>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb509-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Defining and training the densely connected classifier</span></span>
+<span id="cb509-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb509-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb509-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb509-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">256</span>, <span class="at">activation =</span> <span class="st">&quot;relu&quot;</span>,</span>
+<span id="cb509-4"><a href="chapter-5-deep-learning-for-computer-vision.html#cb509-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">input_shape =</span> <span class="dv">4</span> <span class="sc">*</span> <span class="dv">4</span> <span class="sc">*</span> <span class="dv">512</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb509-5"><a href="chapter-5-deep-learning-for-computer-vision.html#cb509-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dropout</span>(<span class="at">rate =</span> <span class="fl">0.5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb509-6"><a href="chapter-5-deep-learning-for-computer-vision.html#cb509-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">1</span>, <span class="at">activation =</span> <span class="st">&quot;sigmoid&quot;</span>)</span>
+<span id="cb509-7"><a href="chapter-5-deep-learning-for-computer-vision.html#cb509-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb509-8"><a href="chapter-5-deep-learning-for-computer-vision.html#cb509-8" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(</span>
+<span id="cb509-9"><a href="chapter-5-deep-learning-for-computer-vision.html#cb509-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">optimizer =</span> <span class="fu">optimizer_rmsprop</span>(<span class="at">lr =</span> <span class="fl">2e-5</span>),</span>
+<span id="cb509-10"><a href="chapter-5-deep-learning-for-computer-vision.html#cb509-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">loss =</span> <span class="st">&quot;binary_crossentropy&quot;</span>,</span>
+<span id="cb509-11"><a href="chapter-5-deep-learning-for-computer-vision.html#cb509-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">metrics =</span> <span class="fu">c</span>(<span class="st">&quot;accuracy&quot;</span>)</span>
+<span id="cb509-12"><a href="chapter-5-deep-learning-for-computer-vision.html#cb509-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb509-13"><a href="chapter-5-deep-learning-for-computer-vision.html#cb509-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb509-14"><a href="chapter-5-deep-learning-for-computer-vision.html#cb509-14" aria-hidden="true" tabindex="-1"></a>history <span class="ot">&lt;-</span> model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(</span>
+<span id="cb509-15"><a href="chapter-5-deep-learning-for-computer-vision.html#cb509-15" aria-hidden="true" tabindex="-1"></a>  train<span class="sc">$</span>features, train<span class="sc">$</span>labels,</span>
+<span id="cb509-16"><a href="chapter-5-deep-learning-for-computer-vision.html#cb509-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">epochs =</span> <span class="dv">30</span>,</span>
+<span id="cb509-17"><a href="chapter-5-deep-learning-for-computer-vision.html#cb509-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">batch_size =</span> <span class="dv">20</span>,</span>
+<span id="cb509-18"><a href="chapter-5-deep-learning-for-computer-vision.html#cb509-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">validation_data =</span> <span class="fu">list</span>(validation<span class="sc">$</span>features, validation<span class="sc">$</span>labels)</span>
+<span id="cb509-19"><a href="chapter-5-deep-learning-for-computer-vision.html#cb509-19" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb510-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(history)</span></code></pre></div>
+</div>
+<div id="feature-extraction-with-data-augmentation" class="section level4" number="7.5.1.2">
+<h4><span class="header-section-number">7.5.1.2</span> Feature extraction with data augmentation</h4>
+<p><em>This is a very heavy process and one must have a GPU to run this, hence the rest from section 5.3 is not replicated in the code</em></p>
+</div>
+</div>
+<div id="fine-tuning" class="section level3" number="7.5.2">
+<h3><span class="header-section-number">7.5.2</span> Fine-tuning</h3>
+<p>What they do here, is freeze some layers, so the backpropagonation does not update wheights on the frozen layers.</p>
+<p>Note that the first layers identify the edges in the patterns. Then the further we go down, the more specific and abstract details are processed. Hence one often start altering the very last block of convoluted layers before the densely connected network, to allow it to be fine tuned to the train data. In general the first blocks are not of interest to alter wheigths in. <em>Here you are often grinding the last accuracy.</em></p>
+</div>
+</div>
+<div id="visualizing-what-convnets-learn" class="section level2" number="7.6">
+<h2><span class="header-section-number">7.6</span> Visualizing what convnets learn</h2>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb511-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
+<span id="cb511-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb511-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">load_model_hdf5</span>(<span class="st">&quot;Saved Objects/cats_and_dogs_small_2.h5&quot;</span>)</span>
+<span id="cb511-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb511-3" aria-hidden="true" tabindex="-1"></a>model</span></code></pre></div>
+<p>We are interested in the top eight layers, as these are the convoluted layers.</p>
+<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb512-1" aria-hidden="true" tabindex="-1"></a>img_path <span class="ot">&lt;-</span> <span class="st">&quot;Data/3. Deep Learning/cats_and_dogs_small/test/cats/cat.1700.jpg&quot;</span></span>
+<span id="cb512-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb512-2" aria-hidden="true" tabindex="-1"></a>img <span class="ot">&lt;-</span> <span class="fu">image_load</span>(img_path, <span class="at">target_size =</span> <span class="fu">c</span>(<span class="dv">150</span>, <span class="dv">150</span>))</span>
+<span id="cb512-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb512-3" aria-hidden="true" tabindex="-1"></a>img_tensor <span class="ot">&lt;-</span> <span class="fu">image_to_array</span>(img)</span>
+<span id="cb512-4"><a href="chapter-5-deep-learning-for-computer-vision.html#cb512-4" aria-hidden="true" tabindex="-1"></a>img_tensor <span class="ot">&lt;-</span> <span class="fu">array_reshape</span>(img_tensor, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">150</span>, <span class="dv">150</span>, <span class="dv">3</span>))</span>
+<span id="cb512-5"><a href="chapter-5-deep-learning-for-computer-vision.html#cb512-5" aria-hidden="true" tabindex="-1"></a>img_tensor <span class="ot">&lt;-</span> img_tensor <span class="sc">/</span> <span class="dv">255</span></span>
+<span id="cb512-6"><a href="chapter-5-deep-learning-for-computer-vision.html#cb512-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(img_tensor)</span></code></pre></div>
+<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb513-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.raster</span>(img_tensor[<span class="dv">1</span>,,,]))</span></code></pre></div>
+<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb514-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract convoluted layers</span></span>
+<span id="cb514-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb514-2" aria-hidden="true" tabindex="-1"></a>layer_outputs <span class="ot">&lt;-</span> <span class="fu">lapply</span>(model<span class="sc">$</span>layers[<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>], <span class="cf">function</span>(layer) layer<span class="sc">$</span>output)</span>
+<span id="cb514-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb514-3" aria-hidden="true" tabindex="-1"></a>activation_model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(<span class="at">inputs =</span> model<span class="sc">$</span>input, <span class="at">outputs =</span> layer_outputs)</span></code></pre></div>
+<p>Now we want to get an output for each of the layers, hence in this example, we want to have eight outputs, one for each activation.</p>
+<p>Thus we create an object with the eight outputs. Notice that the object must be a list to contain the values that we have in each activation layer.</p>
+<div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb515-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb515-1" aria-hidden="true" tabindex="-1"></a>activations <span class="ot">&lt;-</span> activation_model <span class="sc">%&gt;%</span> <span class="fu">predict</span>(img_tensor)</span></code></pre></div>
+<p>We can for instance look a the dimensions of the firs convoluted layer</p>
+<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb516-1" aria-hidden="true" tabindex="-1"></a>first_layer_activation <span class="ot">&lt;-</span> activations[[<span class="dv">1</span>]]</span>
+<span id="cb516-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb516-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(first_layer_activation)</span></code></pre></div>
+<p>We see that there is one picture that is 148 by 148 with 32 channels (that are the filters). To plot the transformations.</p>
+<p>Now we want to make a function that is actually able to plot the picture.</p>
+<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb517-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb517-1" aria-hidden="true" tabindex="-1"></a>plot_channel <span class="ot">&lt;-</span> <span class="cf">function</span>(channel) {</span>
+<span id="cb517-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb517-2" aria-hidden="true" tabindex="-1"></a>  rotate <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">t</span>(<span class="fu">apply</span>(<span class="at">X =</span> x</span>
+<span id="cb517-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb517-3" aria-hidden="true" tabindex="-1"></a>                                ,<span class="at">MARGIN =</span>  <span class="dv">2</span> <span class="co">#Something with turning the picture</span></span>
+<span id="cb517-4"><a href="chapter-5-deep-learning-for-computer-vision.html#cb517-4" aria-hidden="true" tabindex="-1"></a>                                ,<span class="at">FUN =</span>  rev)) <span class="co">#Something with reversing</span></span>
+<span id="cb517-5"><a href="chapter-5-deep-learning-for-computer-vision.html#cb517-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">image</span>(<span class="fu">rotate</span>(channel)</span>
+<span id="cb517-6"><a href="chapter-5-deep-learning-for-computer-vision.html#cb517-6" aria-hidden="true" tabindex="-1"></a>        , <span class="at">axes =</span> <span class="cn">FALSE</span> <span class="co">#If true, we would have axis&#39;, we dont want that.</span></span>
+<span id="cb517-7"><a href="chapter-5-deep-learning-for-computer-vision.html#cb517-7" aria-hidden="true" tabindex="-1"></a>        , <span class="at">asp =</span> <span class="dv">1</span>,</span>
+<span id="cb517-8"><a href="chapter-5-deep-learning-for-computer-vision.html#cb517-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">terrain.colors</span>(<span class="dv">12</span>)) <span class="co">#The higher the number, the more colors</span></span>
+<span id="cb517-9"><a href="chapter-5-deep-learning-for-computer-vision.html#cb517-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Now we can plot the first layer, I have presented two different presentations.</p>
+<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb518-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb518-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb518-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb518-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_channel</span>(first_layer_activation[<span class="dv">1</span>,,,<span class="dv">7</span>])<span class="co">#We fetch the tensors</span></span>
+<span id="cb518-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb518-3" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;activation[1,,,7]&quot;</span>)</span>
+<span id="cb518-4"><a href="chapter-5-deep-learning-for-computer-vision.html#cb518-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_channel</span>(first_layer_activation[<span class="dv">1</span>,,,<span class="dv">32</span>]) <span class="co">#We fetch the tensors</span></span>
+<span id="cb518-5"><a href="chapter-5-deep-learning-for-computer-vision.html#cb518-5" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;activation[1,,,32]&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-1" aria-hidden="true" tabindex="-1"></a>image_size <span class="ot">&lt;-</span> <span class="dv">58</span></span>
+<span id="cb519-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-2" aria-hidden="true" tabindex="-1"></a>images_per_row <span class="ot">&lt;-</span> <span class="dv">16</span></span>
+<span id="cb519-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb519-4"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>) {</span>
+<span id="cb519-5"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb519-6"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-6" aria-hidden="true" tabindex="-1"></a>  layer_activation <span class="ot">&lt;-</span> activations[[i]] <span class="co">#Defines the layer we want to print</span></span>
+<span id="cb519-7"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-7" aria-hidden="true" tabindex="-1"></a>  layer_name <span class="ot">&lt;-</span> model<span class="sc">$</span>layers[[i]]<span class="sc">$</span>name <span class="co">#Stores the layer name</span></span>
+<span id="cb519-8"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb519-9"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-9" aria-hidden="true" tabindex="-1"></a>  n_features <span class="ot">&lt;-</span> <span class="fu">dim</span>(layer_activation)[[<span class="dv">4</span>]] <span class="co">#Stores the amount of channels for the given layer</span></span>
+<span id="cb519-10"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-10" aria-hidden="true" tabindex="-1"></a>  n_cols <span class="ot">&lt;-</span> n_features <span class="sc">%/%</span> images_per_row <span class="co">#Division, this is in fact used for amount of rows</span></span>
+<span id="cb519-11"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb519-12"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Create a picture and save it in the directory</span></span>
+<span id="cb519-13"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">png</span>(<span class="fu">paste0</span>(<span class="st">&quot;Images/Cats and dogs/cat_activations_&quot;</span>, i, <span class="st">&quot;_&quot;</span>, layer_name, <span class="st">&quot;.png&quot;</span>),</span>
+<span id="cb519-14"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">width =</span> image_size <span class="sc">*</span> images_per_row,</span>
+<span id="cb519-15"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">height =</span> image_size <span class="sc">*</span> n_cols)</span>
+<span id="cb519-16"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb519-17"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Create a template for the layout</span></span>
+<span id="cb519-18"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-18" aria-hidden="true" tabindex="-1"></a>  op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(n_cols, images_per_row), <span class="at">mai =</span> <span class="fu">rep_len</span>(<span class="fl">0.02</span>, <span class="dv">4</span>))</span>
+<span id="cb519-19"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb519-20"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-20" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Make the picture</span></span>
+<span id="cb519-21"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-21" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (col <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span>(n_cols<span class="dv">-1</span>)) {</span>
+<span id="cb519-22"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (row <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span>(images_per_row<span class="dv">-1</span>)) {</span>
+<span id="cb519-23"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-23" aria-hidden="true" tabindex="-1"></a>      channel_image <span class="ot">&lt;-</span> layer_activation[<span class="dv">1</span>,,,(col<span class="sc">*</span>images_per_row) <span class="sc">+</span> row <span class="sc">+</span> <span class="dv">1</span>]</span>
+<span id="cb519-24"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">plot_channel</span>(channel_image)</span>
+<span id="cb519-25"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-25" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb519-26"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-26" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb519-27"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb519-28"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(op)</span>
+<span id="cb519-29"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dev.off</span>()</span>
+<span id="cb519-30"><a href="chapter-5-deep-learning-for-computer-vision.html#cb519-30" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>These are examples from three different layers.</p>
+<div class="figure" style="text-align: center"><span id="fig:convnet2"></span>
+<img src="Images/Cats%20and%20dogs/cat_activations_1_conv2d_7.png" alt="Layer 1" width="464" />
+<p class="caption">
+Figure 7.5: Layer 1
+</p>
+</div>
+<p><strong><em>Notice, two pictures are missing cat_activations_8_conv2d_7.png and cat_activations_5_conv2d_7</em></strong></p>
+<p>So summing up all of these variations are filters applied to the pictures.</p>
+<p>We see that all the white lines are the patterns, e.g., edges, that it is reckognizing. We see that when we apply the ReLU function, all the area that is below 0, will be set to zero.</p>
+<p>We see that each picture is not a good representation of the cat and its natural shape, but when all the pictures come in combination, they start collectively picking up on the shapes.</p>
+<p><em>Good idea to look at the pooling pictures</em>, if one is to compare the pictures before and after pooling, we see that the max pooling gets rid of the noice. And also, if we were to use the average pooling, we would kinda smooth it out and thus not extracting the same details.</p>
+<p><strong><em>What happens after this?</em></strong></p>
+<p>We will see that the pictures are flattened into one vector, which is then the input to the densely connected layers.</p>
+<p><strong>Visualizing convnets filters</strong></p>
+<p><strong>For some reason this cannot be run</strong></p>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb520-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
+<span id="cb520-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb520-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">application_vgg16</span>(</span>
+<span id="cb520-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb520-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">weights =</span> <span class="st">&quot;imagenet&quot;</span>,</span>
+<span id="cb520-4"><a href="chapter-5-deep-learning-for-computer-vision.html#cb520-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">include_top =</span> <span class="cn">FALSE</span></span>
+<span id="cb520-5"><a href="chapter-5-deep-learning-for-computer-vision.html#cb520-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb520-6"><a href="chapter-5-deep-learning-for-computer-vision.html#cb520-6" aria-hidden="true" tabindex="-1"></a>layer_name <span class="ot">&lt;-</span> <span class="st">&quot;block3_conv1&quot;</span></span>
+<span id="cb520-7"><a href="chapter-5-deep-learning-for-computer-vision.html#cb520-7" aria-hidden="true" tabindex="-1"></a>filter_index <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb520-8"><a href="chapter-5-deep-learning-for-computer-vision.html#cb520-8" aria-hidden="true" tabindex="-1"></a>layer_output <span class="ot">&lt;-</span> <span class="fu">get_layer</span>(model, layer_name)<span class="sc">$</span>output</span>
+<span id="cb520-9"><a href="chapter-5-deep-learning-for-computer-vision.html#cb520-9" aria-hidden="true" tabindex="-1"></a>loss <span class="ot">&lt;-</span> <span class="fu">k_mean</span>(layer_output[,,,filter_index])</span></code></pre></div>
+<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Obtaining the gradient of the loss with regard to the input</span></span>
+<span id="cb521-2"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-2" aria-hidden="true" tabindex="-1"></a>grads <span class="ot">&lt;-</span> <span class="fu">k_gradients</span>(loss, model<span class="sc">$</span>input)[[<span class="dv">1</span>]]</span>
+<span id="cb521-3"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb521-4"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Gradient-normalization trick</span></span>
+<span id="cb521-5"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-5" aria-hidden="true" tabindex="-1"></a>grads <span class="ot">&lt;-</span> grads <span class="sc">/</span> (<span class="fu">k_sqrt</span>(<span class="fu">k_mean</span>(<span class="fu">k_square</span>(grads))) <span class="sc">+</span> <span class="fl">1e-5</span>)</span>
+<span id="cb521-6"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb521-7"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Fetching output values given input values</span></span>
+<span id="cb521-8"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-8" aria-hidden="true" tabindex="-1"></a>iterate <span class="ot">&lt;-</span> <span class="fu">k_function</span>(<span class="fu">list</span>(model<span class="sc">$</span>input), <span class="fu">list</span>(loss, grads))</span>
+<span id="cb521-9"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-9" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(loss_value, grads_value) <span class="sc">%&lt;-%</span></span>
+<span id="cb521-10"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">iterate</span>(<span class="fu">list</span>(<span class="fu">array</span>(<span class="dv">0</span>, <span class="at">dim =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">150</span>, <span class="dv">150</span>, <span class="dv">3</span>))))</span>
+<span id="cb521-11"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb521-12"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Loss maximization via stochastic gradient descent</span></span>
+<span id="cb521-13"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-13" aria-hidden="true" tabindex="-1"></a>input_img_data <span class="ot">&lt;-</span></span>
+<span id="cb521-14"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">array</span>(<span class="fu">runif</span>(<span class="dv">150</span> <span class="sc">*</span> <span class="dv">150</span> <span class="sc">*</span> <span class="dv">3</span>), <span class="at">dim =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">150</span>, <span class="dv">150</span>, <span class="dv">3</span>)) <span class="sc">*</span> <span class="dv">20</span> <span class="sc">+</span> <span class="dv">128</span></span>
+<span id="cb521-15"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-15" aria-hidden="true" tabindex="-1"></a>step <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb521-16"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">40</span>) {</span>
+<span id="cb521-17"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(loss_value, grads_value) <span class="sc">%&lt;-%</span> <span class="fu">iterate</span>(<span class="fu">list</span>(input_img_data))</span>
+<span id="cb521-18"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-18" aria-hidden="true" tabindex="-1"></a>  input_img_data <span class="ot">&lt;-</span> input_img_data <span class="sc">+</span> (grads_value <span class="sc">*</span> step)</span>
+<span id="cb521-19"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb521-20"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb521-21"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-21" aria-hidden="true" tabindex="-1"></a><span class="co">#Listing 5.37. Utility function to convert a tensor into a valid image</span></span>
+<span id="cb521-22"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-22" aria-hidden="true" tabindex="-1"></a>deprocess_image <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb521-23"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-23" aria-hidden="true" tabindex="-1"></a>  dms <span class="ot">&lt;-</span> <span class="fu">dim</span>(x)</span>
+<span id="cb521-24"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-24" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> x <span class="sc">-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb521-25"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-25" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> x <span class="sc">/</span> (<span class="fu">sd</span>(x) <span class="sc">+</span> <span class="fl">1e-5</span>)</span>
+<span id="cb521-26"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-26" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> x <span class="sc">*</span> <span class="fl">0.1</span></span>
+<span id="cb521-27"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-27" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="fl">0.5</span></span>
+<span id="cb521-28"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-28" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">pmax</span>(<span class="dv">0</span>, <span class="fu">pmin</span>(x, <span class="dv">1</span>))</span>
+<span id="cb521-29"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">array</span>(x, <span class="at">dim =</span> dms)</span>
+<span id="cb521-30"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-30" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb521-31"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb521-32"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb521-33"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-33" aria-hidden="true" tabindex="-1"></a><span class="co">#Listing 5.38. Function to generate filter visualizations</span></span>
+<span id="cb521-34"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-34" aria-hidden="true" tabindex="-1"></a>generate_pattern <span class="ot">&lt;-</span> <span class="cf">function</span>(layer_name, filter_index, <span class="at">size =</span> <span class="dv">150</span>) {</span>
+<span id="cb521-35"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-35" aria-hidden="true" tabindex="-1"></a>  layer_output <span class="ot">&lt;-</span> model<span class="sc">$</span><span class="fu">get_layer</span>(layer_name)<span class="sc">$</span>output                      <span class="dv">1</span></span>
+<span id="cb521-36"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-36" aria-hidden="true" tabindex="-1"></a>  loss <span class="ot">&lt;-</span> <span class="fu">k_mean</span>(layer_output[,,,filter_index])                           <span class="dv">1</span></span>
+<span id="cb521-37"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-37" aria-hidden="true" tabindex="-1"></a>  grads <span class="ot">&lt;-</span> <span class="fu">k_gradients</span>(loss, model<span class="sc">$</span>input)[[<span class="dv">1</span>]]                            <span class="dv">2</span></span>
+<span id="cb521-38"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-38" aria-hidden="true" tabindex="-1"></a>  grads <span class="ot">&lt;-</span> grads <span class="sc">/</span> (<span class="fu">k_sqrt</span>(<span class="fu">k_mean</span>(<span class="fu">k_square</span>(grads))) <span class="sc">+</span> <span class="fl">1e-5</span>)               <span class="dv">3</span></span>
+<span id="cb521-39"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-39" aria-hidden="true" tabindex="-1"></a>  iterate <span class="ot">&lt;-</span> <span class="fu">k_function</span>(<span class="fu">list</span>(model<span class="sc">$</span>input), <span class="fu">list</span>(loss, grads))             <span class="dv">4</span></span>
+<span id="cb521-40"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-40" aria-hidden="true" tabindex="-1"></a>  input_img_data <span class="ot">&lt;-</span>                                                       <span class="dv">5</span></span>
+<span id="cb521-41"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">array</span>(<span class="fu">runif</span>(size <span class="sc">*</span> size <span class="sc">*</span> <span class="dv">3</span>), <span class="at">dim =</span> <span class="fu">c</span>(<span class="dv">1</span>, size, size, <span class="dv">3</span>)) <span class="sc">*</span> <span class="dv">20</span> <span class="sc">+</span> <span class="dv">128</span>   <span class="dv">5</span></span>
+<span id="cb521-42"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-42" aria-hidden="true" tabindex="-1"></a>  step <span class="ot">&lt;-</span> <span class="dv">1</span>                                                               <span class="dv">6</span></span>
+<span id="cb521-43"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-43" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">40</span>) {                                                       <span class="dv">6</span></span>
+<span id="cb521-44"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(loss_value, grads_value) <span class="sc">%&lt;-%</span> <span class="fu">iterate</span>(<span class="fu">list</span>(input_img_data))         <span class="dv">6</span></span>
+<span id="cb521-45"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-45" aria-hidden="true" tabindex="-1"></a>    input_img_data <span class="ot">&lt;-</span> input_img_data <span class="sc">+</span> (grads_value <span class="sc">*</span> step)               <span class="dv">6</span></span>
+<span id="cb521-46"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-46" aria-hidden="true" tabindex="-1"></a>  }                                                                       <span class="dv">6</span></span>
+<span id="cb521-47"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-47" aria-hidden="true" tabindex="-1"></a>  img <span class="ot">&lt;-</span> input_img_data[<span class="dv">1</span>,,,]</span>
+<span id="cb521-48"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">deprocess_image</span>(img)</span>
+<span id="cb521-49"><a href="chapter-5-deep-learning-for-computer-vision.html#cb521-49" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><em>Notice, that we are adding 1e-5 to avoid being able to divide by 0.</em></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="chapter-3-getting-started-with-neural-networks.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="deep-learning-for-text-and-sequences.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

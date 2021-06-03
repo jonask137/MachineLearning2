@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Chapter 3 - Getting Started With Neural Networks | Machine Learning for Business Intelligence 2</title>
+  <meta name="description" content="6 Chapter 3 - Getting Started With Neural Networks | Machine Learning for Business Intelligence 2" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 Chapter 3 - Getting Started With Neural Networks | Machine Learning for Business Intelligence 2" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 Chapter 3 - Getting Started With Neural Networks | Machine Learning for Business Intelligence 2" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="deep-learning-fundamentals.html"/>
+<link rel="next" href="chapter-5-deep-learning-for-computer-vision.html"/>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>setup</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html"><i class="fa fa-check"></i><b>2</b> Moving Beyond Linearity</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#models-beyond-linearity"><i class="fa fa-check"></i><b>2.1</b> Models Beyond Linearity</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#polynomial-regression"><i class="fa fa-check"></i><b>2.1.1</b> Polynomial Regression</a>
+<ul>
+<li class="chapter" data-level="2.1.1.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#beta-coefficients-and-variance"><i class="fa fa-check"></i><b>2.1.1.1</b> Beta coefficients and variance</a></li>
+<li class="chapter" data-level="2.1.1.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#application-procedure"><i class="fa fa-check"></i><b>2.1.1.2</b> Application procedure</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#step-functions"><i class="fa fa-check"></i><b>2.1.2</b> Step Functions</a></li>
+<li class="chapter" data-level="2.1.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#regression-splines"><i class="fa fa-check"></i><b>2.1.3</b> Regression Splines</a>
+<ul>
+<li class="chapter" data-level="2.1.3.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#piecewise-polynomials"><i class="fa fa-check"></i><b>2.1.3.1</b> Piecewise Polynomials</a></li>
+<li class="chapter" data-level="2.1.3.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#constraints-and-splines"><i class="fa fa-check"></i><b>2.1.3.2</b> Constraints and Splines</a></li>
+<li class="chapter" data-level="2.1.3.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#choosing-the-number-and-location-of-the-knots"><i class="fa fa-check"></i><b>2.1.3.3</b> Choosing the number and location of the Knots</a></li>
+<li class="chapter" data-level="2.1.3.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#degrees-of-freedom"><i class="fa fa-check"></i><b>2.1.3.4</b> Degrees of freedom</a></li>
+<li class="chapter" data-level="2.1.3.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#basis-splines-vs.-natural-splines"><i class="fa fa-check"></i><b>2.1.3.5</b> Basis splines vs. natural splines</a></li>
+<li class="chapter" data-level="2.1.3.6" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#comparison-with-polynomial-regression"><i class="fa fa-check"></i><b>2.1.3.6</b> Comparison with Polynomial Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#smoothing-splines"><i class="fa fa-check"></i><b>2.1.4</b> Smoothing Splines</a>
+<ul>
+<li class="chapter" data-level="2.1.4.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#choosing-optimal-tuning-parameter"><i class="fa fa-check"></i><b>2.1.4.1</b> Choosing optimal tuning parameter</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#local-regression"><i class="fa fa-check"></i><b>2.1.5</b> Local Regression</a></li>
+<li class="chapter" data-level="2.1.6" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#generalized-additive-models"><i class="fa fa-check"></i><b>2.1.6</b> Generalized Additive Models</a>
+<ul>
+<li class="chapter" data-level="2.1.6.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#feature-selection"><i class="fa fa-check"></i><b>2.1.6.1</b> Feature Selection</a></li>
+<li class="chapter" data-level="2.1.6.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#gam-for-regression-problems"><i class="fa fa-check"></i><b>2.1.6.2</b> GAM for regression problems</a>
+<ul>
+<li class="chapter" data-level="2.1.6.2.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#interpretation-of-output"><i class="fa fa-check"></i><b>2.1.6.2.1</b> Interpretation of output</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1.6.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#gam-for-classification-problems"><i class="fa fa-check"></i><b>2.1.6.3</b> GAM for classification problems</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1.7" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#model-assessment"><i class="fa fa-check"></i><b>2.1.7</b> Model assessment</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#lecture-notes"><i class="fa fa-check"></i><b>2.2</b> Lecture notes</a></li>
+<li class="chapter" data-level="2.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#lab-section"><i class="fa fa-check"></i><b>2.3</b> Lab section</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#polynomial-regression-and-step-functions"><i class="fa fa-check"></i><b>2.3.1</b> Polynomial Regression and Step Functions</a>
+<ul>
+<li class="chapter" data-level="2.3.1.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#continous-model"><i class="fa fa-check"></i><b>2.3.1.1</b> Continous model</a></li>
+<li class="chapter" data-level="2.3.1.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#logarithmic-model"><i class="fa fa-check"></i><b>2.3.1.2</b> Logarithmic model</a></li>
+<li class="chapter" data-level="2.3.1.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#step-function"><i class="fa fa-check"></i><b>2.3.1.3</b> Step function</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#splines"><i class="fa fa-check"></i><b>2.3.2</b> Splines</a>
+<ul>
+<li class="chapter" data-level="2.3.2.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#basis-function-splines"><i class="fa fa-check"></i><b>2.3.2.1</b> Basis Function Splines</a></li>
+<li class="chapter" data-level="2.3.2.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#natural-splines"><i class="fa fa-check"></i><b>2.3.2.2</b> Natural Splines</a></li>
+<li class="chapter" data-level="2.3.2.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#smooth-splines"><i class="fa fa-check"></i><b>2.3.2.3</b> Smooth Splines</a></li>
+<li class="chapter" data-level="2.3.2.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#local-regression-1"><i class="fa fa-check"></i><b>2.3.2.4</b> Local Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#gams"><i class="fa fa-check"></i><b>2.3.3</b> GAMs</a>
+<ul>
+<li class="chapter" data-level="2.3.3.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#with-only-natural-splines"><i class="fa fa-check"></i><b>2.3.3.1</b> With only natural splines</a></li>
+<li class="chapter" data-level="2.3.3.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#with-different-splines"><i class="fa fa-check"></i><b>2.3.3.2</b> With different splines</a></li>
+<li class="chapter" data-level="2.3.3.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#but-what-variables-to-include"><i class="fa fa-check"></i><b>2.3.3.3</b> But what variables to include?</a></li>
+<li class="chapter" data-level="2.3.3.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#gam-with-local-regression"><i class="fa fa-check"></i><b>2.3.3.4</b> GAM with local regression</a></li>
+<li class="chapter" data-level="2.3.3.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#logistic-regression"><i class="fa fa-check"></i><b>2.3.3.5</b> Logistic Regression</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#exercises"><i class="fa fa-check"></i><b>2.4</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#exercise-6"><i class="fa fa-check"></i><b>2.4.1</b> Exercise 6</a>
+<ul>
+<li class="chapter" data-level="2.4.1.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#a-polynomial-regression"><i class="fa fa-check"></i><b>2.4.1.1</b> 6.a Polynomial Regression</a></li>
+<li class="chapter" data-level="2.4.1.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#b-step-function"><i class="fa fa-check"></i><b>2.4.1.2</b> 6.b Step function</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#exercise-7"><i class="fa fa-check"></i><b>2.4.2</b> Exercise 7</a></li>
+<li class="chapter" data-level="2.4.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#exercise-8"><i class="fa fa-check"></i><b>2.4.3</b> Exercise 8</a></li>
+<li class="chapter" data-level="2.4.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#exercise-9"><i class="fa fa-check"></i><b>2.4.4</b> Exercise 9</a>
+<ul>
+<li class="chapter" data-level="2.4.4.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#a-using-poly-function-to-fit-cubic-polynomial-regression"><i class="fa fa-check"></i><b>2.4.4.1</b> (a) using poly function to fit cubic polynomial regression</a></li>
+<li class="chapter" data-level="2.4.4.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#b-plotting-polynomial-fits-for-a-range-of-polynomials"><i class="fa fa-check"></i><b>2.4.4.2</b> (b) Plotting polynomial fits for a range of polynomials</a></li>
+<li class="chapter" data-level="2.4.4.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#c-using-cv-to-select-best-degree-of-d"><i class="fa fa-check"></i><b>2.4.4.3</b> (c) Using CV to select best degree of d</a></li>
+<li class="chapter" data-level="2.4.4.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#d-use-bs-to-fit-a-regression-spline"><i class="fa fa-check"></i><b>2.4.4.4</b> (d) Use <code>bs()</code> to fit a regression spline</a></li>
+<li class="chapter" data-level="2.4.4.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#e-now-fit-a-regression-spline"><i class="fa fa-check"></i><b>2.4.4.5</b> (e) Now fit a regression spline</a></li>
+<li class="chapter" data-level="2.4.4.6" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#f-perform-cross-validation-to-select-degrees"><i class="fa fa-check"></i><b>2.4.4.6</b> (f) Perform cross-validation, to select degrees</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#exercise-10"><i class="fa fa-check"></i><b>2.4.5</b> Exercise 10</a>
+<ul>
+<li class="chapter" data-level="2.4.5.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#a-partitioning-the-data"><i class="fa fa-check"></i><b>2.4.5.1</b> (a) Partitioning the data</a></li>
+<li class="chapter" data-level="2.4.5.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#b-fitting-a-gam"><i class="fa fa-check"></i><b>2.4.5.2</b> (b) Fitting a GAM</a></li>
+<li class="chapter" data-level="2.4.5.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#c-evaluating-on-the-test-set"><i class="fa fa-check"></i><b>2.4.5.3</b> (c) Evaluating on the test set</a></li>
+<li class="chapter" data-level="2.4.5.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#d-which-variables-appear-to-have-a-non-linear-relationship"><i class="fa fa-check"></i><b>2.4.5.4</b> (d) Which variables appear to have a non linear relationship?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#FacebookCasestudy"><i class="fa fa-check"></i><b>2.5</b> Casestudy - Predicting the Return on Advertising Spent</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#background"><i class="fa fa-check"></i><b>2.5.1</b> 1. Background</a></li>
+<li class="chapter" data-level="2.5.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#case-study-business-understanding-phase"><i class="fa fa-check"></i><b>2.5.2</b> 2. Case study (Business Understanding Phase)</a></li>
+<li class="chapter" data-level="2.5.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#the-data-data-understanding-phase"><i class="fa fa-check"></i><b>2.5.3</b> 3. The data (Data Understanding Phase)</a></li>
+<li class="chapter" data-level="2.5.4" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#specific-requirements"><i class="fa fa-check"></i><b>2.5.4</b> 4. Specific requirements:</a>
+<ul>
+<li class="chapter" data-level="2.5.4.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#task-1---import-and-overview"><i class="fa fa-check"></i><b>2.5.4.1</b> 4.1 Task 1 - Import and overview</a></li>
+<li class="chapter" data-level="2.5.4.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#task-2---data-inspection"><i class="fa fa-check"></i><b>2.5.4.2</b> 4.2 Task 2 - Data inspection</a></li>
+<li class="chapter" data-level="2.5.4.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#task-3---building-different-models"><i class="fa fa-check"></i><b>2.5.4.3</b> 4.3 Task 3 - Building different models</a>
+<ul>
+<li class="chapter" data-level="2.5.4.3.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#a-generalized-additive-model-gam-to-predict-roas"><i class="fa fa-check"></i><b>2.5.4.3.1</b> A Generalized Additive Model (GAM) to predict ROAS</a>
+<ul>
+<li class="chapter" data-level="2.5.4.3.1.1" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#c1-feature-selection-using-regsubsets"><i class="fa fa-check"></i><b>2.5.4.3.1.1</b> c1) Feature selection using regsubsets()</a></li>
+<li class="chapter" data-level="2.5.4.3.1.2" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#c2-feature-selection-using-step.gam"><i class="fa fa-check"></i><b>2.5.4.3.1.2</b> c2) Feature selection using step.GAM</a></li>
+<li class="chapter" data-level="2.5.4.3.1.3" data-path="moving-beyond-linearity.html"><a href="moving-beyond-linearity.html#c3-fetaure-selection-using-random-forest"><i class="fa fa-check"></i><b>2.5.4.3.1.3</b> c3) Fetaure selection using random forest</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tree-based-methods.html"><a href="tree-based-methods.html"><i class="fa fa-check"></i><b>3</b> Tree Based Methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#the-basics-of-decision-trees"><i class="fa fa-check"></i><b>3.1</b> The Basics of Decision Trees</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#regression-trees"><i class="fa fa-check"></i><b>3.1.1</b> Regression Trees</a>
+<ul>
+<li class="chapter" data-level="3.1.1.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#how-to-make-the-decision-trees"><i class="fa fa-check"></i><b>3.1.1.1</b> How to make the decision trees</a>
+<ul>
+<li class="chapter" data-level="3.1.1.1.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#the-goal-of-regression"><i class="fa fa-check"></i><b>3.1.1.1.1</b> The goal of regression</a></li>
+<li class="chapter" data-level="3.1.1.1.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#tree-pruning-algoritm"><i class="fa fa-check"></i><b>3.1.1.1.2</b> Tree Pruning &amp; Algoritm</a></li>
+<li class="chapter" data-level="3.1.1.1.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#setting-contrains-of-the-tree-sise"><i class="fa fa-check"></i><b>3.1.1.1.3</b> Setting contrains of the tree sise</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3.1.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#classification-trees"><i class="fa fa-check"></i><b>3.1.2</b> Classification Trees</a></li>
+<li class="chapter" data-level="3.1.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#tree-vs.-lienar-models"><i class="fa fa-check"></i><b>3.1.3</b> Tree vs. Lienar Models</a></li>
+<li class="chapter" data-level="3.1.4" data-path="tree-based-methods.html"><a href="tree-based-methods.html#advantages-and-disadvantages-of-trees"><i class="fa fa-check"></i><b>3.1.4</b> Advantages and Disadvantages of Trees</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#bagging-random-forests-boosting"><i class="fa fa-check"></i><b>3.2</b> Bagging, Random Forests, Boosting</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#bagging-bootstrap-aggregation"><i class="fa fa-check"></i><b>3.2.1</b> Bagging (Bootstrap Aggregation)</a></li>
+<li class="chapter" data-level="3.2.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#random-forests"><i class="fa fa-check"></i><b>3.2.2</b> Random Forests</a></li>
+<li class="chapter" data-level="3.2.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#boosting-i.e.-gradient-boosting"><i class="fa fa-check"></i><b>3.2.3</b> Boosting (i.e. Gradient Boosting)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#xgboost"><i class="fa fa-check"></i><b>3.3</b> XGBoost</a></li>
+<li class="chapter" data-level="3.4" data-path="tree-based-methods.html"><a href="tree-based-methods.html#application-in-r"><i class="fa fa-check"></i><b>3.4</b> Application in R</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#decision-trees"><i class="fa fa-check"></i><b>3.4.1</b> Decision trees</a></li>
+<li class="chapter" data-level="3.4.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#bagging"><i class="fa fa-check"></i><b>3.4.2</b> Bagging</a></li>
+<li class="chapter" data-level="3.4.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#random-forests-1"><i class="fa fa-check"></i><b>3.4.3</b> Random Forests</a></li>
+<li class="chapter" data-level="3.4.4" data-path="tree-based-methods.html"><a href="tree-based-methods.html#boosting"><i class="fa fa-check"></i><b>3.4.4</b> Boosting</a></li>
+<li class="chapter" data-level="3.4.5" data-path="tree-based-methods.html"><a href="tree-based-methods.html#xgboost-1"><i class="fa fa-check"></i><b>3.4.5</b> XGBoost</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="tree-based-methods.html"><a href="tree-based-methods.html#lab-section-1"><i class="fa fa-check"></i><b>3.5</b> Lab section</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#LabClassification"><i class="fa fa-check"></i><b>3.5.1</b> Fitting Classification Trees</a></li>
+<li class="chapter" data-level="3.5.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#fitting-regression-trees"><i class="fa fa-check"></i><b>3.5.2</b> Fitting Regression Trees</a></li>
+<li class="chapter" data-level="3.5.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#bagging-and-random-forests"><i class="fa fa-check"></i><b>3.5.3</b> Bagging and Random Forests</a>
+<ul>
+<li class="chapter" data-level="3.5.3.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#bagging-1"><i class="fa fa-check"></i><b>3.5.3.1</b> Bagging</a></li>
+<li class="chapter" data-level="3.5.3.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#random-forest"><i class="fa fa-check"></i><b>3.5.3.2</b> Random Forest</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5.4" data-path="tree-based-methods.html"><a href="tree-based-methods.html#boosting-1"><i class="fa fa-check"></i><b>3.5.4</b> Boosting</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="tree-based-methods.html"><a href="tree-based-methods.html#exercies"><i class="fa fa-check"></i><b>3.6</b> Exercies</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#exercise-7---decision-tree-assessment"><i class="fa fa-check"></i><b>3.6.1</b> Exercise 7 - Decision Tree Assessment</a></li>
+<li class="chapter" data-level="3.6.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#but-what-does-it-really-show-ntrees-are-fixed-at-500"><i class="fa fa-check"></i><b>3.6.2</b> But what does it really show?, ntrees are fixed at 500</a></li>
+<li class="chapter" data-level="3.6.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#exercise-8---dtrfboosting"><i class="fa fa-check"></i><b>3.6.3</b> Exercise 8 - DT/RF/Boosting</a></li>
+<li class="chapter" data-level="3.6.4" data-path="tree-based-methods.html"><a href="tree-based-methods.html#exercise-9---decision-tree-pruning"><i class="fa fa-check"></i><b>3.6.4</b> Exercise 9 - Decision Tree / Pruning</a></li>
+<li class="chapter" data-level="3.6.5" data-path="tree-based-methods.html"><a href="tree-based-methods.html#exercise-10---boostinggamlinearregbagging---comparison"><i class="fa fa-check"></i><b>3.6.5</b> Exercise 10 - Boosting/GAM/LinearReg/Bagging - Comparison</a></li>
+<li class="chapter" data-level="3.6.6" data-path="tree-based-methods.html"><a href="tree-based-methods.html#exercise-11---boosting"><i class="fa fa-check"></i><b>3.6.6</b> Exercise 11 - Boosting</a></li>
+<li class="chapter" data-level="3.6.7" data-path="tree-based-methods.html"><a href="tree-based-methods.html#exercise-12"><i class="fa fa-check"></i><b>3.6.7</b> Exercise 12</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="tree-based-methods.html"><a href="tree-based-methods.html#casestudy---predicting-algae-blooms"><i class="fa fa-check"></i><b>3.7</b> Casestudy - Predicting Algae Blooms</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#background-1"><i class="fa fa-check"></i><b>3.7.1</b> 1. Background</a></li>
+<li class="chapter" data-level="3.7.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#case-study-business-understanding-phase-1"><i class="fa fa-check"></i><b>3.7.2</b> 2. Case study (Business Understanding Phase)</a></li>
+<li class="chapter" data-level="3.7.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#the-data-data-understanding-phase-1"><i class="fa fa-check"></i><b>3.7.3</b> 3. The data (Data Understanding Phase)</a></li>
+<li class="chapter" data-level="3.7.4" data-path="tree-based-methods.html"><a href="tree-based-methods.html#requirements"><i class="fa fa-check"></i><b>3.7.4</b> 4. Requirements:</a>
+<ul>
+<li class="chapter" data-level="3.7.4.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#task-1-understand-and-import-data-properly"><i class="fa fa-check"></i><b>3.7.4.1</b> 4.1 Task 1: Understand and import data properly</a></li>
+<li class="chapter" data-level="3.7.4.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#task-2-inspect-your-data-and-do-the-required-variable-adaptations-and-transformations"><i class="fa fa-check"></i><b>3.7.4.2</b> 4.2 Task 2: Inspect your data and do the required variable adaptations and transformations</a></li>
+<li class="chapter" data-level="3.7.4.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#task-3-build-one-or-several-predictive-models-and-evaluate-their-performance."><i class="fa fa-check"></i><b>3.7.4.3</b> 4.3 Task 3: Build one or several predictive models and evaluate their performance.</a>
+<ul>
+<li class="chapter" data-level="3.7.4.3.1" data-path="tree-based-methods.html"><a href="tree-based-methods.html#growing-a-regression-tree"><i class="fa fa-check"></i><b>3.7.4.3.1</b> 4.3.1. Growing a regression tree</a></li>
+<li class="chapter" data-level="3.7.4.3.2" data-path="tree-based-methods.html"><a href="tree-based-methods.html#pruning-the-tree"><i class="fa fa-check"></i><b>3.7.4.3.2</b> 4.3.2 Pruning the tree</a></li>
+<li class="chapter" data-level="3.7.4.3.3" data-path="tree-based-methods.html"><a href="tree-based-methods.html#model-evaluation-and-selection"><i class="fa fa-check"></i><b>3.7.4.3.3</b> 4.3.3.Model evaluation and selection</a></li>
+<li class="chapter" data-level="3.7.4.3.4" data-path="tree-based-methods.html"><a href="tree-based-methods.html#ensemble-methods-random-forests"><i class="fa fa-check"></i><b>3.7.4.3.4</b> 4.3.4. Ensemble methods: Random Forests</a></li>
+<li class="chapter" data-level="3.7.4.3.5" data-path="tree-based-methods.html"><a href="tree-based-methods.html#predicting-in-the-test-sample"><i class="fa fa-check"></i><b>3.7.4.3.5</b> 4.3.5. Predicting in the test sample</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="support-vector-machines.html"><a href="support-vector-machines.html"><i class="fa fa-check"></i><b>4</b> Support Vector Machines</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#maximal-vector-machines"><i class="fa fa-check"></i><b>4.1</b> Maximal Vector Machines</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#what-is-a-hyperplane"><i class="fa fa-check"></i><b>4.1.1</b> What is a hyperplane?</a></li>
+<li class="chapter" data-level="4.1.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#classification-using-a-separating-hyperplane"><i class="fa fa-check"></i><b>4.1.2</b> Classification Using a Separating Hyperplane</a></li>
+<li class="chapter" data-level="4.1.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#the-maximal-margin-classifier"><i class="fa fa-check"></i><b>4.1.3</b> The Maximal Margin Classifier</a></li>
+<li class="chapter" data-level="4.1.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#ConstructMMC"><i class="fa fa-check"></i><b>4.1.4</b> Construction of the Maximal Margin Classifer</a></li>
+<li class="chapter" data-level="4.1.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#the-non-separable-case"><i class="fa fa-check"></i><b>4.1.5</b> The Non-separable Case</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#support-vector-classifiers"><i class="fa fa-check"></i><b>4.2</b> Support Vector Classifiers</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#overview-of-the-support-vector-classifier"><i class="fa fa-check"></i><b>4.2.1</b> Overview of the Support Vector Classifier</a></li>
+<li class="chapter" data-level="4.2.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#details-of-the-support-vector-classifer"><i class="fa fa-check"></i><b>4.2.2</b> Details of the Support Vector Classifer</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#support-vector-machines-1"><i class="fa fa-check"></i><b>4.3</b> Support Vector Machines</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#classification-with-non-linear-decision-boundary"><i class="fa fa-check"></i><b>4.3.1</b> Classification with non linear decision boundary</a></li>
+<li class="chapter" data-level="4.3.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#the-support-vector-machine"><i class="fa fa-check"></i><b>4.3.2</b> The Support Vector Machine</a></li>
+<li class="chapter" data-level="4.3.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#MoreThanTwoClasses"><i class="fa fa-check"></i><b>4.3.3</b> SVMs with More than Two Classes</a></li>
+<li class="chapter" data-level="4.3.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#relationship-to-logistic-regression"><i class="fa fa-check"></i><b>4.3.4</b> Relationship to logistic regression</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#process-of-kernels-methods"><i class="fa fa-check"></i><b>4.4</b> Process of kernels methods</a></li>
+<li class="chapter" data-level="4.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#lab"><i class="fa fa-check"></i><b>4.5</b> Lab</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#support-vector-classifier"><i class="fa fa-check"></i><b>4.5.1</b> Support Vector Classifier</a></li>
+<li class="chapter" data-level="4.5.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#support-vector-machine"><i class="fa fa-check"></i><b>4.5.2</b> Support Vector Machine</a></li>
+<li class="chapter" data-level="4.5.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#roc-curves"><i class="fa fa-check"></i><b>4.5.3</b> ROC Curves</a></li>
+<li class="chapter" data-level="4.5.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#svm-with-multiple-classes"><i class="fa fa-check"></i><b>4.5.4</b> SVM with Multiple Classes</a></li>
+<li class="chapter" data-level="4.5.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#application-to-gene-expression-data"><i class="fa fa-check"></i><b>4.5.5</b> Application to Gene Expression Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="support-vector-machines.html"><a href="support-vector-machines.html#exercises-1"><i class="fa fa-check"></i><b>4.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html"><i class="fa fa-check"></i><b>5</b> Deep Learning Fundamentals</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#basic-deep-learning"><i class="fa fa-check"></i><b>5.1</b> Basic Deep Learning</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#terms"><i class="fa fa-check"></i><b>5.1.1</b> Terms</a></li>
+<li class="chapter" data-level="5.1.2" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#optimizers-loss-metrics-and-activation-rules"><i class="fa fa-check"></i><b>5.1.2</b> Optimizers, Loss, Metrics and Activation rules</a>
+<ul>
+<li class="chapter" data-level="5.1.2.1" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#gradient-descents"><i class="fa fa-check"></i><b>5.1.2.1</b> Gradient Descents</a></li>
+</ul></li>
+<li class="chapter" data-level="5.1.3" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#example-with-image-recognizion"><i class="fa fa-check"></i><b>5.1.3</b> Example with image recognizion</a></li>
+<li class="chapter" data-level="5.1.4" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#model-building"><i class="fa fa-check"></i><b>5.1.4</b> Model building</a></li>
+<li class="chapter" data-level="5.1.5" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#validating-the-model"><i class="fa fa-check"></i><b>5.1.5</b> Validating the model</a></li>
+<li class="chapter" data-level="5.1.6" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#overfitting-underfitting"><i class="fa fa-check"></i><b>5.1.6</b> Overfitting / Underfitting</a>
+<ul>
+<li class="chapter" data-level="5.1.6.1" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#hyperparameters"><i class="fa fa-check"></i><b>5.1.6.1</b> Hyperparameters:</a></li>
+<li class="chapter" data-level="5.1.6.2" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#regularization"><i class="fa fa-check"></i><b>5.1.6.2</b> Regularization:</a></li>
+<li class="chapter" data-level="5.1.6.3" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#dropout"><i class="fa fa-check"></i><b>5.1.6.3</b> Dropout</a></li>
+<li class="chapter" data-level="5.1.6.4" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#then-how-do-we-control-for-a-good-fit"><i class="fa fa-check"></i><b>5.1.6.4</b> Then how do we control for a good fit?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.1.7" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#dealing-with-missing-data"><i class="fa fa-check"></i><b>5.1.7</b> Dealing with missing data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#the-workflow-for-building-the-neural-network"><i class="fa fa-check"></i><b>5.2</b> The workflow for building the neural network</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#being-aware-of-the-process"><i class="fa fa-check"></i><b>5.2.1</b> Being aware of the process</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#when-neural-networks-will-fail"><i class="fa fa-check"></i><b>5.3</b> When Neural Networks will fail</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="deep-learning-fundamentals.html"><a href="deep-learning-fundamentals.html#hyper-parameter-tuning"><i class="fa fa-check"></i><b>5.3.1</b> Hyper parameter tuning</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html"><i class="fa fa-check"></i><b>6</b> Chapter 3 - Getting Started With Neural Networks</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#positive-negative-imdb-reviews"><i class="fa fa-check"></i><b>6.1</b> Positive / Negative IMDB reviews</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#extracting-the-data"><i class="fa fa-check"></i><b>6.1.1</b> Extracting the data</a></li>
+<li class="chapter" data-level="6.1.2" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#preparing-the-data"><i class="fa fa-check"></i><b>6.1.2</b> Preparing the data</a></li>
+<li class="chapter" data-level="6.1.3" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#building-the-model"><i class="fa fa-check"></i><b>6.1.3</b> Building the model</a></li>
+<li class="chapter" data-level="6.1.4" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#assessing-model-performance"><i class="fa fa-check"></i><b>6.1.4</b> Assessing model performance</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#multiclass-classification---classifying-newswires"><i class="fa fa-check"></i><b>6.2</b> Multiclass classification - Classifying newswires</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#loading-the-data"><i class="fa fa-check"></i><b>6.2.1</b> Loading the data</a></li>
+<li class="chapter" data-level="6.2.2" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#preparing-the-data-1"><i class="fa fa-check"></i><b>6.2.2</b> Preparing the data</a></li>
+<li class="chapter" data-level="6.2.3" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#building-the-model-1"><i class="fa fa-check"></i><b>6.2.3</b> Building the model</a></li>
+<li class="chapter" data-level="6.2.4" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#validating-the-model-model-assessment"><i class="fa fa-check"></i><b>6.2.4</b> Validating the model + model assessment</a></li>
+<li class="chapter" data-level="6.2.5" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#training-model-with-optimal-epochs"><i class="fa fa-check"></i><b>6.2.5</b> Training model with optimal epochs</a></li>
+<li class="chapter" data-level="6.2.6" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#predictions-on-new-data"><i class="fa fa-check"></i><b>6.2.6</b> Predictions on new data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#continous-prediction-a-regression-example---predicting-houseprices"><i class="fa fa-check"></i><b>6.3</b> Continous prediction / a regression example - Predicting houseprices</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#loading-the-data-1"><i class="fa fa-check"></i><b>6.3.1</b> Loading the data</a></li>
+<li class="chapter" data-level="6.3.2" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#preparing-the-data-2"><i class="fa fa-check"></i><b>6.3.2</b> Preparing the data</a></li>
+<li class="chapter" data-level="6.3.3" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#building-the-model-2"><i class="fa fa-check"></i><b>6.3.3</b> Building the model</a>
+<ul>
+<li class="chapter" data-level="6.3.3.1" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#validating-the-approach-using-k-fold-validation"><i class="fa fa-check"></i><b>6.3.3.1</b> Validating the approach using K-fold validation</a></li>
+<li class="chapter" data-level="6.3.3.2" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#validation-with-more-iterations"><i class="fa fa-check"></i><b>6.3.3.2</b> Validation with more iterations</a></li>
+<li class="chapter" data-level="6.3.3.3" data-path="chapter-3-getting-started-with-neural-networks.html"><a href="chapter-3-getting-started-with-neural-networks.html#tuning-amount-fo-hidden-layers"><i class="fa fa-check"></i><b>6.3.3.3</b> Tuning amount fo hidden layers</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html"><i class="fa fa-check"></i><b>7</b> Chapter 5 - Deep learning for computer vision</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#definition-of-convoluted-network"><i class="fa fa-check"></i><b>7.1</b> Definition of convoluted network</a></li>
+<li class="chapter" data-level="7.2" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#spetial-heirarchical"><i class="fa fa-check"></i><b>7.2</b> Spetial heirarchical</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#tuning-parameters"><i class="fa fa-check"></i><b>7.2.1</b> Tuning parameters</a></li>
+<li class="chapter" data-level="7.2.2" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#data-modeling-techniques"><i class="fa fa-check"></i><b>7.2.2</b> Data modeling techniques</a>
+<ul>
+<li class="chapter" data-level="7.2.2.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#padding"><i class="fa fa-check"></i><b>7.2.2.1</b> Padding</a></li>
+<li class="chapter" data-level="7.2.2.2" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#strides"><i class="fa fa-check"></i><b>7.2.2.2</b> Strides</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#the-max-pooling-operation"><i class="fa fa-check"></i><b>7.3</b> The max-pooling operation</a></li>
+<li class="chapter" data-level="7.4" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#examples"><i class="fa fa-check"></i><b>7.4</b> Examples</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#training-a-cats-and-dogs-classifier-from-scratch."><i class="fa fa-check"></i><b>7.4.1</b> Training a cats and dogs classifier from scratch.</a>
+<ul>
+<li class="chapter" data-level="7.4.1.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#loading-data"><i class="fa fa-check"></i><b>7.4.1.1</b> Loading data</a></li>
+<li class="chapter" data-level="7.4.1.2" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#building-the-model-3"><i class="fa fa-check"></i><b>7.4.1.2</b> Building the model</a></li>
+<li class="chapter" data-level="7.4.1.3" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#data-preprocessing"><i class="fa fa-check"></i><b>7.4.1.3</b> Data preprocessing</a></li>
+<li class="chapter" data-level="7.4.1.4" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#fitting-the-model"><i class="fa fa-check"></i><b>7.4.1.4</b> Fitting the model</a></li>
+<li class="chapter" data-level="7.4.1.5" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#dealing-with-overfitting"><i class="fa fa-check"></i><b>7.4.1.5</b> Dealing with overfitting</a>
+<ul>
+<li class="chapter" data-level="7.4.1.5.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#randomized-transformations-data-augmentation"><i class="fa fa-check"></i><b>7.4.1.5.1</b> Randomized transformations / Data augmentation</a></li>
+<li class="chapter" data-level="7.4.1.5.2" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#adding-dropout"><i class="fa fa-check"></i><b>7.4.1.5.2</b> Adding dropout</a></li>
+<li class="chapter" data-level="7.4.1.5.3" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#max-pooling"><i class="fa fa-check"></i><b>7.4.1.5.3</b> Max pooling</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4.1.6" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#training-with-dropout-and-random-image-transformations"><i class="fa fa-check"></i><b>7.4.1.6</b> Training with dropout and random image transformations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#using-a-pretrained-convnet"><i class="fa fa-check"></i><b>7.5</b> Using a pretrained convnet</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#feature-extraction"><i class="fa fa-check"></i><b>7.5.1</b> Feature extraction</a>
+<ul>
+<li class="chapter" data-level="7.5.1.1" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#feature-extraction-without-data-augmentation"><i class="fa fa-check"></i><b>7.5.1.1</b> Feature extraction without data augmentation</a></li>
+<li class="chapter" data-level="7.5.1.2" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#feature-extraction-with-data-augmentation"><i class="fa fa-check"></i><b>7.5.1.2</b> Feature extraction with data augmentation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5.2" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#fine-tuning"><i class="fa fa-check"></i><b>7.5.2</b> Fine-tuning</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="chapter-5-deep-learning-for-computer-vision.html"><a href="chapter-5-deep-learning-for-computer-vision.html#visualizing-what-convnets-learn"><i class="fa fa-check"></i><b>7.6</b> Visualizing what convnets learn</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html"><i class="fa fa-check"></i><b>8</b> Deep Learning for Text and Sequences</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#working-with-text-data"><i class="fa fa-check"></i><b>8.1</b> Working with Text Data</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#one-hot-encoding-of-words-and-characters"><i class="fa fa-check"></i><b>8.1.1</b> One-hot encoding of words and characters</a></li>
+<li class="chapter" data-level="8.1.2" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#using-word-embeddings"><i class="fa fa-check"></i><b>8.1.2</b> Using word embeddings</a>
+<ul>
+<li class="chapter" data-level="8.1.2.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#the-first-approach"><i class="fa fa-check"></i><b>8.1.2.1</b> The first approach</a></li>
+<li class="chapter" data-level="8.1.2.2" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#the-second-approach---using-pretrained-word-embeddings"><i class="fa fa-check"></i><b>8.1.2.2</b> The second approach - using pretrained word embeddings</a></li>
+</ul></li>
+<li class="chapter" data-level="8.1.3" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#putting-it-all-together-from-raw-text-to-word-embeddings"><i class="fa fa-check"></i><b>8.1.3</b> Putting it all together: from raw text to word embeddings</a>
+<ul>
+<li class="chapter" data-level="8.1.3.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#preprocessing-the-embeddings"><i class="fa fa-check"></i><b>8.1.3.1</b> Preprocessing the embeddings</a></li>
+<li class="chapter" data-level="8.1.3.2" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#defining-a-model"><i class="fa fa-check"></i><b>8.1.3.2</b> Defining a model</a></li>
+<li class="chapter" data-level="8.1.3.3" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#loading-glove-embeddings-in-the-model"><i class="fa fa-check"></i><b>8.1.3.3</b> Loading GloVe embeddings in the model</a></li>
+<li class="chapter" data-level="8.1.3.4" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#training-and-evaluating-the-model"><i class="fa fa-check"></i><b>8.1.3.4</b> Training and evaluating the model</a></li>
+<li class="chapter" data-level="8.1.3.5" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#training-and-evaluating-without-glove"><i class="fa fa-check"></i><b>8.1.3.5</b> Training and evaluating without GloVe</a></li>
+<li class="chapter" data-level="8.1.3.6" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#using-test-data"><i class="fa fa-check"></i><b>8.1.3.6</b> Using test data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#understanding-recurrent-neural-networks-rnn"><i class="fa fa-check"></i><b>8.2</b> Understanding Recurrent Neural Networks (RNN)</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#a-recurrent-layer-in-keras"><i class="fa fa-check"></i><b>8.2.1</b> A recurrent layer in Keras</a></li>
+<li class="chapter" data-level="8.2.2" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#understanding-the-lstm-and-gru-layers"><i class="fa fa-check"></i><b>8.2.2</b> Understanding the LSTM and GRU layers</a>
+<ul>
+<li class="chapter" data-level="8.2.2.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#units-inside-gru-and-lstm"><i class="fa fa-check"></i><b>8.2.2.1</b> Units inside GRU and LSTM</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2.3" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#a-concrete-lstm-example-in-keras"><i class="fa fa-check"></i><b>8.2.3</b> A concrete LSTM example in Keras</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#advanced-use-of-recurrent-neural-networks"><i class="fa fa-check"></i><b>8.3</b> Advanced use of Recurrent neural networks</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#a-temperature-forecasting-problem"><i class="fa fa-check"></i><b>8.3.1</b> A temperature-forecasting problem</a></li>
+<li class="chapter" data-level="8.3.2" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#preparing-the-data-3"><i class="fa fa-check"></i><b>8.3.2</b> Preparing the data</a></li>
+<li class="chapter" data-level="8.3.3" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#a-common-sense-non-machine-learning-baseline"><i class="fa fa-check"></i><b>8.3.3</b> A common-sense, non-machine-learning baseline</a></li>
+<li class="chapter" data-level="8.3.4" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#a-basic-machine-learning-approach"><i class="fa fa-check"></i><b>8.3.4</b> A basic machine-learning approach</a></li>
+<li class="chapter" data-level="8.3.5" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#a-first-recurrent-baseline"><i class="fa fa-check"></i><b>8.3.5</b> A first recurrent baseline</a></li>
+<li class="chapter" data-level="8.3.6" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#using-recurrent-dropout-to-fight-overfitting"><i class="fa fa-check"></i><b>8.3.6</b> using recurrent dropout to fight overfitting</a></li>
+<li class="chapter" data-level="8.3.7" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#stacking-recurrent-layers"><i class="fa fa-check"></i><b>8.3.7</b> Stacking recurrent layers</a></li>
+<li class="chapter" data-level="8.3.8" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#using-bidirectional-rnns"><i class="fa fa-check"></i><b>8.3.8</b> Using bidirectional RNNs</a></li>
+<li class="chapter" data-level="8.3.9" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#going-even-further"><i class="fa fa-check"></i><b>8.3.9</b> Going even further</a></li>
+<li class="chapter" data-level="8.3.10" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#wrap-up"><i class="fa fa-check"></i><b>8.3.10</b> Wrap up</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#sequence-processing-with-convnets"><i class="fa fa-check"></i><b>8.4</b> Sequence processing with convnets</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#implementing-a-1d-convnet"><i class="fa fa-check"></i><b>8.4.1</b> Implementing a 1D convnet</a></li>
+<li class="chapter" data-level="8.4.2" data-path="deep-learning-for-text-and-sequences.html"><a href="deep-learning-for-text-and-sequences.html#combining-cnns-and-rnns-to-process-long-sequences"><i class="fa fa-check"></i><b>8.4.2</b> Combining CNNs and RNNs to process long sequences</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html"><i class="fa fa-check"></i><b>9</b> Advanced Deep-Learning Best Practices</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#going-beyond-the-sequential-model-the-keras-functino-api"><i class="fa fa-check"></i><b>9.1</b> Going beyond the sequential model: the Keras functino API</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#introduction-to-the-functional-api"><i class="fa fa-check"></i><b>9.1.1</b> Introduction to the functional API</a></li>
+<li class="chapter" data-level="9.1.2" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#multi-input-models"><i class="fa fa-check"></i><b>9.1.2</b> Multi-input models</a></li>
+<li class="chapter" data-level="9.1.3" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#multi-output"><i class="fa fa-check"></i><b>9.1.3</b> Multi-output</a></li>
+<li class="chapter" data-level="9.1.4" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#directed-acyclic-graphs-of-layers-dag"><i class="fa fa-check"></i><b>9.1.4</b> Directed acyclic graphs of layers (DAG)</a>
+<ul>
+<li class="chapter" data-level="9.1.4.1" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#inception-modules"><i class="fa fa-check"></i><b>9.1.4.1</b> Inception modules</a></li>
+<li class="chapter" data-level="9.1.4.2" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#residual-connection"><i class="fa fa-check"></i><b>9.1.4.2</b> Residual Connection</a></li>
+</ul></li>
+<li class="chapter" data-level="9.1.5" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#layer-weight-sharing"><i class="fa fa-check"></i><b>9.1.5</b> Layer weight sharing</a></li>
+<li class="chapter" data-level="9.1.6" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#models-as-layers"><i class="fa fa-check"></i><b>9.1.6</b> Models as layers</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#inspecting-and-monitoring-deep-learning-models-using-keras-callba--acks-and-tensorboard"><i class="fa fa-check"></i><b>9.2</b> Inspecting and monitoring deep-learning models using Keras callba- acks and TensorBoard</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#using-callbacks-to-act-on-a-model-during-training"><i class="fa fa-check"></i><b>9.2.1</b> Using callbacks to act on a model during training</a>
+<ul>
+<li class="chapter" data-level="9.2.1.1" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#the-model-checkpoint-and-early-stopping-callbacks"><i class="fa fa-check"></i><b>9.2.1.1</b> The model-checkpoint and early-stopping callbacks</a></li>
+<li class="chapter" data-level="9.2.1.2" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#the-reduce-learning-rate-on-plateau-callback"><i class="fa fa-check"></i><b>9.2.1.2</b> The reduce-learning-rate-on-plateau callback</a></li>
+<li class="chapter" data-level="9.2.1.3" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#writing-your-own-callback-functions"><i class="fa fa-check"></i><b>9.2.1.3</b> Writing your own callback functions</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2.2" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#introduction-to-tensorboard-the-tensorflow-visualization-framework"><i class="fa fa-check"></i><b>9.2.2</b> Introduction to tensorBoard: the TensorFlow visualization framework</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#getting-the-most-of-your-models"><i class="fa fa-check"></i><b>9.3</b> Getting the most of your models</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#advanced-architecture-patterns"><i class="fa fa-check"></i><b>9.3.1</b> Advanced architecture patterns</a>
+<ul>
+<li class="chapter" data-level="9.3.1.1" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#batch-normalization"><i class="fa fa-check"></i><b>9.3.1.1</b> Batch normalization</a></li>
+<li class="chapter" data-level="9.3.1.2" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#depthwise-separable-convolution"><i class="fa fa-check"></i><b>9.3.1.2</b> Depthwise separable convolution</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3.2" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#hyperparameter-optimization"><i class="fa fa-check"></i><b>9.3.2</b> Hyperparameter optimization</a></li>
+<li class="chapter" data-level="9.3.3" data-path="advanced-deep-learning-best-practices.html"><a href="advanced-deep-learning-best-practices.html#model-ensembling"><i class="fa fa-check"></i><b>9.3.3</b> Model ensembling</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="structuring-data-transformation-and-model-assessments.html"><a href="structuring-data-transformation-and-model-assessments.html"><i class="fa fa-check"></i><b>10</b> Structuring data transformation and model assessments</a></li>
+<li class="chapter" data-level="11" data-path="github-and-css-styling.html"><a href="github-and-css-styling.html"><i class="fa fa-check"></i><b>11</b> Github and CSS styling</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="github-and-css-styling.html"><a href="github-and-css-styling.html#managing-github"><i class="fa fa-check"></i><b>11.1</b> Managing GitHub</a></li>
+<li class="chapter" data-level="11.2" data-path="github-and-css-styling.html"><a href="github-and-css-styling.html#css-styling"><i class="fa fa-check"></i><b>11.2</b> CSS Styling</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>12</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Machine Learning for Business Intelligence 2</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chapter-3---getting-started-with-neural-networks" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Chapter 3 - Getting Started With Neural Networks</h1>
+<p>The follwoing sections shows three different examples, one in three different scenarios.</p>
+<div id="positive-negative-imdb-reviews" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Positive / Negative IMDB reviews</h2>
+<div id="extracting-the-data" class="section level3" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> Extracting the data</h3>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb456-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Loading the data</span></span>
+<span id="cb456-2"><a href="chapter-3-getting-started-with-neural-networks.html#cb456-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(keras)</span>
+<span id="cb456-3"><a href="chapter-3-getting-started-with-neural-networks.html#cb456-3" aria-hidden="true" tabindex="-1"></a>  imdb <span class="ot">&lt;-</span> <span class="fu">dataset_imdb</span>(<span class="at">num_words =</span> <span class="dv">10000</span>) <span class="co">#We restrict outselves to the top 10.000 words.</span></span>
+<span id="cb456-4"><a href="chapter-3-getting-started-with-neural-networks.html#cb456-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="fu">c</span>(train_data, train_labels), <span class="fu">c</span>(test_data, test_labels)) <span class="sc">%&lt;-%</span> imdb <span class="co">#Unpacks the elements</span></span></code></pre></div>
+<p>The words are all indexed and ranked, hence the reviews consist of numbers, we will later revert this.</p>
+<p>Before we start building the model, we can explore the data a bit. One must notice, that the data that is in the package is already prepared to b</p>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb457-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(train_data[[<span class="dv">1</span>]]) <span class="co">#We see that each word is changed into a number. </span><span class="al">NOTE</span><span class="co"> this is a just a snip of the full review</span></span>
+<span id="cb457-2"><a href="chapter-3-getting-started-with-neural-networks.html#cb457-2" aria-hidden="true" tabindex="-1"></a>train_labels[[<span class="dv">1</span>]] <span class="co">#We see that 1 = positive, 0 = negative</span></span>
+<span id="cb457-3"><a href="chapter-3-getting-started-with-neural-networks.html#cb457-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb457-4"><a href="chapter-3-getting-started-with-neural-networks.html#cb457-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Reverting to english words</span></span>
+<span id="cb457-5"><a href="chapter-3-getting-started-with-neural-networks.html#cb457-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># word_index is a dictionary mapping words to an integer index</span></span>
+<span id="cb457-6"><a href="chapter-3-getting-started-with-neural-networks.html#cb457-6" aria-hidden="true" tabindex="-1"></a>  word_index <span class="ot">&lt;-</span> <span class="fu">dataset_imdb_word_index</span>()</span>
+<span id="cb457-7"><a href="chapter-3-getting-started-with-neural-networks.html#cb457-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># We reverse it, mapping integer indices to words</span></span>
+<span id="cb457-8"><a href="chapter-3-getting-started-with-neural-networks.html#cb457-8" aria-hidden="true" tabindex="-1"></a>  reverse_word_index <span class="ot">&lt;-</span> <span class="fu">names</span>(word_index)</span>
+<span id="cb457-9"><a href="chapter-3-getting-started-with-neural-networks.html#cb457-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(reverse_word_index) <span class="ot">&lt;-</span> word_index</span>
+<span id="cb457-10"><a href="chapter-3-getting-started-with-neural-networks.html#cb457-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># We decode the review; note that our indices were offset by 3</span></span>
+<span id="cb457-11"><a href="chapter-3-getting-started-with-neural-networks.html#cb457-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># because 0, 1 and 2 are reserved indices for &quot;padding&quot;, &quot;start of sequence&quot;, and &quot;unknown&quot;.</span></span>
+<span id="cb457-12"><a href="chapter-3-getting-started-with-neural-networks.html#cb457-12" aria-hidden="true" tabindex="-1"></a>  decoded_review <span class="ot">&lt;-</span> <span class="fu">sapply</span>(train_data[[<span class="dv">1</span>]], <span class="cf">function</span>(index) {</span>
+<span id="cb457-13"><a href="chapter-3-getting-started-with-neural-networks.html#cb457-13" aria-hidden="true" tabindex="-1"></a>    word <span class="ot">&lt;-</span> <span class="cf">if</span> (index <span class="sc">&gt;=</span> <span class="dv">3</span>) reverse_word_index[[<span class="fu">as.character</span>(index <span class="sc">-</span> <span class="dv">3</span>)]]</span>
+<span id="cb457-14"><a href="chapter-3-getting-started-with-neural-networks.html#cb457-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(word)) word <span class="cf">else</span> <span class="st">&quot;?&quot;</span></span>
+<span id="cb457-15"><a href="chapter-3-getting-started-with-neural-networks.html#cb457-15" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb457-16"><a href="chapter-3-getting-started-with-neural-networks.html#cb457-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb457-17"><a href="chapter-3-getting-started-with-neural-networks.html#cb457-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Printing one review</span></span>
+<span id="cb457-18"><a href="chapter-3-getting-started-with-neural-networks.html#cb457-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(decoded_review)</span></code></pre></div>
+</div>
+<div id="preparing-the-data" class="section level3" number="6.1.2">
+<h3><span class="header-section-number">6.1.2</span> Preparing the data</h3>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb458-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Preparing the data</span></span>
+<span id="cb458-2"><a href="chapter-3-getting-started-with-neural-networks.html#cb458-2" aria-hidden="true" tabindex="-1"></a>  vectorize_sequences <span class="ot">&lt;-</span> <span class="cf">function</span>(sequences, <span class="at">dimension =</span> <span class="dv">10000</span>) {</span>
+<span id="cb458-3"><a href="chapter-3-getting-started-with-neural-networks.html#cb458-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create an all-zero matrix of shape (len(sequences), dimension)</span></span>
+<span id="cb458-4"><a href="chapter-3-getting-started-with-neural-networks.html#cb458-4" aria-hidden="true" tabindex="-1"></a>    results <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="fu">length</span>(sequences), <span class="at">ncol =</span> dimension)</span>
+<span id="cb458-5"><a href="chapter-3-getting-started-with-neural-networks.html#cb458-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(sequences))</span>
+<span id="cb458-6"><a href="chapter-3-getting-started-with-neural-networks.html#cb458-6" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Sets specific indices of results[i] to 1s</span></span>
+<span id="cb458-7"><a href="chapter-3-getting-started-with-neural-networks.html#cb458-7" aria-hidden="true" tabindex="-1"></a>      results[i, sequences[[i]]] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb458-8"><a href="chapter-3-getting-started-with-neural-networks.html#cb458-8" aria-hidden="true" tabindex="-1"></a>    results</span>
+<span id="cb458-9"><a href="chapter-3-getting-started-with-neural-networks.html#cb458-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb458-10"><a href="chapter-3-getting-started-with-neural-networks.html#cb458-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb458-11"><a href="chapter-3-getting-started-with-neural-networks.html#cb458-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Our vectorized training data</span></span>
+<span id="cb458-12"><a href="chapter-3-getting-started-with-neural-networks.html#cb458-12" aria-hidden="true" tabindex="-1"></a>  x_train <span class="ot">&lt;-</span> <span class="fu">vectorize_sequences</span>(train_data)</span>
+<span id="cb458-13"><a href="chapter-3-getting-started-with-neural-networks.html#cb458-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Our vectorized test data</span></span>
+<span id="cb458-14"><a href="chapter-3-getting-started-with-neural-networks.html#cb458-14" aria-hidden="true" tabindex="-1"></a>  x_test <span class="ot">&lt;-</span> <span class="fu">vectorize_sequences</span>(test_data)</span>
+<span id="cb458-15"><a href="chapter-3-getting-started-with-neural-networks.html#cb458-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb458-16"><a href="chapter-3-getting-started-with-neural-networks.html#cb458-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Our vectorized labels</span></span>
+<span id="cb458-17"><a href="chapter-3-getting-started-with-neural-networks.html#cb458-17" aria-hidden="true" tabindex="-1"></a>  y_train <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(train_labels)</span>
+<span id="cb458-18"><a href="chapter-3-getting-started-with-neural-networks.html#cb458-18" aria-hidden="true" tabindex="-1"></a>  y_test <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(test_labels)</span></code></pre></div>
+</div>
+<div id="building-the-model" class="section level3" number="6.1.3">
+<h3><span class="header-section-number">6.1.3</span> Building the model</h3>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Building the network</span></span>
+<span id="cb459-2"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(keras)</span>
+<span id="cb459-3"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb459-4"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-4" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb459-5"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">16</span>, <span class="at">activation =</span> <span class="st">&quot;relu&quot;</span>, <span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">10000</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb459-6"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">16</span>, <span class="at">activation =</span> <span class="st">&quot;relu&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb459-7"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">1</span>, <span class="at">activation =</span> <span class="st">&quot;sigmoid&quot;</span>)</span>
+<span id="cb459-8"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-8" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb459-9"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-9" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb459-10"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Defining Optimizer, loss and metrics</span></span>
+<span id="cb459-11"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-11" aria-hidden="true" tabindex="-1"></a>  model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(</span>
+<span id="cb459-12"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">optimizer =</span> <span class="st">&quot;rmsprop&quot;</span>, <span class="co">#Build-in, one can create functions and call external functions also</span></span>
+<span id="cb459-13"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">loss =</span> <span class="st">&quot;binary_crossentropy&quot;</span>, <span class="co">#Build-in, one can create functions and call external functions also</span></span>
+<span id="cb459-14"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">metrics =</span> <span class="fu">c</span>(<span class="st">&quot;accuracy&quot;</span>) <span class="co">#Build-in, one can create functions and call external functions also</span></span>
+<span id="cb459-15"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb459-16"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb459-17"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb459-18"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-18" aria-hidden="true" tabindex="-1"></a><span class="co">#Validating the model</span></span>
+<span id="cb459-19"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-19" aria-hidden="true" tabindex="-1"></a>  val_indices <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span> <span class="co">#We want the first 10.000 observations</span></span>
+<span id="cb459-20"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb459-21"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-21" aria-hidden="true" tabindex="-1"></a>  x_val <span class="ot">&lt;-</span> x_train[val_indices,]</span>
+<span id="cb459-22"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-22" aria-hidden="true" tabindex="-1"></a>  partial_x_train <span class="ot">&lt;-</span> x_train[<span class="sc">-</span>val_indices,]</span>
+<span id="cb459-23"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb459-24"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-24" aria-hidden="true" tabindex="-1"></a>  y_val <span class="ot">&lt;-</span> y_train[val_indices]</span>
+<span id="cb459-25"><a href="chapter-3-getting-started-with-neural-networks.html#cb459-25" aria-hidden="true" tabindex="-1"></a>  partial_y_train <span class="ot">&lt;-</span> y_train[<span class="sc">-</span>val_indices]</span></code></pre></div>
+<p>Now where we have created the learner, <code>keras</code> stores the loss and defined metrics, so we are able to see how the model performed throughout the iterations.</p>
+</div>
+<div id="assessing-model-performance" class="section level3" number="6.1.4">
+<h3><span class="header-section-number">6.1.4</span> Assessing model performance</h3>
+<p><em>Notice, that if we run the following code consecutively, the model appear to remember the previous runs. Hence one should run the model above.</em></p>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb460-1" aria-hidden="true" tabindex="-1"></a>epochs <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb460-2"><a href="chapter-3-getting-started-with-neural-networks.html#cb460-2" aria-hidden="true" tabindex="-1"></a>batch_size <span class="ot">&lt;-</span> <span class="dv">512</span></span>
+<span id="cb460-3"><a href="chapter-3-getting-started-with-neural-networks.html#cb460-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb460-4"><a href="chapter-3-getting-started-with-neural-networks.html#cb460-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Retrieving history</span></span>
+<span id="cb460-5"><a href="chapter-3-getting-started-with-neural-networks.html#cb460-5" aria-hidden="true" tabindex="-1"></a>  history <span class="ot">&lt;-</span> model <span class="sc">%&gt;%</span> <span class="fu">fit</span>( <span class="co">#We fit the model</span></span>
+<span id="cb460-6"><a href="chapter-3-getting-started-with-neural-networks.html#cb460-6" aria-hidden="true" tabindex="-1"></a>    partial_x_train,</span>
+<span id="cb460-7"><a href="chapter-3-getting-started-with-neural-networks.html#cb460-7" aria-hidden="true" tabindex="-1"></a>    partial_y_train,</span>
+<span id="cb460-8"><a href="chapter-3-getting-started-with-neural-networks.html#cb460-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">epochs =</span> epochs, <span class="co">#How many iterations?</span></span>
+<span id="cb460-9"><a href="chapter-3-getting-started-with-neural-networks.html#cb460-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">batch_size =</span> batch_size, <span class="co">#How many observations in each batch?</span></span>
+<span id="cb460-10"><a href="chapter-3-getting-started-with-neural-networks.html#cb460-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">validation_data =</span> <span class="fu">list</span>(x_val, y_val)</span>
+<span id="cb460-11"><a href="chapter-3-getting-started-with-neural-networks.html#cb460-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb460-12"><a href="chapter-3-getting-started-with-neural-networks.html#cb460-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb460-13"><a href="chapter-3-getting-started-with-neural-networks.html#cb460-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#The numbers behind the plot</span></span>
+<span id="cb460-14"><a href="chapter-3-getting-started-with-neural-networks.html#cb460-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(tidyverse)</span>
+<span id="cb460-15"><a href="chapter-3-getting-started-with-neural-networks.html#cb460-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="fu">cbind</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span>epochs)</span>
+<span id="cb460-16"><a href="chapter-3-getting-started-with-neural-networks.html#cb460-16" aria-hidden="true" tabindex="-1"></a>                    ,history<span class="sc">$</span>metrics<span class="sc">$</span>loss</span>
+<span id="cb460-17"><a href="chapter-3-getting-started-with-neural-networks.html#cb460-17" aria-hidden="true" tabindex="-1"></a>                    ,history<span class="sc">$</span>metrics<span class="sc">$</span>val_loss</span>
+<span id="cb460-18"><a href="chapter-3-getting-started-with-neural-networks.html#cb460-18" aria-hidden="true" tabindex="-1"></a>                    ,history<span class="sc">$</span>metrics<span class="sc">$</span>accuracy</span>
+<span id="cb460-19"><a href="chapter-3-getting-started-with-neural-networks.html#cb460-19" aria-hidden="true" tabindex="-1"></a>                    ,history<span class="sc">$</span>metrics<span class="sc">$</span>val_accuracy)) <span class="sc">%&gt;%</span> </span>
+<span id="cb460-20"><a href="chapter-3-getting-started-with-neural-networks.html#cb460-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setNames</span>(<span class="at">nm =</span> <span class="fu">c</span>(<span class="st">&quot;Iteration&quot;</span>,<span class="fu">names</span>(history<span class="sc">$</span>metrics)))</span></code></pre></div>
+<p>As with any other learners, we see that we are able to overtrain, i.e. overfit, the model to the train data and the model is in fact just memorizing the train results. Hence running too many iterations does not appear to yield an appropriate model.</p>
+<p>Recall that we are optimizing the loss and not the accuracy. Hence wee see that the loss starts to increase at some point, but it is difficult to deduct from the accuracy line. <strong><em>Notice, that it is not given that the lowest Loss = the highest accuracy.</em></strong></p>
+</div>
+</div>
+<div id="multiclass-classification---classifying-newswires" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Multiclass classification - Classifying newswires</h2>
+<p>In this section we classify Reuters newswires into 46 mutually exclusive topics. Thus we have more than two classes to predict. That also means that the last layer in the network will have 46 units, hence one for each of the classes, see <span class="citation">(<a href="references.html#ref-chollet2018" role="doc-biblioref">Chollet and Allaire 2018, 70</a>)</span>. The data is already loaded into the package.</p>
+<div id="loading-the-data" class="section level3" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> Loading the data</h3>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb461-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
+<span id="cb461-2"><a href="chapter-3-getting-started-with-neural-networks.html#cb461-2" aria-hidden="true" tabindex="-1"></a>reuters <span class="ot">&lt;-</span> <span class="fu">dataset_reuters</span>(<span class="at">num_words =</span> <span class="dv">10000</span>) <span class="co">#Restricting to top 10.000 words.</span></span>
+<span id="cb461-3"><a href="chapter-3-getting-started-with-neural-networks.html#cb461-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">c</span>(train_data, train_labels), <span class="fu">c</span>(test_data, test_labels)) <span class="sc">%&lt;-%</span> reuters</span></code></pre></div>
+<p>We could do the same exploration of the data as with IMDB if we’d like to. For this example it is skipped.</p>
+</div>
+<div id="preparing-the-data-1" class="section level3" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> Preparing the data</h3>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb462-1" aria-hidden="true" tabindex="-1"></a>vectorize_sequences <span class="ot">&lt;-</span> <span class="cf">function</span>(sequences, <span class="at">dimension =</span> <span class="dv">10000</span>) {</span>
+<span id="cb462-2"><a href="chapter-3-getting-started-with-neural-networks.html#cb462-2" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="fu">length</span>(sequences), <span class="at">ncol =</span> dimension)</span>
+<span id="cb462-3"><a href="chapter-3-getting-started-with-neural-networks.html#cb462-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(sequences))</span>
+<span id="cb462-4"><a href="chapter-3-getting-started-with-neural-networks.html#cb462-4" aria-hidden="true" tabindex="-1"></a>results[i, sequences[[i]]] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb462-5"><a href="chapter-3-getting-started-with-neural-networks.html#cb462-5" aria-hidden="true" tabindex="-1"></a>results</span>
+<span id="cb462-6"><a href="chapter-3-getting-started-with-neural-networks.html#cb462-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb462-7"><a href="chapter-3-getting-started-with-neural-networks.html#cb462-7" aria-hidden="true" tabindex="-1"></a>x_train <span class="ot">&lt;-</span> <span class="fu">vectorize_sequences</span>(train_data)</span>
+<span id="cb462-8"><a href="chapter-3-getting-started-with-neural-networks.html#cb462-8" aria-hidden="true" tabindex="-1"></a>x_test <span class="ot">&lt;-</span> <span class="fu">vectorize_sequences</span>(test_data)</span></code></pre></div>
+<p>Recall that we have more than 2 outcomes. To deal with this, we have two possibilities:</p>
+<ol style="list-style-type: decimal">
+<li>Call the label an integer tensor</li>
+<li>Use “one-hot” encoding. This is the same as one making dummies after the one-hot principle.</li>
+</ol>
+<p>We will use the one-hot encoding, creating vectors of 0’s and 1 in the place of the the specific category.</p>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb463-1" aria-hidden="true" tabindex="-1"></a>to_one_hot <span class="ot">&lt;-</span> <span class="cf">function</span>(labels, <span class="at">dimension =</span> <span class="dv">46</span>) {</span>
+<span id="cb463-2"><a href="chapter-3-getting-started-with-neural-networks.html#cb463-2" aria-hidden="true" tabindex="-1"></a>  results <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="fu">length</span>(labels), <span class="at">ncol =</span> dimension)</span>
+<span id="cb463-3"><a href="chapter-3-getting-started-with-neural-networks.html#cb463-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(labels))</span>
+<span id="cb463-4"><a href="chapter-3-getting-started-with-neural-networks.html#cb463-4" aria-hidden="true" tabindex="-1"></a>    results[i, labels[[i]] <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb463-5"><a href="chapter-3-getting-started-with-neural-networks.html#cb463-5" aria-hidden="true" tabindex="-1"></a>  results</span>
+<span id="cb463-6"><a href="chapter-3-getting-started-with-neural-networks.html#cb463-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb463-7"><a href="chapter-3-getting-started-with-neural-networks.html#cb463-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb463-8"><a href="chapter-3-getting-started-with-neural-networks.html#cb463-8" aria-hidden="true" tabindex="-1"></a>one_hot_train_labels <span class="ot">&lt;-</span> <span class="fu">to_one_hot</span>(train_labels)</span>
+<span id="cb463-9"><a href="chapter-3-getting-started-with-neural-networks.html#cb463-9" aria-hidden="true" tabindex="-1"></a>one_hot_test_labels <span class="ot">&lt;-</span> <span class="fu">to_one_hot</span>(test_labels)</span>
+<span id="cb463-10"><a href="chapter-3-getting-started-with-neural-networks.html#cb463-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb463-11"><a href="chapter-3-getting-started-with-neural-networks.html#cb463-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Alternative using Keras built in function:</span></span>
+<span id="cb463-12"><a href="chapter-3-getting-started-with-neural-networks.html#cb463-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># one_hot_train_labels &lt;- to_categorical(train_labels)</span></span>
+<span id="cb463-13"><a href="chapter-3-getting-started-with-neural-networks.html#cb463-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># one_hot_test_labels &lt;- to_categorical(test_labels)</span></span></code></pre></div>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb464-1" aria-hidden="true" tabindex="-1"></a>one_hot_train_labels <span class="sc">%&gt;%</span> <span class="fu">dim</span>()</span>
+<span id="cb464-2"><a href="chapter-3-getting-started-with-neural-networks.html#cb464-2" aria-hidden="true" tabindex="-1"></a>one_hot_test_labels <span class="sc">%&gt;%</span> <span class="fu">dim</span>()</span></code></pre></div>
+<p>We see that there is a row for each sample and then a coloumn for each of the categories.</p>
+<p>If one where to print each sample and identifying whether each word appears, one can visualize this with:</p>
+<p><img src="Images/paste-0B7B7C34.png" width="220" /></p>
+<p>Where we see that a white pixel = the specific word appears. We see that we have a lot of sparsity, meaning that very much black space (0’s).</p>
+</div>
+<div id="building-the-model-1" class="section level3" number="6.2.3">
+<h3><span class="header-section-number">6.2.3</span> Building the model</h3>
+<p>We are going to build a dequencial model, hence each layer can only process what is given from the previous layers. In this example we have even more categories and the model must be able to distinguish between more scenarios, hence 16 units in each layer as seen in section @ref(chapter-3—positive-negative-imdb-reviews). That is because what one layer leaves out, the following layers can use, hence we will apply more layers, in this example we use 64.</p>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb465-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb465-2"><a href="chapter-3-getting-started-with-neural-networks.html#cb465-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">64</span>, <span class="at">activation =</span> <span class="st">&quot;relu&quot;</span>, <span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">10000</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb465-3"><a href="chapter-3-getting-started-with-neural-networks.html#cb465-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">64</span>, <span class="at">activation =</span> <span class="st">&quot;relu&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb465-4"><a href="chapter-3-getting-started-with-neural-networks.html#cb465-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">46</span>, <span class="at">activation =</span> <span class="st">&quot;softmax&quot;</span>) <span class="co">#Softmax for probability distribution</span></span></code></pre></div>
+<p>Botice that the input_shape for the first layer is 10.000, that is corresponding to the train partition of the data. As we see in the picture above, we have a lot of sparsity, we use 64 units.</p>
+<div class="lightbluebox">
+<p><strong>What shape do we want?</strong> We want to have a funnel shape or a tunnel shape, not a shape we we decrease amount of neurons and then later expand amount of neurons.</p>
+</div>
+<p>Notice that the last layer has units = no. of classes and the we use activation “softmax.” This layer will produce a probability distribution, where all entries sum to 1.</p>
+<p>Now we must define optimizer, loss and metrics, we go for:</p>
+<ul>
+<li><p>Optimizer = rmsprop</p></li>
+<li><p>Loss = Categorical crossentropy. This appear to be good in a multiclass setting</p></li>
+<li><p>Metrics = We want to see accuracy on a running basis</p></li>
+</ul>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb466-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(</span>
+<span id="cb466-2"><a href="chapter-3-getting-started-with-neural-networks.html#cb466-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">optimizer =</span> <span class="st">&quot;rmsprop&quot;</span>,</span>
+<span id="cb466-3"><a href="chapter-3-getting-started-with-neural-networks.html#cb466-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">loss =</span> <span class="st">&quot;categorical_crossentropy&quot;</span>,</span>
+<span id="cb466-4"><a href="chapter-3-getting-started-with-neural-networks.html#cb466-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">metrics =</span> <span class="fu">c</span>(<span class="st">&quot;accuracy&quot;</span>)</span>
+<span id="cb466-5"><a href="chapter-3-getting-started-with-neural-networks.html#cb466-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Now we can validate the model using the data partitions.</p>
+</div>
+<div id="validating-the-model-model-assessment" class="section level3" number="6.2.4">
+<h3><span class="header-section-number">6.2.4</span> Validating the model + model assessment</h3>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb467-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Validating the model</span></span>
+<span id="cb467-2"><a href="chapter-3-getting-started-with-neural-networks.html#cb467-2" aria-hidden="true" tabindex="-1"></a>val_indices <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span></span>
+<span id="cb467-3"><a href="chapter-3-getting-started-with-neural-networks.html#cb467-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb467-4"><a href="chapter-3-getting-started-with-neural-networks.html#cb467-4" aria-hidden="true" tabindex="-1"></a>x_val <span class="ot">&lt;-</span> x_train[val_indices,]</span>
+<span id="cb467-5"><a href="chapter-3-getting-started-with-neural-networks.html#cb467-5" aria-hidden="true" tabindex="-1"></a>partial_x_train <span class="ot">&lt;-</span> x_train[<span class="sc">-</span>val_indices,]</span>
+<span id="cb467-6"><a href="chapter-3-getting-started-with-neural-networks.html#cb467-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb467-7"><a href="chapter-3-getting-started-with-neural-networks.html#cb467-7" aria-hidden="true" tabindex="-1"></a>y_val <span class="ot">&lt;-</span> one_hot_train_labels[val_indices,]</span>
+<span id="cb467-8"><a href="chapter-3-getting-started-with-neural-networks.html#cb467-8" aria-hidden="true" tabindex="-1"></a>partial_y_train <span class="ot">=</span> one_hot_train_labels[<span class="sc">-</span>val_indices,]</span>
+<span id="cb467-9"><a href="chapter-3-getting-started-with-neural-networks.html#cb467-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb467-10"><a href="chapter-3-getting-started-with-neural-networks.html#cb467-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Retriving history</span></span>
+<span id="cb467-11"><a href="chapter-3-getting-started-with-neural-networks.html#cb467-11" aria-hidden="true" tabindex="-1"></a>history <span class="ot">&lt;-</span> model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(</span>
+<span id="cb467-12"><a href="chapter-3-getting-started-with-neural-networks.html#cb467-12" aria-hidden="true" tabindex="-1"></a>  partial_x_train,</span>
+<span id="cb467-13"><a href="chapter-3-getting-started-with-neural-networks.html#cb467-13" aria-hidden="true" tabindex="-1"></a>  partial_y_train,</span>
+<span id="cb467-14"><a href="chapter-3-getting-started-with-neural-networks.html#cb467-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">epochs =</span> <span class="dv">20</span>,</span>
+<span id="cb467-15"><a href="chapter-3-getting-started-with-neural-networks.html#cb467-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">batch_size =</span> <span class="dv">512</span>,</span>
+<span id="cb467-16"><a href="chapter-3-getting-started-with-neural-networks.html#cb467-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">validation_data =</span> <span class="fu">list</span>(x_val, y_val)</span>
+<span id="cb467-17"><a href="chapter-3-getting-started-with-neural-networks.html#cb467-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Let us now see the performance over the iterations (epochs)</p>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb468-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(history)</span></code></pre></div>
+<p>We see that the in-sample performance keep increasing while the out-of-sample performance decays over time.</p>
+<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb469-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Accuracy</span></span>
+<span id="cb469-2"><a href="chapter-3-getting-started-with-neural-networks.html#cb469-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(history<span class="sc">$</span>metrics<span class="sc">$</span>val_accuracy,<span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="dv">1</span>),<span class="at">type =</span>  <span class="st">&quot;l&quot;</span>,<span class="at">col =</span> <span class="st">&quot;darkblue&quot;</span>)</span>
+<span id="cb469-3"><a href="chapter-3-getting-started-with-neural-networks.html#cb469-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(history<span class="sc">$</span>metrics<span class="sc">$</span>accuracy,<span class="at">type =</span> <span class="st">&quot;l&quot;</span>,<span class="at">col =</span> <span class="st">&quot;darkgreen&quot;</span>)</span>
+<span id="cb469-4"><a href="chapter-3-getting-started-with-neural-networks.html#cb469-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">which.max</span>(history<span class="sc">$</span>metrics<span class="sc">$</span>val_accuracy),<span class="at">lty =</span> <span class="dv">2</span>,<span class="at">col =</span> <span class="st">&quot;purple&quot;</span>,<span class="at">lwd =</span> <span class="fl">0.7</span>)</span>
+<span id="cb469-5"><a href="chapter-3-getting-started-with-neural-networks.html#cb469-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb469-6"><a href="chapter-3-getting-started-with-neural-networks.html#cb469-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb469-7"><a href="chapter-3-getting-started-with-neural-networks.html#cb469-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Standard errors</span></span>
+<span id="cb469-8"><a href="chapter-3-getting-started-with-neural-networks.html#cb469-8" aria-hidden="true" tabindex="-1"></a>min.point <span class="ot">=</span> <span class="fu">max</span>(history<span class="sc">$</span>metrics<span class="sc">$</span>val_accuracy)</span>
+<span id="cb469-9"><a href="chapter-3-getting-started-with-neural-networks.html#cb469-9" aria-hidden="true" tabindex="-1"></a>sd.points <span class="ot">=</span> <span class="fu">sd</span>(history<span class="sc">$</span>metrics<span class="sc">$</span>val_accuracy)</span>
+<span id="cb469-10"><a href="chapter-3-getting-started-with-neural-networks.html#cb469-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>min.point <span class="sc">+</span> <span class="fl">0.2</span> <span class="sc">*</span> sd.points, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lty=</span><span class="st">&quot;dashed&quot;</span>) <span class="co">#0.2 is just a rule of thumb, could be anything</span></span>
+<span id="cb469-11"><a href="chapter-3-getting-started-with-neural-networks.html#cb469-11" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>min.point <span class="sc">-</span> <span class="fl">0.2</span> <span class="sc">*</span> sd.points, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lty=</span><span class="st">&quot;dashed&quot;</span>)</span>
+<span id="cb469-12"><a href="chapter-3-getting-started-with-neural-networks.html#cb469-12" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="st">&quot;0.2-standard deviation lines&quot;</span>, <span class="at">lty=</span><span class="st">&quot;dashed&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>,<span class="at">cex =</span> <span class="fl">0.6</span>)</span></code></pre></div>
+<p>We see that the maximum is at 10 epochs, while the book suggests selecting 9. Thus we go for 9. 0.2 standard errors</p>
+</div>
+<div id="training-model-with-optimal-epochs" class="section level3" number="6.2.5">
+<h3><span class="header-section-number">6.2.5</span> Training model with optimal epochs</h3>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb470-1" aria-hidden="true" tabindex="-1"></a>epochs <span class="ot">&lt;-</span> <span class="dv">9</span></span>
+<span id="cb470-2"><a href="chapter-3-getting-started-with-neural-networks.html#cb470-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb470-3"><a href="chapter-3-getting-started-with-neural-networks.html#cb470-3" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb470-4"><a href="chapter-3-getting-started-with-neural-networks.html#cb470-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">64</span>, <span class="at">activation =</span> <span class="st">&quot;relu&quot;</span>, <span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">10000</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb470-5"><a href="chapter-3-getting-started-with-neural-networks.html#cb470-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">64</span>, <span class="at">activation =</span> <span class="st">&quot;relu&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb470-6"><a href="chapter-3-getting-started-with-neural-networks.html#cb470-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">46</span>, <span class="at">activation =</span> <span class="st">&quot;softmax&quot;</span>)</span>
+<span id="cb470-7"><a href="chapter-3-getting-started-with-neural-networks.html#cb470-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb470-8"><a href="chapter-3-getting-started-with-neural-networks.html#cb470-8" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(</span>
+<span id="cb470-9"><a href="chapter-3-getting-started-with-neural-networks.html#cb470-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">optimizer =</span> <span class="st">&quot;rmsprop&quot;</span>,</span>
+<span id="cb470-10"><a href="chapter-3-getting-started-with-neural-networks.html#cb470-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">loss =</span> <span class="st">&quot;categorical_crossentropy&quot;</span>,</span>
+<span id="cb470-11"><a href="chapter-3-getting-started-with-neural-networks.html#cb470-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">metrics =</span> <span class="fu">c</span>(<span class="st">&quot;accuracy&quot;</span>)</span>
+<span id="cb470-12"><a href="chapter-3-getting-started-with-neural-networks.html#cb470-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb470-13"><a href="chapter-3-getting-started-with-neural-networks.html#cb470-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb470-14"><a href="chapter-3-getting-started-with-neural-networks.html#cb470-14" aria-hidden="true" tabindex="-1"></a>history <span class="ot">&lt;-</span> model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(</span>
+<span id="cb470-15"><a href="chapter-3-getting-started-with-neural-networks.html#cb470-15" aria-hidden="true" tabindex="-1"></a>  partial_x_train,</span>
+<span id="cb470-16"><a href="chapter-3-getting-started-with-neural-networks.html#cb470-16" aria-hidden="true" tabindex="-1"></a>  partial_y_train,</span>
+<span id="cb470-17"><a href="chapter-3-getting-started-with-neural-networks.html#cb470-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">epochs =</span> epochs,</span>
+<span id="cb470-18"><a href="chapter-3-getting-started-with-neural-networks.html#cb470-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">batch_size =</span> <span class="dv">512</span>,</span>
+<span id="cb470-19"><a href="chapter-3-getting-started-with-neural-networks.html#cb470-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">validation_data =</span> <span class="fu">list</span>(x_val, y_val)</span>
+<span id="cb470-20"><a href="chapter-3-getting-started-with-neural-networks.html#cb470-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb470-21"><a href="chapter-3-getting-started-with-neural-networks.html#cb470-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb470-22"><a href="chapter-3-getting-started-with-neural-networks.html#cb470-22" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> model <span class="sc">%&gt;%</span> <span class="fu">evaluate</span>(x_test, one_hot_test_labels)</span></code></pre></div>
+<p>Now we can print the results</p>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb471-1" aria-hidden="true" tabindex="-1"></a>results</span></code></pre></div>
+<p>We see in-sample that the model has an accuracy of 77.3%. This we would like to compare with predictions on new data.</p>
+</div>
+<div id="predictions-on-new-data" class="section level3" number="6.2.6">
+<h3><span class="header-section-number">6.2.6</span> Predictions on new data</h3>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb472-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> model <span class="sc">%&gt;%</span> <span class="fu">predict</span>(x_test)</span></code></pre></div>
+<p>Recall that we set the last layer to <code>activation = 'softmax'</code> which are the probabilities distributed, hence they should all sum to 1.</p>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb473-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(predictions)</span>
+<span id="cb473-2"><a href="chapter-3-getting-started-with-neural-networks.html#cb473-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(predictions[<span class="dv">1</span>,])</span></code></pre></div>
+<p>We see that each row is a sample and each coloumn is a unit in the last layer.</p>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb474-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(predictions[<span class="dv">1</span>,],<span class="at">main =</span> <span class="st">&quot;Probabilities of class n&quot;</span>,<span class="at">xlab =</span> <span class="st">&quot;Probabilities&quot;</span>)</span></code></pre></div>
+<p>We see that the model is confident that the sample is either 4 or 5, where there is a greater probability for class 4.</p>
+</div>
+</div>
+<div id="continous-prediction-a-regression-example---predicting-houseprices" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> Continous prediction / a regression example - Predicting houseprices</h2>
+<p>We are going to predict housing prices, hence we want to predict a continous variable and thus the last layer will end up with one unit.</p>
+<div id="loading-the-data-1" class="section level3" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> Loading the data</h3>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb475-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
+<span id="cb475-2"><a href="chapter-3-getting-started-with-neural-networks.html#cb475-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb475-3"><a href="chapter-3-getting-started-with-neural-networks.html#cb475-3" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> <span class="fu">dataset_boston_housing</span>()</span>
+<span id="cb475-4"><a href="chapter-3-getting-started-with-neural-networks.html#cb475-4" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">c</span>(train_data, train_targets), <span class="fu">c</span>(test_data, test_targets)) <span class="sc">%&lt;-%</span> dataset</span></code></pre></div>
+</div>
+<div id="preparing-the-data-2" class="section level3" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> Preparing the data</h3>
+<p>Notice that we scale the variables to make them comparable.</p>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb476-1" aria-hidden="true" tabindex="-1"></a>mean <span class="ot">&lt;-</span> <span class="fu">apply</span>(train_data, <span class="dv">2</span>, mean)</span>
+<span id="cb476-2"><a href="chapter-3-getting-started-with-neural-networks.html#cb476-2" aria-hidden="true" tabindex="-1"></a>std <span class="ot">&lt;-</span> <span class="fu">apply</span>(train_data, <span class="dv">2</span>, sd)</span>
+<span id="cb476-3"><a href="chapter-3-getting-started-with-neural-networks.html#cb476-3" aria-hidden="true" tabindex="-1"></a>train_data <span class="ot">&lt;-</span> <span class="fu">scale</span>(train_data, <span class="at">center =</span> mean, <span class="at">scale =</span> std)</span>
+<span id="cb476-4"><a href="chapter-3-getting-started-with-neural-networks.html#cb476-4" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> <span class="fu">scale</span>(test_data, <span class="at">center =</span> mean, <span class="at">scale =</span> std)</span></code></pre></div>
+<p>We see that we did the following:</p>
+<ol style="list-style-type: decimal">
+<li>Subtract the mean, to demean the observations.</li>
+<li>Divide by the standard deviation.</li>
+</ol>
+<p>It is a good idea (mostly a must) as it will make it easier for the network to learn. As if we did not scale them, then the model must first learn the spread in the each variable.</p>
+</div>
+<div id="building-the-model-2" class="section level3" number="6.3.3">
+<h3><span class="header-section-number">6.3.3</span> Building the model</h3>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb477-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Because we will need to instantiate the same model multiple times,</span></span>
+<span id="cb477-2"><a href="chapter-3-getting-started-with-neural-networks.html#cb477-2" aria-hidden="true" tabindex="-1"></a><span class="co"># we use a function to construct it.</span></span>
+<span id="cb477-3"><a href="chapter-3-getting-started-with-neural-networks.html#cb477-3" aria-hidden="true" tabindex="-1"></a>build_model <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb477-4"><a href="chapter-3-getting-started-with-neural-networks.html#cb477-4" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb477-5"><a href="chapter-3-getting-started-with-neural-networks.html#cb477-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">64</span>, <span class="at">activation =</span> <span class="st">&quot;relu&quot;</span>, </span>
+<span id="cb477-6"><a href="chapter-3-getting-started-with-neural-networks.html#cb477-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">input_shape =</span> <span class="fu">dim</span>(train_data)[[<span class="dv">2</span>]]) <span class="sc">%&gt;%</span> </span>
+<span id="cb477-7"><a href="chapter-3-getting-started-with-neural-networks.html#cb477-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">64</span>, <span class="at">activation =</span> <span class="st">&quot;relu&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb477-8"><a href="chapter-3-getting-started-with-neural-networks.html#cb477-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">1</span>) </span>
+<span id="cb477-9"><a href="chapter-3-getting-started-with-neural-networks.html#cb477-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb477-10"><a href="chapter-3-getting-started-with-neural-networks.html#cb477-10" aria-hidden="true" tabindex="-1"></a>  model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(</span>
+<span id="cb477-11"><a href="chapter-3-getting-started-with-neural-networks.html#cb477-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">optimizer =</span> <span class="st">&quot;rmsprop&quot;</span>, </span>
+<span id="cb477-12"><a href="chapter-3-getting-started-with-neural-networks.html#cb477-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">loss =</span> <span class="st">&quot;mse&quot;</span>, <span class="co">#MSE is good, if we want to punish the outliers.</span></span>
+<span id="cb477-13"><a href="chapter-3-getting-started-with-neural-networks.html#cb477-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">metrics =</span> <span class="fu">c</span>(<span class="st">&quot;mae&quot;</span>) <span class="co">#This is nice, because absolute values will still be on the dollar scale</span></span>
+<span id="cb477-14"><a href="chapter-3-getting-started-with-neural-networks.html#cb477-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb477-15"><a href="chapter-3-getting-started-with-neural-networks.html#cb477-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Note that we are not using any activation rule for the last layer, as we want it to be able to predict any value.</p>
+<div id="validating-the-approach-using-k-fold-validation" class="section level4" number="6.3.3.1">
+<h4><span class="header-section-number">6.3.3.1</span> Validating the approach using K-fold validation</h4>
+<p>Notice that in this example we use 4 folds and then iterate through the folds.</p>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb478-2"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-2" aria-hidden="true" tabindex="-1"></a>indices <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(train_data))</span>
+<span id="cb478-3"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-3" aria-hidden="true" tabindex="-1"></a>folds <span class="ot">&lt;-</span> <span class="fu">cut</span>(indices, <span class="at">breaks =</span> k, <span class="at">labels =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb478-4"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb478-5"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-5" aria-hidden="true" tabindex="-1"></a>num_epochs <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb478-6"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-6" aria-hidden="true" tabindex="-1"></a>all_scores <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb478-7"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) {</span>
+<span id="cb478-8"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;processing fold #&quot;</span>, i, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb478-9"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Prepare the validation data: data from partition # k</span></span>
+<span id="cb478-10"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-10" aria-hidden="true" tabindex="-1"></a>  val_indices <span class="ot">&lt;-</span> <span class="fu">which</span>(folds <span class="sc">==</span> i, <span class="at">arr.ind =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb478-11"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-11" aria-hidden="true" tabindex="-1"></a>  val_data <span class="ot">&lt;-</span> train_data[val_indices,]</span>
+<span id="cb478-12"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-12" aria-hidden="true" tabindex="-1"></a>  val_targets <span class="ot">&lt;-</span> train_targets[val_indices]</span>
+<span id="cb478-13"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb478-14"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Prepare the training data: data from all other partitions</span></span>
+<span id="cb478-15"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-15" aria-hidden="true" tabindex="-1"></a>  partial_train_data <span class="ot">&lt;-</span> train_data[<span class="sc">-</span>val_indices,]</span>
+<span id="cb478-16"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-16" aria-hidden="true" tabindex="-1"></a>  partial_train_targets <span class="ot">&lt;-</span> train_targets[<span class="sc">-</span>val_indices]</span>
+<span id="cb478-17"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb478-18"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Build the Keras model (already compiled)</span></span>
+<span id="cb478-19"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-19" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">build_model</span>()</span>
+<span id="cb478-20"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb478-21"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Train the model (in silent mode, verbose=0)</span></span>
+<span id="cb478-22"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-22" aria-hidden="true" tabindex="-1"></a>  model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(partial_train_data, partial_train_targets,</span>
+<span id="cb478-23"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-23" aria-hidden="true" tabindex="-1"></a>                <span class="at">epochs =</span> num_epochs, <span class="at">batch_size =</span> <span class="dv">1</span>, <span class="at">verbose =</span> <span class="dv">0</span>)</span>
+<span id="cb478-24"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-24" aria-hidden="true" tabindex="-1"></a>                </span>
+<span id="cb478-25"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Evaluate the model on the validation data</span></span>
+<span id="cb478-26"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-26" aria-hidden="true" tabindex="-1"></a>  results <span class="ot">&lt;-</span> model <span class="sc">%&gt;%</span> <span class="fu">evaluate</span>(val_data, val_targets, <span class="at">verbose =</span> <span class="dv">0</span>)</span>
+<span id="cb478-27"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-27" aria-hidden="true" tabindex="-1"></a>  all_scores <span class="ot">&lt;-</span> <span class="fu">c</span>(all_scores,results[<span class="dv">2</span>]) <span class="co">#[2] for mean absolute error</span></span>
+<span id="cb478-28"><a href="chapter-3-getting-started-with-neural-networks.html#cb478-28" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb479-1" aria-hidden="true" tabindex="-1"></a>all_scores</span></code></pre></div>
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb480-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(all_scores)</span></code></pre></div>
+<p>We see that on average we are off by 2,379 (notice that the variable is in 1000’s).</p>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb481-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Some memory clean-up</span></span>
+<span id="cb481-2"><a href="chapter-3-getting-started-with-neural-networks.html#cb481-2" aria-hidden="true" tabindex="-1"></a><span class="fu">k_clear_session</span>()</span></code></pre></div>
+</div>
+<div id="validation-with-more-iterations" class="section level4" number="6.3.3.2">
+<h4><span class="header-section-number">6.3.3.2</span> Validation with more iterations</h4>
+<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-1" aria-hidden="true" tabindex="-1"></a>num_epochs <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb482-2"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-2" aria-hidden="true" tabindex="-1"></a>all_mae_histories <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb482-3"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) {</span>
+<span id="cb482-4"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;processing fold #&quot;</span>, i, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb482-5"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb482-6"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Prepare the validation data: data from partition # k</span></span>
+<span id="cb482-7"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-7" aria-hidden="true" tabindex="-1"></a>  val_indices <span class="ot">&lt;-</span> <span class="fu">which</span>(folds <span class="sc">==</span> i, <span class="at">arr.ind =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb482-8"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-8" aria-hidden="true" tabindex="-1"></a>  val_data <span class="ot">&lt;-</span> train_data[val_indices,]</span>
+<span id="cb482-9"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-9" aria-hidden="true" tabindex="-1"></a>  val_targets <span class="ot">&lt;-</span> train_targets[val_indices]</span>
+<span id="cb482-10"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb482-11"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Prepare the training data: data from all other partitions</span></span>
+<span id="cb482-12"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-12" aria-hidden="true" tabindex="-1"></a>  partial_train_data <span class="ot">&lt;-</span> train_data[<span class="sc">-</span>val_indices,]</span>
+<span id="cb482-13"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-13" aria-hidden="true" tabindex="-1"></a>  partial_train_targets <span class="ot">&lt;-</span> train_targets[<span class="sc">-</span>val_indices]</span>
+<span id="cb482-14"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb482-15"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Build the Keras model (already compiled)</span></span>
+<span id="cb482-16"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-16" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">build_model</span>()</span>
+<span id="cb482-17"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb482-18"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Train the model (in silent mode, verbose=0)</span></span>
+<span id="cb482-19"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-19" aria-hidden="true" tabindex="-1"></a>  history <span class="ot">&lt;-</span> model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(</span>
+<span id="cb482-20"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-20" aria-hidden="true" tabindex="-1"></a>    partial_train_data, partial_train_targets,</span>
+<span id="cb482-21"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">validation_data =</span> <span class="fu">list</span>(val_data, val_targets),</span>
+<span id="cb482-22"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">epochs =</span> num_epochs, <span class="at">batch_size =</span> <span class="dv">1</span>, <span class="at">verbose =</span> <span class="dv">0</span></span>
+<span id="cb482-23"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-23" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb482-24"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-24" aria-hidden="true" tabindex="-1"></a>  mae_history <span class="ot">&lt;-</span> history<span class="sc">$</span>metrics<span class="sc">$</span>val_mean_absolute_error</span>
+<span id="cb482-25"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-25" aria-hidden="true" tabindex="-1"></a>  all_mae_histories <span class="ot">&lt;-</span> <span class="fu">rbind</span>(all_mae_histories, mae_history)</span>
+<span id="cb482-26"><a href="chapter-3-getting-started-with-neural-networks.html#cb482-26" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>We can then compute the average of the per-epoch MAE scores for all folds:</p>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb483-1" aria-hidden="true" tabindex="-1"></a><span class="co"># average_mae_history &lt;- data.frame(</span></span>
+<span id="cb483-2"><a href="chapter-3-getting-started-with-neural-networks.html#cb483-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   epoch = seq(1:ncol(all_mae_histories)),</span></span>
+<span id="cb483-3"><a href="chapter-3-getting-started-with-neural-networks.html#cb483-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   validation_mae = apply(all_mae_histories, 2, mean)</span></span>
+<span id="cb483-4"><a href="chapter-3-getting-started-with-neural-networks.html#cb483-4" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span></code></pre></div>
+<p>Let’s plot this:</p>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb484-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(ggplot2)</span></span>
+<span id="cb484-2"><a href="chapter-3-getting-started-with-neural-networks.html#cb484-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot(average_mae_history, aes(x = epoch, y = validation_mae)) + geom_line()</span></span></code></pre></div>
+<p>We can use <code>geom_smooth</code> to see smooth it out a bit.</p>
+<p>It may be a bit hard to see the plot due to scaling issues and relatively high variance. Let’s use <code>geom_smooth()</code> to try to get a clearer picture:</p>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb485-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot(average_mae_history, aes(x = epoch, y = validation_mae)) + geom_smooth()</span></span></code></pre></div>
+</div>
+<div id="tuning-amount-fo-hidden-layers" class="section level4" number="6.3.3.3">
+<h4><span class="header-section-number">6.3.3.3</span> Tuning amount fo hidden layers</h4>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="chapter-3-getting-started-with-neural-networks.html#cb486-1" aria-hidden="true" tabindex="-1"></a><span class="co"># result</span></span></code></pre></div>
+
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="deep-learning-fundamentals.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chapter-5-deep-learning-for-computer-vision.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

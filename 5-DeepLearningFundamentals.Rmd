@@ -4,6 +4,18 @@ editor_options:
   chunk_output_type: console
 ---
 
+```{r setup2,include=FALSE,eval=TRUE}
+knitr::opts_chunk$set(echo = TRUE
+                      ,message = FALSE
+                      ,eval = FALSE
+                      ,error = FALSE
+                      ,warning = FALSE
+                      ,strip.white = FALSE #To remove white space before and after chunk in output
+                      ,fig.align = 'center'
+                      ,fig.width = 7.5
+                      )
+```
+
 # Deep Learning Fundamentals
 
 ## Basic Deep Learning
